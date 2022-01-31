@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ylzl.eden.demo.infrastructure.user.database.mapper.UserMapper">
+
+	<!-- 数据库字段映射（工具自动生成） -->
+	<resultMap id="dbResultMap"
+			   type="org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO">
+		<result column="user_id" property="userId"/>
+		<result column="login" property="login"/>
+		<result column="password_hash" property="passwordHash"/>
+		<result column="email" property="email"/>
+		<result column="activated" property="activated"/>
+		<result column="locked" property="locked"/>
+		<result column="lang_key" property="langKey"/>
+		<result column="activation_key" property="activationKey"/>
+		<result column="reset_key" property="resetKey"/>
+		<result column="reset_date" property="resetDate"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="created_date" property="createdDate"/>
+		<result column="last_modified_by" property="lastModifiedBy"/>
+		<result column="last_modified_date" property="lastModifiedDate"/>
+	</resultMap>
+
+	<!-- 分页查询 -->
+	<select id="selectPage" resultType="org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO">
+		SELECT user_id, login, email, activated, locked, lang_key
+		FROM demo_user
+		<include refid="selectPageCondition"/>
+	</select>
+
+	<!-- 分页条件 -->
+	<sql id="selectPageCondition">
+		<where>
+			<if test="login != null">
+				AND login = #{login}
+			</if>
+		</where>
+	</sql>
+
+</mapper>

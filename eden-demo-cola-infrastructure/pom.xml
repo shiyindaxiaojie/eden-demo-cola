@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.ylzl.eden.demo</groupId>
+		<artifactId>eden-demo-cola</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<artifactId>eden-demo-cola-infrastructure</artifactId>
+	<packaging>jar</packaging>
+	<name>eden-demo-cola-infrastructure</name>
+	<description>基础设施层</description>
+
+	<dependencies>
+		<!-- 领域层依赖 -->
+		<dependency>
+			<groupId>org.ylzl.eden.demo</groupId>
+			<artifactId>eden-demo-cola-domain</artifactId>
+		</dependency>
+
+		<!-- 开发组件 -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba.cola</groupId>
+			<artifactId>cola-component-catchlog-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-framework</artifactId>
+		</dependency>
+
+		<!-- 持久化组件 -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-data</artifactId>
+		</dependency>
+		<!-- HikariCP -->
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+		</dependency>
+		<!-- MySQL -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- H2 -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- Mybatis -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-mybatis-spring-boot-starter</artifactId>
+		</dependency>
+		<!-- Dynamic Datasource -->
+		<!--<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-dynamic-datasource-spring-boot-starter</artifactId>
+		</dependency>-->
+		<!-- Sharding JDBC -->
+		<!--<dependency>
+			<groupId>com.puyiwm</groupId>
+			<artifactId>puyiwm-sharding-jdbc-spring-boot-starter</artifactId>
+		</dependency>-->
+	</dependencies>
+</project>

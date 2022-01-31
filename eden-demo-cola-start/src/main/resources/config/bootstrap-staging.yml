@@ -1,0 +1,26 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        username: nacos
+        password:
+        server-addr: localhost:8848
+        namespace: demo
+        group: DEFAULT_GROUP
+      discovery:
+        username: nacos
+        password:
+        server-addr: localhost:8848
+        namespace: demo
+        group: DEFAULT_GROUP
+
+dubbo:
+  protocol:
+    port: 20880
+  registry:
+    protocol: nacos
+    address: nacos://localhost:8848?group=DEFAULT_GROUP&namespace=demo
+  config-center:
+    address: nacos://localhost:8848?group=DEFAULT_GROUP&namespace=demo
+  metadata-report:
+    address: nacos://localhost:8848?group=DEFAULT_GROUP&namespace=demo

@@ -1,0 +1,77 @@
+logging:
+  level:
+    ROOT: WARN
+    org.ylzl.eden.demo: INFO
+    org.ylzl.eden.demo.infrastructure: DEBUG
+
+spring:
+  # 关系数据库
+  datasource:
+    # 单数据源
+    username:
+    password:
+    url: jdbc:mysql://localhost:3306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    # 多数据源，使用 @DS 切换
+  #    dynamic:
+  #      datasource:
+  #        ds1:
+  #          username:
+  #          password:
+  #          url: jdbc:mysql://localhost:3306/ds1?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+  #          type: ${spring.datasource.type}
+  #          driver-class-name: ${spring.datasource.driver-class-name}
+  #        ds2:
+  #          username:
+  #          password:
+  #          url: jdbc:mysql://localhost:3306/ds2?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+  #          driver-class-name: ${spring.datasource.driver-class-name}
+  #          type: ${spring.datasource.type}
+  #      primary: ds1
+  #      strict: true
+  # 分库分表组件
+  #    shardingsphere:
+  #      props:
+  #        sql.show: true
+  #      datasource:
+  #        names: demo
+  #        demo:
+  #          username: ${spring.datasource.dynamic.datasource.demo.username}
+  #          password: ${spring.datasource.dynamic.datasource.demo.password}
+  #          driver-class-name: ${spring.datasource.dynamic.datasource.demo.driver-class-name}
+  #          jdbc-url: ${spring.datasource.dynamic.datasource.demo.url}
+  #          type: ${spring.datasource.dynamic.datasource.demo.type}
+  #      sharding:
+  #        defaultDataSourceName: demo
+  # 缓存数据库
+  redis:
+    database: 1
+    host: localhost
+    port: 6379
+    password:
+    timeout: 5000
+  # 模板引擎
+  thymeleaf:
+    cache: false
+  # 消息队列
+#  kafka:
+#    enable: false
+#    producer:
+#      bootstrap-servers: localhost:9092
+#      batch-size: 4096
+#      buffer-memory: 40960
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+# 分布式调度平台
+#xxl:
+#  job:
+#    enable: false
+#    access-token:
+#    admin:
+#      addresses: http://localhost:8090/xxljob
+#    executor:
+#      app-name: demo-job
+#      port: 9999
+#      log-path: /data/applogs/xxl-job/jobhandler/
+#      log-retention-days: 7
+

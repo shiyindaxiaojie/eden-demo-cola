@@ -1,0 +1,110 @@
+databaseChangeLog:
+  - properties:
+      now:
+        - dbms: mysql,h2
+          value: now()
+        - dbms: oracle
+          value: sysdate
+  - changeSet:
+      author: gyl
+      changes:
+        - createTable:
+            tableName: demo_user
+            remarks: 用户表
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+                  remark: 用户 ID
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: login
+                  type: varchar(20)
+                  remark: 登录账户
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: ux_user_login
+              - column:
+                  name: password_hash
+                  type: varchar(70)
+                  remark: 哈希后的密码
+              - column:
+                  name: email
+                  type: varchar(100)
+                  remark: 邮箱
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: ux_user_email
+              - column:
+                  name: activated
+                  type: boolean
+                  remark: 账户是否已激活
+                  valueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: locked
+                  type: boolean
+                  remark: 账户是否被锁定
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lang_key
+                  type: varchar(6)
+                  remark: 语言
+                  constraints:
+                    nullable: false
+              - column:
+                  name: activation_key
+                  type: varchar(20)
+                  remark: 激活账户的代码
+              - column:
+                  name: reset_key
+                  type: varchar(20)
+                  remark: 重置密码的代码
+              - column:
+                  name: reset_date
+                  type: timestamp
+                  remark: 重置密码的时间
+              - column:
+                  name: created_by
+                  type: bigint
+                  remark: 创建的账户
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_date
+                  type: timestamp
+                  remark: 创建的时间
+                  defaultValueDate: ${now}
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_modified_by
+                  type: bigint
+                  remark: 最后修改的账户
+              - column:
+                  name: last_modified_date
+                  type: timestamp
+                  remark: 最后修改的时间
+        - loadData:
+            tableName: demo_user
+            file: db/data/demo_users.csv
+            separator: ;
+            columns:
+              - column:
+                  name: activated
+                  type: boolean
+              - column:
+                  name: locked
+                  type: boolean
+              - column:
+                  name: created_date
+                  type: timestamp
+
+

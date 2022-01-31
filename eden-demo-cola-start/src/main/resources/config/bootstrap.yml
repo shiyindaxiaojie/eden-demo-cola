@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: eden-demo-cola-start
+  cloud:
+    nacos:
+      config:
+        file-extension: yaml
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: dev # 默认启用开发环境
+
+dubbo:
+  application:
+    id: ${spring.application.name}
+    name: ${spring.application.name}
+  protocol:
+    name: dubbo
+  registry:
+    id: ${spring.application.name}
+    check: false # 是否开启服务注册的启动检查
+    register: true # 是否开启服务注册，设置为 false 表示只订阅不注册
+  provider:
+    retries: 0    # 重试次数
+    timeout: 3000 # 超时时间
+    group: demo
+  consumer:
+    check: false # 是否开启消费者的启动检查

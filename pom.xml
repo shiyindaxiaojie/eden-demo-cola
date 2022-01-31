@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.ylzl</groupId>
+		<artifactId>eden-parent</artifactId>
+		<version>2.4.13-SNAPSHOT</version>
+		<relativePath/>
+	</parent>
+	<groupId>org.ylzl.eden.demo</groupId>
+	<artifactId>eden-demo-cola</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>eden-demo-cola</name>
+	<description>COLA 应用架构</description>
+
+	<developers>
+		<developer>
+			<id>demo</id>
+			<name>作者</name>
+			<email>demo@ylzl.org</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<properties>
+		<spring.profiles.active>prod</spring.profiles.active>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.ylzl.eden.demo</groupId>
+				<artifactId>eden-demo-cola-adapter</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl.eden.demo</groupId>
+				<artifactId>eden-demo-cola-app</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl.eden.demo</groupId>
+				<artifactId>eden-demo-cola-client</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl.eden.demo</groupId>
+				<artifactId>eden-demo-cola-domain</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.ylzl.eden.demo</groupId>
+				<artifactId>eden-demo-cola-infrastructure</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<configuration>
+						<skip>true</skip>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-archetype-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+<modules>  <module>eden-demo-cola-adapter</module>
+    <module>eden-demo-cola-app</module>
+    <module>eden-demo-cola-client</module>
+    <module>eden-demo-cola-domain</module>
+    <module>eden-demo-cola-infrastructure</module>
+    <module>eden-demo-cola-start</module>
+  </modules>
+</project>

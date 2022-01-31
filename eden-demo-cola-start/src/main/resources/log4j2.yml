@@ -1,0 +1,65 @@
+Configuration:
+  status: WARN
+  monitorInterval: 30
+
+  Properties:
+    Property:
+      - name: project.name
+        value: eden-demo-cola-start
+      - name: log.path
+        value: /tmp/logs
+      - name: log.pattern
+        value: "%highlight{%d{yyyy-MM-dd HH:mm:ss,SSS} [${project.name}] [%traceId] |%p|%c.%M-%L|%m%n}{FATAL=Magenta, ERROR=Bright Red, WARN=Yellow, INFO=GREEN, DEBUG=WHITE}"
+
+  Appenders:
+    Console:
+      name: CONSOLE
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: ${log.pattern}
+    RollingFile:
+      name: ROLLING_FILE
+      ignoreExceptions: false
+      fileName: ${log.path}/${project.name}.log
+      filePattern: "${log.path}/${project.name}-%d{yyyy-MM-dd}-%i.log.gz"
+      PatternLayout:
+        pattern: ${log.pattern}
+      Policies:
+        TimeBasedTriggeringPolicy:
+          modulate: true
+          interval: 1
+        SizeBasedTriggeringPolicy:
+          size: "20MB"
+      DefaultRolloverStrategy:
+        max: 15
+
+  Loggers:
+    Root:
+      level: INFO
+      includeLocation: true
+      AppenderRef:
+        - ref: CONSOLE
+        - ref: ROLLING_FILE
+    Logger:
+      - name: org.ylzl
+        level: INFO
+      - name: com.ibatis
+        level: INFO
+      - name: com.alibaba
+        level: WARN
+      - name: org.springframework
+        level: ERROR
+      - name: org.apache.dubbo
+        level: WARN
+      - name: org.apache.kafka
+        level: WARN
+      - name: org.apache.zookeeper
+        level: WARN
+      - name: org.reflections.Reflections
+        level: WARN
+      - name: org.jboss.resteasy
+        level: WARN
+      - name: com.baomidou
+        level: ERROR
+      - name: org.hibernate.validator
+        level: WARN

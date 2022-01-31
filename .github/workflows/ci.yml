@@ -1,0 +1,18 @@
+name: build
+on: [ push, pull_request ]
+jobs:
+  applications:
+    name: application ci/cd
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      SPRING_OUTPUT_ANSI_ENABLED: DETECT
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-java@v1
+        with:
+          java-version: '8.x'
+      - name: build
+        run: |
+          chmod +x mvnw
+          ./mvnw -ntp -Pgithub clean install -DskipTests -e -U

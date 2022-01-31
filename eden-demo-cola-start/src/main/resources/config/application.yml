@@ -1,0 +1,49 @@
+logging:
+  config: classpath:log4j2.yml
+
+mybatis-plus:
+  global-config:
+    banner: false
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+
+server:
+  port: 8080
+  compression:
+    enabled: true
+    mime-types: text/html,text/plain,text/css,application/javascript
+    min-response-size: 1024
+#  netty:
+#    connection-timeout:
+#  tomcat:
+#    max-connections: 20000 # 最大连接数
+#    accept-count: 1000 # 接收队列长度
+#    threads:
+#      max: 500 # 最大并发数
+#      min-spare: 20 # 初始线程数
+
+spring:
+  data:
+    redis:
+      repositories:
+        enabled: true
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari: # https://github.com/brettwooldridge/HikariCP
+      connectionTimeout: 5000
+      minimumIdle: 2
+      maximumPoolSize: 10
+      idleTimeout: 300000
+      maxLifetime: 1200000
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: non_null
+    serialization:
+      indent-output: true
+    time-zone: GMT+8
+  messages:
+    basename: i18n/messages
+  thymeleaf:
+    mode: HTML
