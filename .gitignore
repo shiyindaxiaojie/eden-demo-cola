@@ -1,0 +1,87 @@
+# Eclipse
+.classpath
+.factorypath
+.loadpath
+.metadata
+.project
+.settings/
+*.bak
+*.launch
+*.pydevproject
+*.swp
+*.tmp
+*~.nib
+log/
+local.properties
+.log
+
+# ESLint
+.eslintcache
+
+# Gradle
+!gradle/wrapper/gradle-wrapper.jar
+.gradle/
+build/
+
+# Intellij
+.idea/
+*.ids
+*.iml
+*.ipr
+*.iws
+*.orig
+classes/
+
+# Java
+*.class
+*.db
+*.ear
+*.jar
+*.war
+
+# JRebel
+rebel.xml
+
+# Mac OSX
+.DS_Store
+
+# Maven
+!.mvn/wrapper/maven-wrapper.jar
+!maven/wrapper/maven-wrapper.jar
+bin/
+node/
+target/
+.flattened-pom.xml
+*.flattened-pom.xml
+
+# Node.js
+node/
+node_tmp/
+node_modules/
+npm-debug.log.*
+package-lock.json
+
+# SASS
+.sass-cache/
+
+# SVN
+.svn/
+
+# Others
+.buildpath
+.cproject
+.externalToolBuilders/**
+.Spotlight-V100
+.Trashes
+
+# Visual Studio Code
+.vscode/
+
+# Windows
+._*
+*.*~
+*~
+.merge_file*
+Desktop.ini
+Thumbs.db
+logs/
