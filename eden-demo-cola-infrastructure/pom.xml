@@ -62,6 +62,11 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-mybatis-spring-boot-starter</artifactId>
 		</dependency>
+		<!-- Liquibase -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-liquibase-spring-boot-starter</artifactId>
+		</dependency>
 		<!-- Dynamic Datasource -->
 		<!--<dependency>
 			<groupId>org.ylzl</groupId>
@@ -69,8 +74,8 @@
 		</dependency>-->
 		<!-- Sharding JDBC -->
 		<!--<dependency>
-			<groupId>com.puyiwm</groupId>
-			<artifactId>puyiwm-sharding-jdbc-spring-boot-starter</artifactId>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-sharding-jdbc-spring-boot-starter</artifactId>
 		</dependency>-->
 	</dependencies>
 </project>

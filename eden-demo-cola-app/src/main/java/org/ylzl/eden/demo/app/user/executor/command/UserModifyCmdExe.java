@@ -24,7 +24,7 @@ public class UserModifyCmdExe {
 
 	public Response execute(UserModifyCmd cmd) {
 		User user = UserAssembler.INSTANCE.toEntity(cmd.getUserDTO());
-		user.setUserId(cmd.getUserId());
+		user.setId(cmd.getId());
 		userGateway.updateById(user);
 		return Response.buildSuccess();
 	}

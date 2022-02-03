@@ -5,12 +5,25 @@ logging:
     org.ylzl.eden.demo.infrastructure: DEBUG
 
 spring:
-  # 关系数据库
+  # 内存数据库
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        trace: false
+        web-allow-others: false
   datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:db;DB_CLOSE_ON_EXIT=TRUE
+    username: sa
+    password: demo
+  # 关系数据库
+#  datasource:
     # 单数据源
-    username: root
-    password: admin123
-    url: jdbc:mysql://10.2.2.47:5306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+#    username: root
+#    password: Eden*2009
+#    url: jdbc:mysql://127.0.0.1:3306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
     # 多数据源，使用 @DS 切换
   #    dynamic:
   #      datasource:
@@ -74,9 +87,3 @@ spring:
 #      port: 9999
 #      log-path: /data/applogs/xxl-job/jobhandler/
 #      log-retention-days: 7
-
-# 自定义框架:
-eden:
-  data:
-    h2:
-      enabled: true

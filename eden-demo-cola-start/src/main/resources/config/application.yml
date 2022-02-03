@@ -29,7 +29,7 @@ spring:
       repositories:
         enabled: true
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
     hikari: # https://github.com/brettwooldridge/HikariCP
       connectionTimeout: 5000

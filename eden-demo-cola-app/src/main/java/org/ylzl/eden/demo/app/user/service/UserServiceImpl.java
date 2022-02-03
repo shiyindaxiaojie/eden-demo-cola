@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Response removeUser(UserRemoveCmd cmd) {
-		this.getUserById(UserByIdQry.builder().userId(cmd.getUserId()).build());
+		this.getUserById(UserByIdQry.builder().id(cmd.getId()).build());
 		return userRemoveCmdExe.execute(cmd);
 	}
 

@@ -48,6 +48,6 @@ public class UserGatewayImpl implements UserGateway {
 	 */
 	@Override
 	public void deleteById(User user) {
-		userMapper.deleteById(user.getUserId());
+		userMapper.deleteById(user.getId());
 	}
 }

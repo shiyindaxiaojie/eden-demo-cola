@@ -6,7 +6,7 @@
 	<!-- 数据库字段映射（工具自动生成） -->
 	<resultMap id="dbResultMap"
 			   type="org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO">
-		<result column="user_id" property="userId"/>
+		<result column="id" property="id"/>
 		<result column="login" property="login"/>
 		<result column="password_hash" property="passwordHash"/>
 		<result column="email" property="email"/>
@@ -24,7 +24,7 @@
 
 	<!-- 分页查询 -->
 	<select id="selectPage" resultType="org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO">
-		SELECT user_id, login, email, activated, locked, lang_key
+		SELECT id, login, email, activated, locked, lang_key
 		FROM demo_user
 		<include refid="selectPageCondition"/>
 	</select>

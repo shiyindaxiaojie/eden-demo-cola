@@ -21,7 +21,7 @@ public class User {
 	/**
 	 * 用户 ID
 	 */
-	private Long userId;
+	private Long id;
 
 	/**
 	 * 账号

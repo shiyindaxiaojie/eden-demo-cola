@@ -27,8 +27,8 @@ public class UserDO implements Serializable {
 	/**
 	 * 用户 ID
 	 */
-	@TableId("user_id")
-	private Long userId;
+	@TableId("id")
+	private Long id;
 
 	/**
 	 * 登录账户

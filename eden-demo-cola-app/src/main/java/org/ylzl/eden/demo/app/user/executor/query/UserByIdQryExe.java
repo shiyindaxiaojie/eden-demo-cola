@@ -25,8 +25,8 @@ public class UserByIdQryExe {
 	}
 
 	public SingleResponse<UserVO> execute(UserByIdQry query) {
-		UserDO userDO = userMapper.selectById(query.getUserId());
-		ErrorEnum.A0201.isNull(userDO);
+		UserDO userDO = userMapper.selectById(query.getId());
+		ErrorEnum.A0201.notNull(userDO);
 		return SingleResponse.of(UserAssembler.INSTANCE.toVO(userDO));
 	}
 }

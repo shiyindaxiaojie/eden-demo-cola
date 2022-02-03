@@ -54,7 +54,7 @@ public class UserController {
 	 */
 	@PutMapping("/{id}")
 	public Response modifyUser(@PathVariable Long id, @Valid @RequestBody UserModifyCmd cmd) {
-		cmd.setUserId(id);
+		cmd.setId(id);
 		return userService.modifyUser(cmd);
 	}
 
@@ -66,7 +66,7 @@ public class UserController {
 	 */
 	@DeleteMapping("/{id}")
 	public Response removeUserById(@PathVariable Long id) {
-		return userService.removeUser(UserRemoveCmd.builder().userId(id).build());
+		return userService.removeUser(UserRemoveCmd.builder().id(id).build());
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class UserController {
 	 */
 	@GetMapping("/{id}")
 	public SingleResponse<UserVO> getUserById(@PathVariable Long id) {
-		return userService.getUserById(UserByIdQry.builder().userId(id).build());
+		return userService.getUserById(UserByIdQry.builder().id(id).build());
 	}
 
 	/**

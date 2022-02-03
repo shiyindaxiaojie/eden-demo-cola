@@ -21,7 +21,7 @@ import java.io.Serializable;
 public class UserModifyCmd implements Serializable {
 
 	@NotNull(message = "用户ID 不能为空")
-	private Long userId;
+	private Long id;
 
 	private UserDTO userDTO;
 }

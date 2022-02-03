@@ -22,7 +22,7 @@ public class UserRemoveCmdExe {
 	}
 
 	public Response execute(UserRemoveCmd cmd) {
-		userGateway.deleteById(User.builder().userId(cmd.getUserId()).build());
+		userGateway.deleteById(User.builder().id(cmd.getId()).build());
 		return Response.buildSuccess();
 	}
 }
