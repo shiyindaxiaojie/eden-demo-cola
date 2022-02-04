@@ -1,7 +1,7 @@
 package org.ylzl.eden.demo.client.user.dto.command;
 
-import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import lombok.*;
+import org.ylzl.eden.demo.client.user.dto.UserDTO;
 
 import java.io.Serializable;
 

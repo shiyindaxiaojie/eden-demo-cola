@@ -29,7 +29,6 @@ spring:
       repositories:
         enabled: true
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
     hikari: # https://github.com/brettwooldridge/HikariCP
       connectionTimeout: 5000
@@ -45,5 +44,10 @@ spring:
     time-zone: GMT+8
   messages:
     basename: i18n/messages
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   thymeleaf:
     mode: HTML

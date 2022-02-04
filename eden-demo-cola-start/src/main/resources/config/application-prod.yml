@@ -8,6 +8,7 @@ spring:
   # 关系数据库
   datasource:
     # 单数据源
+    driver-class-name: com.mysql.cj.jdbc.Driver
     username:
     password:
     url: jdbc:mysql://localhost:3306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8

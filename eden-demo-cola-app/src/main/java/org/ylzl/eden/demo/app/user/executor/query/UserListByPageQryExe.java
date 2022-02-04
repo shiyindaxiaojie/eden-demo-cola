@@ -1,14 +1,14 @@
 package org.ylzl.eden.demo.app.user.executor.query;
 
-import com.alibaba.cola.dto.PageResponse;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import org.springframework.stereotype.Component;
 import org.ylzl.eden.demo.app.user.assembler.UserAssembler;
 import org.ylzl.eden.demo.client.user.dto.UserVO;
 import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry;
 import org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO;
 import org.ylzl.eden.demo.infrastructure.user.database.mapper.UserMapper;
-import org.springframework.stereotype.Component;
+import org.ylzl.eden.spring.framework.cola.dto.PageResponse;
 
 /**
  * 根据分页查询获取用户列表指令执行器

@@ -1,0 +1,2 @@
+id;login;password_hash;email;activated;locked;lang_key;created_by;last_modified_by
+1;admin;{bcrypt}$2a$10$gSAhZrxMllrbgj/kkK9UceBPpChGWJA7SYIb1Mqo.n5aNLq1/oRrC;1813986321@qq.com;true;false;zh-cn;system;system

@@ -8,22 +8,24 @@ Configuration:
         value: eden-demo-cola-start
       - name: log.path
         value: /tmp/logs
-      - name: log.pattern
-        value: "%highlight{%d{yyyy-MM-dd HH:mm:ss,SSS} [${project.name}] [%traceId] |%p|%c.%M-%L|%m%n}{FATAL=Magenta, ERROR=Bright Red, WARN=Yellow, INFO=GREEN, DEBUG=WHITE}"
+      - name: console.pattern
+        value: "%highlight{%d | %-5level | %C{1.}.%M:%L | %t | %msg%n%throwable}{FATAL=black, ERROR=red, WARN=yellow, INFO=green, DEBUG=white, TRACE=cyan}"
+      - name: file.pattern
+        value: "%d | %-5level | %C{1.}.%M:%L | %t | %msg%n%throwable"
 
   Appenders:
     Console:
       name: CONSOLE
       target: SYSTEM_OUT
       PatternLayout:
-        pattern: ${log.pattern}
+        pattern: ${console.pattern}
     RollingFile:
       name: ROLLING_FILE
       ignoreExceptions: false
       fileName: ${log.path}/${project.name}.log
       filePattern: "${log.path}/${project.name}-%d{yyyy-MM-dd}-%i.log.gz"
       PatternLayout:
-        pattern: ${log.pattern}
+        pattern: ${file.pattern}
       Policies:
         TimeBasedTriggeringPolicy:
           modulate: true

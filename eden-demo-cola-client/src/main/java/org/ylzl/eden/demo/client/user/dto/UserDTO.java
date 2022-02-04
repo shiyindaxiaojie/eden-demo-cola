@@ -1,8 +1,8 @@
 package org.ylzl.eden.demo.client.user.dto;
 
 import lombok.*;
-import javax.validation.constraints.NotBlank;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**

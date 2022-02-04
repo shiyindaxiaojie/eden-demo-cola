@@ -6,7 +6,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 import org.ylzl.eden.demo.domain.user.entity.User;
 import org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO;
-import org.ylzl.eden.spring.framework.cola.convertor.EntityConvertor;
+import org.ylzl.eden.spring.framework.cola.domain.EntityConvertor;
 
 /**
  * 用户领域实体转换器

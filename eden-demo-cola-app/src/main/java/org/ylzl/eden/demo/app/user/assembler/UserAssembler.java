@@ -8,7 +8,7 @@ import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import org.ylzl.eden.demo.client.user.dto.UserVO;
 import org.ylzl.eden.demo.domain.user.entity.User;
 import org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO;
-import org.ylzl.eden.spring.framework.cola.assembler.DTOAssembler;
+import org.ylzl.eden.spring.framework.cola.dto.DTOAssembler;
 
 import java.util.List;
 

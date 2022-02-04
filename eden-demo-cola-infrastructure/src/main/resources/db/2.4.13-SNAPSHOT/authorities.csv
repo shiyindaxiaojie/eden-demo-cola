@@ -1,0 +1,3 @@
+id;name;code
+1;管理员;ROLE_ADMIN
+2;用户;ROLE_USER

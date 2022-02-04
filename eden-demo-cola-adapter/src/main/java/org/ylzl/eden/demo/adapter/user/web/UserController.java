@@ -1,8 +1,8 @@
 package org.ylzl.eden.demo.adapter.user.web;
 
-import com.alibaba.cola.dto.PageResponse;
-import com.alibaba.cola.dto.Response;
-import com.alibaba.cola.dto.SingleResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.*;
 import org.ylzl.eden.demo.adapter.constant.ApiConstant;
 import org.ylzl.eden.demo.client.user.api.UserService;
 import org.ylzl.eden.demo.client.user.dto.UserVO;
@@ -11,9 +11,9 @@ import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
 import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
 import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.*;
+import org.ylzl.eden.spring.framework.cola.dto.PageResponse;
+import org.ylzl.eden.spring.framework.cola.dto.Response;
+import org.ylzl.eden.spring.framework.cola.dto.SingleResponse;
 
 import javax.validation.Valid;
 

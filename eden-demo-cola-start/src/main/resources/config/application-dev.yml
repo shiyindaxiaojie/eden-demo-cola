@@ -1,7 +1,7 @@
 logging:
   level:
     ROOT: INFO
-    org.ylzl.eden.demo: INFO
+    org.ylzl.eden: DEBUG
     org.ylzl.eden.demo.infrastructure: DEBUG
 
 spring:
@@ -13,17 +13,18 @@ spring:
       settings:
         trace: false
         web-allow-others: false
+  # 关系数据库
   datasource:
+    # 内存数据源
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:db;DB_CLOSE_ON_EXIT=TRUE
     username: sa
     password: demo
-  # 关系数据库
-#  datasource:
     # 单数据源
-#    username: root
-#    password: Eden*2009
-#    url: jdbc:mysql://127.0.0.1:3306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    #    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    username:
+    #    password:
+    #    url: jdbc:mysql://127.0.0.1:3306/dev?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
     # 多数据源，使用 @DS 切换
   #    dynamic:
   #      datasource:

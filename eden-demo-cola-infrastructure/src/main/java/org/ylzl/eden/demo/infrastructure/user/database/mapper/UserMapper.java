@@ -1,9 +1,9 @@
 package org.ylzl.eden.demo.infrastructure.user.database.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry;
 import org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 

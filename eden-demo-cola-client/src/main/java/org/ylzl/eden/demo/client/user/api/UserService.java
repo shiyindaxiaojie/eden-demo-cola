@@ -1,14 +1,14 @@
 package org.ylzl.eden.demo.client.user.api;
 
-import com.alibaba.cola.dto.PageResponse;
-import com.alibaba.cola.dto.Response;
-import com.alibaba.cola.dto.SingleResponse;
 import org.ylzl.eden.demo.client.user.dto.UserVO;
 import org.ylzl.eden.demo.client.user.dto.command.UserAddCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
 import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
 import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry;
+import org.ylzl.eden.spring.framework.cola.dto.PageResponse;
+import org.ylzl.eden.spring.framework.cola.dto.Response;
+import org.ylzl.eden.spring.framework.cola.dto.SingleResponse;
 
 /**
  * 用户领域业务接口

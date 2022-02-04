@@ -1,8 +1,7 @@
 package org.ylzl.eden.demo.app.user.service;
 
-import com.alibaba.cola.dto.PageResponse;
-import com.alibaba.cola.dto.Response;
-import com.alibaba.cola.dto.SingleResponse;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.ylzl.eden.demo.app.user.executor.command.UserAddCmdExe;
 import org.ylzl.eden.demo.app.user.executor.command.UserModifyCmdExe;
 import org.ylzl.eden.demo.app.user.executor.command.UserRemoveCmdExe;
@@ -15,8 +14,9 @@ import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
 import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
 import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import org.ylzl.eden.spring.framework.cola.dto.PageResponse;
+import org.ylzl.eden.spring.framework.cola.dto.Response;
+import org.ylzl.eden.spring.framework.cola.dto.SingleResponse;
 
 /**
  * 用户领域业务实现
@@ -24,7 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author gyl
  * @since 2.4.x
  */
-//@DS(DataSourceType.BIZCOLLEGE) // 多数据源示例
+//@DS("ds2") // 多数据源示例
 @Service("userService")
 public class UserServiceImpl implements UserService {
 

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -61,114 +63,120 @@
 			<properties>
 				<spring.profiles.active>staging</spring.profiles.active>
 			</properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.google.cloud.tools</groupId>
-                        <artifactId>jib-maven-plugin</artifactId>
-                        <configuration>
-                            <from>
-                                <image>openjdk:11-jre-slim</image>
-                            </from>
-                            <to>
-                                <image>${docker.image}</image>
-                                <auth>
-                                    <username>${docker.username}</username>
-                                    <password>${docker.password}</password>
-                                </auth>
-                                <tags>
-                                    <tag>${project.version}</tag>
-                                </tags>
-                            </to>
-                            <container>
-                                <entrypoint>
-                                    <shell>bash</shell>
-                                    <option>-c</option>
-                                    <arg>/entrypoint.sh</arg>
-                                </entrypoint>
-                                <ports>
-                                    <port>8080</port>
-                                </ports>
-                                <environment>
-                                    <TZ>Asia/Shanghai</TZ>
-                                    <SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>
-                                    <JAVA_OPTS>-Xms256m -Xmx256m</JAVA_OPTS>
-                                    <JAVA_SLEEP>1</JAVA_SLEEP>
-                                </environment>
-                                <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
-                                <mainClass>${start-class}</mainClass>
-                            </container>
-                            <extraDirectories>
-                                <paths>src/main/docker/jib</paths>
-                                <permissions>
-                                    <permission>
-                                        <file>/entrypoint.sh</file>
-                                        <mode>755</mode>
-                                    </permission>
-                                </permissions>
-                            </extraDirectories>
-                            <allowInsecureRegistries>true</allowInsecureRegistries>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.google.cloud.tools</groupId>
+						<artifactId>jib-maven-plugin</artifactId>
+						<configuration>
+							<from>
+								<image>openjdk:11-jre-slim</image>
+							</from>
+							<to>
+								<image>${docker.image}</image>
+								<auth>
+									<username>${docker.username}</username>
+									<password>${docker.password}</password>
+								</auth>
+								<tags>
+									<tag>${project.version}</tag>
+								</tags>
+							</to>
+							<container>
+								<entrypoint>
+									<shell>bash</shell>
+									<option>-c</option>
+									<arg>/entrypoint.sh</arg>
+								</entrypoint>
+								<ports>
+									<port>8080</port>
+								</ports>
+								<environment>
+									<TZ>Asia/Shanghai</TZ>
+									<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS
+									</SPRING_OUTPUT_ANSI_ENABLED>
+									<JAVA_OPTS>-Xms256m -Xmx256m</JAVA_OPTS>
+									<JAVA_SLEEP>1</JAVA_SLEEP>
+								</environment>
+								<creationTime>USE_CURRENT_TIMESTAMP
+								</creationTime>
+								<mainClass>${start-class}</mainClass>
+							</container>
+							<extraDirectories>
+								<paths>src/main/docker/jib</paths>
+								<permissions>
+									<permission>
+										<file>/entrypoint.sh</file>
+										<mode>755</mode>
+									</permission>
+								</permissions>
+							</extraDirectories>
+							<allowInsecureRegistries>true
+							</allowInsecureRegistries>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 		<profile>
 			<id>prod</id>
 			<properties>
 				<spring.profiles.active>prod</spring.profiles.active>
 			</properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.google.cloud.tools</groupId>
-                        <artifactId>jib-maven-plugin</artifactId>
-                        <configuration>
-                            <from>
-                                <image>openjdk:11-jre-slim</image>
-                            </from>
-                            <to>
-                                <image>${docker.image}</image>
-                                <auth>
-                                    <username>${docker.username}</username>
-                                    <password>${docker.password}</password>
-                                </auth>
-                                <tags>
-                                    <tag>${project.version}</tag>
-                                </tags>
-                            </to>
-                            <container>
-                                <entrypoint>
-                                    <shell>bash</shell>
-                                    <option>-c</option>
-                                    <arg>/entrypoint.sh</arg>
-                                </entrypoint>
-                                <ports>
-                                    <port>8080</port>
-                                </ports>
-                                <environment>
-                                    <TZ>Asia/Shanghai</TZ>
-                                    <SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>
-                                    <JAVA_OPTS>-Xms256m -Xmx256m</JAVA_OPTS>
-                                    <JAVA_SLEEP>1</JAVA_SLEEP>
-                                </environment>
-                                <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
-                                <mainClass>${start-class}</mainClass>
-                            </container>
-                            <extraDirectories>
-                                <paths>src/main/docker/jib</paths>
-                                <permissions>
-                                    <permission>
-                                        <file>/entrypoint.sh</file>
-                                        <mode>755</mode>
-                                    </permission>
-                                </permissions>
-                            </extraDirectories>
-                            <allowInsecureRegistries>true</allowInsecureRegistries>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.google.cloud.tools</groupId>
+						<artifactId>jib-maven-plugin</artifactId>
+						<configuration>
+							<from>
+								<image>openjdk:11-jre-slim</image>
+							</from>
+							<to>
+								<image>${docker.image}</image>
+								<auth>
+									<username>${docker.username}</username>
+									<password>${docker.password}</password>
+								</auth>
+								<tags>
+									<tag>${project.version}</tag>
+								</tags>
+							</to>
+							<container>
+								<entrypoint>
+									<shell>bash</shell>
+									<option>-c</option>
+									<arg>/entrypoint.sh</arg>
+								</entrypoint>
+								<ports>
+									<port>8080</port>
+								</ports>
+								<environment>
+									<TZ>Asia/Shanghai</TZ>
+									<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS
+									</SPRING_OUTPUT_ANSI_ENABLED>
+									<JAVA_OPTS>-Xms256m -Xmx256m</JAVA_OPTS>
+									<JAVA_SLEEP>1</JAVA_SLEEP>
+								</environment>
+								<creationTime>USE_CURRENT_TIMESTAMP
+								</creationTime>
+								<mainClass>${start-class}</mainClass>
+							</container>
+							<extraDirectories>
+								<paths>src/main/docker/jib</paths>
+								<permissions>
+									<permission>
+										<file>/entrypoint.sh</file>
+										<mode>755</mode>
+									</permission>
+								</permissions>
+							</extraDirectories>
+							<allowInsecureRegistries>true
+							</allowInsecureRegistries>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
 	</profiles>
 
