@@ -185,16 +185,6 @@
 		<dependency>
 			<groupId>org.ylzl.eden.demo</groupId>
 			<artifactId>eden-demo-cola-adapter</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>jsqlparser</artifactId>
-					<groupId>com.github.jsqlparser</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>fastjson</artifactId>
-					<groupId>com.alibaba</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<!-- 开发组件 -->
@@ -203,40 +193,12 @@
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>logback-core</artifactId>
-					<groupId>ch.qos.logback</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>logback-classic</artifactId>
-					<groupId>ch.qos.logback</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>spring-boot-starter-logging</artifactId>
-					<groupId>org.springframework.boot</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-bootstrap</artifactId>
-		</dependency>
 
 		<!-- 测试组件 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-
-		<!-- 日志组件 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-log4j2</artifactId>
 		</dependency>
 
 		<!-- 配置中心组件 -->
@@ -255,12 +217,6 @@
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-dubbo-spring-boot-starter</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>dubbo-common</artifactId>
-					<groupId>org.apache.dubbo</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<!-- 熔断组件 -->
