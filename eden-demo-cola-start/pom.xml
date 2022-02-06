@@ -12,7 +12,7 @@
 	</parent>
 	<artifactId>eden-demo-cola-start</artifactId>
 	<packaging>jar</packaging>
-	<name>demo-cola</name>
+	<name>eden-demo-cola-start</name>
 	<description>启动入口</description>
 
 	<properties>
