@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 用户领域组装器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Mapper(componentModel = "spring",

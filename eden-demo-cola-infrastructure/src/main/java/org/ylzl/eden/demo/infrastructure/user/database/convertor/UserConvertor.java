@@ -11,7 +11,7 @@ import org.ylzl.eden.spring.framework.cola.domain.EntityConvertor;
 /**
  * 用户领域实体转换器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Mapper(componentModel = "spring",

@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * 新增用户指令
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Builder

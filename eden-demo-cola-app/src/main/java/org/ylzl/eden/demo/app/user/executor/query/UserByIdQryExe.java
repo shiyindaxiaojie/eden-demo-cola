@@ -12,7 +12,7 @@ import org.ylzl.eden.spring.framework.cola.exception.ClientErrorType;
 /**
  * 根据主键获取用户信息指令执行器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Component

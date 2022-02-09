@@ -14,7 +14,7 @@ import org.ylzl.eden.demo.client.user.api.UserService;
 /**
  * 用户领域 RPC服务端
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @DubboService(timeout = ApiConstant.DEFAULT_TIMEOUT)

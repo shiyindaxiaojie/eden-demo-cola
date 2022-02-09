@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 /**
  * 用户信息表数据库对象
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Data

@@ -20,7 +20,7 @@ import javax.validation.Valid;
 /**
  * 用户领域控制器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j

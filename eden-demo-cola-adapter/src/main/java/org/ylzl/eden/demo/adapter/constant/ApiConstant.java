@@ -3,7 +3,7 @@ package org.ylzl.eden.demo.adapter.constant;
 /**
  * API 常量定义
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public class ApiConstant {
