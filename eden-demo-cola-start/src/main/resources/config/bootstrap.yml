@@ -1,6 +1,6 @@
 spring:
   application:
-    name: eden-demo-cola-start
+    name: eden-demo-cola
   cloud:
     nacos:
       config:
@@ -12,12 +12,12 @@ spring:
 
 dubbo:
   application:
-    id: ${spring.application.name}
-    name: ${spring.application.name}
+    id: ${spring.application.name}-dubbo
+    name: ${spring.application.name}-dubbo
   protocol:
     name: dubbo
   registry:
-    id: ${spring.application.name}
+    id: ${spring.application.name}-dubbo
     check: false # 是否开启服务注册的启动检查
     register: true # 是否开启服务注册，设置为 false 表示只订阅不注册
   provider:

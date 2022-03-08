@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import org.ylzl.eden.demo.adapter.constant.ApiConstant;
 import org.ylzl.eden.demo.client.user.api.UserService;
-import org.ylzl.eden.demo.client.user.dto.UserVO;
+import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import org.ylzl.eden.demo.client.user.dto.command.UserAddCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
@@ -20,7 +20,7 @@ import javax.validation.Valid;
 /**
  * 用户领域控制器
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Slf4j
@@ -76,7 +76,7 @@ public class UserController {
 	 * @return
 	 */
 	@GetMapping("/{id}")
-	public SingleResponse<UserVO> getUserById(@PathVariable Long id) {
+	public SingleResponse<UserDTO> getUserById(@PathVariable Long id) {
 		return userService.getUserById(UserByIdQry.builder().id(id).build());
 	}
 
@@ -87,7 +87,7 @@ public class UserController {
 	 * @return
 	 */
 	@GetMapping
-	public PageResponse<UserVO> listUserByPage(@Valid @ModelAttribute UserListByPageQry query) {
+	public PageResponse<UserDTO> listUserByPage(@Valid @ModelAttribute UserListByPageQry query) {
 		return userService.listUserByPage(query);
 	}
 }

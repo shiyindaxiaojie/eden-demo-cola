@@ -1,6 +1,6 @@
 package org.ylzl.eden.demo.client.user.api;
 
-import org.ylzl.eden.demo.client.user.dto.UserVO;
+import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import org.ylzl.eden.demo.client.user.dto.command.UserAddCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
@@ -13,7 +13,7 @@ import org.ylzl.eden.spring.framework.cola.dto.SingleResponse;
 /**
  * 用户领域业务接口
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 public interface UserService {
@@ -45,7 +45,7 @@ public interface UserService {
 	 * @param query
 	 * @return
 	 */
-	SingleResponse<UserVO> getUserById(UserByIdQry query);
+	SingleResponse<UserDTO> getUserById(UserByIdQry query);
 
 	/**
 	 * 获取用户分页
@@ -53,5 +53,5 @@ public interface UserService {
 	 * @param query
 	 * @return
 	 */
-	PageResponse<UserVO> listUserByPage(UserListByPageQry query);
+	PageResponse<UserDTO> listUserByPage(UserListByPageQry query);
 }

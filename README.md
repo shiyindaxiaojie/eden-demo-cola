@@ -1,4 +1,4 @@
-<img src="https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/readme/icon.png" align="right" />
+<img src="https://cdn.jsdelivr.net/gh/eden-lab/eden-lab-images/readme/icon.png" align="right" />
 
 [license-apache2.0]:https://www.apache.org/licenses/LICENSE-2.0.html
 [github-action]:https://github.com/eden-lab/eden-demo-cola/actions
@@ -6,7 +6,7 @@
 
 # COLA 架构
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/readme/language-java-blue.svg) [![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/readme/license-apache2.0-red.svg)][license-apache2.0] [![](https://github.com/eden-lab/eden-demo-cola/workflows/build/badge.svg)][github-action] [![](https://sonarcloud.io/api/project_badges/measure?project=eden-lab_eden-demo-cola&metric=alert_status)][sonarcloud-dashboard]
+![](https://cdn.jsdelivr.net/gh/eden-lab/eden-lab-images/readme/language-java-blue.svg) [![](https://cdn.jsdelivr.net/gh/eden-lab/eden-lab-images/readme/license-apache2.0-red.svg)][license-apache2.0] [![](https://github.com/eden-lab/eden-demo-cola/workflows/build/badge.svg)][github-action] [![](https://sonarcloud.io/api/project_badges/measure?project=eden-lab_eden-demo-cola&metric=alert_status)][sonarcloud-dashboard]
 
 本项目使用 COLA 架构构建，COLA 架构是一个整洁的，面向对象的，分层的，可扩展的应用架构，可以帮助降低复杂应用场景的系统熵值，提升系统开发和运维效率。不管是传统的分层架构、六边形架构、还是洋葱架构，都提倡以业务为核心，解耦外部依赖，分离业务复杂度和技术复杂度等，COLA 架构在此基础上融合了 CQRS、DDD、SOLID 等设计思想，形成一套可落地的应用架构。
 
@@ -14,7 +14,7 @@
 
 ## 组件构成
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/eden-demo-cola/component.png)
+![](https://cdn.jsdelivr.net/gh/eden-lab/eden-lab-images/eden-demo-cola/component.png)
 
 * **eden-demo-cola-adapter**：适配层，六边形架构中的入站适配器
 * **eden-demo-cola-app**：应用层，负责 CQRS 的处理工作，接收更新指令并调用领域层，对于查询视图操作直接绕过领域层调用基础设施层
@@ -26,7 +26,7 @@
 
 ## 运行流程
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/eden-demo-cola/sequence.png)
+![](https://cdn.jsdelivr.net/gh/eden-lab/eden-lab-images/eden-demo-cola/sequence.png)
 
 ## 如何构建
 

@@ -17,6 +17,15 @@
 	<name>eden-demo-cola</name>
 	<description>COLA 应用架构</description>
 
+	<modules>
+		<module>eden-demo-cola-adapter</module>
+		<module>eden-demo-cola-app</module>
+		<module>eden-demo-cola-client</module>
+		<module>eden-demo-cola-domain</module>
+		<module>eden-demo-cola-infrastructure</module>
+		<module>eden-demo-cola-start</module>
+	</modules>
+
 	<developers>
 		<developer>
 			<id>demo</id>
@@ -88,12 +97,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	<modules>
-		<module>eden-demo-cola-adapter</module>
-		<module>eden-demo-cola-app</module>
-		<module>eden-demo-cola-client</module>
-		<module>eden-demo-cola-domain</module>
-		<module>eden-demo-cola-infrastructure</module>
-		<module>eden-demo-cola-start</module>
-	</modules>
 </project>

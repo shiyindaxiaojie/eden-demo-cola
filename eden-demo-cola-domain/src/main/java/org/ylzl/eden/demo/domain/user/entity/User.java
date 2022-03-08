@@ -6,7 +6,7 @@ import org.ylzl.eden.spring.framework.cola.domain.Entity;
 /**
  * 用户领域（聚合根）
  *
- * @author gyl
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
 @Builder

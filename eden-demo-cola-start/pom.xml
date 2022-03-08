@@ -12,7 +12,7 @@
 	</parent>
 	<artifactId>eden-demo-cola-start</artifactId>
 	<packaging>jar</packaging>
-	<name>demo-cola</name>
+	<name>eden-demo-cola</name>
 	<description>启动入口</description>
 
 	<properties>
@@ -20,7 +20,7 @@
 	</properties>
 
 	<build>
-		<finalName>${project.artifactId}-${project.version}</finalName>
+		<finalName>${project.name}-${project.version}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
