@@ -18,6 +18,4 @@ import org.ylzl.eden.spring.framework.cola.domain.EntityConvertor;
 	nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
 	nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface UserConvertor extends EntityConvertor<User, UserDO> {
-
-	UserConvertor INSTANCE = Mappers.getMapper(UserConvertor.class);
 }

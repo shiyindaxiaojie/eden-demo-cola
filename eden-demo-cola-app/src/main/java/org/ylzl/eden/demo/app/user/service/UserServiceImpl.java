@@ -8,7 +8,7 @@ import org.ylzl.eden.demo.app.user.executor.command.UserRemoveCmdExe;
 import org.ylzl.eden.demo.app.user.executor.query.UserByIdQryExe;
 import org.ylzl.eden.demo.app.user.executor.query.UserListByPageQryExe;
 import org.ylzl.eden.demo.client.user.api.UserService;
-import org.ylzl.eden.demo.client.user.dto.UserVO;
+import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import org.ylzl.eden.demo.client.user.dto.command.UserAddCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
 	 * @return
 	 */
 	@Override
-	public SingleResponse<UserVO> getUserById(UserByIdQry query) {
+	public SingleResponse<UserDTO> getUserById(UserByIdQry query) {
 		return userByIdQryExe.execute(query);
 	}
 
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
 	 * @return
 	 */
 	@Override
-	public PageResponse<UserVO> listUserByPage(UserListByPageQry query) {
+	public PageResponse<UserDTO> listUserByPage(UserListByPageQry query) {
 		return userListByPageQryExe.execute(query);
 	}
 }

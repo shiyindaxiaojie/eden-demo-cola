@@ -17,8 +17,11 @@ public class UserGatewayImpl implements UserGateway {
 
 	private final UserMapper userMapper;
 
-	public UserGatewayImpl(UserMapper userMapper) {
+	private final UserConvertor userConvertor;
+
+	public UserGatewayImpl(UserMapper userMapper, UserConvertor userConvertor) {
 		this.userMapper = userMapper;
+		this.userConvertor = userConvertor;
 	}
 
 	/**
@@ -28,7 +31,7 @@ public class UserGatewayImpl implements UserGateway {
 	 */
 	@Override
 	public void save(User user) {
-		userMapper.insert(UserConvertor.INSTANCE.toDataObject(user));
+		userMapper.insert(userConvertor.toDataObject(user));
 	}
 
 	/**
@@ -38,7 +41,7 @@ public class UserGatewayImpl implements UserGateway {
 	 */
 	@Override
 	public void updateById(User user) {
-		userMapper.updateById(UserConvertor.INSTANCE.toDataObject(user));
+		userMapper.updateById(userConvertor.toDataObject(user));
 	}
 
 	/**

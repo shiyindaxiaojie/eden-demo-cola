@@ -18,12 +18,15 @@ public class UserAddCmdExe {
 
 	private final UserGateway userGateway;
 
-	public UserAddCmdExe(UserGateway userGateway) {
+	private final UserAssembler userAssembler;
+
+	public UserAddCmdExe(UserGateway userGateway, UserAssembler userAssembler) {
 		this.userGateway = userGateway;
+		this.userAssembler = userAssembler;
 	}
 
 	public Response execute(UserAddCmd cmd) {
-		User user = UserAssembler.INSTANCE.toEntity(cmd.getUserDTO());
+		User user = userAssembler.toEntity(cmd);
 		userGateway.save(user);
 		return Response.buildSuccess();
 	}

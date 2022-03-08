@@ -1,8 +1,8 @@
 package org.ylzl.eden.demo.client.user.dto.command;
 
 import lombok.*;
-import org.ylzl.eden.demo.client.user.dto.UserDTO;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -23,5 +23,12 @@ public class UserModifyCmd implements Serializable {
 	@NotNull(message = "用户ID 不能为空")
 	private Long id;
 
-	private UserDTO userDTO;
+	@NotBlank(message = "账号不能为空")
+	private String login;
+
+	@NotBlank(message = "密码不能为空")
+	private String password;
+
+	@NotBlank(message = "邮箱不能为空")
+	private String email;
 }
