@@ -1,5 +1,7 @@
 package org.ylzl.eden.demo.app.user.service;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.ylzl.eden.demo.app.user.executor.command.UserAddCmdExe;
@@ -25,6 +27,8 @@ import org.ylzl.eden.spring.framework.cola.dto.SingleResponse;
  * @since 2.4.x
  */
 //@DS("ds2") // 多数据源示例
+@RequiredArgsConstructor
+@Slf4j
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
@@ -37,14 +41,6 @@ public class UserServiceImpl implements UserService {
 	private final UserByIdQryExe userByIdQryExe;
 
 	private final UserListByPageQryExe userListByPageQryExe;
-
-	public UserServiceImpl(UserAddCmdExe userAddCmdExe, UserModifyCmdExe userModifyCmdExe, UserRemoveCmdExe userRemoveCmdExe, UserByIdQryExe userByIdQryExe, UserListByPageQryExe userListByPageQryExe) {
-		this.userAddCmdExe = userAddCmdExe;
-		this.userModifyCmdExe = userModifyCmdExe;
-		this.userRemoveCmdExe = userRemoveCmdExe;
-		this.userByIdQryExe = userByIdQryExe;
-		this.userListByPageQryExe = userListByPageQryExe;
-	}
 
 	/**
 	 * 创建用户

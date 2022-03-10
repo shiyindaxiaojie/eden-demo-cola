@@ -2,6 +2,8 @@ package org.ylzl.eden.demo.app.user.executor.query;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.ylzl.eden.demo.app.user.assembler.UserAssembler;
 import org.ylzl.eden.demo.client.user.dto.UserDTO;
@@ -16,17 +18,14 @@ import org.ylzl.eden.spring.framework.cola.dto.PageResponse;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@RequiredArgsConstructor
+@Slf4j
 @Component
 public class UserListByPageQryExe {
 
 	private final UserMapper userMapper;
 
 	private final UserAssembler userAssembler;
-
-	public UserListByPageQryExe(UserMapper userMapper, UserAssembler userAssembler) {
-		this.userMapper = userMapper;
-		this.userAssembler = userAssembler;
-	}
 
 	public PageResponse<UserDTO> execute(UserListByPageQry query) {
 		Page<UserDO> page = PageHelper.startPage(query.getPageIndex(), query.getPageSize())

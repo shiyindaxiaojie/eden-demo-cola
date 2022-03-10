@@ -1,5 +1,7 @@
 package org.ylzl.eden.demo.infrastructure.user.gateway;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import org.ylzl.eden.demo.domain.user.entity.User;
 import org.ylzl.eden.demo.domain.user.gateway.UserGateway;
@@ -12,17 +14,13 @@ import org.ylzl.eden.demo.infrastructure.user.database.mapper.UserMapper;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@RequiredArgsConstructor
 @Repository
 public class UserGatewayImpl implements UserGateway {
 
 	private final UserMapper userMapper;
 
 	private final UserConvertor userConvertor;
-
-	public UserGatewayImpl(UserMapper userMapper, UserConvertor userConvertor) {
-		this.userMapper = userMapper;
-		this.userConvertor = userConvertor;
-	}
 
 	/**
 	 * 新增用户

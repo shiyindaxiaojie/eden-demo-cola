@@ -1,5 +1,6 @@
 package org.ylzl.eden.demo.adapter.user.web;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -23,16 +24,13 @@ import javax.validation.Valid;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@RequiredArgsConstructor
 @Slf4j
 @RequestMapping(ApiConstant.WEB_API_PATH + "/users")
 @RestController
 public class UserController {
 
 	private final UserService userService;
-
-	public UserController(@Qualifier("userService") UserService userService) {
-		this.userService = userService;
-	}
 
 	/**
 	 * 创建用户
