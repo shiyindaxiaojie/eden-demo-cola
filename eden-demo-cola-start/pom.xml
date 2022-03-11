@@ -204,13 +204,13 @@
 		<!-- 配置中心组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-nacos-config-spring-boot-starter</artifactId>
+			<artifactId>eden-nacos-config-spring-cloud-starter</artifactId>
 		</dependency>
 
 		<!-- 注册中心组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-nacos-discovery-spring-boot-starter</artifactId>
+			<artifactId>eden-nacos-discovery-spring-cloud-starter</artifactId>
 		</dependency>
 
 		<!-- 分布式组件 -->
@@ -222,7 +222,7 @@
 		<!-- 熔断组件 -->
 		<!--<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-sentinel-spring-boot-starter</artifactId>
+			<artifactId>eden-sentinel-spring-cloud-starter</artifactId>
 		</dependency>-->
 	</dependencies>
 </project>
