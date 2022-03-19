@@ -16,13 +16,14 @@ dubbo:
     name: ${spring.application.name}-dubbo
   protocol:
     name: dubbo
+    port: 28080
   registry:
     id: ${spring.application.name}-dubbo
+    protocol: nacos
     check: false # 是否开启服务注册的启动检查
     register: true # 是否开启服务注册，设置为 false 表示只订阅不注册
   provider:
     retries: 0    # 重试次数
     timeout: 3000 # 超时时间
-    group: demo
   consumer:
     check: false # 是否开启消费者的启动检查
