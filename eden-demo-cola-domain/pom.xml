@@ -16,12 +16,6 @@
 	<description>领域层</description>
 
 	<dependencies>
-		<!-- API层依赖 -->
-		<dependency>
-			<groupId>org.ylzl.eden.demo</groupId>
-			<artifactId>eden-demo-cola-client</artifactId>
-		</dependency>
-
 		<!-- 开发组件 -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>

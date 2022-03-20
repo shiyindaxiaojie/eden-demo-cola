@@ -29,20 +29,20 @@ spring:
   #          type: ${spring.datasource.type}
   #      primary: ds1
   #      strict: true
-  # 分库分表组件
-  #    shardingsphere:
-  #      props:
-  #        sql.show: true
-  #      datasource:
-  #        names: demo
-  #        demo:
-  #          username: ${spring.datasource.dynamic.datasource.demo.username}
-  #          password: ${spring.datasource.dynamic.datasource.demo.password}
-  #          driver-class-name: ${spring.datasource.dynamic.datasource.demo.driver-class-name}
-  #          jdbc-url: ${spring.datasource.dynamic.datasource.demo.url}
-  #          type: ${spring.datasource.dynamic.datasource.demo.type}
-  #      sharding:
-  #        defaultDataSourceName: demo
+     # 分库分表组件
+#  shardingsphere:
+#    props:
+#      sql.show: true
+#    datasource:
+#      names: demo
+#      demo:
+#        username: ${spring.datasource.dynamic.datasource.demo.username}
+#        password: ${spring.datasource.dynamic.datasource.demo.password}
+#        driver-class-name: ${spring.datasource.dynamic.datasource.demo.driver-class-name}
+#        jdbc-url: ${spring.datasource.dynamic.datasource.demo.url}
+#        type: ${spring.datasource.dynamic.datasource.demo.type}
+#    sharding:
+#      defaultDataSourceName: demo
   # 缓存数据库
   redis:
     database: 1
