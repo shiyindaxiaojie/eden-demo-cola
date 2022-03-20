@@ -15,10 +15,7 @@ spring:
         group: DEFAULT_GROUP
 
 dubbo:
-  protocol:
-    port: 20880
   registry:
-    protocol: nacos
     address: nacos://localhost:8848?group=DEFAULT_GROUP&namespace=demo
   config-center:
     address: nacos://localhost:8848?group=DEFAULT_GROUP&namespace=demo

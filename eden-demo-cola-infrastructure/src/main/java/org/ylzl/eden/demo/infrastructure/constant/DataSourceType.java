@@ -8,7 +8,7 @@ package org.ylzl.eden.demo.infrastructure.constant;
  */
 public class DataSourceType {
 
-	public static final String DEMO = "demo";
+	public static final String DS1 = "ds1";
 
-	public static final String BIZCOLLEGE = "bizcollege";
+	public static final String DS2 = "ds2";
 }

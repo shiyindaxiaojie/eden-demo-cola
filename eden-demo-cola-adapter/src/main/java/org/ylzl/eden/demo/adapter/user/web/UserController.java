@@ -1,8 +1,10 @@
 package org.ylzl.eden.demo.adapter.user.web;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
+import org.ylzl.eden.commons.json.JacksonUtils;
 import org.ylzl.eden.demo.adapter.constant.ApiConstant;
 import org.ylzl.eden.demo.client.user.api.UserService;
 import org.ylzl.eden.demo.client.user.dto.UserDTO;
@@ -14,6 +16,10 @@ import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry;
 import org.ylzl.eden.spring.framework.cola.dto.PageResponse;
 import org.ylzl.eden.spring.framework.cola.dto.Response;
 import org.ylzl.eden.spring.framework.cola.dto.SingleResponse;
+import org.ylzl.eden.spring.integration.messagequeue.producer.Message;
+import org.ylzl.eden.spring.integration.messagequeue.producer.MessageQueueProvider;
+import org.ylzl.eden.spring.integration.messagequeue.producer.MessageSendCallback;
+import org.ylzl.eden.spring.integration.messagequeue.producer.MessageSendResult;
 
 import javax.validation.Valid;
 
@@ -23,6 +29,7 @@ import javax.validation.Valid;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@RequiredArgsConstructor
 @Slf4j
 @RequestMapping(ApiConstant.WEB_API_PATH + "/users")
 @RestController
@@ -30,9 +37,7 @@ public class UserController {
 
 	private final UserService userService;
 
-	public UserController(@Qualifier("userService") UserService userService) {
-		this.userService = userService;
-	}
+	private final MessageQueueProvider messageQueueProvider;
 
 	/**
 	 * 创建用户
@@ -76,8 +81,29 @@ public class UserController {
 	 * @return
 	 */
 	@GetMapping("/{id}")
-	public SingleResponse<UserDTO> getUserById(@PathVariable Long id) {
-		return userService.getUserById(UserByIdQry.builder().id(id).build());
+	public SingleResponse<UserDTO> getUserById(@PathVariable Long id) throws JsonProcessingException {
+		SingleResponse<UserDTO> userDTO =
+			userService.getUserById(UserByIdQry.builder().id(id).build());
+		messageQueueProvider.asyncSend(Message.builder()
+				.topic("demo-cola-user")
+				.key(String.valueOf(id))
+				.tags("demo")
+				.delayTimeLevel(2)
+				.body(JacksonUtils.toJSONString(userDTO.getData())).build(),
+			new MessageSendCallback() {
+
+				@Override
+				public void onSuccess(MessageSendResult result) {
+					log.info("发送消息成功, topic: {}, offset: {}, queueId: {}",
+						result.getTopic(), result.getOffset(), result.getPartition());
+				}
+
+				@Override
+				public void onFailed(Throwable e) {
+					log.info("发送消息失败: {}" , e.getMessage(), e);
+				}
+			});
+		return userDTO;
 	}
 
 	/**

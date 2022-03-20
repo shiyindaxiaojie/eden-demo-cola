@@ -27,6 +27,13 @@
 	</build>
 
 	<dependencies>
+		<!-- 领域层依赖 -->
+		<dependency>
+			<groupId>org.ylzl.eden.demo</groupId>
+			<artifactId>eden-demo-cola-domain</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
 		<!-- API层依赖 -->
 		<dependency>
 			<groupId>org.ylzl.eden.demo</groupId>

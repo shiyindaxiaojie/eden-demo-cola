@@ -1,5 +1,5 @@
 ${AnsiColor.BRIGHT_MAGENTA}
-Application Title: eden-demo-cola-start
+Application Title: eden-demo-cola
 Application Version: ${application.version}${application.formatted-version}
 Spring Boot Version: ${spring-boot.version}${spring-boot.formatted-version}
 ${AnsiColor.BRIGHT_MAGENTA}
