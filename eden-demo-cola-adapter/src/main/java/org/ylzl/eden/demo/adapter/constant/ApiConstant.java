@@ -13,5 +13,5 @@ public class ApiConstant {
 
 	public static final String WEB_API_PATH = "/api";
 
-	public static final int DEFAULT_TIMEOUT = 3000;
+	public static final int DEFAULT_DUBBO_TIMEOUT = 3000;
 }

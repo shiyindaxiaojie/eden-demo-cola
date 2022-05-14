@@ -6,13 +6,13 @@ spring:
         password: puyiwm
         server-addr: 10.2.2.47:8848
         namespace: demo
-        group: DEFAULT_GROUP
+        group: spring-cloud
       discovery:
         username: nacos
         password: puyiwm
         server-addr: 10.2.2.47:8848
         namespace: demo
-        group: DEFAULT_GROUP
+        group: spring-cloud
 
 dubbo:
   registry:

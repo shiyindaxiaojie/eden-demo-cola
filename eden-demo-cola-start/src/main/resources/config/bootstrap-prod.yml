@@ -6,13 +6,13 @@ spring:
         password:
         server-addr: localhost:8848
         namespace: demo
-        group: DEFAULT_GROUP
+        group: spring-cloud
       discovery:
         username: nacos
         password:
         server-addr: localhost:8848
         namespace: demo
-        group: DEFAULT_GROUP
+        group: spring-cloud
 
 dubbo:
   registry:

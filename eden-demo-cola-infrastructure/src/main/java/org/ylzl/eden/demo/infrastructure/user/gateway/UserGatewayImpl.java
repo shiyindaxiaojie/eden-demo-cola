@@ -15,12 +15,15 @@ import org.ylzl.eden.demo.infrastructure.user.database.mapper.UserMapper;
  * @since 2.4.x
  */
 @RequiredArgsConstructor
+@Slf4j
 @Repository
 public class UserGatewayImpl implements UserGateway {
 
 	private final UserMapper userMapper;
 
 	private final UserConvertor userConvertor;
+
+//	private final MessageQueueProvider messageQueueProvider;
 
 	/**
 	 * 新增用户
@@ -30,6 +33,26 @@ public class UserGatewayImpl implements UserGateway {
 	@Override
 	public void save(User user) {
 		userMapper.insert(userConvertor.toDataObject(user));
+
+		/*messageQueueProvider.asyncSend(Message.builder()
+				.topic("demo-cola-user")
+				.key(String.valueOf(user.getId()))
+				.tags("demo")
+				.delayTimeLevel(2)
+				.body(JacksonUtils.toJSONString(user)).build(),
+			new MessageSendCallback() {
+
+				@Override
+				public void onSuccess(MessageSendResult result) {
+					log.info("发送消息成功, topic: {}, offset: {}, queueId: {}",
+						result.getTopic(), result.getOffset(), result.getPartition());
+				}
+
+				@Override
+				public void onFailed(Throwable e) {
+					log.info("发送消息失败: {}" , e.getMessage(), e);
+				}
+			});*/
 	}
 
 	/**

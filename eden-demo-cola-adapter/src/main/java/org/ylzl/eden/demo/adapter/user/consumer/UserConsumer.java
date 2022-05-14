@@ -1,9 +1,10 @@
 package org.ylzl.eden.demo.adapter.user.consumer;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.ylzl.eden.spring.integration.messagequeue.annotation.MessageQueueListener;
-import org.ylzl.eden.spring.integration.messagequeue.consumer.Acknowledgement;
-import org.ylzl.eden.spring.integration.messagequeue.consumer.MessageListener;
+import org.ylzl.eden.spring.integration.messagequeue.core.Message;
+import org.ylzl.eden.spring.integration.messagequeue.core.MessageQueueConsumer;
+import org.ylzl.eden.spring.integration.messagequeue.core.consumer.Acknowledgement;
 
 import java.util.List;
 
@@ -13,9 +14,11 @@ import java.util.List;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.x
  */
+@RequiredArgsConstructor
 @Slf4j
-@MessageQueueListener(topic = "demo-cola-user", consumerGroup = "eden-demo-cola")
-public class UserConsumer implements MessageListener {
+// 该注解会触发消息消费
+//@MessageQueueListener(topic = "demo-cola-user")
+public class UserConsumer implements MessageQueueConsumer {
 
 	/**
 	 * 消费消息
@@ -24,7 +27,7 @@ public class UserConsumer implements MessageListener {
 	 * @param ack
 	 */
 	@Override
-	public void consume(List<String> messages, Acknowledgement ack) {
+	public void consume(List<Message> messages, Acknowledgement ack) {
 		log.info("消费消息: {}", messages);
 		ack.acknowledge();
 	}
