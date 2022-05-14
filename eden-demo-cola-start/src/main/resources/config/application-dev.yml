@@ -87,15 +87,15 @@ spring:
 #      poll-timeout: 5000 # 单次拉取消息的超时（毫秒）
 #      ack-mode: MANUAL_IMMEDIATE # 手动提交模式
 
-#rocketmq:
-#  name-server: 10.2.2.45:9876;10.2.2.48:9876
-#  producer:
-#    group: ${spring.application.name}
+rocketmq:
+  name-server: 10.2.2.45:9876;10.2.2.48:9876
+  producer:
+    group: ${spring.application.name}
 #      access-key:
 #      secret-key:
-#  consumer:
-#    group: ${spring.application.name}
-#    topic: demo
+  consumer:
+    group: ${spring.application.name}
+    topic: demo
 
 # 分布式调度平台
 #xxl:
