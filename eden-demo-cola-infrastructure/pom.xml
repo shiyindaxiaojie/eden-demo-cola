@@ -15,6 +15,17 @@
 	<name>eden-demo-cola-infrastructure</name>
 	<description>基础设施层</description>
 
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 	<dependencies>
 		<!-- 领域层依赖 -->
 		<dependency>
@@ -35,12 +46,16 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-framework</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<scope>provided</scope>
 		</dependency>
+
+		<!-- 测试组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spring-integration</artifactId>
+			<artifactId>eden-spock-spring-boot-starter</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- 持久化组件 -->
@@ -48,39 +63,39 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-data</artifactId>
 		</dependency>
-		<!-- HikariCP -->
+		<!-- HikariCP 数据库连接池 -->
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
 		</dependency>
-		<!-- MySQL -->
+		<!-- MySQL 关系型数据库 -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- H2 -->
+		<!-- H2 内存数据库 -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- Mybatis -->
+		<!-- Mybatis 持久化 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-mybatis-spring-boot-starter</artifactId>
 		</dependency>
-		<!-- Liquibase -->
+		<!-- Liquibase 数据库版本控制 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-liquibase-spring-boot-starter</artifactId>
 		</dependency>
-		<!-- Dynamic Datasource -->
+		<!-- Dynamic Datasource 动态数据源 -->
 		<!--<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-dynamic-datasource-spring-boot-starter</artifactId>
 		</dependency>-->
-		<!-- Sharding JDBC -->
+		<!-- Sharding JDBC 分库分表组件 -->
 		<!--<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-sharding-jdbc-spring-boot-starter</artifactId>
@@ -89,15 +104,7 @@
 		<!-- 消息队列组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-messagequeue-spring-boot-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.rocketmq</groupId>
-			<artifactId>rocketmq-spring-boot-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka</artifactId>
+			<artifactId>eden-rocketmq-spring-boot-starter</artifactId>
 		</dependency>
 	</dependencies>
 </project>

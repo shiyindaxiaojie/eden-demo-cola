@@ -15,6 +15,17 @@
 	<name>eden-demo-cola-domain</name>
 	<description>领域层</description>
 
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 	<dependencies>
 		<!-- 开发组件 -->
 		<dependency>
@@ -31,12 +42,19 @@
 			<artifactId>eden-spring-framework</artifactId>
 		</dependency>
 
+		<!-- 测试组件 -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spock-spring-boot-starter</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 		<!-- 日志组件 -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
-		<!-- 通过 runtime 鼓励使用 Slf4j 的 API 来代替 log4j 的 API -->
+		<!-- 门面控制：限制代码直接使用 log4j2 的 API -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>

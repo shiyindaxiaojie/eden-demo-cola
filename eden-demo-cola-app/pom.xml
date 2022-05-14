@@ -58,5 +58,12 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-framework</artifactId>
 		</dependency>
+
+		<!-- 测试组件 -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spock-spring-boot-starter</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>

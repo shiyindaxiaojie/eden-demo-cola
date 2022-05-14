@@ -15,17 +15,6 @@
 	<name>eden-demo-cola-client</name>
 	<description>API层</description>
 
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<configuration>
-					<skip>false</skip>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
 	<dependencies>
 		<!-- 开发组件 -->
 		<dependency>
@@ -36,6 +25,13 @@
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spring-framework</artifactId>
+		</dependency>
+
+		<!-- 测试组件 -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spock-spring-boot-starter</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- 校验组件 -->

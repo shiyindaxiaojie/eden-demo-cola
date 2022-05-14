@@ -196,8 +196,8 @@
 
 		<!-- 测试组件 -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-test</artifactId>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spock-spring-boot-starter</artifactId>
 			<scope>test</scope>
 		</dependency>
 
@@ -213,16 +213,22 @@
 			<artifactId>eden-nacos-discovery-spring-cloud-starter</artifactId>
 		</dependency>
 
-		<!-- 分布式组件 -->
+		<!-- 服务调用组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-dubbo-spring-boot-starter</artifactId>
 		</dependency>
 
-		<!-- 熔断组件 -->
+		<!-- 服务熔断降级组件 -->
 		<!--<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-sentinel-spring-cloud-starter</artifactId>
+		</dependency>-->
+
+		<!-- 服务链路跟踪组件 -->
+		<!--<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-zipkin-spring-cloud-starter</artifactId>
 		</dependency>-->
 	</dependencies>
 </project>

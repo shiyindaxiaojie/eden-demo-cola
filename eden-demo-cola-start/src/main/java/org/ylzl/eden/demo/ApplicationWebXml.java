@@ -2,7 +2,7 @@ package org.ylzl.eden.demo;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.ylzl.eden.spring.framework.core.util.SpringProfileUtils;
+import org.ylzl.eden.spring.framework.bootstrap.util.SpringProfileUtils;
 
 /**
  * J2EE 加载器
