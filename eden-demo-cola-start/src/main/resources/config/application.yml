@@ -1,4 +1,6 @@
 logging:
+  file:
+    name: ${spring.application.name}
   config: classpath:log4j2.yml
 
 mybatis-plus:

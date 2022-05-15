@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.ylzl.eden.spring.integration.messagequeue.core.Message;
 import org.ylzl.eden.spring.integration.messagequeue.core.MessageQueueConsumer;
+import org.ylzl.eden.spring.integration.messagequeue.core.MessageQueueListener;
 import org.ylzl.eden.spring.integration.messagequeue.core.consumer.Acknowledgement;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 // 该注解会触发消息消费
-//@MessageQueueListener(topic = "demo-cola-user")
+@MessageQueueListener(topic = "demo-cola-user")
 public class UserConsumer implements MessageQueueConsumer {
 
 	/**
