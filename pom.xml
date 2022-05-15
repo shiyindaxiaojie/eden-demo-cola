@@ -72,16 +72,6 @@
 	</dependencyManagement>
 
 	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<artifactId>maven-deploy-plugin</artifactId>
-					<configuration>
-						<skip>true</skip>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
