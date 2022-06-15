@@ -15,6 +15,7 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import static org.mockito.Mockito.*
 
+
 class UserControllerTest extends Specification {
 	@Mock
 	UserService userService

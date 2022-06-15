@@ -8,7 +8,7 @@ import org.ylzl.eden.spring.integration.messagequeue.core.Message
 import org.ylzl.eden.spring.integration.messagequeue.core.consumer.Acknowledgement
 import spock.lang.Specification
 
-class UserConsumerTest extends Specification {
+class UserConsumerSpec extends Specification {
     @Mock
     Logger log
     @InjectMocks
