@@ -20,18 +20,10 @@ server:
     enabled: true
     mime-types: text/html,text/plain,text/css,application/javascript
     min-response-size: 1024
-#  netty:
-#    connection-timeout:
-#  tomcat:
-#    max-connections: 20000 # 最大连接数
-#    accept-count: 1000 # 接收队列长度
-#    threads:
-#      max: 500 # 最大并发数
-#      min-spare: 20 # 初始线程数
   # 内存数据库
   h2:
     console:
-      enabled: true
+      enabled: false
       path: /h2-console
       settings:
         trace: false
@@ -61,7 +53,7 @@ spring:
         enabled: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    hikari: # https://github.com/brettwooldridge/HikariCP
+    hikari:
       connectionTimeout: 5000
       minimumIdle: 2
       maximumPoolSize: 10
