@@ -1,0 +1,45 @@
+Configuration:
+  status: WARN
+  monitorInterval: 30
+
+  Properties:
+    Property:
+      - name: console.pattern
+        value: "%highlight{%d | %-5level | %C{1.}.%M:%L | %t | %msg%n%throwable}{FATAL=black, ERROR=red, WARN=yellow, INFO=green, DEBUG=white, TRACE=cyan}"
+
+  Appenders:
+    Console:
+      name: CONSOLE
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: ${console.pattern}
+
+  Loggers:
+    Root:
+      level: INFO
+      includeLocation: true
+      AppenderRef:
+        - ref: CONSOLE
+    Logger:
+      - name: org.ylzl
+        level: INFO
+      - name: com.ibatis
+        level: INFO
+      - name: com.alibaba
+        level: WARN
+      - name: org.springframework
+        level: ERROR
+      - name: org.apache.dubbo
+        level: WARN
+      - name: org.apache.kafka
+        level: WARN
+      - name: org.apache.zookeeper
+        level: WARN
+      - name: org.reflections.Reflections
+        level: WARN
+      - name: org.jboss.resteasy
+        level: WARN
+      - name: com.baomidou
+        level: ERROR
+      - name: org.hibernate.validator
+        level: WARN

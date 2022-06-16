@@ -1,0 +1,88 @@
+logging:
+  file:
+    name: ${spring.application.name}
+  config: classpath:log4j2.yml
+  level:
+    ROOT: INFO
+    org.ylzl.eden: DEBUG
+    org.ylzl.eden.demo.infrastructure: DEBUG
+
+mybatis-plus:
+  global-config:
+    banner: false
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+
+server:
+  port: 8080
+  compression:
+    enabled: true
+    mime-types: text/html,text/plain,text/css,application/javascript
+    min-response-size: 1024
+#  netty:
+#    connection-timeout:
+#  tomcat:
+#    max-connections: 20000 # 最大连接数
+#    accept-count: 1000 # 接收队列长度
+#    threads:
+#      max: 500 # 最大并发数
+#      min-spare: 20 # 初始线程数
+  # 内存数据库
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        trace: false
+        web-allow-others: false
+  # 关系数据库
+  datasource:
+    # 内存数据源
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:db;DB_CLOSE_ON_EXIT=TRUE
+    username: sa
+    password: demo
+  # 缓存数据库
+  redis:
+    database: 1
+    host: localhost
+    port: 6379
+    password:
+    timeout: 5000
+  # 模板引擎
+  thymeleaf:
+    cache: false
+
+spring:
+  data:
+    redis:
+      repositories:
+        enabled: true
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari: # https://github.com/brettwooldridge/HikariCP
+      connectionTimeout: 5000
+      minimumIdle: 2
+      maximumPoolSize: 10
+      idleTimeout: 300000
+      maxLifetime: 1200000
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: non_null
+    serialization:
+      indent-output: true
+    time-zone: GMT+8
+  messages:
+    basename: i18n/messages
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  thymeleaf:
+    mode: HTML
+
+message-queue:
+  rocketmq:
+    enabled: false
