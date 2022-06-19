@@ -37,7 +37,7 @@
 
 		<fileSet>
 			<directory>${project.build.directory}/classes/config</directory>
-			<outputDirectory>config</outputDirectory>
+			<outputDirectory>conf</outputDirectory>
 			<fileMode>0644</fileMode>
 			<includes>
 				<include>*.yml</include>

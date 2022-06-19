@@ -40,7 +40,7 @@ server:
     database: 1
     host: localhost
     port: 6379
-    password:
+    password: test
     timeout: 5000
   # 模板引擎
   thymeleaf:
