@@ -5,10 +5,19 @@ spring:
     nacos:
       config:
         file-extension: yaml
+        username: nacos
+        password: puyiwm
+        server-addr: 10.2.2.47:8848
+        namespace: demo
+        group: spring-cloud
+      discovery:
+        username: nacos
+        password: puyiwm
+        server-addr: 10.2.2.47:8848
+        namespace: demo
+        group: spring-cloud
   main:
     allow-bean-definition-overriding: true
-  profiles:
-    active: dev # 默认启用开发环境
 
 dubbo:
   application:
@@ -22,17 +31,13 @@ dubbo:
     protocol: nacos
     check: false # 是否开启服务注册的启动检查
     register: true # 是否开启服务注册，设置为 false 表示只订阅不注册
+    address: nacos://10.2.2.47:8848?group=DEFAULT_GROUP&namespace=demo
   provider:
     retries: 0    # 重试次数
     timeout: 3000 # 超时时间
   consumer:
     check: false # 是否开启消费者的启动检查
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  metrics:
-    tags:
-      application: ${spring.application.name}
+  config-center:
+    address: nacos://10.2.2.47:8848?group=DEFAULT_GROUP&namespace=demo
+  metadata-report:
+    address: nacos://10.2.2.47:8848?group=DEFAULT_GROUP&namespace=demo
