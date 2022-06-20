@@ -22,14 +22,14 @@ class ApplicationITCase extends Specification {
 	@Shared
 	private EmbeddedRedis embeddedRedis;
 
-	def setupSpec() {
+	def setup() {
 		MockitoAnnotations.openMocks(this)
 
 		embeddedRedis = new EmbeddedRedis()
 		embeddedRedis.before()
 	}
 
-	def cleanupSpec() {
+	def cleanup() {
 		embeddedRedis.after()
 	}
 
