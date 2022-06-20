@@ -1,6 +1,6 @@
 package org.ylzl.eden.demo
 
-import org.mockito.MockitoAnnotations
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.ylzl.eden.demo.adapter.user.web.UserController
@@ -22,14 +22,12 @@ class ApplicationITCase extends Specification {
 	@Shared
 	private EmbeddedRedis embeddedRedis;
 
-	def setup() {
-		MockitoAnnotations.openMocks(this)
-
+	def setupSpec() {
 		embeddedRedis = new EmbeddedRedis()
 		embeddedRedis.before()
 	}
 
-	def cleanup() {
+	def cleanupSpec() {
 		embeddedRedis.after()
 	}
 
