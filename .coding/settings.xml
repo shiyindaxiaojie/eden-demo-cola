@@ -26,7 +26,7 @@
 			<repositories>
 				<repository>
 					<id>${env.CODING_MAVEN_RELEASES_ID}</id>
-					<url>${env.CODING_MAVEN_RELEASES_NAME}</url>
+					<url>${env.CODING_MAVEN_RELEASES_URL}</url>
 					<releases>
 						<enabled>true</enabled>
 					</releases>
@@ -36,7 +36,7 @@
 				</repository>
 				<repository>
 					<id>${env.CODING_MAVEN_SNAPSHOTS_ID}</id>
-					<url>${env.CODING_MAVEN_SNAPSHOTS_NAME}</url>
+					<url>${env.CODING_MAVEN_SNAPSHOTS_URL}</url>
 					<releases>
 						<enabled>false</enabled>
 					</releases>
@@ -48,7 +48,7 @@
 			<pluginRepositories>
 				<pluginRepository>
 					<id>${env.CODING_MAVEN_RELEASES_ID}</id>
-					<url>${env.CODING_MAVEN_RELEASES_NAME}</url>
+					<url>${env.CODING_MAVEN_RELEASES_URL}</url>
 					<releases>
 						<enabled>true</enabled>
 					</releases>
@@ -58,7 +58,7 @@
 				</pluginRepository>
 				<pluginRepository>
 					<id>${env.CODING_MAVEN_SNAPSHOTS_ID}</id>
-					<url>${env.CODING_MAVEN_SNAPSHOTS_NAME}</url>
+					<url>${env.CODING_MAVEN_SNAPSHOTS_URL}</url>
 					<releases>
 						<enabled>false</enabled>
 					</releases>
