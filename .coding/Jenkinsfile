@@ -67,7 +67,6 @@ pipeline {
 					codingHtmlReport(name: 'eden-demo-cola-adapter-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-demo-cola-adapter/target/site/jacoco', entryFile: 'index.html')
 					codingHtmlReport(name: 'eden-demo-cola-app-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-demo-cola-app/target/site/jacoco', entryFile: 'index.html')
 					codingHtmlReport(name: 'eden-demo-cola-infrastructure-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-demo-cola-infrastructure/target/site/jacoco', entryFile: 'index.html')
-					codingHtmlReport(name: 'eden-demo-cola-start-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-demo-cola-start/target/site/jacoco', entryFile: 'index.html')
         }
 			}
     }
