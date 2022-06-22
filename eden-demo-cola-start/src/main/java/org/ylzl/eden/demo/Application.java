@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.ylzl.eden.spring.framework.bootstrap.SpringBootApplicationTemplate;
-import org.ylzl.eden.spring.framework.cola.catchlog.annotation.EnableCatchLog;
-import org.ylzl.eden.spring.framework.error.annotation.EnableRestExceptionResolver;
+import org.ylzl.eden.spring.framework.cola.catchlog.autoconfigure.EnableCatchLog;
+import org.ylzl.eden.spring.framework.cola.rest.autoconfigure.EnableRestExceptionResolver;
 
 /**
  * Spring Boot 引导类

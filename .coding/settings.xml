@@ -2,18 +2,31 @@
 <settings>
 	<servers>
 		<server>
-			<id>coding</id>
-			<username>${env.CODING_ARTIFACTS_USERNAME}</username>
-			<password>${env.CODING_ARTIFACTS_PASSWORD}</password>
+			<id>${env.CODING_MAVEN_RELEASES_ID}</id>
+			<username>${env.CODING_MAVEN_RELEASES_USERNAME}</username>
+			<password>${env.CODING_MAVEN_RELEASES_PASSWORD}</password>
+		</server>
+		<server>
+			<id>${env.CODING_MAVEN_SNAPSHOTS_ID}</id>
+			<username>${env.CODING_MAVEN_SNAPSHOTS_USERNAME}</username>
+			<password>${env.CODING_MAVEN_SNAPSHOTS_PASSWORD}</password>
 		</server>
 	</servers>
 	<profiles>
 		<profile>
 			<id>coding</id>
+			<properties>
+				<altReleaseDeploymentRepository>
+					${env.CODING_MAVEN_RELEASES_ID}::default::${env.CODING_MAVEN_RELEASES_URL}
+				</altReleaseDeploymentRepository>
+				<altSnapshotDeploymentRepository>
+					${env.CODING_MAVEN_SNAPSHOTS_ID}::default::${env.CODING_MAVEN_SNAPSHOTS_URL}
+				</altSnapshotDeploymentRepository>
+			</properties>
 			<repositories>
 				<repository>
-					<id>coding</id>
-					<url>${env.CODING_MAVEN_REPO_URL}</url>
+					<id>${env.CODING_MAVEN_RELEASES_ID}</id>
+					<url>${env.CODING_MAVEN_RELEASES_URL}</url>
 					<releases>
 						<enabled>true</enabled>
 					</releases>
@@ -21,16 +34,36 @@
 						<enabled>false</enabled>
 					</snapshots>
 				</repository>
+				<repository>
+					<id>${env.CODING_MAVEN_SNAPSHOTS_ID}</id>
+					<url>${env.CODING_MAVEN_SNAPSHOTS_URL}</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+				</repository>
 			</repositories>
 			<pluginRepositories>
 				<pluginRepository>
-					<id>coding</id>
-					<url>${env.CODING_MAVEN_REPO_URL}</url>
+					<id>${env.CODING_MAVEN_RELEASES_ID}</id>
+					<url>${env.CODING_MAVEN_RELEASES_URL}</url>
 					<releases>
 						<enabled>true</enabled>
 					</releases>
 					<snapshots>
 						<enabled>false</enabled>
+					</snapshots>
+				</pluginRepository>
+				<pluginRepository>
+					<id>${env.CODING_MAVEN_SNAPSHOTS_ID}</id>
+					<url>${env.CODING_MAVEN_SNAPSHOTS_URL}</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
 					</snapshots>
 				</pluginRepository>
 			</pluginRepositories>
