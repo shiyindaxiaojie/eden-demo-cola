@@ -1,9 +1,13 @@
 pipeline {
   agent any
 	environment {
-	  CODING_MAVEN_REPO_NAME = "maven"
-		CODING_MAVEN_REPO_ID = "${CCI_CURRENT_TEAM}-${PROJECT_NAME}-${CODING_MAVEN_REPO_NAME}"
-    CODING_MAVEN_REPO_URL = "${CCI_CURRENT_WEB_PROTOCOL}://${CCI_CURRENT_TEAM}-maven.pkg.${CCI_CURRENT_DOMAIN}/repository/${PROJECT_NAME}/${CODING_MAVEN_REPO_NAME}/"
+	  CODING_MAVEN_SNAPSHOTS_NAME = "maven-snapshots"
+		CODING_MAVEN_SNAPSHOTS_ID = "${CCI_CURRENT_TEAM}-${PROJECT_NAME}-${CODING_MAVEN_SNAPSHOTS_NAME}"
+    CODING_MAVEN_SNAPSHOTS_URL = "${CCI_CURRENT_WEB_PROTOCOL}://${CCI_CURRENT_TEAM}-maven.pkg.${CCI_CURRENT_DOMAIN}/repository/${PROJECT_NAME}/${CODING_MAVEN_SNAPSHOTS_NAME}/"
+
+	  CODING_MAVEN_RELEASES_NAME = "maven-releases"
+		CODING_MAVEN_RELEASES_ID = "${CCI_CURRENT_TEAM}-${PROJECT_NAME}-${CODING_MAVEN_RELEASES_NAME}"
+    CODING_MAVEN_RELEASES_URL = "${CCI_CURRENT_WEB_PROTOCOL}://${CCI_CURRENT_TEAM}-maven.pkg.${CCI_CURRENT_DOMAIN}/repository/${PROJECT_NAME}/${CODING_MAVEN_RELEASES_NAME}/"
 	}
   stages {
     stage('检出') {
@@ -22,44 +26,65 @@ pipeline {
           if (env.TAG_NAME ==~ /.*/ ) {
 	          CODING_ARTIFACT_VERSION = "${env.TAG_NAME}"
           } else if (env.MR_SOURCE_BRANCH ==~ /.*/ ) {
-	          CODING_ARTIFACT_VERSION = "${env.MR_RESOURCE_ID}"
+	          CODING_ARTIFACT_VERSION = "${env.MR_RESOURCE_ID}-${env.GIT_COMMIT_SHORT}"
           } else {
-	          CODING_ARTIFACT_VERSION = "${env.BRANCH_NAME.replace('/', '-')}"
+	          CODING_ARTIFACT_VERSION = "${env.BRANCH_NAME.replace('/', '-')}-${env.GIT_COMMIT_SHORT}"
           }
         }
-        withCredentials([
-          usernamePassword(
-            credentialsId: env.CODING_ARTIFACTS_CREDENTIALS_ID,
-            usernameVariable: 'CODING_ARTIFACTS_USERNAME',
-            passwordVariable: 'CODING_ARTIFACTS_PASSWORD'
-          )
-        ]) {
-          withEnv([
-            "CODING_ARTIFACTS_USERNAME=${CODING_ARTIFACTS_USERNAME}",
-            "CODING_ARTIFACTS_PASSWORD=${CODING_ARTIFACTS_PASSWORD}",
-            "CODING_ARTIFACT_VERSION=${CODING_ARTIFACT_VERSION}"
-          ]) {
-            sh 'mvn -Pcoding versions:set -DnewVersion=${CODING_ARTIFACT_VERSION} clean package -DskipTests -s ./.coding/settings.xml'
-          }
-        }
+				withEnv([
+					"CODING_ARTIFACT_VERSION=${CODING_ARTIFACT_VERSION}",
+					"CODING_MAVEN_RELEASES_ID=${CODING_MAVEN_RELEASES_ID}",
+					"CODING_MAVEN_RELEASES_URL=${CODING_MAVEN_RELEASES_URL}",
+					"CODING_MAVEN_RELEASES_USERNAME=${CODING_MAVEN_RELEASES_USERNAME}",
+          "CODING_MAVEN_RELEASES_PASSWORD=${CODING_MAVEN_RELEASES_PASSWORD}",
+          "CODING_MAVEN_SNAPSHOTS_ID=${CODING_MAVEN_SNAPSHOTS_ID}",
+          "CODING_MAVEN_SNAPSHOTS_URL=${CODING_MAVEN_SNAPSHOTS_URL}",
+          "CODING_MAVEN_SNAPSHOTS_USERNAME=${CODING_MAVEN_SNAPSHOTS_USERNAME}",
+          "CODING_MAVEN_SNAPSHOTS_PASSWORD=${CODING_MAVEN_SNAPSHOTS_PASSWORD}"
+				]) {
+					sh 'mvn -Pcoding versions:set -DnewVersion=${CODING_ARTIFACT_VERSION} clean package -DskipTests -s ./.coding/settings.xml'
+				}
       }
+    }
+    stage('单元测试') {
+			steps {
+				withEnv([
+						"CODING_MAVEN_RELEASES_ID=${CODING_MAVEN_RELEASES_ID}",
+						"CODING_MAVEN_RELEASES_URL=${CODING_MAVEN_RELEASES_URL}",
+						"CODING_MAVEN_RELEASES_USERNAME=${CODING_MAVEN_RELEASES_USERNAME}",
+						"CODING_MAVEN_RELEASES_PASSWORD=${CODING_MAVEN_RELEASES_PASSWORD}",
+						"CODING_MAVEN_SNAPSHOTS_ID=${CODING_MAVEN_SNAPSHOTS_ID}",
+						"CODING_MAVEN_SNAPSHOTS_URL=${CODING_MAVEN_SNAPSHOTS_URL}",
+						"CODING_MAVEN_SNAPSHOTS_USERNAME=${CODING_MAVEN_SNAPSHOTS_USERNAME}",
+						"CODING_MAVEN_SNAPSHOTS_PASSWORD=${CODING_MAVEN_SNAPSHOTS_PASSWORD}"
+				]) {
+					sh 'mvn -Pcoding,unit-test test -s ./.coding/settings.xml'
+				}
+      }
+			post {
+				always {
+           junit '**/surefire-reports/*.xml'
+           codingHtmlReport(name: 'eden-demo-cola-adapter-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-demo-cola-adapter/target/site/jacoco', entryFile: 'index.html')
+           codingHtmlReport(name: 'eden-demo-cola-app-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-demo-cola-app/target/site/jacoco', entryFile: 'index.html')
+           codingHtmlReport(name: 'eden-demo-cola-infrastructure-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-demo-cola-infrastructure/target/site/jacoco', entryFile: 'index.html')
+           codingHtmlReport(name: 'eden-demo-cola-start-jacoco-reports', tag: '代码覆盖率报告', path: 'eden-demo-cola-start/target/site/jacoco', entryFile: 'index.html')
+        }
+			}
     }
     stage('推送到 Maven 制品库') {
       steps {
-        withCredentials([
-          usernamePassword(
-            credentialsId: env.CODING_ARTIFACTS_CREDENTIALS_ID,
-            usernameVariable: 'CODING_ARTIFACTS_USERNAME',
-            passwordVariable: 'CODING_ARTIFACTS_PASSWORD'
-          )
-        ]) {
-          withEnv([
-            "CODING_ARTIFACTS_USERNAME=${CODING_ARTIFACTS_USERNAME}",
-            "CODING_ARTIFACTS_PASSWORD=${CODING_ARTIFACTS_PASSWORD}"
-          ]) {
-            sh 'mvn -Pcoding deploy -DskipTests -s ./.coding/settings.xml'
-          }
-        }
+				withEnv([
+						"CODING_MAVEN_RELEASES_ID=${CODING_MAVEN_RELEASES_ID}",
+						"CODING_MAVEN_RELEASES_URL=${CODING_MAVEN_RELEASES_URL}",
+						"CODING_MAVEN_RELEASES_USERNAME=${CODING_MAVEN_RELEASES_USERNAME}",
+						"CODING_MAVEN_RELEASES_PASSWORD=${CODING_MAVEN_RELEASES_PASSWORD}",
+						"CODING_MAVEN_SNAPSHOTS_ID=${CODING_MAVEN_SNAPSHOTS_ID}",
+						"CODING_MAVEN_SNAPSHOTS_URL=${CODING_MAVEN_SNAPSHOTS_URL}",
+						"CODING_MAVEN_SNAPSHOTS_USERNAME=${CODING_MAVEN_SNAPSHOTS_USERNAME}",
+						"CODING_MAVEN_SNAPSHOTS_PASSWORD=${CODING_MAVEN_SNAPSHOTS_PASSWORD}"
+				]) {
+					sh 'mvn -Pcoding deploy -DskipTests -s ./.coding/settings.xml'
+				}
       }
     }
   }
