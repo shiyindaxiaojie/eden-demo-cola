@@ -216,6 +216,10 @@
 					<artifactId>HdrHistogram</artifactId>
 					<groupId>org.hdrhistogram</groupId>
 				</exclusion>
+				<exclusion>
+					<artifactId>jodd-core</artifactId>
+					<groupId>org.jodd</groupId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 
