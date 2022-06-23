@@ -1,5 +1,8 @@
 package org.ylzl.eden.demo.app.user.service
 
+import org.mockito.InjectMocks
+import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 import org.slf4j.Logger
 import org.ylzl.eden.demo.app.user.executor.command.UserAddCmdExe
 import org.ylzl.eden.demo.app.user.executor.command.UserModifyCmdExe
@@ -15,87 +18,86 @@ import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry
 import org.ylzl.eden.spring.framework.cola.dto.PageResponse
 import org.ylzl.eden.spring.framework.cola.dto.Response
 import org.ylzl.eden.spring.framework.cola.dto.SingleResponse
-import spock.lang.*
-import org.mockito.InjectMocks
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
-import static org.mockito.Mockito.*
+import spock.lang.Specification
+
+import static org.mockito.ArgumentMatchers.any
+import static org.mockito.Mockito.when
 
 class UserServiceImplTest extends Specification {
-    @Mock
-    UserAddCmdExe userAddCmdExe
-    @Mock
-    UserModifyCmdExe userModifyCmdExe
-    @Mock
-    UserRemoveCmdExe userRemoveCmdExe
-    @Mock
-    UserByIdQryExe userByIdQryExe
-    @Mock
-    UserListByPageQryExe userListByPageQryExe
-    @Mock
-    Logger log
-    @InjectMocks
-    UserServiceImpl userServiceImpl
+	@Mock
+	UserAddCmdExe userAddCmdExe
+	@Mock
+	UserModifyCmdExe userModifyCmdExe
+	@Mock
+	UserRemoveCmdExe userRemoveCmdExe
+	@Mock
+	UserByIdQryExe userByIdQryExe
+	@Mock
+	UserListByPageQryExe userListByPageQryExe
+	@Mock
+	Logger log
+	@InjectMocks
+	UserServiceImpl userServiceImpl
 
-    def setup() {
-        MockitoAnnotations.openMocks(this)
-    }
+	def setup() {
+		MockitoAnnotations.openMocks(this)
+	}
 
-    def "test create User"() {
-        given:
-        when(userAddCmdExe.execute(any())).thenReturn(Response.buildSuccess())
+	def "test create User"() {
+		given:
+		when(userAddCmdExe.execute(any())).thenReturn(Response.buildSuccess())
 
-        when:
-        Response result = userServiceImpl.createUser(new UserAddCmd("login", "password", "email"))
+		when:
+		Response result = userServiceImpl.createUser(new UserAddCmd("login", "password", "email"))
 
-        then:
-        result == Response.buildSuccess()
-    }
+		then:
+		result == Response.buildSuccess()
+	}
 
-    def "test modify User"() {
-        given:
-        when(userModifyCmdExe.execute(any())).thenReturn(Response.buildSuccess())
+	def "test modify User"() {
+		given:
+		when(userModifyCmdExe.execute(any())).thenReturn(Response.buildSuccess())
 
-        when:
-        Response result = userServiceImpl.modifyUser(new UserModifyCmd(1l, "login", "password", "email"))
+		when:
+		Response result = userServiceImpl.modifyUser(new UserModifyCmd(1l, "login", "password", "email"))
 
-        then:
-        result == Response.buildSuccess()
-    }
+		then:
+		result == Response.buildSuccess()
+	}
 
-    def "test remove User"() {
-        given:
-        when(userRemoveCmdExe.execute(any())).thenReturn(Response.buildSuccess())
-        when(userByIdQryExe.execute(any())).thenReturn(SingleResponse.of(UserDTO.builder().id(1L).build()))
+	def "test remove User"() {
+		given:
+		when(userRemoveCmdExe.execute(any())).thenReturn(Response.buildSuccess())
+		when(userByIdQryExe.execute(any())).thenReturn(SingleResponse.of(UserDTO.builder().id(1L).build()))
 
-        when:
-        Response result = userServiceImpl.removeUser(new UserRemoveCmd(1l))
+		when:
+		Response result = userServiceImpl.removeUser(new UserRemoveCmd(1l))
 
-        then:
-        result == Response.buildSuccess()
-    }
+		then:
+		result == Response.buildSuccess()
+	}
 
-    def "test get User By Id"() {
-        given:
-        when(userByIdQryExe.execute(any())).thenReturn(SingleResponse.of(UserDTO.builder().id(1L).build()))
+	def "test get User By Id"() {
+		given:
+		when(userByIdQryExe.execute(any())).thenReturn(SingleResponse.of(UserDTO.builder().id(1L).build()))
 
-        when:
-        SingleResponse<UserDTO> result = userServiceImpl.getUserById(new UserByIdQry(1l))
+		when:
+		SingleResponse<UserDTO> result = userServiceImpl.getUserById(new UserByIdQry(1l))
 
-        then:
-        result == SingleResponse.of(UserDTO.builder().id(1L).build())
-    }
+		then:
+		result == SingleResponse.of(UserDTO.builder().id(1L).build())
+	}
 
-    def "test list User By Page"() {
-        given:
-        when(userListByPageQryExe.execute(any())).thenReturn(PageResponse.of([new UserDTO(1l, "login", "email")], 1, 1, 1))
+	def "test list User By Page"() {
+		given:
+		when(userListByPageQryExe.execute(any())).thenReturn(PageResponse.of([new UserDTO(1l, "login", "email")], 1, 1, 1))
 
-        when:
-        PageResponse<UserDTO> result = userServiceImpl.listUserByPage(new UserListByPageQry("login", "email"))
+		when:
+		PageResponse<UserDTO> result = userServiceImpl.listUserByPage(new UserListByPageQry("login", "email"))
 
-        then:
-        result == PageResponse.of([new UserDTO(1l, "login", "email")], 1, 1, 1)
-    }
+		then:
+		result == PageResponse.of([new UserDTO(1l, "login", "email")], 1, 1, 1)
+	}
 }
 
 //Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme

@@ -12,7 +12,7 @@
 	</parent>
 	<artifactId>eden-demo-cola-start</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-demo-cola</name>
+	<name>eden-demo-cola-start</name>
 	<description>启动入口</description>
 
 	<properties>
@@ -31,6 +31,30 @@
 				<configuration>
 					<skip>true</skip>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>ru.trylogic.maven.plugins</groupId>
+				<artifactId>redis-maven-plugin</artifactId>
+				<version>1.4.6</version>
+				<configuration>
+					<forked>true</forked>
+				</configuration>
+				<executions>
+					<execution>
+						<id>start-redis</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>stop-redis</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>shutdown</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -253,7 +277,7 @@
 			<artifactId>eden-dubbo-spring-boot-starter</artifactId>
 		</dependency>
 
-        <!-- 服务熔断降级组件 -->
+		<!-- 服务熔断降级组件 -->
 		<!--<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-sentinel-spring-cloud-starter</artifactId>

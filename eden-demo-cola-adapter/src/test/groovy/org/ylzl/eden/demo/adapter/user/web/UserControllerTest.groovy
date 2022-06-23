@@ -1,5 +1,8 @@
 package org.ylzl.eden.demo.adapter.user.web
 
+import org.mockito.InjectMocks
+import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 import org.slf4j.Logger
 import org.ylzl.eden.demo.client.user.api.UserService
 import org.ylzl.eden.demo.client.user.dto.UserDTO
@@ -9,11 +12,11 @@ import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry
 import org.ylzl.eden.spring.framework.cola.dto.PageResponse
 import org.ylzl.eden.spring.framework.cola.dto.Response
 import org.ylzl.eden.spring.framework.cola.dto.SingleResponse
-import spock.lang.*
-import org.mockito.InjectMocks
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
-import static org.mockito.Mockito.*
+import spock.lang.Specification
+import spock.lang.Unroll
+
+import static org.mockito.ArgumentMatchers.any
+import static org.mockito.Mockito.when
 
 
 class UserControllerTest extends Specification {

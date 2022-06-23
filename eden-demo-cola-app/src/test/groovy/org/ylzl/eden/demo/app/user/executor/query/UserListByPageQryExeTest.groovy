@@ -31,7 +31,7 @@ class UserListByPageQryExeTest extends Specification {
 
 	def "test execute"() {
 		given:
-		when(userMapper.selectPage(any())).thenReturn([UserDO.builder().id(1L).login("login").email ("email").build()])
+		when(userMapper.selectPage(any())).thenReturn([UserDO.builder().id(1L).login("login").email("email").build()])
 		when(userAssembler.toDTOList(any())).thenReturn([UserDTO.builder().id(1L).login("login").email("email").build()])
 
 		when:
