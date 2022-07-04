@@ -35,26 +35,6 @@
 			<plugin>
 				<groupId>ru.trylogic.maven.plugins</groupId>
 				<artifactId>redis-maven-plugin</artifactId>
-				<version>1.4.6</version>
-				<configuration>
-					<forked>true</forked>
-				</configuration>
-				<executions>
-					<execution>
-						<id>start-redis</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>stop-redis</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>shutdown</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -126,6 +106,7 @@
 									<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS
 									</SPRING_OUTPUT_ANSI_ENABLED>
 									<JAVA_OPTS>-Xms256m -Xmx256m</JAVA_OPTS>
+									<ENV_OPTS/>
 									<JAVA_SLEEP>1</JAVA_SLEEP>
 								</environment>
 								<creationTime>USE_CURRENT_TIMESTAMP
@@ -186,6 +167,7 @@
 									<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS
 									</SPRING_OUTPUT_ANSI_ENABLED>
 									<JAVA_OPTS>-Xms256m -Xmx256m</JAVA_OPTS>
+									<ENV_OPTS/>
 									<JAVA_SLEEP>1</JAVA_SLEEP>
 								</environment>
 								<creationTime>USE_CURRENT_TIMESTAMP
@@ -257,12 +239,6 @@
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-nacos-config-spring-cloud-starter</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>simpleclient</artifactId>
-					<groupId>io.prometheus</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<!-- 注册中心组件 -->
