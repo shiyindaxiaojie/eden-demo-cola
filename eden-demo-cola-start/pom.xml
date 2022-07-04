@@ -12,7 +12,7 @@
 	</parent>
 	<artifactId>eden-demo-cola-start</artifactId>
 	<packaging>jar</packaging>
-	<name>eden-demo-cola</name>
+	<name>eden-demo-cola-start</name>
 	<description>启动入口</description>
 
 	<properties>
@@ -31,6 +31,10 @@
 				<configuration>
 					<skip>true</skip>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>ru.trylogic.maven.plugins</groupId>
+				<artifactId>redis-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
 	</build>
@@ -102,6 +106,7 @@
 									<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS
 									</SPRING_OUTPUT_ANSI_ENABLED>
 									<JAVA_OPTS>-Xms256m -Xmx256m</JAVA_OPTS>
+									<ENV_OPTS/>
 									<JAVA_SLEEP>1</JAVA_SLEEP>
 								</environment>
 								<creationTime>USE_CURRENT_TIMESTAMP
@@ -162,6 +167,7 @@
 									<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS
 									</SPRING_OUTPUT_ANSI_ENABLED>
 									<JAVA_OPTS>-Xms256m -Xmx256m</JAVA_OPTS>
+									<ENV_OPTS/>
 									<JAVA_SLEEP>1</JAVA_SLEEP>
 								</environment>
 								<creationTime>USE_CURRENT_TIMESTAMP
@@ -233,12 +239,6 @@
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-nacos-config-spring-cloud-starter</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>simpleclient</artifactId>
-					<groupId>io.prometheus</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<!-- 注册中心组件 -->
@@ -253,7 +253,7 @@
 			<artifactId>eden-dubbo-spring-boot-starter</artifactId>
 		</dependency>
 
-        <!-- 服务熔断降级组件 -->
+		<!-- 服务熔断降级组件 -->
 		<!--<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-sentinel-spring-cloud-starter</artifactId>

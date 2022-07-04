@@ -21,41 +21,41 @@ spring:
     username: sa
     password: demo
     # 单数据源
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    username:
-#    password:
-#    url: jdbc:mysql://127.0.0.1:3306/dev?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    #    driver-class-name: com.mysql.cj.jdbc.Driver
+    #    username:
+    #    password:
+    #    url: jdbc:mysql://127.0.0.1:3306/dev?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
     # 多数据源，使用 @DS 切换
-#    dynamic:
-#      datasource:
-#        ds1:
-#          username:
-#          password:
-#          url: jdbc:mysql://localhost:3306/ds1?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
-#          type: ${spring.datasource.type}
-#          driver-class-name: ${spring.datasource.driver-class-name}
-#        ds2:
-#          username:
-#          password:
-#          url: jdbc:mysql://localhost:3306/ds2?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
-#          driver-class-name: ${spring.datasource.driver-class-name}
-#          type: ${spring.datasource.type}
-#      primary: ds1
-#      strict: true
+  #    dynamic:
+  #      datasource:
+  #        ds1:
+  #          username:
+  #          password:
+  #          url: jdbc:mysql://localhost:3306/ds1?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+  #          type: ${spring.datasource.type}
+  #          driver-class-name: ${spring.datasource.driver-class-name}
+  #        ds2:
+  #          username:
+  #          password:
+  #          url: jdbc:mysql://localhost:3306/ds2?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+  #          driver-class-name: ${spring.datasource.driver-class-name}
+  #          type: ${spring.datasource.type}
+  #      primary: ds1
+  #      strict: true
   # 分库分表组件
-#  shardingsphere:
-#    props:
-#      sql.show: true
-#    datasource:
-#      names: demo
-#      demo:
-#        username: ${spring.datasource.dynamic.datasource.demo.username}
-#        password: ${spring.datasource.dynamic.datasource.demo.password}
-#        driver-class-name: ${spring.datasource.dynamic.datasource.demo.driver-class-name}
-#        jdbc-url: ${spring.datasource.dynamic.datasource.demo.url}
-#        type: ${spring.datasource.dynamic.datasource.demo.type}
-#    sharding:
-#      defaultDataSourceName: demo
+  #  shardingsphere:
+  #    props:
+  #      sql.show: true
+  #    datasource:
+  #      names: demo
+  #      demo:
+  #        username: ${spring.datasource.dynamic.datasource.demo.username}
+  #        password: ${spring.datasource.dynamic.datasource.demo.password}
+  #        driver-class-name: ${spring.datasource.dynamic.datasource.demo.driver-class-name}
+  #        jdbc-url: ${spring.datasource.dynamic.datasource.demo.url}
+  #        type: ${spring.datasource.dynamic.datasource.demo.type}
+  #    sharding:
+  #      defaultDataSourceName: demo
   # 缓存数据库
   redis:
     database: 1
@@ -91,8 +91,8 @@ rocketmq:
   name-server: 10.2.2.45:9876;10.2.2.48:9876
   producer:
     group: ${spring.application.name}
-#      access-key:
-#      secret-key:
+  #      access-key:
+  #      secret-key:
   consumer:
     group: ${spring.application.name}
     topic: demo
