@@ -260,9 +260,9 @@
 		</dependency>-->
 
 		<!-- 服务链路跟踪组件 -->
-		<!--<dependency>
+		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-zipkin-spring-cloud-starter</artifactId>
-		</dependency>-->
+		</dependency>
 	</dependencies>
 </project>

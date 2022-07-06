@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.ylzl.eden.spring.framework.bootstrap.SpringBootApplicationTemplate;
-import org.ylzl.eden.spring.framework.cola.catchlog.autoconfigure.EnableCatchLog;
 import org.ylzl.eden.spring.framework.cola.rest.autoconfigure.EnableRestExceptionResolver;
 
 /**
@@ -19,7 +18,6 @@ import org.ylzl.eden.spring.framework.cola.rest.autoconfigure.EnableRestExceptio
  * @since 2.4.x
  */
 @EnableRestExceptionResolver
-@EnableCatchLog
 @MapperScan(basePackages = "org.ylzl.eden.demo.infrastructure", annotationClass = Mapper.class)
 @EnableDubbo(scanBasePackages = "org.ylzl.eden.demo.adapter")
 @EnableDiscoveryClient

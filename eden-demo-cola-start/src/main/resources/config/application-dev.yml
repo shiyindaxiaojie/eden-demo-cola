@@ -16,15 +16,15 @@ spring:
   # 关系数据库
   datasource:
     # 内存数据源
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:db;DB_CLOSE_ON_EXIT=TRUE
-    username: sa
-    password: demo
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:db;DB_CLOSE_ON_EXIT=TRUE
+#    username: sa
+#    password: demo
     # 单数据源
-    #    driver-class-name: com.mysql.cj.jdbc.Driver
-    #    username:
-    #    password:
-    #    url: jdbc:mysql://127.0.0.1:3306/dev?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: admin123
+    url: jdbc:mysql://10.2.2.47:5306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&statementInterceptors=brave.mysql.TracingStatementInterceptor&zipkinServiceName=eden-demo-cola
     # 多数据源，使用 @DS 切换
   #    dynamic:
   #      datasource:
@@ -58,11 +58,14 @@ spring:
   #      defaultDataSourceName: demo
   # 缓存数据库
   redis:
-    database: 1
-    host: localhost
-    port: 6379
-    password:
+#    database: 1
+#    host: localhost
+#    port: 6379
+    password: puyiwm
     timeout: 5000
+    cluster:
+      nodes: 10.2.2.45:6379,10.2.2.48:6379,10.2.2.47:6379,10.2.2.47:6380,10.2.2.47:6381,10.2.2.47:6382
+
   # 模板引擎
   thymeleaf:
     cache: false
@@ -86,6 +89,19 @@ spring:
 #      concurrency: 5 # 消费监听线程数，当配置值大于 Kafka 分区数，按分区数执行
 #      poll-timeout: 5000 # 单次拉取消息的超时（毫秒）
 #      ack-mode: MANUAL_IMMEDIATE # 手动提交模式
+  zipkin:
+    base-url: http://10.2.2.47:9411/
+    discovery-client-enabled: false
+    send:
+      type: web
+    locator:
+      discovery:
+        enabled: true
+  sleuth:
+    sampler:
+      probability: 1.0
+    async:
+      enabled: false
 
 rocketmq:
   name-server: 10.2.2.45:9876;10.2.2.48:9876

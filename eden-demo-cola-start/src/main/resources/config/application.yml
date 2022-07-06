@@ -11,7 +11,7 @@ mybatis-plus:
     auto-mapping-behavior: full
 
 server:
-  port: 8080
+  port: 8081
   compression:
     enabled: true
     mime-types: text/html,text/plain,text/css,application/javascript
@@ -38,6 +38,7 @@ spring:
       maximumPoolSize: 10
       idleTimeout: 300000
       maxLifetime: 1200000
+      connection-init-sql: SET NAMES utf8mb4
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     default-property-inclusion: non_null
