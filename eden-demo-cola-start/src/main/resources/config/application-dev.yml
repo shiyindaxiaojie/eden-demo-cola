@@ -24,6 +24,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: admin123
+#    url: jdbc:mysql://10.2.2.47:5306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia%2FShanghai&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
     url: jdbc:mysql://10.2.2.47:5306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&queryInterceptors=brave.mysql8.TracingQueryInterceptor&exceptionInterceptors=brave.mysql8.TracingExceptionInterceptor&zipkinServiceName=${spring.application.name}
     # 多数据源，使用 @DS 切换
   #    dynamic:
@@ -91,7 +92,7 @@ spring:
 #      ack-mode: MANUAL_IMMEDIATE # 手动提交模式
   zipkin:
     base-url: http://10.2.2.47:9411
-    discovery-client-enabled: false
+    discovery-client-enabled: true
     locator:
       discovery:
         enabled: true
@@ -99,7 +100,8 @@ spring:
     sampler:
       probability: 1.0
     async:
-      enabled: false
+      configurer:
+        enabled: false
 
 rocketmq:
   name-server: 10.2.2.45:9876;10.2.2.48:9876
@@ -123,3 +125,16 @@ rocketmq:
 #      port: 9999
 #      log-path: /data/applogs/xxl-job/jobhandler/
 #      log-retention-days: 7
+
+#com:
+#  alipay:
+#    sofa:
+#      tracer:
+#        zipkin:
+#          enabled: true
+#          baseUrl: http://10.2.2.47:9411
+#          gzipped: true
+#        datasource:
+#          enable: true
+#        redis:
+#          enabled: true

@@ -25,9 +25,12 @@ dubbo:
   provider:
     retries: 0    # 重试次数
     timeout: 3000 # 超时时间
+    check: false # 是否开启检查
     filter: tracing
   consumer:
-    check: false # 是否开启消费者的启动检查
+    retries: 0    # 重试次数
+    timeout: 3000 # 超时时间
+    check: false # 是否开启检查
     filter: tracing
 
 management:

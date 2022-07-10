@@ -74,7 +74,7 @@ public class UserController {
 	 * @return
 	 */
 	@GetMapping("/{id}")
-	public SingleResponse<UserDTO> getUserById(@PathVariable Long id) throws JsonProcessingException {
+	public SingleResponse<UserDTO> getUserById(@PathVariable Long id) {
 		return userService.getUserById(UserByIdQry.builder().id(id).build());
 	}
 

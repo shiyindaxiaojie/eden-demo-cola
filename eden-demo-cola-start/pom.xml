@@ -264,5 +264,9 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-zipkin-spring-cloud-starter</artifactId>
 		</dependency>
+		<!--<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-sofa-tracer-spring-cloud-starter</artifactId>
+		</dependency>-->
 	</dependencies>
 </project>
