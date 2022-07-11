@@ -26,12 +26,12 @@ dubbo:
     retries: 0    # 重试次数
     timeout: 3000 # 超时时间
     check: false # 是否开启检查
-    filter: tracing
+    filter: 'tracing'
   consumer:
     retries: 0    # 重试次数
     timeout: 3000 # 超时时间
     check: false # 是否开启检查
-    filter: tracing
+    filter: 'tracing'
 
 management:
   endpoints:

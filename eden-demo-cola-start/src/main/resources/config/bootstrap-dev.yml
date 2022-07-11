@@ -5,19 +5,19 @@ spring:
         username: nacos
         password: puyiwm
         server-addr: 10.2.2.47:8848
-        namespace: demo
+#        namespace: demo
         group: spring-cloud
       discovery:
         username: nacos
         password: puyiwm
         server-addr: 10.2.2.47:8848
-        namespace: demo
+#        namespace: demo
         group: spring-cloud
 
 dubbo:
   registry:
-    address: nacos://10.2.2.47:8848?group=DEFAULT_GROUP&namespace=demo
+    address: nacos://10.2.2.47:8848?group=DEFAULT_GROUP
   config-center:
-    address: nacos://10.2.2.47:8848?group=DEFAULT_GROUP&namespace=demo
+    address: nacos://10.2.2.47:8848?group=DEFAULT_GROUP
   metadata-report:
-    address: nacos://10.2.2.47:8848?group=DEFAULT_GROUP&namespace=demo
+    address: nacos://10.2.2.47:8848?group=DEFAULT_GROUP

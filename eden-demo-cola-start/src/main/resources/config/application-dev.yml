@@ -91,14 +91,14 @@ spring:
 #      poll-timeout: 5000 # 单次拉取消息的超时（毫秒）
 #      ack-mode: MANUAL_IMMEDIATE # 手动提交模式
   zipkin:
-    base-url: http://10.2.2.47:9411
+    base-url: http://localhost:9411
     discovery-client-enabled: true
     locator:
       discovery:
         enabled: true
   sleuth:
-    sampler:
-      probability: 1.0
+#    sampler:
+#      probability: 1.0
     async:
       configurer:
         enabled: false
@@ -132,7 +132,7 @@ rocketmq:
 #      tracer:
 #        zipkin:
 #          enabled: true
-#          baseUrl: http://10.2.2.47:9411
+#          baseUrl: http://localhost:9411
 #          gzipped: true
 #        datasource:
 #          enable: true
