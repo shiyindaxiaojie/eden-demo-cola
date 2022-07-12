@@ -8,10 +8,10 @@ Configuration:
         value: $${spring:logging.file.name:-app}
       - name: file.path
         value: $${spring:logging.file.path:-/var/logs}
-      - name: console.pattern
-        value: "%d | %-5level | %X{traceId} | %X{spanId} | %C{1.}.%M:%L | %t | %msg%n%throwable"
       - name: file.pattern
         value: "%d | %-5level | %C{1.}.%M:%L | %t | %msg%n%throwable"
+      - name: console.pattern
+        value: "%d | %-5level | %X{traceId} | %X{spanId} | %C{1.}.%M:%L | %t | %msg%n%throwable"
 
   Appenders:
     Console:

@@ -253,20 +253,22 @@
 			<artifactId>eden-dubbo-spring-boot-starter</artifactId>
 		</dependency>
 
-		<!-- 服务熔断降级组件 -->
+		<!-- 熔断降级组件 -->
 		<!--<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-sentinel-spring-cloud-starter</artifactId>
 		</dependency>-->
 
-		<!-- 服务链路跟踪组件 -->
+		<!-- 链路跟踪组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-zipkin-spring-cloud-starter</artifactId>
 		</dependency>
-		<!--<dependency>
+
+		<!-- 服务监控组件 -->
+		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-sofa-tracer-spring-cloud-starter</artifactId>
-		</dependency>-->
+			<artifactId>eden-prometheus-spring-boot-starter</artifactId>
+		</dependency>
 	</dependencies>
 </project>

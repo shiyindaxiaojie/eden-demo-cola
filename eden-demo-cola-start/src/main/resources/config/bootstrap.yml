@@ -34,10 +34,22 @@ dubbo:
     filter: 'tracing'
 
 management:
+  server:
+    port: 9081
   endpoints:
     web:
+      base-path: /actuator
       exposure:
-        include: '*'
+        include: health,info,prometheus
+        exclude: shutdown
+  endpoint:
+    health:
+      show-details: ALWAYS
   metrics:
     tags:
       application: ${spring.application.name}
+    distribution:
+      sla:
+        http:
+          server:
+            requests: 1ms,5ms,10ms,50ms,100ms,200ms,500ms,1s,5s
