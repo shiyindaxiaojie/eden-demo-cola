@@ -1,8 +1,9 @@
 package org.ylzl.eden.demo.adapter.user.web;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.rpc.Constants;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.web.bind.annotation.*;
 import org.ylzl.eden.demo.adapter.constant.ApiConstant;
 import org.ylzl.eden.demo.client.user.api.UserService;
@@ -74,7 +75,7 @@ public class UserController {
 	 * @return
 	 */
 	@GetMapping("/{id}")
-	public SingleResponse<UserDTO> getUserById(@PathVariable Long id) throws JsonProcessingException {
+	public SingleResponse<UserDTO> getUserById(@PathVariable Long id) {
 		return userService.getUserById(UserByIdQry.builder().id(id).build());
 	}
 

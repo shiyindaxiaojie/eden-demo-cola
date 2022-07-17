@@ -197,12 +197,6 @@
 		<dependency>
 			<groupId>org.ylzl.eden.demo</groupId>
 			<artifactId>eden-demo-cola-adapter</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>commons-cli</artifactId>
-					<groupId>commons-cli</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<!-- 开发组件 -->
@@ -217,22 +211,6 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spock-spring-boot-starter</artifactId>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<artifactId>HdrHistogram</artifactId>
-					<groupId>org.hdrhistogram</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>jodd-core</artifactId>
-					<groupId>org.jodd</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<!-- 监控组件 -->
-		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-prometheus-spring-boot-starter</artifactId>
 		</dependency>
 
 		<!-- 配置中心组件 -->
@@ -253,16 +231,22 @@
 			<artifactId>eden-dubbo-spring-boot-starter</artifactId>
 		</dependency>
 
-		<!-- 服务熔断降级组件 -->
+		<!-- 熔断降级组件 -->
 		<!--<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-sentinel-spring-cloud-starter</artifactId>
 		</dependency>-->
 
-		<!-- 服务链路跟踪组件 -->
-		<!--<dependency>
+		<!-- 链路跟踪组件 -->
+		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-zipkin-spring-cloud-starter</artifactId>
-		</dependency>-->
+		</dependency>
+
+		<!-- 服务监控组件 -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-prometheus-spring-boot-starter</artifactId>
+		</dependency>
 	</dependencies>
 </project>

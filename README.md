@@ -38,13 +38,12 @@
 * 1.5.x 分支对应的是 `eden-demo-cola 1.5.x`，最低支持 JDK 1.8。
 * 2.4.x 分支对应的是 `eden-demo-cola 2.4.x`，最低支持 JDK 1.8。
 
-COLA 架构使用 Maven 来构建，最快的使用方式是将本项目 clone 到本地，然后执行以下命令：
+为了简化不必要的技术细节，本项目依赖 [eden-architect](https://github.com/shiyindaxiaojie/eden-architect)，本项目涉及的依赖项暂时没有发布到 Maven 中央仓库。请按下列步骤完成构建。
 
-```bash
-./mvnw install
-```
-
-执行完毕后，项目将被安装到本地 Maven 仓库。
+1. 克隆 [eden-architect](https://github.com/shiyindaxiaojie/eden-architect) 
+   到本地，执行 `./mvnw install` 安装到本地 Maven 仓库，确保接下来的构建不会出现依赖错误。
+2. 构建本项目，执行 `./mvnw install` 即可。
+3. 我们提供了一些 CI/CD 平台的构建模板，例如 [CODING](https://coding.net/)，您可以在 `.coding`找到相关示例。
 
 ## 如何使用
 

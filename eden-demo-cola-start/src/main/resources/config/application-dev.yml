@@ -16,15 +16,16 @@ spring:
   # 关系数据库
   datasource:
     # 内存数据源
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:db;DB_CLOSE_ON_EXIT=TRUE
-    username: sa
-    password: demo
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:db;DB_CLOSE_ON_EXIT=TRUE
+#    username: sa
+#    password: demo
     # 单数据源
-    #    driver-class-name: com.mysql.cj.jdbc.Driver
-    #    username:
-    #    password:
-    #    url: jdbc:mysql://127.0.0.1:3306/dev?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: admin123
+#    url: jdbc:mysql://10.2.2.47:5306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia%2FShanghai&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    url: jdbc:mysql://10.2.2.47:5306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&queryInterceptors=brave.mysql8.TracingQueryInterceptor&exceptionInterceptors=brave.mysql8.TracingExceptionInterceptor&zipkinServiceName=${spring.application.name}
     # 多数据源，使用 @DS 切换
   #    dynamic:
   #      datasource:
@@ -58,14 +59,31 @@ spring:
   #      defaultDataSourceName: demo
   # 缓存数据库
   redis:
-    database: 1
-    host: localhost
-    port: 6379
-    password:
+    password: puyiwm
     timeout: 5000
+    # 单机
+#    database: 1
+#    host: localhost
+#    port: 6379
+    # 集群
+    cluster:
+      nodes: 10.2.2.45:6379,10.2.2.48:6379,10.2.2.47:6379,10.2.2.47:6380,10.2.2.47:6381,10.2.2.47:6382
   # 模板引擎
   thymeleaf:
     cache: false
+  zipkin:
+    base-url: http://10.2.2.47:9411
+    discovery-client-enabled: true
+    locator:
+      discovery:
+        enabled: true
+  sleuth:
+    sampler:
+      probability: 1
+    async:
+      configurer:
+        enabled: false # Bugfix：与 Spring 高版本存在冲突
+
   # 消息队列
 #  kafka:
 #    bootstrap-servers: 10.2.2.35:9092
@@ -87,6 +105,7 @@ spring:
 #      poll-timeout: 5000 # 单次拉取消息的超时（毫秒）
 #      ack-mode: MANUAL_IMMEDIATE # 手动提交模式
 
+# 消息队列
 rocketmq:
   name-server: 10.2.2.45:9876;10.2.2.48:9876
   producer:
@@ -107,5 +126,5 @@ rocketmq:
 #    executor:
 #      app-name: demo-job
 #      port: 9999
-#      log-path: /data/applogs/xxl-job/jobhandler/
+#      log-path: /data/logs/xxl-job/
 #      log-retention-days: 7

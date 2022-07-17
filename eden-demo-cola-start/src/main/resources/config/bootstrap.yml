@@ -16,7 +16,7 @@ dubbo:
     name: ${spring.application.name}-dubbo
   protocol:
     name: dubbo
-    port: 28080
+    port: 28081
   registry:
     id: ${spring.application.name}-dubbo
     protocol: nacos
@@ -25,14 +25,31 @@ dubbo:
   provider:
     retries: 0    # 重试次数
     timeout: 3000 # 超时时间
+    check: false # 是否开启检查
+    filter: 'tracing'
   consumer:
-    check: false # 是否开启消费者的启动检查
+    retries: 0    # 重试次数
+    timeout: 3000 # 超时时间
+    check: false # 是否开启检查
+    filter: 'tracing'
 
 management:
+  server:
+    port: 9081
   endpoints:
     web:
+      base-path: /actuator
       exposure:
-        include: '*'
+        include: health,info,prometheus
+        exclude: shutdown
+  endpoint:
+    health:
+      show-details: ALWAYS
   metrics:
     tags:
       application: ${spring.application.name}
+    distribution:
+      sla:
+        http:
+          server:
+            requests: 1ms,5ms,10ms,50ms,100ms,200ms,500ms,1s,5s

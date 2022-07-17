@@ -59,6 +59,7 @@ spring:
       maximumPoolSize: 10
       idleTimeout: 300000
       maxLifetime: 1200000
+      connection-init-sql: SET NAMES utf8mb4
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     default-property-inclusion: non_null
@@ -69,9 +70,6 @@ spring:
     basename: i18n/messages
   main:
     allow-bean-definition-overriding: true
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
   thymeleaf:
     mode: HTML
 
