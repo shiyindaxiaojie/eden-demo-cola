@@ -31,8 +31,7 @@ import javax.validation.Valid;
 @RestController
 public class UserController {
 
-	@DubboReference(scope = Constants.SCOPE_REMOTE)
-	private UserService userService;
+	private final UserService userService;
 
 	/**
 	 * 创建用户

@@ -59,17 +59,31 @@ spring:
   #      defaultDataSourceName: demo
   # 缓存数据库
   redis:
+    password: puyiwm
+    timeout: 5000
+    # 单机
 #    database: 1
 #    host: localhost
 #    port: 6379
-    password: puyiwm
-    timeout: 5000
+    # 集群
     cluster:
       nodes: 10.2.2.45:6379,10.2.2.48:6379,10.2.2.47:6379,10.2.2.47:6380,10.2.2.47:6381,10.2.2.47:6382
-
   # 模板引擎
   thymeleaf:
     cache: false
+  zipkin:
+    base-url: http://10.2.2.47:9411
+    discovery-client-enabled: true
+    locator:
+      discovery:
+        enabled: true
+  sleuth:
+    sampler:
+      probability: 1
+    async:
+      configurer:
+        enabled: false # Bugfix：与 Spring 高版本存在冲突
+
   # 消息队列
 #  kafka:
 #    bootstrap-servers: 10.2.2.35:9092
@@ -90,19 +104,8 @@ spring:
 #      concurrency: 5 # 消费监听线程数，当配置值大于 Kafka 分区数，按分区数执行
 #      poll-timeout: 5000 # 单次拉取消息的超时（毫秒）
 #      ack-mode: MANUAL_IMMEDIATE # 手动提交模式
-  zipkin:
-    base-url: http://10.2.2.47:9411
-    discovery-client-enabled: true
-    locator:
-      discovery:
-        enabled: true
-  sleuth:
-    sampler:
-      probability: 1
-    async:
-      configurer:
-        enabled: false # Bugfix：与 Spring 高版本存在冲突
 
+# 消息队列
 rocketmq:
   name-server: 10.2.2.45:9876;10.2.2.48:9876
   producer:
@@ -123,18 +126,5 @@ rocketmq:
 #    executor:
 #      app-name: demo-job
 #      port: 9999
-#      log-path: /data/applogs/xxl-job/jobhandler/
+#      log-path: /data/logs/xxl-job/
 #      log-retention-days: 7
-
-#com:
-#  alipay:
-#    sofa:
-#      tracer:
-#        zipkin:
-#          enabled: true
-#          baseUrl: http://10.2.2.47:9411
-#          gzipped: true
-#        datasource:
-#          enable: true
-#        redis:
-#          enabled: true

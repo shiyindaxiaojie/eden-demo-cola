@@ -56,12 +56,6 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spock-spring-boot-starter</artifactId>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<artifactId>HdrHistogram</artifactId>
-					<groupId>org.hdrhistogram</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<!-- 持久化组件 -->
@@ -117,12 +111,6 @@
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-rocketmq-spring-boot-starter</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>commons-cli</artifactId>
-					<groupId>commons-cli</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 	</dependencies>
 </project>
