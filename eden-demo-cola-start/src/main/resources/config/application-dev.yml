@@ -82,7 +82,7 @@ spring:
       probability: 1
     async:
       configurer:
-        enabled: false # Bugfix：与 Spring 高版本存在冲突
+        enabled: false # Bugfix: 兼容 Spring 高版本
 
   # 消息队列
 #  kafka:
