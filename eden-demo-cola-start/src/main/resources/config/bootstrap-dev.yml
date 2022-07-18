@@ -17,6 +17,7 @@ spring:
       enabled: true
       transport:
         dashboard: localhost:8090
+      http-method-specify: true
 dubbo:
   registry:
     address: nacos://10.2.2.47:8848?group=DEFAULT_GROUP&namespace=demo
