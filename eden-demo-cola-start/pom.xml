@@ -232,10 +232,10 @@
 		</dependency>
 
 		<!-- 熔断降级组件 -->
-		<!--<dependency>
+		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-sentinel-spring-cloud-starter</artifactId>
-		</dependency>-->
+		</dependency>
 
 		<!-- 链路跟踪组件 -->
 		<dependency>
