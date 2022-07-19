@@ -17,7 +17,15 @@ spring:
       enabled: true
       transport:
         dashboard: localhost:8090
-      http-method-specify: true
+      datasource:
+        flow:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            groupId: sentinel
+            dataId: ${spring.application.name}-flow-rule
+            rule-type: flow
+            data-type: json
 dubbo:
   registry:
     address: nacos://10.2.2.47:8848?group=DEFAULT_GROUP&namespace=demo

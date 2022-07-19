@@ -112,5 +112,5 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-rocketmq-spring-boot-starter</artifactId>
 		</dependency>
-	</dependencies>
+    </dependencies>
 </project>

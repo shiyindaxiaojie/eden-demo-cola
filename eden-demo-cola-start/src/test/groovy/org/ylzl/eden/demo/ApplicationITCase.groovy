@@ -7,6 +7,7 @@ import org.ylzl.eden.demo.client.user.dto.UserDTO
 import org.ylzl.eden.spring.framework.cola.dto.SingleResponse
 import spock.lang.Specification
 import spock.lang.Unroll
+
 /**
  * 应用启动集成测试
  */
