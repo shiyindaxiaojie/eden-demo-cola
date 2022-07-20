@@ -2,8 +2,6 @@ package org.ylzl.eden.demo.adapter.user.web;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.rpc.Constants;
-import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.web.bind.annotation.*;
 import org.ylzl.eden.demo.adapter.constant.ApiConstant;
 import org.ylzl.eden.demo.client.user.api.UserService;
