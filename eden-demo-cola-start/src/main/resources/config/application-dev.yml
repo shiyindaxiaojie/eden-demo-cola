@@ -71,39 +71,21 @@ spring:
   # 模板引擎
   thymeleaf:
     cache: false
+  # 链路跟踪
   zipkin:
     base-url: http://10.2.2.47:9411
-    discovery-client-enabled: true
-    locator:
-      discovery:
-        enabled: true
-  sleuth:
-    sampler:
-      probability: 1
-    async:
-      configurer:
-        enabled: false # Bugfix: 兼容 Spring 高版本
-
-  # 消息队列
-#  kafka:
-#    bootstrap-servers: 10.2.2.35:9092
-#    producer:
-#      batch-size: 4096
-#      buffer-memory: 40960
-#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-#    consumer:
-#      session-timeout: 10000 # 会话超时（毫秒）
-#      heartbeart-interval: 5000 # 心跳频率（毫秒），配置值不能超过会话超时
-#      max-poll-records: 100 # 单次拉取最大记录数
-#      fetch-max-wait: 5000 # 拉取消息最大等待时长
-#      group-id: ${spring.application.name} # 消费组，消费者多实例的情况下，配置同一个消费组，实例数不能超过 Kafka 的分区数
-#      enable-auto-commit: false # 建议关闭自动提交 Offset，不然报错很难处理
-#      auto-offset-reset: earliest # 如果 Offset 找不到时重置的规则
-#    listener:
-#      concurrency: 5 # 消费监听线程数，当配置值大于 Kafka 分区数，按分区数执行
-#      poll-timeout: 5000 # 单次拉取消息的超时（毫秒）
-#      ack-mode: MANUAL_IMMEDIATE # 手动提交模式
+    sender:
+      type: kafka
+    kafka:
+      topic: zipkin
+  # 链路采集
+  kafka:
+    bootstrap-servers: 10.2.2.35:9092
+    producer:
+      batch-size: 4096
+      buffer-memory: 40960
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 # 消息队列
 rocketmq:
