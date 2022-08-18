@@ -12,7 +12,7 @@ import org.ylzl.eden.demo.infrastructure.user.database.mapper.UserMapper;
  * 用户领域防腐层实现
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @RequiredArgsConstructor
 @Slf4j
