@@ -16,16 +16,15 @@ spring:
   # 关系数据库
   datasource:
     # 内存数据源
-#    driver-class-name: org.h2.Driver
-#    url: jdbc:h2:mem:db;DB_CLOSE_ON_EXIT=TRUE
-#    username: sa
-#    password: demo
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:db;DB_CLOSE_ON_EXIT=TRUE
+    username: sa
+    password: demo
     # 单数据源
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: admin123
-#    url: jdbc:mysql://10.2.2.47:5306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia%2FShanghai&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
-    url: jdbc:mysql://10.2.2.47:5306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&queryInterceptors=brave.mysql8.TracingQueryInterceptor&exceptionInterceptors=brave.mysql8.TracingExceptionInterceptor&zipkinServiceName=${spring.application.name}
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: admin123
+#    url: jdbc:mysql://10.2.2.47:5306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&queryInterceptors=brave.mysql8.TracingQueryInterceptor&exceptionInterceptors=brave.mysql8.TracingExceptionInterceptor&zipkinServiceName=${spring.application.name}
     # 多数据源，使用 @DS 切换
   #    dynamic:
   #      datasource:
@@ -106,7 +105,7 @@ rocketmq:
 #    admin:
 #      addresses: http://localhost:8090/xxljob
 #    executor:
-#      app-name: demo-job
+#      app-name: ${spring.application.name}
 #      port: 9999
 #      log-path: /data/logs/xxl-job/
 #      log-retention-days: 7
