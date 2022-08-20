@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @EnableConfigurationProperties({ApplicationProperties.class})
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class ApplicationAutoConfiguration {
 
 }
