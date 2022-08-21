@@ -228,7 +228,7 @@
 		<!-- 服务调用组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-dubbo-spring-boot-starter</artifactId>
+			<artifactId>eden-dubbo-spring-cloud-starter</artifactId>
 		</dependency>
 
 		<!-- 熔断降级组件 -->
