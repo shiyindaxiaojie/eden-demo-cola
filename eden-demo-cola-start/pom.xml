@@ -248,5 +248,11 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-prometheus-spring-boot-starter</artifactId>
 		</dependency>
+
+		<!-- 实时监控组件 -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-cat-spring-boot-starter</artifactId>
+		</dependency>
 	</dependencies>
 </project>

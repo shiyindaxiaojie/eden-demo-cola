@@ -109,3 +109,11 @@ rocketmq:
 #      port: 9999
 #      log-path: /data/logs/xxl-job/
 #      log-retention-days: 7
+
+# 实时监控
+cat:
+  enabled: true
+  home: D:\\.cat
+  servers: 127.0.0.1
+  tcp-port: 2280
+  http-port: 8080
