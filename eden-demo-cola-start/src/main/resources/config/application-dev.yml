@@ -113,7 +113,7 @@ rocketmq:
 # 实时监控
 cat:
   enabled: true
-  home: D:\\.cat
+  home: C:\\Users\\sion1\\.cat
   servers: 127.0.0.1
   tcp-port: 2280
   http-port: 8080

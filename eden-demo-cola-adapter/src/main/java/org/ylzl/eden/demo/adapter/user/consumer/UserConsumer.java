@@ -2,10 +2,10 @@ package org.ylzl.eden.demo.adapter.user.consumer;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.ylzl.eden.spring.integration.messagequeue.core.Message;
-import org.ylzl.eden.spring.integration.messagequeue.core.MessageQueueConsumer;
-import org.ylzl.eden.spring.integration.messagequeue.core.MessageQueueListener;
-import org.ylzl.eden.spring.integration.messagequeue.core.consumer.Acknowledgement;
+import org.ylzl.eden.message.queue.core.Message;
+import org.ylzl.eden.message.queue.core.MessageQueueConsumer;
+import org.ylzl.eden.message.queue.core.MessageQueueListener;
+import org.ylzl.eden.message.queue.core.consumer.Acknowledgement;
 
 import java.util.List;
 
