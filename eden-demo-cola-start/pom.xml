@@ -255,7 +255,7 @@
 			<artifactId>eden-cat-spring-boot-starter</artifactId>
 		</dependency>
 
-		<!-- 线上排查组件 -->
+		<!-- 线上诊断组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-arthas-spring-boot-starter</artifactId>
