@@ -2,8 +2,6 @@ package org.ylzl.eden.demo.adapter.user.web;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.rpc.Constants;
-import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.web.bind.annotation.*;
 import org.ylzl.eden.demo.adapter.constant.ApiConstant;
 import org.ylzl.eden.demo.client.user.api.UserService;
@@ -23,7 +21,7 @@ import javax.validation.Valid;
  * 用户领域控制器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @RequiredArgsConstructor
 @Slf4j

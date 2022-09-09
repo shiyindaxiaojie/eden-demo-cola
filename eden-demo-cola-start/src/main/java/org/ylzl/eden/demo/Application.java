@@ -15,7 +15,7 @@ import org.ylzl.eden.spring.framework.cola.rest.autoconfigure.EnableRestExceptio
  * Spring Boot 引导类
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @EnableRestExceptionResolver
 @MapperScan(basePackages = "org.ylzl.eden.demo.infrastructure", annotationClass = Mapper.class)

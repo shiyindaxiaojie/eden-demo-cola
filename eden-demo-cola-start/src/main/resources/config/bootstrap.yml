@@ -4,7 +4,12 @@ spring:
   cloud:
     nacos:
       config:
+        name: ${spring.application.name}
         file-extension: yaml
+    sentinel:
+      enabled: false
+      http-method-specify: true # 兼容 RESTful
+      eager: true # 立刻刷新到 Dashboard
   main:
     allow-bean-definition-overriding: true
   profiles:
@@ -26,12 +31,10 @@ dubbo:
     retries: 0    # 重试次数
     timeout: 3000 # 超时时间
     check: false # 是否开启检查
-    filter: 'tracing'
   consumer:
     retries: 0    # 重试次数
     timeout: 3000 # 超时时间
     check: false # 是否开启检查
-    filter: 'tracing'
 
 management:
   server:
@@ -40,16 +43,10 @@ management:
     web:
       base-path: /actuator
       exposure:
-        include: health,info,prometheus
-        exclude: shutdown
+        include: health,info,prometheus,metrics
   endpoint:
     health:
       show-details: ALWAYS
   metrics:
     tags:
       application: ${spring.application.name}
-    distribution:
-      sla:
-        http:
-          server:
-            requests: 1ms,5ms,10ms,50ms,100ms,200ms,500ms,1s,5s

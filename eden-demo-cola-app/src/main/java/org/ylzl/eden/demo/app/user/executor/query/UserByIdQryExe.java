@@ -15,7 +15,7 @@ import org.ylzl.eden.spring.framework.error.ClientErrorType;
  * 根据主键获取用户信息指令执行器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 @RequiredArgsConstructor
 @Slf4j

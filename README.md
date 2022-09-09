@@ -63,7 +63,7 @@
 
 ### 运行您的应用
 
-- 在 `项目` 目录下运行 `mvn install`（如果不想运行测试，可以加上 `-DskipTests` 参数）。
+- 在项目目录下运行 `mvn install`（如果不想运行测试，可以加上 `-DskipTests` 参数）。
 - 进入 `eden-demo-cola-start` 目录，执行 `mvn spring-boot:run` 或者启动 `Application`
   类。运行成功的话，可以看到 `Spring Boot` 启动成功的界面。
 - 生成的应用中，已经实现了一个简单的 `Rest` 请求，可以在浏览器中输入 http://localhost:8080/api/users/1 进行测试。

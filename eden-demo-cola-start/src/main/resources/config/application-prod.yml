@@ -50,12 +50,8 @@ spring:
     port: 6379
     password:
     timeout: 5000
-  # 模板引擎
-  thymeleaf:
-    cache: false
   # 消息队列
 #  kafka:
-#    enable: false
 #    producer:
 #      bootstrap-servers: localhost:9092
 #      batch-size: 4096
@@ -64,16 +60,13 @@ spring:
 #      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 # 分布式调度平台
-#xxl:
-#  job:
-#    enable: false
-#    access-token:
-#    admin:
-#      addresses: http://localhost:8090/xxljob
-#    executor:
-#      app-name: demo-job
-#      port: 9999
-#      log-path: /data/applogs/xxl-job/jobhandler/
-#      log-retention-days: 7
-
+#xxl-job:
+#  access-token:
+#  admin:
+#    addresses: http://127.0.0.1:8080/xxl-job-admin/
+#  executor:
+#    app-name: ${spring.application.name}
+#    port: 8080
+#    log-path: /data/applogs/xxl-job/jobhandler/
+#    log-retention-days: 7
 

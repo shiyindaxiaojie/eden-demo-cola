@@ -228,14 +228,14 @@
 		<!-- 服务调用组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-dubbo-spring-boot-starter</artifactId>
+			<artifactId>eden-dubbo-spring-cloud-starter</artifactId>
 		</dependency>
 
 		<!-- 熔断降级组件 -->
-		<!--<dependency>
+		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-sentinel-spring-cloud-starter</artifactId>
-		</dependency>-->
+		</dependency>
 
 		<!-- 链路跟踪组件 -->
 		<dependency>
@@ -247,6 +247,18 @@
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-prometheus-spring-boot-starter</artifactId>
+		</dependency>
+
+		<!-- 实时监控组件 -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-cat-spring-boot-starter</artifactId>
+		</dependency>
+
+		<!-- 线上诊断组件 -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-arthas-spring-boot-starter</artifactId>
 		</dependency>
 	</dependencies>
 </project>

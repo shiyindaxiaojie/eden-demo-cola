@@ -6,7 +6,7 @@ import org.ylzl.eden.demo.domain.user.entity.User;
  * 用户领域防腐层
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.x
+ * @since 2.4.13
  */
 public interface UserGateway {
 
