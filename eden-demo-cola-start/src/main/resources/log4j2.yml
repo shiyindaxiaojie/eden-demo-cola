@@ -51,6 +51,8 @@ Configuration:
         level: WARN
       - name: org.springframework
         level: ERROR
+      - name: org.apache.nacos
+        level: WARN
       - name: org.apache.dubbo
         level: WARN
       - name: org.apache.kafka

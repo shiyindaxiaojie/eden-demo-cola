@@ -4,9 +4,10 @@ spring:
   cloud:
     nacos:
       config:
+        name: ${spring.application.name}
         file-extension: yaml
     sentinel:
-      enabled: true
+      enabled: false
       http-method-specify: true # 兼容 RESTful
       eager: true # 立刻刷新到 Dashboard
   main:
@@ -49,8 +50,3 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
-    distribution:
-      sla:
-        http:
-          server:
-            requests: 1ms,5ms,10ms,50ms,100ms,200ms,500ms,1s,5s

@@ -50,9 +50,6 @@ spring:
     port: 6379
     password:
     timeout: 5000
-  # 模板引擎
-  thymeleaf:
-    cache: false
   # 消息队列
 #  kafka:
 #    enable: false

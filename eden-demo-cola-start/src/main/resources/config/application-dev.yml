@@ -73,42 +73,31 @@ spring:
   # 链路跟踪
   zipkin:
     base-url: http://10.2.2.47:9411
-    sender:
-      type: kafka
-    kafka:
-      topic: zipkin
   # 链路采集
   kafka:
     bootstrap-servers: 10.2.2.35:9092
-    producer:
-      batch-size: 4096
-      buffer-memory: 40960
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 # 消息队列
 rocketmq:
   name-server: 10.2.2.45:9876;10.2.2.48:9876
   producer:
     group: ${spring.application.name}
-  #      access-key:
-  #      secret-key:
+#    access-key:
+#    secret-key:
   consumer:
     group: ${spring.application.name}
     topic: demo
 
 # 分布式调度平台
-#xxl:
-#  job:
-#    enable: false
-#    access-token:
-#    admin:
-#      addresses: http://localhost:8090/xxljob
-#    executor:
-#      app-name: ${spring.application.name}
-#      port: 9999
-#      log-path: /data/logs/xxl-job/
-#      log-retention-days: 7
+#xxl-job:
+#  access-token:
+#  admin:
+#    addresses: http://127.0.0.1:8080/xxl-job-admin/
+#  executor:
+#    app-name: ${spring.application.name}
+#    port: 8080
+#    log-path: /data/applogs/xxl-job/jobhandler/
+#    log-retention-days: 7
 
 # 实时监控
 cat:
