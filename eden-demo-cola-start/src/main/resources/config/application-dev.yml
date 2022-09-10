@@ -2,7 +2,6 @@ logging:
   level:
     ROOT: INFO
     org.ylzl.eden: DEBUG
-    org.ylzl.eden.demo.infrastructure: DEBUG
 
 spring:
   # 内存数据库
