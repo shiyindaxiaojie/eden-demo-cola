@@ -3,13 +3,6 @@ logging:
     name: ${spring.application.name}
   config: classpath:log4j2.yml
 
-mybatis-plus:
-  global-config:
-    banner: false
-  configuration:
-    map-underscore-to-camel-case: true
-    auto-mapping-behavior: full
-
 server:
   port: 8081
   compression:
@@ -59,6 +52,14 @@ spring:
     basename: i18n/messages
   main:
     allow-bean-definition-overriding: true
+  # 缓存数据库
+  redis:
+    lettuce:
+      pool:
+        min-idle: 1
+        max-idle: 64
+        max-active: 64
+        max-wait: -1
   thymeleaf:
     mode: HTML
     cache: true
@@ -84,6 +85,13 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
+mybatis-plus:
+  global-config:
+    banner: false
+  configuration:
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+
 arthas:
   agent-id: ${spring.application.name}
   tunnel-server: ws://127.0.0.1:7777/ws
@@ -91,8 +99,36 @@ arthas:
   telnet-port: 3658
   http-port: 8563
 
+dubbo:
+  application:
+    id: ${spring.application.name}-dubbo
+    name: ${spring.application.name}-dubbo
+  protocol:
+    name: dubbo
+    port: 28081
+  registry:
+    id: ${spring.application.name}-dubbo
+    address: nacos://${spring.cloud.nacos.discovery.server-addr}?namespace=${spring.cloud.nacos.discovery.namespace}&group=DEFAULT_GROUP
+    protocol: nacos
+    check: false # 是否开启服务注册的启动检查
+    register: true # 是否开启服务注册，设置为 false 表示只订阅不注册
+  config-center:
+    address: nacos://${spring.cloud.nacos.discovery.server-addr}?namespace=${spring.cloud.nacos.discovery.namespace}&group=DEFAULT_GROUP
+  metadata-report:
+    address: nacos://${spring.cloud.nacos.discovery.server-addr}?namespace=${spring.cloud.nacos.discovery.namespace}&group=DEFAULT_GROUP
+  provider:
+    retries: 0    # 重试次数
+    timeout: 3000 # 超时时间
+    check: false # 是否开启检查
+  consumer:
+    retries: 0    # 重试次数
+    timeout: 3000 # 超时时间
+    check: false # 是否开启检查
+
+# 分布式调度平台
 xxl-job:
   enabled: false
 
+# 实时监控
 cat:
   enabled: false

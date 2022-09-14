@@ -1,6 +1,4 @@
 spring:
-  arthas:
-    enabled: true
   cloud:
     nacos:
       config:
@@ -15,4 +13,3 @@ spring:
         server-addr: 10.2.2.47:8848
         namespace: demo
         group: spring-cloud
-
