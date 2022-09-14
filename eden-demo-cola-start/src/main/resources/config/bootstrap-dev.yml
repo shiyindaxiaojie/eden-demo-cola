@@ -1,4 +1,6 @@
 spring:
+  arthas:
+    enabled: true
   cloud:
     nacos:
       config:
@@ -13,23 +15,4 @@ spring:
         server-addr: 10.2.2.47:8848
         namespace: demo
         group: spring-cloud
-    sentinel:
-      enabled: true
-      transport:
-        dashboard: localhost:8090
-      datasource:
-        flow:
-          nacos:
-            server-addr: ${spring.cloud.nacos.config.server-addr}
-            namespace: ${spring.cloud.nacos.config.namespace}
-            groupId: sentinel
-            dataId: ${spring.application.name}-flow-rule
-            rule-type: flow
-            data-type: json
-dubbo:
-  registry:
-    address: nacos://10.2.2.47:8848?group=DEFAULT_GROUP&namespace=demo
-  config-center:
-    address: nacos://10.2.2.47:8848?group=DEFAULT_GROUP&namespace=demo
-  metadata-report:
-    address: nacos://10.2.2.47:8848?group=DEFAULT_GROUP&namespace=demo
+

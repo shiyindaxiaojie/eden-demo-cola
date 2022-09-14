@@ -55,6 +55,20 @@ spring:
   #        type: ${spring.datasource.dynamic.datasource.demo.type}
   #    sharding:
   #      defaultDataSourceName: demo
+  cloud:
+    sentinel:
+      enabled: true
+      transport:
+        dashboard: localhost:8090
+      datasource:
+        flow:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            groupId: sentinel
+            dataId: ${spring.application.name}-flow-rule
+            rule-type: flow
+            data-type: json
   # 缓存数据库
   redis:
     password: puyiwm
@@ -89,11 +103,12 @@ rocketmq:
 
 # 分布式调度平台
 #xxl-job:
-#  access-token:
 #  admin:
 #    addresses: http://127.0.0.1:8080/xxl-job-admin/
+#    access-token:
 #  executor:
 #    app-name: ${spring.application.name}
+#    ip:
 #    port: 8080
 #    log-path: /data/applogs/xxl-job/jobhandler/
 #    log-retention-days: 7

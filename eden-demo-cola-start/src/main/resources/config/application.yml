@@ -43,7 +43,12 @@ spring:
       maximumPoolSize: 10
       idleTimeout: 300000
       maxLifetime: 1200000
-      connection-init-sql: SET NAMES utf8mb4
+#      connection-init-sql: SET NAMES utf8mb4
+  cloud:
+    sentinel:
+      enabled: false
+      http-method-specify: true # 兼容 RESTful
+      eager: true # 立刻刷新到 Dashboard
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     default-property-inclusion: non_null
@@ -85,6 +90,9 @@ arthas:
   session-timeout: 1800
   telnet-port: 3658
   http-port: 8563
+
+xxl-job:
+  enabled: false
 
 cat:
   enabled: false

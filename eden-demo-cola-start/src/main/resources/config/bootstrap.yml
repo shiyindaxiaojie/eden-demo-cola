@@ -6,12 +6,6 @@ spring:
       config:
         name: ${spring.application.name}
         file-extension: yaml
-    sentinel:
-      enabled: false
-      http-method-specify: true # 兼容 RESTful
-      eager: true # 立刻刷新到 Dashboard
-  main:
-    allow-bean-definition-overriding: true
   profiles:
     active: dev # 默认启用开发环境
 
@@ -24,9 +18,14 @@ dubbo:
     port: 28081
   registry:
     id: ${spring.application.name}-dubbo
+    address: nacos://${spring.cloud.nacos.discovery.server-addr}?namespace=${spring.cloud.nacos.discovery.namespace}&group=DEFAULT_GROUP
     protocol: nacos
     check: false # 是否开启服务注册的启动检查
     register: true # 是否开启服务注册，设置为 false 表示只订阅不注册
+  config-center:
+    address: nacos://${spring.cloud.nacos.discovery.server-addr}?namespace=${spring.cloud.nacos.discovery.namespace}&group=DEFAULT_GROUP
+  metadata-report:
+    address: nacos://${spring.cloud.nacos.discovery.server-addr}?namespace=${spring.cloud.nacos.discovery.namespace}&group=DEFAULT_GROUP
   provider:
     retries: 0    # 重试次数
     timeout: 3000 # 超时时间
@@ -50,3 +49,5 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+
+
