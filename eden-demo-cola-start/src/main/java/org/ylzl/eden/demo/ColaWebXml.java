@@ -10,11 +10,11 @@ import org.ylzl.eden.spring.framework.bootstrap.util.SpringProfileUtils;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-public class ApplicationWebXml extends SpringBootServletInitializer {
+public class ColaWebXml extends SpringBootServletInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		SpringProfileUtils.addDefaultProfile(builder.application());
-		return builder.sources(Application.class);
+		return builder.sources(ColaApplication.class);
 	}
 }

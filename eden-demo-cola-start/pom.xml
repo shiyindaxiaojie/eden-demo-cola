@@ -16,7 +16,7 @@
 	<description>启动入口</description>
 
 	<properties>
-		<start-class>org.ylzl.eden.demo.Application</start-class>
+		<start-class>org.ylzl.eden.demo.ColaApplication</start-class>
 	</properties>
 
 	<build>
@@ -260,5 +260,14 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-arthas-spring-boot-starter</artifactId>
 		</dependency>
+
+		<!--<dependency>
+			<groupId>com.jd.platform.hotkey</groupId>
+			<artifactId>common</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.jd.platform.hotkey</groupId>
+			<artifactId>hotkey-client</artifactId>
+		</dependency>-->
 	</dependencies>
 </project>
