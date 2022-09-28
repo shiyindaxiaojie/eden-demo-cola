@@ -26,26 +26,6 @@ import org.ylzl.eden.spring.framework.cola.rest.autoconfigure.EnableRestExceptio
 @SpringBootApplication
 public class ColaApplication extends SpringBootApplicationTemplate {
 
-	/*@Value("${etcd.server:http://127.0.0.1:2379}")
-	private String etcd;
-
-	@Value("${spring.application.name}")
-	private String appName;
-
-	@Bean
-	public IConfigCenter client() {
-		//连接多个时，逗号分隔
-		return JdEtcdBuilder.build(etcd);
-	}
-
-	@PostConstruct
-	public void init() {
-		ClientStarter.Builder builder = new ClientStarter.Builder();
-		ClientStarter starter =
-			builder.setAppName("demo").setEtcdServer(etcd).build();
-		starter.startPipeline();
-	}*/
-
 	/**
 	 * 启动入口
 	 *
