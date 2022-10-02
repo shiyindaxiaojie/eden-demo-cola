@@ -96,8 +96,8 @@ arthas:
   agent-id: ${spring.application.name}
   tunnel-server: ws://127.0.0.1:7777/ws
   session-timeout: 1800
-  telnet-port: 3658
-  http-port: 8563
+  telnet-port: 0
+  http-port: 0
 
 dubbo:
   application:
@@ -132,3 +132,7 @@ xxl-job:
 # 实时监控
 cat:
   enabled: false
+
+# 消息队列
+message-queue:
+  type: rocketmq
