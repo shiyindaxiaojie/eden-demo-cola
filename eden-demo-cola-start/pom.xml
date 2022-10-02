@@ -16,7 +16,7 @@
 	<description>启动入口</description>
 
 	<properties>
-		<start-class>org.ylzl.eden.demo.Application</start-class>
+		<start-class>org.ylzl.eden.demo.ColaApplication</start-class>
 	</properties>
 
 	<build>
@@ -114,7 +114,7 @@
 								<mainClass>${start-class}</mainClass>
 							</container>
 							<extraDirectories>
-								<paths>src/main/docker/jib</paths>
+								<paths>src/main/docker</paths>
 								<permissions>
 									<permission>
 										<file>/entrypoint.sh</file>
@@ -175,7 +175,7 @@
 								<mainClass>${start-class}</mainClass>
 							</container>
 							<extraDirectories>
-								<paths>src/main/docker/jib</paths>
+								<paths>src/main/docker</paths>
 								<permissions>
 									<permission>
 										<file>/entrypoint.sh</file>

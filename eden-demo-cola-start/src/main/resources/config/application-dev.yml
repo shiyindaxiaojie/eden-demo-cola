@@ -2,7 +2,6 @@ logging:
   level:
     ROOT: INFO
     org.ylzl.eden: DEBUG
-    org.ylzl.eden.demo.infrastructure: DEBUG
 
 spring:
   # 内存数据库
@@ -56,17 +55,31 @@ spring:
   #        type: ${spring.datasource.dynamic.datasource.demo.type}
   #    sharding:
   #      defaultDataSourceName: demo
+  cloud:
+    sentinel:
+      enabled: true
+      transport:
+        dashboard: localhost:8090
+      datasource:
+        flow:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            groupId: sentinel
+            dataId: ${spring.application.name}-flow-rule
+            rule-type: flow
+            data-type: json
   # 缓存数据库
   redis:
     password: puyiwm
     timeout: 5000
     # 单机
-#    database: 1
-#    host: localhost
-#    port: 6379
+    database: 1
+    host: 10.2.2.41
+    port: 6379
     # 集群
-    cluster:
-      nodes: 10.2.2.45:6379,10.2.2.48:6379,10.2.2.47:6379,10.2.2.47:6380,10.2.2.47:6381,10.2.2.47:6382
+#    cluster:
+#      nodes: 10.2.2.45:6379,10.2.2.48:6379,10.2.2.47:6379,10.2.2.47:6380,10.2.2.47:6381,10.2.2.47:6382
   # 模板引擎
   thymeleaf:
     cache: false
@@ -90,11 +103,12 @@ rocketmq:
 
 # 分布式调度平台
 #xxl-job:
-#  access-token:
 #  admin:
 #    addresses: http://127.0.0.1:8080/xxl-job-admin/
+#    access-token:
 #  executor:
 #    app-name: ${spring.application.name}
+#    ip:
 #    port: 8080
 #    log-path: /data/applogs/xxl-job/jobhandler/
 #    log-retention-days: 7

@@ -13,11 +13,3 @@ spring:
         server-addr: localhost:8848
         namespace: demo
         group: spring-cloud
-
-dubbo:
-  registry:
-    address: nacos://localhost:8848?group=DEFAULT_GROUP&namespace=demo
-  config-center:
-    address: nacos://localhost:8848?group=DEFAULT_GROUP&namespace=demo
-  metadata-report:
-    address: nacos://localhost:8848?group=DEFAULT_GROUP&namespace=demo

@@ -6,35 +6,8 @@ spring:
       config:
         name: ${spring.application.name}
         file-extension: yaml
-    sentinel:
-      enabled: false
-      http-method-specify: true # 兼容 RESTful
-      eager: true # 立刻刷新到 Dashboard
-  main:
-    allow-bean-definition-overriding: true
   profiles:
     active: dev # 默认启用开发环境
-
-dubbo:
-  application:
-    id: ${spring.application.name}-dubbo
-    name: ${spring.application.name}-dubbo
-  protocol:
-    name: dubbo
-    port: 28081
-  registry:
-    id: ${spring.application.name}-dubbo
-    protocol: nacos
-    check: false # 是否开启服务注册的启动检查
-    register: true # 是否开启服务注册，设置为 false 表示只订阅不注册
-  provider:
-    retries: 0    # 重试次数
-    timeout: 3000 # 超时时间
-    check: false # 是否开启检查
-  consumer:
-    retries: 0    # 重试次数
-    timeout: 3000 # 超时时间
-    check: false # 是否开启检查
 
 management:
   server:
@@ -50,3 +23,5 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
+
+

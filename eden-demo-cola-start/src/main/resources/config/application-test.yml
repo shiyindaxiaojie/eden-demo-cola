@@ -2,7 +2,6 @@ logging:
   level:
     ROOT: INFO
     org.ylzl.eden.demo: INFO
-    org.ylzl.eden.demo.infrastructure: DEBUG
 
 spring:
   # 关系数据库
@@ -52,25 +51,17 @@ spring:
     timeout: 5000
   # 消息队列
 #  kafka:
-#    enable: false
 #    producer:
 #      bootstrap-servers: localhost:9092
-#      batch-size: 4096
-#      buffer-memory: 40960
-#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-#      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 # 分布式调度平台
-#xxl:
-#  job:
-#    enable: false
+#xxl-job:
+#  admin:
+#    addresses: http://127.0.0.1:8080/xxl-job-admin/
 #    access-token:
-#    admin:
-#      addresses: http://localhost:8090/xxljob
-#    executor:
-#      app-name: demo-job
-#      port: 9999
-#      log-path: /data/applogs/xxl-job/jobhandler/
-#      log-retention-days: 7
-
-
+#  executor:
+#    app-name: ${spring.application.name}
+#    ip:
+#    port: 8080
+#    log-path: /data/applogs/xxl-job/jobhandler/
+#    log-retention-days: 7
