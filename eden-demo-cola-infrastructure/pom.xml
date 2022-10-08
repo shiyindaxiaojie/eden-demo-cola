@@ -15,16 +15,9 @@
 	<name>eden-demo-cola-infrastructure</name>
 	<description>基础设施层</description>
 
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+	<properties>
+		<maven.deploy.skip>true</maven.deploy.skip>
+	</properties>
 
 	<dependencies>
 		<!-- 领域层依赖 -->

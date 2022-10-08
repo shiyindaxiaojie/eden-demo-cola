@@ -93,7 +93,7 @@ mybatis-plus:
     auto-mapping-behavior: full
 
 arthas:
-  agent-id: ${spring.application.name}
+  agent-id: ${spring.application.name}@${random.value}
   tunnel-server: ws://127.0.0.1:7777/ws
   session-timeout: 1800
   telnet-port: 0

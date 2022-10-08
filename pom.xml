@@ -39,6 +39,7 @@
 
 	<properties>
 		<spring.profiles.active>prod</spring.profiles.active>
+		<maven.deploy.skip>false</maven.deploy.skip>
 	</properties>
 
 	<dependencyManagement>
