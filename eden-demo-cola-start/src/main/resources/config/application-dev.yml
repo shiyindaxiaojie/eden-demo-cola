@@ -89,6 +89,9 @@ spring:
   # 链路采集
   kafka:
     bootstrap-servers: 10.2.2.35:9092
+  # 在线诊断
+  arthas:
+    enabled: true
 
 # 消息队列
 rocketmq:
