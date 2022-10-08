@@ -102,16 +102,18 @@ rocketmq:
     topic: demo
 
 # 分布式调度平台
-#xxl-job:
-#  admin:
-#    addresses: http://127.0.0.1:8080/xxl-job-admin/
+#xxl:
+#  job:
+#    enable: false
 #    access-token:
-#  executor:
-#    app-name: ${spring.application.name}
-#    ip:
-#    port: 8080
-#    log-path: /data/applogs/xxl-job/jobhandler/
-#    log-retention-days: 7
+#    admin:
+#      addresses: http://localhost:8090/xxljob
+#    executor:
+#      app-name: ${spring.application.name}
+#      ip:
+#      port: 8080
+#      log-path: /data/applogs/xxl-job/jobhandler/
+#      log-retention-days: 7
 
 # 实时监控
 cat:

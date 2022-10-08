@@ -126,8 +126,9 @@ dubbo:
     check: false # 是否开启检查
 
 # 分布式调度平台
-xxl-job:
-  enabled: false
+xxl:
+  job:
+    enabled: false
 
 # 实时监控
 cat:
