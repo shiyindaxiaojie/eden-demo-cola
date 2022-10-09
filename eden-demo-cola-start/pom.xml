@@ -32,7 +32,7 @@
 				<artifactId>jib-maven-plugin</artifactId>
 				<configuration>
 					<from>
-						<image>openjdk:11-jre-slim</image>
+						<image>openjdk:11-jdk</image>
 					</from>
 					<to>
 						<image>${docker.image}</image>
@@ -131,10 +131,10 @@
 		</dependency>
 
 		<!-- 链路跟踪组件 -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-zipkin-spring-cloud-starter</artifactId>
-		</dependency>
+		</dependency>-->
 
 		<!-- 服务监控组件 -->
 		<dependency>

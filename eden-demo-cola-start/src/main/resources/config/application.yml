@@ -70,6 +70,7 @@ spring:
       configurer:
         enabled: false # Bugfix：与 Spring 高版本存在冲突
   zipkin:
+    enabled: false
     discovery-client-enabled: true
     locator:
       discovery:

@@ -57,7 +57,7 @@ spring:
   #      defaultDataSourceName: demo
   cloud:
     sentinel:
-      enabled: true
+      enabled: false
       transport:
         dashboard: localhost:8090
       datasource:
@@ -91,7 +91,7 @@ spring:
     bootstrap-servers: 10.2.2.35:9092
   # 在线诊断
   arthas:
-    enabled: true
+    enabled: false
 
 # 消息队列
 rocketmq:
@@ -121,7 +121,7 @@ rocketmq:
 # 实时监控
 cat:
   enabled: true
-  home: C:\\Users\\sion1\\.cat
+  home: /tmp
   servers: 127.0.0.1
   tcp-port: 2280
   http-port: 8080
