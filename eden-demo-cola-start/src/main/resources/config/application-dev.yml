@@ -73,7 +73,8 @@ spring:
             data-type: json
   # 缓存数据库
   redis:
-    password: puyiwm
+    enabled: false
+    password:
     timeout: 5000
     database: 1
     host: localhost
