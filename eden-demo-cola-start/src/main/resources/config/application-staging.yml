@@ -1,7 +1,6 @@
 logging:
   level:
     ROOT: WARN
-    org.ylzl.eden.demo: INFO
 
 spring:
   # 关系数据库

@@ -1,9 +1,11 @@
 logging:
   level:
     ROOT: INFO
-    org.ylzl.eden: DEBUG
 
 spring:
+  # 在线诊断
+  arthas:
+    enabled: false
   # 内存数据库
   h2:
     console:
@@ -21,9 +23,9 @@ spring:
     password: demo
     # 单数据源
 #    driver-class-name: com.mysql.cj.jdbc.Driver
-#    username: root
-#    password: admin123
-#    url: jdbc:mysql://10.2.2.47:5306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&queryInterceptors=brave.mysql8.TracingQueryInterceptor&exceptionInterceptors=brave.mysql8.TracingExceptionInterceptor&zipkinServiceName=${spring.application.name}
+#    username:
+#    password:
+#    url: jdbc:mysql://localhost:3306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&queryInterceptors=brave.mysql8.TracingQueryInterceptor&exceptionInterceptors=brave.mysql8.TracingExceptionInterceptor&zipkinServiceName=${spring.application.name}
     # 多数据源，使用 @DS 切换
   #    dynamic:
   #      datasource:
@@ -73,29 +75,23 @@ spring:
   redis:
     password: puyiwm
     timeout: 5000
-    # 单机
     database: 1
-    host: 10.2.2.41
+    host: localhost
     port: 6379
-    # 集群
-#    cluster:
-#      nodes: 10.2.2.45:6379,10.2.2.48:6379,10.2.2.47:6379,10.2.2.47:6380,10.2.2.47:6381,10.2.2.47:6382
   # 模板引擎
   thymeleaf:
     cache: false
   # 链路跟踪
   zipkin:
-    base-url: http://10.2.2.47:9411
+    base-url: http://localhost:9411
   # 链路采集
   kafka:
-    bootstrap-servers: 10.2.2.35:9092
-  # 在线诊断
-  arthas:
-    enabled: false
+    bootstrap-servers: localhost:9092
 
 # 消息队列
 rocketmq:
-  name-server: 10.2.2.45:9876;10.2.2.48:9876
+  enabled: false
+  name-server: localhost:9876;localhost:9877
   producer:
     group: ${spring.application.name}
 #    access-key:
@@ -103,6 +99,12 @@ rocketmq:
   consumer:
     group: ${spring.application.name}
     topic: demo
+
+# 分布式调用组件
+dubbo:
+  enabled: false
+  registry:
+    register: false
 
 # 分布式调度平台
 #xxl:
@@ -120,8 +122,8 @@ rocketmq:
 
 # 实时监控
 cat:
-  enabled: true
+  enabled: false
   home: /tmp
-  servers: 127.0.0.1
+  servers: localhost
   tcp-port: 2280
   http-port: 8080
