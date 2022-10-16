@@ -3,13 +3,13 @@ spring:
     nacos:
       config:
         username: nacos
-        password: puyiwm
-        server-addr: 10.2.2.47:8848
+        password: nacos
+        server-addr: localhost:8848
         namespace: demo
         group: spring-cloud
       discovery:
         username: nacos
-        password: puyiwm
-        server-addr: 10.2.2.47:8848
+        password: nacos
+        server-addr: localhost:8848
         namespace: demo
         group: spring-cloud

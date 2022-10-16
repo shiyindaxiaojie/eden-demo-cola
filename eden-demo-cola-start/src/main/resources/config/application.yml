@@ -2,6 +2,9 @@ logging:
   file:
     name: ${spring.application.name}
   config: classpath:log4j2.yml
+  level:
+    org.ylzl.eden: INFO
+    org.ylzl.eden.demo: DEBUG
 
 server:
   port: 8081
@@ -70,6 +73,7 @@ spring:
       configurer:
         enabled: false # Bugfix：与 Spring 高版本存在冲突
   zipkin:
+    enabled: false
     discovery-client-enabled: true
     locator:
       discovery:
@@ -85,6 +89,7 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
+# ORM 组件
 mybatis-plus:
   global-config:
     banner: false
@@ -92,13 +97,15 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     auto-mapping-behavior: full
 
+# 在线诊断工具
 arthas:
-  agent-id: ${spring.application.name}
-  tunnel-server: ws://127.0.0.1:7777/ws
+  agent-id: ${spring.application.name}@${random.value}
+  tunnel-server: ws://localhost:7777/ws
   session-timeout: 1800
   telnet-port: 0
   http-port: 0
 
+# 分布式调用组件
 dubbo:
   application:
     id: ${spring.application.name}-dubbo
@@ -126,8 +133,9 @@ dubbo:
     check: false # 是否开启检查
 
 # 分布式调度平台
-xxl-job:
-  enabled: false
+xxl:
+  job:
+    enabled: false
 
 # 实时监控
 cat:
