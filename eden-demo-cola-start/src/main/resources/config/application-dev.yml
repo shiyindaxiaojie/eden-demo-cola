@@ -101,12 +101,6 @@ rocketmq:
     group: ${spring.application.name}
     topic: demo
 
-# 分布式调用组件
-dubbo:
-  enabled: false
-  registry:
-    register: false
-
 # 分布式调度平台
 #xxl:
 #  job:
