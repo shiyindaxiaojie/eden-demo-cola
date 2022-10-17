@@ -26,6 +26,31 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<executable>true</executable>
+					<fork>true</fork>
+					<mainClass>${start-class}</mainClass>
+					<layers>
+						<enabled>true</enabled>
+						<includeLayerTools>true</includeLayerTools>
+						<configuration>${project.basedir}/../.docker/layers.xml</configuration>
+					</layers>
+				</configuration>
+				<executions>
+					<execution>
+						<id>spring-boot-build-info</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>build-info</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>spring-boot-repackage</id>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
@@ -77,6 +102,10 @@
 					<allowInsecureRegistries>true
 					</allowInsecureRegistries>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>ru.trylogic.maven.plugins</groupId>

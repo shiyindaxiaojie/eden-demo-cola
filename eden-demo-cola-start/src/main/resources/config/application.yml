@@ -3,8 +3,8 @@ logging:
     name: ${spring.application.name}
   config: classpath:log4j2.yml
   level:
+    ROOT: DEBUG
     org.ylzl.eden: INFO
-    org.ylzl.eden.demo: DEBUG
 
 server:
   port: 8081
