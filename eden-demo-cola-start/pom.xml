@@ -18,6 +18,7 @@
 	<properties>
 		<start-class>org.ylzl.eden.demo.ColaApplication</start-class>
 		<maven.deploy.skip>true</maven.deploy.skip>
+		<build.layers.enabled>true</build.layers.enabled>
 	</properties>
 
 	<build>
@@ -31,9 +32,9 @@
 					<fork>true</fork>
 					<mainClass>${start-class}</mainClass>
 					<layers>
-						<enabled>true</enabled>
+						<enabled>${build.layers.enabled}</enabled>
 						<includeLayerTools>true</includeLayerTools>
-						<configuration>${project.basedir}/../.docker/layers.xml</configuration>
+						<configuration>${project.basedir}/src/main/docker/layers.xml</configuration>
 					</layers>
 				</configuration>
 				<executions>

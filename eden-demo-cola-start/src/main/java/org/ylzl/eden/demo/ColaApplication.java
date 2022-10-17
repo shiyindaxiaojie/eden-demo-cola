@@ -32,6 +32,6 @@ public class ColaApplication extends SpringBootApplicationTemplate {
 	 * @param args 命令行参数
 	 */
 	public static void main(String[] args) {
-		run(ColaApplication.class, args, WebApplicationType.NONE);
+		run(ColaApplication.class, args, WebApplicationType.SERVLET);
 	}
 }

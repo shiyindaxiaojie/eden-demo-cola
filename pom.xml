@@ -37,10 +37,6 @@
 		</developer>
 	</developers>
 
-	<properties>
-		<build.layers.enabled>true</build.layers.enabled>
-	</properties>
-
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

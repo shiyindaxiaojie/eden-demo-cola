@@ -7,7 +7,7 @@ spring:
   arthas:
     enabled: false
   # 内存数据库
-  h2:
+#  h2:
     console:
       enabled: true
       path: /h2-console
@@ -117,7 +117,7 @@ rocketmq:
 
 # 实时监控
 cat:
-  enabled: false
+  enabled: true
   home: /tmp
   servers: localhost
   tcp-port: 2280
