@@ -7,6 +7,7 @@ logging:
 
 server:
   port: 8081
+  shutdown: graceful
   compression:
     enabled: true
     min-response-size: 1024
@@ -54,6 +55,8 @@ spring:
     basename: i18n/messages
   main:
     allow-bean-definition-overriding: true
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
   # 缓存数据库
   redis:
     lettuce:
