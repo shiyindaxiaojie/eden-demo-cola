@@ -1,7 +1,7 @@
 FROM adoptopenjdk/openjdk11:alpine-jre as builder
 MAINTAINER gyl "shiyindaxiaojie@gmail.com"
 WORKDIR application
-ARG JAR_FILE=target/*.jar
+ARG JAR_FILE=eden-demo-cola-start/target/*.jar
 COPY ${JAR_FILE} application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
@@ -25,11 +25,6 @@ ADD src/main/docker/entrypoint.sh bin/entrypoint.sh
 ENV RUN_SLEEP 1
 ENV JAVA_OPTS '-Xmx512m -Xms512m -Xss256k'
 ENV JAVA_AGENT ''
-ENV SERVER_PORT 9999
-ENV TUNNEL_SERVER_PORT 7777
-
-EXPOSE ${SERVER_PORT}
-EXPOSE ${TUNNEL_SERVER_PORT}
 
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo 'Asia/Shanghai' >/etc/timezone \

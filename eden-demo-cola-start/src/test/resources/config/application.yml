@@ -70,6 +70,8 @@ spring:
     basename: i18n/messages
   main:
     allow-bean-definition-overriding: true
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
   thymeleaf:
     mode: HTML
 

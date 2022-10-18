@@ -1,6 +1,11 @@
 ## Unreleased
 ### No issue
 
+**fixed mybatis error**
+
+
+[5268df4d27e4e18](https://github.com/shiyindaxiaojie/eden-demo-cola/commit/5268df4d27e4e18) shiyindaxiaojie *2022-10-17 16:21:50*
+
 **fixed**
 
 
