@@ -59,7 +59,7 @@ spring:
   #      defaultDataSourceName: demo
   cloud:
     sentinel:
-      enabled: false
+      enabled: true
       transport:
         dashboard: localhost:8090
       datasource:
