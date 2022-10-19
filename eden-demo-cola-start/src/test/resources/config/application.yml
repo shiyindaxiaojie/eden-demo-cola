@@ -15,7 +15,7 @@ mybatis-plus:
     auto-mapping-behavior: full
 
 server:
-  port: 8080
+  port: 8081
   compression:
     enabled: true
     mime-types: text/html,text/plain,text/css,application/javascript

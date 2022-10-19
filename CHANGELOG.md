@@ -1,6 +1,16 @@
 ## Unreleased
 ### No issue
 
+**add spring boot shutdown graceful**
+
+
+[7d9f17723ffef16](https://github.com/shiyindaxiaojie/eden-demo-cola/commit/7d9f17723ffef16) guoyuanlu *2022-10-18 13:33:29*
+
+**fixed maven archetype**
+
+
+[71ab38937339c69](https://github.com/shiyindaxiaojie/eden-demo-cola/commit/71ab38937339c69) guoyuanlu *2022-10-18 12:48:05*
+
 **fixed mybatis error**
 
 
