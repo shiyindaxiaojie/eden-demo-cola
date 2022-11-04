@@ -5,7 +5,7 @@ logging:
 spring:
   # 在线诊断
   arthas:
-    enabled: false
+    enabled: true
   # 内存数据库
 #  h2:
     console:
