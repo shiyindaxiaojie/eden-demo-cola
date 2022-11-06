@@ -27,37 +27,39 @@ spring:
 #    password:
 #    url: jdbc:mysql://localhost:3306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&queryInterceptors=brave.mysql8.TracingQueryInterceptor&exceptionInterceptors=brave.mysql8.TracingExceptionInterceptor&zipkinServiceName=${spring.application.name}
     # 多数据源，使用 @DS 切换
-  #    dynamic:
-  #      datasource:
-  #        ds1:
-  #          username:
-  #          password:
-  #          url: jdbc:mysql://localhost:3306/ds1?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
-  #          type: ${spring.datasource.type}
-  #          driver-class-name: ${spring.datasource.driver-class-name}
-  #        ds2:
-  #          username:
-  #          password:
-  #          url: jdbc:mysql://localhost:3306/ds2?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
-  #          driver-class-name: ${spring.datasource.driver-class-name}
-  #          type: ${spring.datasource.type}
-  #      primary: ds1
-  #      strict: true
-  # 分库分表组件
-  #  shardingsphere:
-  #    props:
-  #      sql.show: true
-  #    datasource:
-  #      names: demo
-  #      demo:
-  #        username: ${spring.datasource.dynamic.datasource.demo.username}
-  #        password: ${spring.datasource.dynamic.datasource.demo.password}
-  #        driver-class-name: ${spring.datasource.dynamic.datasource.demo.driver-class-name}
-  #        jdbc-url: ${spring.datasource.dynamic.datasource.demo.url}
-  #        type: ${spring.datasource.dynamic.datasource.demo.type}
-  #    sharding:
-  #      defaultDataSourceName: demo
+#    dynamic:
+#      datasource:
+#        ds1:
+#          username:
+#          password:
+#          url: jdbc:mysql://localhost:3306/ds1?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+#          type: ${spring.datasource.type}
+#          driver-class-name: ${spring.datasource.driver-class-name}
+#        ds2:
+#          username:
+#          password:
+#          url: jdbc:mysql://localhost:3306/ds2?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+#          driver-class-name: ${spring.datasource.driver-class-name}
+#          type: ${spring.datasource.type}
+#      primary: ds1
+#      strict: true
+    # 分库分表组件
+#    shardingsphere:
+#      props:
+#        sql.show: true
+#      datasource:
+#        names: demo
+#        demo:
+#          username: ${spring.datasource.dynamic.datasource.demo.username}
+#          password: ${spring.datasource.dynamic.datasource.demo.password}
+#          driver-class-name: ${spring.datasource.dynamic.datasource.demo.driver-class-name}
+#          jdbc-url: ${spring.datasource.dynamic.datasource.demo.url}
+#          type: ${spring.datasource.dynamic.datasource.demo.type}
+#      sharding:
+#        defaultDataSourceName: demo
+  # 微服务组件
   cloud:
+    # 服务流量治理
     sentinel:
       enabled: false
       transport:
@@ -107,12 +109,12 @@ rocketmq:
 #    enable: false
 #    access-token:
 #    admin:
-#      addresses: http://localhost:8090/xxljob
+#      addresses: http://localhost:8090/xxl-job
 #    executor:
 #      app-name: ${spring.application.name}
 #      ip:
-#      port: 8080
-#      log-path: /data/applogs/xxl-job/jobhandler/
+#      port:
+#      log-path: /logs/xxl-job/jobhandler/
 #      log-retention-days: 7
 
 # 实时监控

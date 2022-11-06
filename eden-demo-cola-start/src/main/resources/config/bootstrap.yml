@@ -7,7 +7,7 @@ spring:
         name: ${spring.application.name}
         file-extension: yaml
   profiles:
-    active: dev # 默认启用开发环境
+    active: local # 默认启用本地环境
 
 management:
   server:

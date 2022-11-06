@@ -2,14 +2,14 @@ spring:
   cloud:
     nacos:
       config:
-        username: nacos
-        password: nacos
         server-addr: localhost:8848
         namespace: demo
         group: spring-cloud
+        username: nacos
+        password: nacos
       discovery:
-        username: nacos
-        password: nacos
         server-addr: localhost:8848
         namespace: demo
         group: spring-cloud
+        username: nacos
+        password: nacos
