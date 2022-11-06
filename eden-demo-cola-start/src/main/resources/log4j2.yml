@@ -45,25 +45,25 @@ Configuration:
     Logger:
       - name: org.ylzl
         level: INFO
-      - name: com.ibatis
-        level: INFO
       - name: com.alibaba
         level: WARN
-      - name: org.springframework
+      - name: com.baomidou
         level: ERROR
-      - name: org.apache.nacos
-        level: WARN
+      - name: com.ibatis
+        level: INFO
       - name: org.apache.dubbo
+        level: WARN
+      - name: org.apache.nacos
         level: WARN
       - name: org.apache.kafka
         level: WARN
       - name: org.apache.zookeeper
         level: WARN
-      - name: org.reflections.Reflections
+      - name: org.hibernate.validator
         level: WARN
       - name: org.jboss.resteasy
         level: WARN
-      - name: com.baomidou
-        level: ERROR
-      - name: org.hibernate.validator
+      - name: org.reflections.Reflections
         level: WARN
+      - name: org.springframework
+        level: ERROR

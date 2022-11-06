@@ -27,31 +27,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<executable>true</executable>
-					<fork>true</fork>
-					<mainClass>${start-class}</mainClass>
-					<layers>
-						<enabled>${build.layers.enabled}</enabled>
-						<includeLayerTools>true</includeLayerTools>
-						<configuration>${project.basedir}/src/main/docker/layers.xml</configuration>
-					</layers>
-				</configuration>
-				<executions>
-					<execution>
-						<id>spring-boot-build-info</id>
-						<phase>compile</phase>
-						<goals>
-							<goal>build-info</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>spring-boot-repackage</id>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
@@ -84,7 +59,6 @@
 							<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS
 							</SPRING_OUTPUT_ANSI_ENABLED>
 							<JAVA_OPTS>-Xms256m -Xmx256m</JAVA_OPTS>
-							<ENV_OPTS/>
 							<JAVA_SLEEP>1</JAVA_SLEEP>
 						</environment>
 						<creationTime>USE_CURRENT_TIMESTAMP
@@ -108,10 +82,10 @@
 				<groupId>pl.project13.maven</groupId>
 				<artifactId>git-commit-id-plugin</artifactId>
 			</plugin>
-			<plugin>
+			<!--<plugin>
 				<groupId>ru.trylogic.maven.plugins</groupId>
 				<artifactId>redis-maven-plugin</artifactId>
-			</plugin>
+			</plugin>-->
 		</plugins>
 	</build>
 
