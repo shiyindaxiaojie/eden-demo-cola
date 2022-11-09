@@ -47,15 +47,12 @@
 
 ### 微调默认配置
 
-> 假定您使用的运行环境为 dev。
+> 假定您使用的运行环境为 local。
 
-* 修改 Nacos
-  客户端配置，您可以查阅 [Nacos Quick Start](https://nacos.io/zh-cn/docs/quick-start.html)
+* 修改 Nacos 客户端配置，您可以查阅 [Nacos Quick Start](https://nacos.io/zh-cn/docs/quick-start.html)
   快速搭建 Nacos 环境，请根据您的 Nacos
-  地址修改配置文件：[bootstrap-dev.yml](https://github.com/shiyindaxiaojie/eden-demo-cola/blob/main/eden-demo-cola-start/src/main/resources/config/bootstrap-dev.yml)
-* 修改数据库的配置，本项目默认使用 H2 内存数据库启动，基于 Liquibase 在项目启动时自动初始化 SQL 脚本。如果您使用的是外部的
-  MySQL
-  数据库，可以从此处调整下数据库的连接信息：[application-dev.yml](https://github.com/shiyindaxiaojie/eden-demo-cola/blob/main/eden-demo-cola-start/src/main/resources/config/application-dev.yml)
+  地址修改配置文件：[bootstrap-local.yml](https://github.com/shiyindaxiaojie/eden-demo-cola/blob/main/eden-demo-cola-start/src/main/resources/config/bootstrap-local.yml)
+* 修改数据库的配置，本项目默认使用 H2 内存数据库启动，基于 Liquibase 在项目启动时自动初始化 SQL 脚本。如果您使用的是外部的 MySQL 数据库，可以从此处调整下数据库的连接信息：[application-local.yml](https://github.com/shiyindaxiaojie/eden-demo-cola/blob/main/eden-demo-cola-start/src/main/resources/config/application-local.yml)
 * 本项目罗列了 `Redis` 缓存、`RocketMQ` 消息队列、`Dynamic Source` 动态数据源、`ShardingSphere`
   分库分表等常用组件的使用方案，默认通过注释的方式关闭相关代码。您可以根据实际情况去掉相关注释，直接完成组件的集成。
 
@@ -65,8 +62,6 @@
 - 进入 `eden-demo-cola-start` 目录，执行 `mvn spring-boot:run` 或者启动 `Application`
   类。运行成功的话，可以看到 `Spring Boot` 启动成功的界面。
 - 生成的应用中，已经实现了一个简单的 `Rest` 请求，可以在浏览器中输入 http://localhost:8080/api/users/1 进行测试。
-
-> 请注意，我们已经把常用的依赖纳入 eden-dependencies 管理，不建议带版本号覆盖原有的依赖。
 
 ## 版本规范
 
