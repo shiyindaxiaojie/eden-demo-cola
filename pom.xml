@@ -7,12 +7,12 @@
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-parent</artifactId>
-		<version>2.4.13.20221107</version>
+		<version>2.4.13.20221116</version>
 		<relativePath/>
 	</parent>
 	<groupId>org.ylzl.eden.demo</groupId>
 	<artifactId>eden-demo-cola</artifactId>
-	<version>2.4.13.20221107</version>
+	<version>2.4.13.20221116</version>
 	<packaging>pom</packaging>
 	<name>eden-demo-cola</name>
 	<description>COLA 应用架构</description>
@@ -42,27 +42,27 @@
 			<dependency>
 				<groupId>org.ylzl.eden.demo</groupId>
 				<artifactId>eden-demo-cola-adapter</artifactId>
-				<version>2.4.13.20221107</version>
+				<version>2.4.13.20221116</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl.eden.demo</groupId>
 				<artifactId>eden-demo-cola-app</artifactId>
-				<version>2.4.13.20221107</version>
+				<version>2.4.13.20221116</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl.eden.demo</groupId>
 				<artifactId>eden-demo-cola-client</artifactId>
-				<version>2.4.13.20221107</version>
+				<version>2.4.13.20221116</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl.eden.demo</groupId>
 				<artifactId>eden-demo-cola-domain</artifactId>
-				<version>2.4.13.20221107</version>
+				<version>2.4.13.20221116</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl.eden.demo</groupId>
 				<artifactId>eden-demo-cola-infrastructure</artifactId>
-				<version>2.4.13.20221107</version>
+				<version>2.4.13.20221116</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

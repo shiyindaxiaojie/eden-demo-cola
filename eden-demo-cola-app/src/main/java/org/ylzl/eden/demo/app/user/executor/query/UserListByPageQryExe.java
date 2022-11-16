@@ -10,7 +10,7 @@ import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry;
 import org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO;
 import org.ylzl.eden.demo.infrastructure.user.database.mapper.UserMapper;
-import org.ylzl.eden.spring.framework.cola.dto.PageResponse;
+import org.ylzl.eden.cola.dto.PageResponse;
 
 /**
  * 根据分页查询获取用户列表指令执行器

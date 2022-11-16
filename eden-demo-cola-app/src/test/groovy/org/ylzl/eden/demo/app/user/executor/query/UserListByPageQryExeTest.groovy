@@ -9,7 +9,7 @@ import org.ylzl.eden.demo.client.user.dto.UserDTO
 import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry
 import org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO
 import org.ylzl.eden.demo.infrastructure.user.database.mapper.UserMapper
-import org.ylzl.eden.spring.framework.cola.dto.PageResponse
+import org.ylzl.eden.cola.dto.PageResponse
 import spock.lang.Specification
 
 import static org.mockito.ArgumentMatchers.any

@@ -7,7 +7,7 @@ import org.ylzl.eden.demo.app.user.assembler.UserAssembler;
 import org.ylzl.eden.demo.client.user.dto.command.UserAddCmd;
 import org.ylzl.eden.demo.domain.user.entity.User;
 import org.ylzl.eden.demo.domain.user.gateway.UserGateway;
-import org.ylzl.eden.spring.framework.cola.dto.Response;
+import org.ylzl.eden.cola.dto.Response;
 
 /**
  * 新增用户指令执行器

@@ -3,13 +3,13 @@ package org.ylzl.eden.demo.app.user.executor.query;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.ylzl.eden.cola.dto.SingleResponse;
 import org.ylzl.eden.demo.app.user.assembler.UserAssembler;
 import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
 import org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO;
 import org.ylzl.eden.demo.infrastructure.user.database.mapper.UserMapper;
-import org.ylzl.eden.spring.framework.cola.dto.SingleResponse;
-import org.ylzl.eden.spring.framework.error.util.AssertUtils;
+import org.ylzl.eden.spring.framework.error.ClientAssert;
 
 /**
  * 根据主键获取用户信息指令执行器
@@ -28,7 +28,7 @@ public class UserByIdQryExe {
 
 	public SingleResponse<UserDTO> execute(UserByIdQry query) {
 		UserDO userDO = userMapper.selectById(query.getId());
-		AssertUtils.notNull(userDO, "USER-FOUND-404", query.getId());
+		ClientAssert.notNull(userDO, "USER-FOUND-404", query.getId());
 		return SingleResponse.of(userAssembler.toDTO(userDO));
 	}
 }

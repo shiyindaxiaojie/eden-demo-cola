@@ -1,7 +1,7 @@
 package org.ylzl.eden.demo.client.user.dto.query;
 
 import lombok.*;
-import org.ylzl.eden.spring.framework.cola.dto.PageQuery;
+import org.ylzl.eden.cola.dto.PageQuery;
 
 import java.io.Serializable;
 

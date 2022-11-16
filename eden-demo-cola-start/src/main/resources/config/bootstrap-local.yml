@@ -4,12 +4,12 @@ spring:
       config:
         server-addr: localhost:8848
         namespace: demo
-        group: spring-cloud
+        group: ${spring.application.name}
         username: nacos
         password: nacos
       discovery:
         server-addr: localhost:8848
         namespace: demo
-        group: spring-cloud
+        group: ${spring.application.name}
         username: nacos
         password: nacos

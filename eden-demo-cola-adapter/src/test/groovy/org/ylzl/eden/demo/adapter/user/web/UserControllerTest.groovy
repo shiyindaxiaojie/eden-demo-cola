@@ -9,9 +9,9 @@ import org.ylzl.eden.demo.client.user.dto.UserDTO
 import org.ylzl.eden.demo.client.user.dto.command.UserAddCmd
 import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd
 import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry
-import org.ylzl.eden.spring.framework.cola.dto.PageResponse
-import org.ylzl.eden.spring.framework.cola.dto.Response
-import org.ylzl.eden.spring.framework.cola.dto.SingleResponse
+import org.ylzl.eden.cola.dto.PageResponse
+import org.ylzl.eden.cola.dto.Response
+import org.ylzl.eden.cola.dto.SingleResponse
 import spock.lang.Specification
 import spock.lang.Unroll
 
