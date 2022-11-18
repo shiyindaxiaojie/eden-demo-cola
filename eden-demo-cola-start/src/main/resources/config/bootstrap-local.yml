@@ -1,6 +1,6 @@
 spring:
   cloud:
-    nacos: # 使用 Nacos
+    nacos:
       config: # 配置中心
         enabled: false # 默认关闭，请按需开启
         server-addr: localhost:8848

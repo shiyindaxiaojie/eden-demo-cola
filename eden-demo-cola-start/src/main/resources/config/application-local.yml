@@ -1,6 +1,7 @@
 logging: # 日志组件
   level:
     ROOT: INFO
+    org.ylzl.eden: DEBUG
 
 spring:
   arthas: # 在线诊断组件
