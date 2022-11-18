@@ -3,7 +3,7 @@ logging:
     name: ${spring.application.name}
   config: classpath:log4j2.yml
   level:
-    org.ylzl.eden: DEBUG
+    org.ylzl.eden: INFO
 
 server:
   port: 8081
@@ -121,11 +121,11 @@ dubbo: # 分布式调用组件
   metadata-report:
     address: nacos://${spring.cloud.nacos.discovery.server-addr}?namespace=${spring.cloud.nacos.discovery.namespace}&group=metadata
   provider:
-    retries: 0    # 重试次数
+    retries: 0 # 重试次数
     timeout: 3000 # 超时时间
     check: false # 是否开启检查
   consumer:
-    retries: 0    # 重试次数
+    retries: 0 # 重试次数
     timeout: 3000 # 超时时间
     check: false # 是否开启检查
 
