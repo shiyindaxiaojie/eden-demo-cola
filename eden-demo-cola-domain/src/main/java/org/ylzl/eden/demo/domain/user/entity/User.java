@@ -1,7 +1,7 @@
 package org.ylzl.eden.demo.domain.user.entity;
 
 import lombok.*;
-import org.ylzl.eden.spring.framework.cola.domain.Entity;
+import org.ylzl.eden.cola.domain.Entity;
 
 /**
  * 用户领域（聚合根）

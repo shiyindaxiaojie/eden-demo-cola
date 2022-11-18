@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.ylzl.eden.demo.adapter.user.web.UserController
 import org.ylzl.eden.demo.client.user.dto.UserDTO
-import org.ylzl.eden.spring.framework.cola.dto.SingleResponse
+import org.ylzl.eden.cola.dto.SingleResponse
 import spock.lang.Specification
 import spock.lang.Unroll
 
