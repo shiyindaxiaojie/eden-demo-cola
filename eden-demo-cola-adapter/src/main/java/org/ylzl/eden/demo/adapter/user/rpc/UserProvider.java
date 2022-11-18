@@ -2,7 +2,6 @@ package org.ylzl.eden.demo.adapter.user.rpc;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
-import org.ylzl.eden.demo.adapter.constant.ApiConstant;
 import org.ylzl.eden.demo.app.user.executor.command.UserAddCmdExe;
 import org.ylzl.eden.demo.app.user.executor.command.UserModifyCmdExe;
 import org.ylzl.eden.demo.app.user.executor.command.UserRemoveCmdExe;
@@ -17,7 +16,7 @@ import org.ylzl.eden.demo.client.user.api.UserService;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@DubboService(timeout = ApiConstant.DEFAULT_DUBBO_TIMEOUT)
+@DubboService
 @Slf4j
 public class UserProvider extends UserServiceImpl implements UserService {
 

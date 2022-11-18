@@ -1,7 +1,6 @@
 package org.ylzl.eden.demo;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.WebApplicationType;
@@ -19,7 +18,6 @@ import org.ylzl.eden.spring.framework.web.rest.autoconfigure.EnableRestException
  */
 @EnableRestExceptionResolver
 @MapperScan(basePackages = "org.ylzl.eden.demo.infrastructure", annotationClass = Mapper.class)
-@EnableDubbo(scanBasePackages = "org.ylzl.eden.demo.adapter")
 @EnableDiscoveryClient
 @EnableTransactionManagement
 @Slf4j

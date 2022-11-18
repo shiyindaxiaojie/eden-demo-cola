@@ -9,7 +9,7 @@ spring:
   profiles:
     active: local # 默认启用本地环境
 
-management:
+management: # 端点管理
   server:
     port: 9081
   endpoints:

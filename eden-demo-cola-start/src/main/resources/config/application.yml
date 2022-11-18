@@ -7,17 +7,17 @@ logging:
 
 server:
   port: 8081
-  shutdown: graceful
+  shutdown: graceful # 优雅关闭
   compression:
-    enabled: true
+    enabled: true # 开启压缩
     min-response-size: 1024
-  undertow:
+  undertow: # 高性能容器
     buffer-size: 1024
     direct-buffers: true
     threads:
       io: 16
       worker: 256
-#  tomcat:
+#  tomcat: # 传统容器
 #    max-connections: 8192 # 最大连接数
 #    accept-count: 1000 # 接收队列长度
 #    threads:
@@ -26,11 +26,7 @@ server:
 
 spring:
   arthas:
-    enabled: false
-  data:
-    redis:
-      repositories:
-        enabled: true
+    enabled: false # 默认关闭，请按需开启
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
@@ -39,43 +35,42 @@ spring:
       maximumPoolSize: 10
       idleTimeout: 300000
       maxLifetime: 1200000
-#      connection-init-sql: SET NAMES utf8mb4
+#      connection-init-sql: SET NAMES utf8mb4 # 针对云数据库乱码的解决方案
   cloud:
     sentinel:
-      enabled: false
+      enabled: false # 默认关闭，请按需开启
       http-method-specify: true # 兼容 RESTful
       eager: true # 立刻刷新到 Dashboard
-  jackson:
+  jackson: # 序列化组件
     date-format: yyyy-MM-dd HH:mm:ss
     default-property-inclusion: non_null
     serialization:
       indent-output: true
     time-zone: GMT+8
-  messages:
+  messages: # 国际化消息
     basename: i18n/messages
   main:
     allow-bean-definition-overriding: true
   lifecycle:
     timeout-per-shutdown-phase: 30s
-  # 缓存数据库
-  redis:
+  redis: # 缓存数据库
     lettuce:
       pool:
         min-idle: 1
         max-idle: 64
         max-active: 64
         max-wait: -1
-  thymeleaf:
+  thymeleaf: # 模板引擎
     mode: HTML
     cache: true
-  sleuth:
+  sleuth: # 链路跟踪框架
     sampler:
       probability: 1
     async:
       configurer:
         enabled: false # Bugfix：与 Spring 高版本存在冲突
-  zipkin:
-    enabled: false
+  zipkin: # 链路跟踪组件
+    enabled: false # 默认关闭，请按需开启
     discovery-client-enabled: true
     locator:
       discovery:
@@ -91,30 +86,30 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
-# ORM 组件
-mybatis-plus:
+mybatis-plus: # ORM 组件
   global-config:
     banner: false
   configuration:
     map-underscore-to-camel-case: true
     auto-mapping-behavior: full
 
-# 在线诊断工具
-arthas:
+arthas: # 在线诊断工具
   agent-id: ${spring.application.name}@${random.value}
   tunnel-server: ws://localhost:7777/ws
   session-timeout: 1800
-  telnet-port: 0
-  http-port: 0
+  telnet-port: 0 # 随机端口
+  http-port: 0 # 随机端口
 
-# 分布式调用组件
-dubbo:
+dubbo: # 分布式调用组件
+  enabled: false # 默认关闭，请按需开启
+  scan:
+    base-packages: org.ylzl.eden.demo.adapter
   application:
     id: ${spring.application.name}
     name: ${spring.application.name}
   protocol:
     name: dubbo
-    port: 28081
+    port: -1 # 随机端口
   registry:
     id: ${spring.application.name}
     address: nacos://${spring.cloud.nacos.discovery.server-addr}?namespace=${spring.cloud.nacos.discovery.namespace}&group=dubbo
@@ -134,15 +129,9 @@ dubbo:
     timeout: 3000 # 超时时间
     check: false # 是否开启检查
 
-# 分布式调度平台
-xxl:
+xxl: # 分布式调度平台
   job:
-    enabled: false
+    enabled: false # 默认关闭，请按需开启
 
-# 实时监控
-cat:
-  enabled: false
-
-# 消息队列
-message-queue:
-  type: rocketmq
+cat: # 实时监控平台
+  enabled: false # 默认关闭，请按需开启

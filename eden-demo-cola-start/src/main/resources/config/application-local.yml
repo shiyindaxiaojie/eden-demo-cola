@@ -1,67 +1,56 @@
-logging:
+logging: # 日志组件
   level:
     ROOT: INFO
 
 spring:
-  # 在线诊断
-  arthas:
-    enabled: true
-  # 内存数据库
-  h2:
+  arthas: # 在线诊断组件
+    enabled: false # 默认关闭，请按需开启
+  h2: # 内存数据库
     console:
-      enabled: true
+      enabled: true # 线上环境请勿设置
       path: /h2-console
       settings:
         trace: false
         web-allow-others: false
-  # 关系数据库
-  datasource:
-    # 内存数据源
+  datasource: # 数据源管理
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:db;DB_CLOSE_ON_EXIT=TRUE
     username: sa
     password: demo
-    # 单数据源
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    username:
-#    password:
-#    url: jdbc:mysql://localhost:3306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&queryInterceptors=brave.mysql8.TracingQueryInterceptor&exceptionInterceptors=brave.mysql8.TracingExceptionInterceptor&zipkinServiceName=${spring.application.name}
-    # 多数据源，使用 @DS 切换
-#    dynamic:
-#      datasource:
-#        ds1:
-#          username:
-#          password:
-#          url: jdbc:mysql://localhost:3306/ds1?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
-#          type: ${spring.datasource.type}
-#          driver-class-name: ${spring.datasource.driver-class-name}
-#        ds2:
-#          username:
-#          password:
-#          url: jdbc:mysql://localhost:3306/ds2?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
-#          driver-class-name: ${spring.datasource.driver-class-name}
-#          type: ${spring.datasource.type}
-#      primary: ds1
-#      strict: true
-    # 分库分表组件
-#    shardingsphere:
-#      props:
-#        sql.show: true
-#      datasource:
-#        names: demo
-#        demo:
-#          username: ${spring.datasource.dynamic.datasource.demo.username}
-#          password: ${spring.datasource.dynamic.datasource.demo.password}
-#          driver-class-name: ${spring.datasource.dynamic.datasource.demo.driver-class-name}
-#          jdbc-url: ${spring.datasource.dynamic.datasource.demo.url}
-#          type: ${spring.datasource.dynamic.datasource.demo.type}
-#      sharding:
-#        defaultDataSourceName: demo
-  # 微服务组件
+    dynamic: # 多数据源，使用 @DS 切换
+      enabled: false # 默认关闭，请按需开启
+      datasource:
+        ds1:
+          username:
+          password:
+          url: jdbc:mysql://localhost:3306/ds1?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+          type: ${spring.datasource.type}
+          driver-class-name: ${spring.datasource.driver-class-name}
+        ds2:
+          username:
+          password:
+          url: jdbc:mysql://localhost:3306/ds2?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+          driver-class-name: ${spring.datasource.driver-class-name}
+          type: ${spring.datasource.type}
+      primary: ds1
+      strict: true
+  shardingsphere: # 分库分表组件
+    enabled: false # 默认关闭，请按需开启
+    props:
+      sql.show: true
+    datasource:
+      names: demo
+      demo:
+        username: ${spring.datasource.dynamic.datasource.demo.username}
+        password: ${spring.datasource.dynamic.datasource.demo.password}
+        driver-class-name: ${spring.datasource.dynamic.datasource.demo.driver-class-name}
+        jdbc-url: ${spring.datasource.dynamic.datasource.demo.url}
+        type: ${spring.datasource.dynamic.datasource.demo.type}
+    sharding:
+      defaultDataSourceName: demo
   cloud:
-    # 服务流量治理
-    sentinel:
-      enabled: false
+    sentinel: # 服务流量治理
+      enabled: false # 默认关闭，请按需开启
       transport:
         dashboard: localhost:8090
       datasource:
@@ -73,53 +62,46 @@ spring:
             dataId: ${spring.application.name}-flow-rule
             rule-type: flow
             data-type: json
-  # 缓存数据库
-  redis:
-    enabled: false
+  redis: # 缓存数据库
+    enabled: false # 默认关闭，请按需开启
     password:
     timeout: 5000
     database: 1
     host: localhost
     port: 6379
-  # 模板引擎
-  thymeleaf:
-    cache: false
-  # 链路跟踪
-  zipkin:
+  thymeleaf: # 模板引擎
+    cache: false # 本地开发建议关闭缓存
+  zipkin: # 链路跟踪
     base-url: http://localhost:9411
-  # 链路采集
-  kafka:
+  kafka: # 消息队列
     bootstrap-servers: localhost:9092
 
-# 消息队列
-rocketmq:
-  enabled: false
+rocketmq: # 消息队列
+  enabled: false # 默认关闭，请按需开启
   name-server: localhost:9876;localhost:9877
   producer:
     group: ${spring.application.name}
-#    access-key:
-#    secret-key:
+    access-key:
+    secret-key:
   consumer:
     group: ${spring.application.name}
     topic: demo
 
-# 分布式调度平台
-#xxl:
-#  job:
-#    enable: false
-#    access-token:
-#    admin:
-#      addresses: http://localhost:8090/xxl-job
-#    executor:
-#      app-name: ${spring.application.name}
-#      ip:
-#      port:
-#      log-path: /logs/xxl-job/jobhandler/
-#      log-retention-days: 7
+xxl: # 分布式调度平台
+  job:
+    enable: false # 默认关闭，请按需开启
+    access-token:
+    admin:
+      addresses: http://localhost:8090/xxl-job
+    executor:
+      app-name: ${spring.application.name}
+      ip:
+      port:
+      log-path: /logs/xxl-job/jobhandler/
+      log-retention-days: 7
 
-# 实时监控
-cat:
-  enabled: false
+cat: # 实时监控平台
+  enabled: false # 默认关闭，请按需开启
   home: /tmp
   servers: localhost
   tcp-port: 2280

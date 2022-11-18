@@ -1,13 +1,15 @@
 spring:
   cloud:
-    nacos:
-      config:
+    nacos: # 使用 Nacos
+      config: # 配置中心
+        enabled: false # 默认关闭，请按需开启
         server-addr: localhost:8848
         namespace: demo
         group: ${spring.application.name}
         username: nacos
         password: nacos
-      discovery:
+      discovery: # 注册中心
+        enabled: false # 默认关闭，请按需开启
         server-addr: localhost:8848
         namespace: demo
         group: ${spring.application.name}
