@@ -22,7 +22,7 @@ COPY --from=builder application/snapshot-dependencies/ ./
 COPY --from=builder application/application/ ./
 ADD src/main/docker/entrypoint.sh bin/entrypoint.sh
 
-ENV RUN_SLEEP 1
+ENV JAVA_SLEEP 1
 ENV JAVA_OPTS '-Xmx512m -Xms512m -Xss256k'
 ENV JAVA_AGENT ''
 
