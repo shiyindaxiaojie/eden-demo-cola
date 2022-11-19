@@ -1,8 +1,3 @@
-logging: # 日志组件
-  level:
-    ROOT: INFO
-    org.ylzl.eden: DEBUG
-
 spring:
   arthas: # 在线诊断组件
     enabled: false # 默认关闭，请按需开启
@@ -14,12 +9,14 @@ spring:
         trace: false
         web-allow-others: false
   datasource: # 数据源管理
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:db;DB_CLOSE_ON_EXIT=TRUE
     username: sa
     password: demo
+    url: jdbc:h2:mem:db;DB_CLOSE_ON_EXIT=TRUE
+    driver-class-name: org.h2.Driver
     dynamic: # 多数据源，使用 @DS 切换
       enabled: false # 默认关闭，请按需开启
+      strict: true
+      primary: ds1
       datasource:
         ds1:
           username:
@@ -33,8 +30,6 @@ spring:
           url: jdbc:mysql://localhost:3306/ds2?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
           driver-class-name: ${spring.datasource.driver-class-name}
           type: ${spring.datasource.type}
-      primary: ds1
-      strict: true
   shardingsphere: # 分库分表组件
     enabled: false # 默认关闭，请按需开启
     props:
@@ -42,11 +37,11 @@ spring:
     datasource:
       names: demo
       demo:
-        username: ${spring.datasource.dynamic.datasource.demo.username}
-        password: ${spring.datasource.dynamic.datasource.demo.password}
-        driver-class-name: ${spring.datasource.dynamic.datasource.demo.driver-class-name}
-        jdbc-url: ${spring.datasource.dynamic.datasource.demo.url}
-        type: ${spring.datasource.dynamic.datasource.demo.type}
+        username: ${spring.datasource.username}
+        password: ${spring.datasource.password}
+        driver-class-name: ${spring.datasource.driver-class-name}
+        jdbc-url: ${spring.datasource.url}
+        type: ${spring.datasource.type}
     sharding:
       defaultDataSourceName: demo
   cloud:
@@ -98,7 +93,7 @@ xxl: # 分布式调度平台
       app-name: ${spring.application.name}
       ip:
       port:
-      log-path: /logs/xxl-job/jobhandler/
+      log-path: /logs/xxl-job/job-handler/
       log-retention-days: 7
 
 cat: # 实时监控平台
