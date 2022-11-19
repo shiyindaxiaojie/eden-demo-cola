@@ -1,43 +1,17 @@
-logging:
-  file:
-    name: ${spring.application.name}
-  config: classpath:log4j2.yml
-  level:
-    org.ylzl.eden: INFO
-
-server:
-  port: 8081
-  shutdown: graceful # 优雅关闭
-  compression:
-    enabled: true # 开启压缩
-    min-response-size: 1024
-  undertow: # 高性能容器
-    buffer-size: 1024
-    direct-buffers: true
-    threads:
-      io: 16
-      worker: 256
-#  tomcat: # 传统容器
-#    max-connections: 8192 # 最大连接数
-#    accept-count: 1000 # 接收队列长度
-#    threads:
-#      max: 500 # 最大并发数
-#      min-spare: 20 # 初始线程数
-
 spring:
   arthas:
     enabled: false # 默认关闭，请按需开启
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    hikari:
+    hikari: # 数据源连接池组件
       connectionTimeout: 5000
       minimumIdle: 2
       maximumPoolSize: 10
       idleTimeout: 300000
       maxLifetime: 1200000
-#      connection-init-sql: SET NAMES utf8mb4 # 针对云数据库乱码的解决方案
+#      connection-init-sql: SET NAMES utf8mb4 # 针对云数据库出现乱码的解决方案
   cloud:
-    sentinel:
+    sentinel: # 流量治理组件
       enabled: false # 默认关闭，请按需开启
       http-method-specify: true # 兼容 RESTful
       eager: true # 立刻刷新到 Dashboard
@@ -47,6 +21,8 @@ spring:
     serialization:
       indent-output: true
     time-zone: GMT+8
+  liquibase: # 数据库迁移工具
+    enabled: true # 默认关闭，请按需开启
   messages: # 国际化消息
     basename: i18n/messages
   main:
@@ -68,7 +44,7 @@ spring:
       probability: 1
     async:
       configurer:
-        enabled: false # Bugfix：与 Spring 高版本存在冲突
+        enabled: false # 与 Spring 高版本存在冲突，关闭处理
   zipkin: # 链路跟踪组件
     enabled: false # 默认关闭，请按需开启
     discovery-client-enabled: true
@@ -86,12 +62,43 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
+logging:
+  file:
+    name: ${spring.application.name}
+  config: classpath:log4j2.yml
+  level:
+    ROOT: INFO
+    org.ylzl.eden: INFO
+
+server:
+  port: 8081
+  shutdown: graceful # 优雅关闭
+  compression:
+    enabled: true # 开启压缩
+    min-response-size: 1024
+  undertow: # 高性能容器
+    buffer-size: 1024
+    direct-buffers: true
+    threads:
+      io: 16
+      worker: 256
+#  tomcat: # 传统容器
+#    uri-encoding: UTF-8
+#    max-connections: 8192 # 最大连接数
+#    accept-count: 1000 # 接收队列长度
+#    threads:
+#      max: 500 # 最大并发数
+#      min-spare: 20 # 初始线程数
+
 mybatis-plus: # ORM 组件
   global-config:
     banner: false
   configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
     map-underscore-to-camel-case: true
     auto-mapping-behavior: full
+    call-setters-on-nulls: true
+    use-column-label: true
 
 arthas: # 在线诊断工具
   agent-id: ${spring.application.name}@${random.value}
