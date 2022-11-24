@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.ylzl.eden.spring.framework.bootstrap.SpringBootApplicationHelper;
-import org.ylzl.eden.spring.framework.web.rest.autoconfigure.EnableRestExceptionResolver;
+import org.ylzl.eden.spring.framework.web.rest.annotation.EnableRestExceptionResolver;
 
 /**
  * Spring Boot 引导类
