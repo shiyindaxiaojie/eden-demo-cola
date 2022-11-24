@@ -7,7 +7,7 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.ylzl.eden.spring.framework.bootstrap.SpringBootApplicationHelper;
+import org.ylzl.eden.spring.boot.bootstrap.SpringBootApplicationHelper;
 import org.ylzl.eden.spring.framework.web.rest.annotation.EnableRestExceptionResolver;
 
 /**
