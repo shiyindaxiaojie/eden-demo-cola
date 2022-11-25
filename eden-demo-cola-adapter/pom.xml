@@ -26,7 +26,7 @@
 			<artifactId>eden-demo-cola-app</artifactId>
 		</dependency>
 
-		<!-- 开发组件 -->
+		<!-- 开发工具 -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -40,7 +40,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- WEB 组件 -->
+		<!-- WEB -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-undertow-spring-boot-starter</artifactId>
