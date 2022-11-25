@@ -16,7 +16,7 @@
 	<description>API层</description>
 
 	<dependencies>
-		<!-- 开发组件 -->
+		<!-- 开发工具 -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
