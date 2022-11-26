@@ -7,20 +7,20 @@
 	<!-- 数据库字段映射（工具自动生成） -->
 	<resultMap id="dbResultMap"
 			   type="org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO">
-		<internalResponse column="id" property="id"/>
-		<internalResponse column="login" property="login"/>
-		<internalResponse column="password_hash" property="passwordHash"/>
-		<internalResponse column="email" property="email"/>
-		<internalResponse column="activated" property="activated"/>
-		<internalResponse column="locked" property="locked"/>
-		<internalResponse column="lang_key" property="langKey"/>
-		<internalResponse column="activation_key" property="activationKey"/>
-		<internalResponse column="reset_key" property="resetKey"/>
-		<internalResponse column="reset_date" property="resetDate"/>
-		<internalResponse column="created_by" property="createdBy"/>
-		<internalResponse column="created_date" property="createdDate"/>
-		<internalResponse column="last_modified_by" property="lastModifiedBy"/>
-		<internalResponse column="last_modified_date" property="lastModifiedDate"/>
+		<result column="id" property="id"/>
+		<result column="login" property="login"/>
+		<result column="password_hash" property="passwordHash"/>
+		<result column="email" property="email"/>
+		<result column="activated" property="activated"/>
+		<result column="locked" property="locked"/>
+		<result column="lang_key" property="langKey"/>
+		<result column="activation_key" property="activationKey"/>
+		<result column="reset_key" property="resetKey"/>
+		<result column="reset_date" property="resetDate"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="created_date" property="createdDate"/>
+		<result column="last_modified_by" property="lastModifiedBy"/>
+		<result column="last_modified_date" property="lastModifiedDate"/>
 	</resultMap>
 
 	<!-- 分页查询 -->

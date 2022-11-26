@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.ylzl.eden.demo</groupId>
 		<artifactId>eden-demo-cola</artifactId>
-		<version>2.4.13.20221116</version>
+		<version>2.4.13.20221126</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>eden-demo-cola-domain</artifactId>
@@ -28,11 +28,12 @@
 		</dependency>
 		<dependency>
 			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
+			<artifactId>mapstruct-processor</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.ylzl</groupId>
-			<artifactId>eden-cola</artifactId>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
 		</dependency>
 
 		<!-- 测试组件 -->
@@ -40,6 +41,12 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-spock-spring-boot-starter</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<!-- COLA组件 -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-cola-domain</artifactId>
 		</dependency>
 
 		<!-- 日志组件 -->
