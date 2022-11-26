@@ -55,7 +55,7 @@ spring:
       type: kafka
     kafka:
       topic: zipkin
-  kafka:
+  kafka: # 消息引擎组件，这里负责处理 Zipkin
     producer:
       batch-size: 4096
       buffer-memory: 40960
