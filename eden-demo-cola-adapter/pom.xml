@@ -37,6 +37,7 @@
 			<artifactId>mapstruct-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+
 		<!-- 测试组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
@@ -44,7 +45,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- WEB -->
+		<!-- WEB 组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-undertow-spring-boot-starter</artifactId>
@@ -62,7 +63,7 @@
 			</exclusions>
 		</dependency>
 
-		<!-- 服务调用组件 -->
+		<!-- RCP 调用组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-dubbo-spring-cloud-starter</artifactId>

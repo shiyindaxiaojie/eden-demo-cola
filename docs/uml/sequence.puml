@@ -10,35 +10,38 @@ title COLA 应用架构时序图
 
 autonumber
 participant "主动适配器" #SkyBlue
+participant "eden-demo-cola-start" #LightGreen
 participant "eden-demo-cola-adapter" #LightGreen
 participant "eden-demo-cola-app" #LightGreen
 participant "eden-demo-cola-client" #LightGreen
 participant "eden-demo-cola-domain" #LightGreen
 participant "eden-demo-cola-infrastructure" #LightGreen
-participant "eden-demo-cola-start" #LightGreen
 participant "被动驱动器" #Pink
 participant "扩展点" #Khaki
 
 == 场景一：更新数据请求 ==
 
-"主动适配器" -> "eden-demo-cola-adapter": 发送写请求报文
+"主动适配器" -> "eden-demo-cola-start": 发送写请求报文
+"eden-demo-cola-start" -> "eden-demo-cola-adapter": 进程内请求分发
 "eden-demo-cola-adapter" -> "eden-demo-cola-app": 适配器组装数据传输对象
 "eden-demo-cola-app" -> "eden-demo-cola-app": CQRS 解析出命令参数
+"eden-demo-cola-app" -> "eden-demo-cola-client": 内部引用 API 接口
+"eden-demo-cola-app" -> "扩展点": 根据指令调用扩展功能（可选项）
 "eden-demo-cola-app" -> "eden-demo-cola-domain": 调用领域层
 "eden-demo-cola-domain" -> "eden-demo-cola-infrastructure": 通过防腐层执行数据写操作
 "eden-demo-cola-infrastructure" -> "被动驱动器": 调用底层组件进行写操作
-"eden-demo-cola-infrastructure" -> "扩展点": 调用扩展功能（可选项）
 "eden-demo-cola-infrastructure" --> "eden-demo-cola-app": 返回查询数据
 "eden-demo-cola-app" --> "eden-demo-cola-adapter": 组装数据并响应报文
 
 == 场景二：查询数据请求 ==
 
-"主动适配器" -> "eden-demo-cola-adapter": 场景二：发送读请求报文
+"主动适配器" -> "eden-demo-cola-start": 场景二：发送读请求报文
+"eden-demo-cola-start" -> "eden-demo-cola-adapter": 进程内请求分发
 "eden-demo-cola-adapter" -> "eden-demo-cola-app": 适配器组装数据传输对象
 "eden-demo-cola-app" -> "eden-demo-cola-app": CQRS 解析出查询参数
+"eden-demo-cola-app" -> "eden-demo-cola-client": 内部引用 API 接口
 "eden-demo-cola-app" -> "eden-demo-cola-infrastructure": 执行数据读操作
 "eden-demo-cola-infrastructure" -> "被动驱动器": 调用底层组件进行读操作
-"eden-demo-cola-infrastructure" -> "扩展点": 调用扩展功能（可选项）
 "eden-demo-cola-infrastructure" --> "eden-demo-cola-app": 返回查询数据
 "eden-demo-cola-app" --> "eden-demo-cola-adapter": 组装数据并响应报文
 
