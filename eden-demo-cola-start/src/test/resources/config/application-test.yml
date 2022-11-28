@@ -22,47 +22,28 @@ spring:
           username:
           password:
           url: jdbc:mysql://localhost:3306/ds1?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
-          driver-class-name: com.mysql.cj.jdbc.Driver
-          type: com.zaxxer.hikari.HikariDataSource
+          type: ${spring.datasource.type}
+          driver-class-name: ${spring.datasource.driver-class-name}
         ds2:
           username:
           password:
           url: jdbc:mysql://localhost:3306/ds2?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
-          driver-class-name: com.mysql.cj.jdbc.Driver
-          type: com.zaxxer.hikari.HikariDataSource
+          driver-class-name: ${spring.datasource.driver-class-name}
+          type: ${spring.datasource.type}
   shardingsphere: # 分库分表组件
-    enabled: false # 默认关闭，请按需开启，目前 5.x 版本对 Liquibase 兼容性不友好
-    datasource:
-      names: ds1,ds2
-      ds1:
-        username: root
-        password: demo@123
-        url: jdbc:mysql://localhost:3306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        type: com.zaxxer.hikari.HikariDataSource
-      ds2:
-        username: root
-        password: demo@123
-        url: jdbc:mysql://localhost:3306/slave1?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        type: com.zaxxer.hikari.HikariDataSource
-    rules:
-      replica-query:
-        data-sources:
-          rw:
-            primary-data-source-name: ds1
-            replica-data-source-names: ds2
-            load-balancer-name: ROUND_ROBIN
-            query-consistent: true
-        load-balancers:
-          round-robin:
-            type: ROUND_ROBIN
-            props:
-              workId: 1
+    enabled: false # 默认关闭，请按需开启
     props:
       sql.show: true
-  liquibase:
-    enabled: true # 默认开启，请按需关闭
+    datasource:
+      names: demo
+      demo:
+        username: ${spring.datasource.username}
+        password: ${spring.datasource.password}
+        driver-class-name: ${spring.datasource.driver-class-name}
+        jdbc-url: ${spring.datasource.url}
+        type: ${spring.datasource.type}
+    sharding:
+      defaultDataSourceName: demo
   cloud:
     sentinel: # 服务流量治理
       enabled: false # 默认关闭，请按需开启

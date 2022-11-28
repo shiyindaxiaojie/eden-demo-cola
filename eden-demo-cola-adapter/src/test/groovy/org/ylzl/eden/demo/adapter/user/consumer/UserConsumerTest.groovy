@@ -4,8 +4,8 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.slf4j.Logger
-import org.ylzl.eden.spring.integration.messagequeue.core.Message
-import org.ylzl.eden.spring.integration.messagequeue.core.consumer.Acknowledgement
+import org.ylzl.eden.common.mq.consumer.Acknowledgement
+import org.ylzl.eden.common.mq.model.Message
 import spock.lang.Specification
 
 class UserConsumerTest extends Specification {

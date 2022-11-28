@@ -4,44 +4,22 @@ spring:
   cloud:
     nacos:
       config:
-        enabled: false
+        name: ${spring.application.name}
         file-extension: yaml
-        username: nacos
-        password: nacos
-        server-addr: 127.0.0.1:8848
-        namespace: demo
-        group: spring-cloud
-      discovery:
-        enabled: false
-        username: nacos
-        password: nacos
-        server-addr: 127.0.0.1:8848
-        namespace: demo
-        group: spring-cloud
-  main:
-    allow-bean-definition-overriding: true
-    banner-mode: off
+  profiles:
+    active: test # 默认启用本地环境
 
-dubbo:
-  enabled: false
-#  application:
-#    id: ${spring.application.name}-dubbo
-#    name: ${spring.application.name}-dubbo
-#  protocol:
-#    name: dubbo
-#    port: 28080
-#  registry:
-#    id: ${spring.application.name}-dubbo
-#    protocol: nacos
-#    check: false # 是否开启服务注册的启动检查
-#    register: false # 是否开启服务注册，设置为 false 表示只订阅不注册
-#    address: nacos://127.0.0.1:8848?group=DEFAULT_GROUP&namespace=demo
-#  provider:
-#    retries: 0    # 重试次数
-#    timeout: 3000 # 超时时间
-#  consumer:
-#    check: false # 是否开启消费者的启动检查
-#  config-center:
-#    address: nacos://127.0.0.1:8848?group=DEFAULT_GROUP&namespace=demo
-#  metadata-report:
-#    address: nacos://127.0.0.1:8848?group=DEFAULT_GROUP&namespace=demo
+management: # 端点管理
+  server:
+    port: 9081
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: health,info,prometheus,metrics
+  endpoint:
+    health:
+      show-details: ALWAYS
+  metrics:
+    tags:
+      application: ${spring.application.name}
