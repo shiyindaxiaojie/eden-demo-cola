@@ -1,80 +1,144 @@
+spring:
+  arthas:
+    enabled: false # 默认关闭，请按需开启
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari: # 数据源连接池组件
+      connectionTimeout: 5000
+      minimumIdle: 2
+      maximumPoolSize: 10
+      idleTimeout: 300000
+      maxLifetime: 1200000
+  #      connection-init-sql: SET NAMES utf8mb4 # 针对云数据库出现乱码的解决方案
+  cloud:
+    sentinel: # 流量治理组件
+      enabled: false # 默认关闭，请按需开启
+      http-method-specify: true # 兼容 RESTful
+      eager: true # 立刻刷新到 Dashboard
+  jackson: # 序列化组件
+    date-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: non_null
+    serialization:
+      indent-output: true
+    time-zone: GMT+8
+  liquibase: # 数据库迁移工具
+    enabled: true # 默认关闭，请按需开启
+  messages: # 国际化消息
+    basename: i18n/messages
+  main:
+    allow-bean-definition-overriding: true
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+  redis: # 缓存数据库
+    lettuce:
+      pool:
+        min-idle: 1
+        max-idle: 64
+        max-active: 64
+        max-wait: -1
+  thymeleaf: # 模板引擎
+    mode: HTML
+    cache: true
+  sleuth: # 链路跟踪框架
+    sampler:
+      probability: 1
+    async:
+      configurer:
+        enabled: false # 与 Spring 高版本存在冲突，关闭处理
+  zipkin: # 链路跟踪组件
+    enabled: false # 默认关闭，请按需开启
+    discovery-client-enabled: true
+    locator:
+      discovery:
+        enabled: true
+    sender:
+      type: kafka
+    kafka:
+      topic: zipkin
+  kafka: # 消息引擎组件，这里负责处理 Zipkin
+    producer:
+      batch-size: 4096
+      buffer-memory: 40960
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
 logging:
   file:
     name: ${spring.application.name}
   config: classpath:log4j2.yml
   level:
     ROOT: INFO
-    org.ylzl.eden: DEBUG
-    org.ylzl.eden.demo.infrastructure: DEBUG
-
-mybatis-plus:
-  global-config:
-    banner: false
-  configuration:
-    map-underscore-to-camel-case: true
-    auto-mapping-behavior: full
+    org.ylzl.eden: INFO
 
 server:
   port: 8081
+  shutdown: graceful # 优雅关闭
   compression:
-    enabled: true
-    mime-types: text/html,text/plain,text/css,application/javascript
+    enabled: true # 开启压缩
     min-response-size: 1024
-  # 内存数据库
-  h2:
-    console:
-      enabled: false
-      path: /h2-console
-      settings:
-        trace: false
-        web-allow-others: false
-  # 关系数据库
-  datasource:
-    # 内存数据源
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:db;DB_CLOSE_ON_EXIT=TRUE
-    username: sa
-    password: test
-  # 缓存数据库
-  redis:
-    database: 1
-    host: localhost
-    port: 6379
-    password: test
-    timeout: 5000
-  # 模板引擎
-  thymeleaf:
-    cache: false
+  undertow: # 高性能容器
+    buffer-size: 1024
+    direct-buffers: true
+    threads:
+      io: 16
+      worker: 256
+#  tomcat: # 传统容器
+#    uri-encoding: UTF-8
+#    max-connections: 8192 # 最大连接数
+#    accept-count: 1000 # 接收队列长度
+#    threads:
+#      max: 500 # 最大并发数
+#      min-spare: 20 # 初始线程数
 
-spring:
-  data:
-    redis:
-      repositories:
-        enabled: true
-  datasource:
-    type: com.zaxxer.hikari.HikariDataSource
-    hikari:
-      connectionTimeout: 5000
-      minimumIdle: 2
-      maximumPoolSize: 10
-      idleTimeout: 300000
-      maxLifetime: 1200000
-      connection-init-sql: SET NAMES utf8mb4
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    default-property-inclusion: non_null
-    serialization:
-      indent-output: true
-    time-zone: GMT+8
-  messages:
-    basename: i18n/messages
-  main:
-    allow-bean-definition-overriding: true
-  lifecycle:
-    timeout-per-shutdown-phase: 30s
-  thymeleaf:
-    mode: HTML
+mybatis-plus: # ORM 组件
+  global-config:
+    banner: false
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    map-underscore-to-camel-case: true
+    auto-mapping-behavior: full
+    call-setters-on-nulls: true
+    use-column-label: true
 
-message-queue:
-  rocketmq:
-    enabled: false
+arthas: # 在线诊断工具
+  agent-id: ${spring.application.name}@${random.value}
+  tunnel-server: ws://localhost:7777/ws
+  session-timeout: 1800
+  telnet-port: 0 # 随机端口
+  http-port: 0 # 随机端口
+
+dubbo: # 分布式调用组件
+  enabled: false # 默认关闭，请按需开启
+  scan:
+    base-packages: org.ylzl.eden.demo.adapter
+  application:
+    id: ${spring.application.name}
+    name: ${spring.application.name}
+  protocol:
+    name: dubbo
+    port: -1 # 随机端口
+  registry:
+    id: ${spring.application.name}
+    address: nacos://${spring.cloud.nacos.discovery.server-addr}?namespace=${spring.cloud.nacos.discovery.namespace}&group=dubbo
+    protocol: nacos
+    check: false # 是否开启服务注册的启动检查
+    register: true # 是否开启服务注册，设置为 false 表示只订阅不注册
+  config-center:
+    address: nacos://${spring.cloud.nacos.discovery.server-addr}?namespace=${spring.cloud.nacos.discovery.namespace}&group=config
+  metadata-report:
+    address: nacos://${spring.cloud.nacos.discovery.server-addr}?namespace=${spring.cloud.nacos.discovery.namespace}&group=metadata
+  provider:
+    retries: 0 # 重试次数
+    timeout: 3000 # 超时时间
+    check: false # 是否开启检查
+  consumer:
+    retries: 0 # 重试次数
+    timeout: 3000 # 超时时间
+    check: false # 是否开启检查
+
+xxl: # 分布式调度平台
+  job:
+    enabled: false # 默认关闭，请按需开启
+
+cat: # 实时监控平台
+  enabled: false # 默认关闭，请按需开启

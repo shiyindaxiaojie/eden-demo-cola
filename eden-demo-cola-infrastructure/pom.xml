@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>org.ylzl.eden.demo</groupId>
 		<artifactId>eden-demo-cola</artifactId>
-		<version>2.4.13.20221126</version>
+		<version>2.4.13.20221129</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<artifactId>eden-demo-cola-infrastructure</artifactId>
@@ -95,7 +95,7 @@
 		<!-- 分库分表组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-sharding-jdbc-spring-boot-starter</artifactId>
+			<artifactId>eden-shardingsphere-spring-boot-starter</artifactId>
 		</dependency>
 
 		<!-- 缓存组件 -->
