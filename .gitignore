@@ -13,7 +13,7 @@
 *~.nib
 log/
 local.properties
-.log
+*.log
 
 # ESLint
 .eslintcache
