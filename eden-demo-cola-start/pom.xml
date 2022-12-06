@@ -142,7 +142,7 @@
 		<!-- 链路跟踪组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-zipkin-spring-cloud-starter</artifactId>
+			<artifactId>eden-zipkin2-spring-cloud-starter</artifactId>
 		</dependency>
 
 		<!-- 服务监控组件 -->

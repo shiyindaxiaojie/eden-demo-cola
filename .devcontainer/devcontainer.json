@@ -1,0 +1,25 @@
+{
+	"name": "app",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"args": {
+			"VARIANT": "11",
+			"INSTALL_MAVEN": "true",
+			"INSTALL_GRADLE": "false",
+			"NODE_VERSION": "lts/*"
+		}
+	},
+	"settings": {
+		"java.home": "/docker-java-home"
+	},
+	"extensions": [
+		"vscjava.vscode-java-pack",
+		"pivotal.vscode-boot-dev-pack"
+	],
+	"forwardPorts": [8081],
+	"remoteUser": "vscode",
+	"features": {
+		"docker-in-docker": "latest",
+		"docker-from-docker": "latest"
+	}
+}
