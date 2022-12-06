@@ -2,8 +2,8 @@ package org.ylzl.eden.demo.adapter.user.consumer;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.ylzl.eden.dynamic.mq.core.MessageQueueConsumer;
-import org.ylzl.eden.dynamic.mq.core.MessageQueueListener;
+import org.ylzl.eden.dynamic.mq.MessageQueueConsumer;
+import org.ylzl.eden.dynamic.mq.MessageQueueListener;
 import org.ylzl.eden.dynamic.mq.consumer.Acknowledgement;
 import org.ylzl.eden.dynamic.mq.model.Message;
 
