@@ -2,10 +2,10 @@ databaseChangeLog:
   - property:
       name: version
       value: 2.4.13
-  - changeSet: # 方式一，兼容所有数据库
+  - changeSet: # 方式一：兼容所有数据库
       id: initialize
       author: gyl
-      comments: 初始化脚本
+      comment: 初始化脚本
       changes:
         - createTable:
             tableName: demo_user
@@ -41,14 +41,14 @@ databaseChangeLog:
               - column:
                   name: activated
                   type: boolean
-                  valueBoolean: false
+                  valueBoolean: "false"
                   remarks: 是否激活账户
                   constraints:
                     nullable: false
               - column:
                   name: locked
                   type: boolean
-                  valueBoolean: false
+                  valueBoolean: "false"
                   remarks: 是否锁定账户
                   constraints:
                     nullable: false
@@ -132,7 +132,6 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
                     nullable: false
-
         - loadData:
             tableName: demo_user
             file: db/changelog/${version}/users.csv
@@ -163,10 +162,10 @@ databaseChangeLog:
         - dropTable:
             tableName: demo_user_authority
 
-#  - changeSet: # 方式二，针对某种数据库
+#  - changeSet: # 方式二：指定数据库执行
 #      id: initialize
 #      author: sion
-#      comments: 初始化脚本
+#      comment: 初始化脚本
 #      changes:
 #        - sqlFile:
 #            path: db/changelog/${version}/changes.sql
