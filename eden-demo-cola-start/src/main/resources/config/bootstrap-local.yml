@@ -5,13 +5,13 @@ spring:
         enabled: false # 默认关闭，请按需开启
         server-addr: localhost:8848
         namespace: demo
-        group: ${spring.application.name}
+        group: demo
         username: nacos
         password: nacos
       discovery: # 注册中心
         enabled: false # 默认关闭，请按需开启
         server-addr: localhost:8848
         namespace: demo
-        group: ${spring.application.name}
+        group: demo
         username: nacos
         password: nacos

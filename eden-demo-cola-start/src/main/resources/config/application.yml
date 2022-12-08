@@ -90,11 +90,14 @@ server:
 #      max: 500 # 最大并发数
 #      min-spare: 20 # 初始线程数
 
+liquibase: # 数据库迁移工具
+  async: true # 异步执行
+
 mybatis-plus: # ORM 组件
   global-config:
     banner: false
   configuration:
-    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
     map-underscore-to-camel-case: true
     auto-mapping-behavior: full
     call-setters-on-nulls: true

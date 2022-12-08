@@ -50,7 +50,7 @@ Configuration:
       - name: com.baomidou
         level: ERROR
       - name: com.ibatis
-        level: INFO
+        level: WARN
       - name: org.apache.dubbo
         level: WARN
       - name: org.apache.nacos
