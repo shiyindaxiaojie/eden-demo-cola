@@ -109,5 +109,11 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-rocketmq-spring-boot-starter</artifactId>
 		</dependency>
+
+		<!-- 动态线程池组件 -->
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-dynamic-tp-spring-cloud-starter</artifactId>
+		</dependency>
     </dependencies>
 </project>

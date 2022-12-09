@@ -61,6 +61,28 @@ spring:
       buffer-memory: 40960
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  dynamic:
+    tp: # 动态线程池
+      enabled: false
+      enabledBanner: true
+      enabledCollect: false
+      collectorTypes: micrometer
+      logPath: ${user.home}/logs
+      monitorInterval: 5
+      undertowTp:
+        corePoolSize: 100
+        maximumPoolSize: 200
+        keepAliveTime: 60
+      dubboTp:
+        - threadPoolName: ${spring.application.name}#dubboTp
+          corePoolSize: 100
+          maximumPoolSize: 200
+          keepAliveTime: 60
+      rocketMqTp:
+        - threadPoolName: ${spring.application.name}#rocketMqTp
+          corePoolSize: 200
+          maximumPoolSize: 200
+          keepAliveTime: 60
 
 logging:
   file:
@@ -145,3 +167,5 @@ xxl: # 分布式调度平台
 
 cat: # 实时监控平台
   enabled: false # 默认关闭，请按需开启
+
+
