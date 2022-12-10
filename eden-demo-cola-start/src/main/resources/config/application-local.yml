@@ -97,8 +97,8 @@ logging:
     org.ylzl.eden: DEBUG
 
 rocketmq: # 消息队列
-  enabled: true # 默认关闭，请按需开启
-  name-server: 10.2.2.45:9876;10.2.2.48:9876
+  enabled: false # 默认关闭，请按需开启
+  name-server: localhost:9876;localhost:9876
   producer:
     group: ${spring.application.name}
     access-key:
