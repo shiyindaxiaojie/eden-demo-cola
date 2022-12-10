@@ -61,6 +61,36 @@ spring:
       buffer-memory: 40960
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+  dynamic:
+    tp: # 动态线程池
+      enabled: false
+      enabledBanner: false
+      enabledCollect: true
+      collectorTypes: micrometer
+      logPath: ${user.home}/logs
+      monitorInterval: 5
+      undertowTp:
+        corePoolSize: 16
+        maximumPoolSize: 256
+        keepAliveTime: 60
+      dubboTp:
+        - threadPoolName: ${spring.application.name}#dubboTp
+          corePoolSize: 16
+          maximumPoolSize: 256
+          keepAliveTime: 60
+      rocketMqTp:
+        - threadPoolName: ${spring.application.name}#rocketMqTp
+          corePoolSize: 16
+          maximumPoolSize: 256
+          keepAliveTime: 60
+      executors:
+        - threadPoolName: ${spring.application.name}#dtpExecutor
+          executorType: common
+          corePoolSize: 16
+          maximumPoolSize: 256
+          queueCapacity: 500
+          queueType: VariableLinkedBlockingQueue
+          rejectedHandlerType: CallerRunsPolicy
 
 logging:
   file:
@@ -90,11 +120,14 @@ server:
 #      max: 500 # 最大并发数
 #      min-spare: 20 # 初始线程数
 
+liquibase: # 数据库迁移工具
+  async: true # 异步执行
+
 mybatis-plus: # ORM 组件
   global-config:
     banner: false
   configuration:
-    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
     map-underscore-to-camel-case: true
     auto-mapping-behavior: full
     call-setters-on-nulls: true
@@ -142,3 +175,5 @@ xxl: # 分布式调度平台
 
 cat: # 实时监控平台
   enabled: false # 默认关闭，请按需开启
+
+

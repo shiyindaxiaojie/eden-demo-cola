@@ -91,9 +91,14 @@ spring:
   kafka: # 消息队列
     bootstrap-servers: localhost:9092
 
+logging:
+  level:
+    ROOT: INFO
+    org.ylzl.eden: DEBUG
+
 rocketmq: # 消息队列
   enabled: false # 默认关闭，请按需开启
-  name-server: localhost:9876;localhost:9877
+  name-server: localhost:9876;localhost:9876
   producer:
     group: ${spring.application.name}
     access-key:

@@ -1,0 +1,198 @@
+databaseChangeLog:
+  - property:
+      name: version
+      value: 2.4.13
+  - changeSet: # 方式一：兼容所有数据库
+      id: initialize
+      author: gyl
+      comment: 初始化脚本
+      changes:
+        - createTable:
+            tableName: demo_user
+            remarks: 用户表
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  remarks: 主键
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: login
+                  type: varchar(20)
+                  remarks: 登录账户
+                  constraints:
+                    unique: true
+                    nullable: false
+                    uniqueConstraintName: ux_user_login
+              - column:
+                  name: password_hash
+                  type: varchar(70)
+                  remarks: 密码
+              - column:
+                  name: email
+                  type: varchar(100)
+                  remarks: 邮箱
+                  constraints:
+                    unique: true
+                    nullable: true
+                    uniqueConstraintName: ux_user_email
+              - column:
+                  name: activated
+                  type: boolean
+                  valueBoolean: "false"
+                  remarks: 是否激活账户
+                  constraints:
+                    nullable: false
+              - column:
+                  name: locked
+                  type: boolean
+                  valueBoolean: "false"
+                  remarks: 是否锁定账户
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lang_key
+                  type: varchar(6)
+                  remarks: 语言
+              - column:
+                  name: activation_key
+                  type: varchar(20)
+                  remarks: 激活账户的代码
+              - column:
+                  name: reset_key
+                  type: varchar(20)
+                  remarks: 重置密码的代码
+              - column:
+                  name: reset_date
+                  type: timestamp
+                  remarks: 重置密码的时间
+                  constraints:
+                    nullable: true
+              - column:
+                  name: created_by
+                  type: varchar(20)
+                  remarks: 创建的账户
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_date
+                  type: timestamp
+                  defaultValueDate: ${now}
+                  remarks: 创建的时间
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_modified_by
+                  type: varchar(20)
+                  remarks: 最后修改的账户
+              - column:
+                  name: last_modified_date
+                  type: timestamp
+                  remarks: 最后修改的时间
+        - createTable:
+            tableName: demo_authority
+            remarks: 权限表
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  remarks: 主键
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(60)
+                  remarks: 权限名称
+                  constraints:
+                    nullable: false
+              - column:
+                  name: code
+                  type: varchar(20)
+                  remarks: 权限代码
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: demo_user_authority
+            remarks: 用户权限关联表
+            columns:
+              - column:
+                  name: user_id
+                  type: bigint
+                  remarks: 用户主键
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: authority_id
+                  type: bigint
+                  remarks: 权限主键
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+        - loadData:
+            tableName: demo_user
+            file: db/changelog/${version}/users.csv
+            separator: ;
+            columns:
+              - column:
+                  name: activated
+                  type: boolean
+              - column:
+                  name: locked
+                  type: boolean
+              - column:
+                  name: created_date
+                  type: timestamp
+        - loadData:
+            tableName: demo_authority
+            file: db/changelog/${version}/authorities.csv
+            separator: ;
+        - loadData:
+            tableName: demo_user_authority
+            file: db/changelog/${version}/users_authorities.csv
+            separator: ;
+      rollback:
+        - dropTable:
+            tableName: demo_user
+        - dropTable:
+            tableName: demo_authority
+        - dropTable:
+            tableName: demo_user_authority
+
+#  - changeSet: # 方式二：指定数据库执行
+#      id: initialize
+#      author: sion
+#      comment: 初始化脚本
+#      changes:
+#        - sqlFile:
+#            path: db/changelog/${version}/changes.sql
+#            stripComments: true
+#        - loadData:
+#            tableName: demo_user
+#            file: db/changelog/${version}/users.csv
+#            separator: ;
+#            columns:
+#              - column:
+#                  name: activated
+#                  type: boolean
+#              - column:
+#                  name: locked
+#                  type: boolean
+#              - column:
+#                  name: created_date
+#                  type: timestamp
+#        - loadData:
+#            tableName: demo_authority
+#            file: db/changelog/${version}/authorities.csv
+#            separator: ;
+#        - loadData:
+#            tableName: demo_user_authority
+#            file: db/changelog/${version}/users_authorities.csv
+#            separator: ;
+#      rollback:
+#        - sqlFile:
+#            path: db/changelog/${version}/rollback.sql
+#            stripComments: true
