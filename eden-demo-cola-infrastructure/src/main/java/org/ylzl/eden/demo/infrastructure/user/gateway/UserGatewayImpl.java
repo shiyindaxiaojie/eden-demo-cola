@@ -55,7 +55,7 @@ public class UserGatewayImpl implements UserGateway {
 				.key(String.valueOf(user.getId()))
 				.tags("demo")
 				.delayTimeLevel(2)
-				.body(JacksonUtils.toJSONString(user)).build(),
+				.body(JSONHelper.json().toJSONString(user)).build(),
 			new MessageSendCallback() {
 
 				@Override
