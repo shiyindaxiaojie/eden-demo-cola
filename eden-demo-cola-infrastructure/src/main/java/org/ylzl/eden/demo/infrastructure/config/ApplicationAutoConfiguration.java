@@ -17,8 +17,10 @@
 package org.ylzl.eden.demo.infrastructure.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 
 /**
  * 应用自动装配
@@ -28,6 +30,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @EnableConfigurationProperties({ApplicationProperties.class})
 @Slf4j
+@Role(BeanDefinition.ROLE_APPLICATION)
 @Configuration(proxyBeanMethods = false)
 public class ApplicationAutoConfiguration {
 
