@@ -95,7 +95,7 @@ spring:
 logging:
   file:
     name: ${spring.application.name}
-  config: classpath:log4j2.yml
+#  config: classpath:log4j2.yml
   level:
     ROOT: INFO
     org.ylzl.eden: INFO

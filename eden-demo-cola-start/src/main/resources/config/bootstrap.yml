@@ -23,5 +23,3 @@ management: # 端点管理
   metrics:
     tags:
       application: ${spring.application.name}
-
-
