@@ -92,14 +92,6 @@ spring:
           queueType: VariableLinkedBlockingQueue
           rejectedHandlerType: CallerRunsPolicy
 
-logging:
-  file:
-    name: ${spring.application.name}
-#  config: classpath:log4j2.yml
-  level:
-    ROOT: INFO
-    org.ylzl.eden: INFO
-
 server:
   port: 8081
   shutdown: graceful # 优雅关闭
