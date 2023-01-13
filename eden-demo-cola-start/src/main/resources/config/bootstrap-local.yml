@@ -15,8 +15,13 @@ spring:
         group: eden
         username: nacos
         password: nacos
+        extension-configs:
+          - group: eden
+            data-id: log4j2.yml
+            refresh: true
 
 log4j2:
-  enabled: false
+  enabled: true
   nacos:
-    group: ${spring.cloud.nacos.config.group}
+    group: eden
+    data-id: log4j2.yml
