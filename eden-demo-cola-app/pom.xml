@@ -81,5 +81,10 @@
 			<artifactId>eden-spock-spring-boot-starter</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!--<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-event-auditor</artifactId>
+		</dependency>-->
 	</dependencies>
 </project>
