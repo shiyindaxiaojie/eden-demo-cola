@@ -82,9 +82,10 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!--<dependency>
+		<!-- 审计组件 -->
+		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-event-auditor</artifactId>
-		</dependency>-->
+			<artifactId>eden-event-auditor-spring-boot-starter</artifactId>
+		</dependency>
 	</dependencies>
 </project>
