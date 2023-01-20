@@ -24,7 +24,7 @@
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-parent</artifactId>
 		<version>2.4.13-SNAPSHOT</version>
-		<relativePath/>
+		<relativePath>../eden-architect/eden-components/eden-parent/pom.xml</relativePath>
 	</parent>
 	<groupId>org.ylzl.eden.demo</groupId>
 	<artifactId>eden-demo-cola</artifactId>
