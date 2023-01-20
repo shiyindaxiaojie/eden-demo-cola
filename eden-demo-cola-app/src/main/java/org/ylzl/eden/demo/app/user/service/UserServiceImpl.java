@@ -35,6 +35,8 @@ import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
 import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
 import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry;
+import org.ylzl.eden.event.auditor.EventAuditor;
+import org.ylzl.eden.spring.framework.expression.function.CustomFunction;
 
 /**
  * 用户领域业务实现
@@ -42,7 +44,6 @@ import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-//@CustomFunction
 //@DS("ds2") // 多数据源示例
 @RequiredArgsConstructor
 @Slf4j
@@ -75,27 +76,27 @@ public class UserServiceImpl implements UserService {
 	 *
 	 * @param cmd
 	 */
-//	@EventAuditor(
-//		bizScenario = "'demo.users.getUserById'",
-//		operator = "#operator",
-//		content = "'用户' + #cmd.login + '修改了邮箱，从' + #queryOldEmail(#cmd.id) + '修改为' + #cmd.email",
-//	   evalBeforeInvoke = true)
+	@EventAuditor(
+		bizScenario = "'demo.users.getUserById'",
+		operator = "#operator",
+		content = "'用户' + #cmd.login + '修改了邮箱，从' + #queryOldEmail(#cmd.id) + '修改为' + #cmd.email",
+	   evalBeforeInvoke = true)
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Response modifyUser(UserModifyCmd cmd) {
 		return userModifyCmdExe.execute(cmd);
 	}
 
-//	/**
-//	 * 自定义函数测试
-//	 *
-//	 * @param id
-//	 * @return
-//	 */
-//	@CustomFunction("queryOldEmail")
-//	public String queryOldEmail(Long id) {
-//		return this.getUserById(UserByIdQry.builder().id(id).build()).getData().getEmail();
-//	}
+	/**
+	 * 自定义函数测试
+	 *
+	 * @param id
+	 * @return
+	 */
+	@CustomFunction("queryOldEmail")
+	public String queryOldEmail(Long id) {
+		return this.getUserById(UserByIdQry.builder().id(id).build()).getData().getEmail();
+	}
 
 	/**
 	 * 删除用户

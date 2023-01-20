@@ -1,37 +1,3 @@
-# Eclipse
-.classpath
-.factorypath
-.loadpath
-.metadata
-.project
-.settings/
-*.bak
-*.launch
-*.pydevproject
-*.swp
-*.tmp
-*~.nib
-log/
-local.properties
-*.log
-
-# ESLint
-.eslintcache
-
-# Gradle
-!gradle/wrapper/gradle-wrapper.jar
-.gradle/
-build/
-
-# Intellij
-.idea/
-*.ids
-*.iml
-*.ipr
-*.iws
-*.orig
-classes/
-
 # Java
 *.class
 *.db
@@ -39,42 +5,53 @@ classes/
 *.jar
 *.war
 
+# Intellij
+.idea/
+classes/
+*.ids
+*.iml
+*.ipr
+*.iws
+*.orig
+
+# Eclipse
+.settings/
+.classpath
+.factorypath
+.loadpath
+.metadata
+.project
+*.bak
+*.launch
+*.pydevproject
+*.swp
+*.tmp
+*~.nib
+local.properties
+
+# Visual Studio Code
+.vscode/
+
 # JRebel
 rebel.xml
-
-# Mac OSX
-.DS_Store
 
 # Maven
 !.mvn/wrapper/maven-wrapper.jar
 !maven/wrapper/maven-wrapper.jar
-node/
+maven/
 target/
 .flattened-pom.xml
-*.flattened-pom.xml
 
-# Node.js
-node/
-node_tmp/
-node_modules/
-npm-debug.log.*
-package-lock.json
-
-# SASS
-.sass-cache/
+# Gradle
+!gradle/wrapper/maven-wrapper.jar
+.gradle/
+build/
 
 # SVN
 .svn/
 
-# Others
-.buildpath
-.cproject
-.externalToolBuilders/**
-.Spotlight-V100
-.Trashes
-
-# Visual Studio Code
-.vscode/
+# Mac OSX
+.DS_Store
 
 # Windows
 ._*
@@ -83,4 +60,13 @@ package-lock.json
 .merge_file*
 Desktop.ini
 Thumbs.db
+
+# Others
 logs/
+log/
+.log
+.buildpath
+.cproject
+.externalToolBuilders/**
+.Spotlight-V100
+.Trashes
