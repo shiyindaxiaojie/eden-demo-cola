@@ -16,7 +16,7 @@ dependencies {
     api 'org.ylzl:eden-prometheus-spring-boot-starter:2.4.13-SNAPSHOT'
     api 'org.ylzl:eden-cat-spring-boot-starter:2.4.13-SNAPSHOT'
     api 'org.ylzl:eden-arthas-spring-boot-starter:2.4.13-SNAPSHOT'
-    testImplementation 'org.ylzl:eden-spock-spring-boot-starter:2.4.13-SNAPSHOT'
+    testImplementation 'org.ylzl:eden-spring-boot-test:2.4.13-SNAPSHOT'
     compileOnly 'org.projectlombok:lombok:1.18.18'
     compileOnly 'org.mapstruct:mapstruct-processor:1.4.1.Final'
 }

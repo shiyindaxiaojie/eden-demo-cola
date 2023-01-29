@@ -20,7 +20,7 @@ dependencies {
     api 'org.ylzl:eden-dynamic-tp-spring-cloud-starter:2.4.13-SNAPSHOT'
     runtimeOnly 'mysql:mysql-connector-java:8.0.31'
     runtimeOnly 'com.h2database:h2:1.4.200'
-    testImplementation 'org.ylzl:eden-spock-spring-boot-starter:2.4.13-SNAPSHOT'
+    testImplementation 'org.ylzl:eden-spring-boot-test:2.4.13-SNAPSHOT'
     compileOnly 'org.projectlombok:lombok:1.18.18'
     compileOnly 'org.mapstruct:mapstruct-processor:1.4.1.Final'
     compileOnly 'org.springframework.boot:spring-boot-configuration-processor:2.4.13'

@@ -47,7 +47,7 @@
 		<!-- 测试组件 -->
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-spock-spring-boot-starter</artifactId>
+			<artifactId>eden-spring-boot-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 

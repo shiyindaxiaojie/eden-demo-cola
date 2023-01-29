@@ -14,7 +14,7 @@ dependencies {
     api 'org.projectlombok:lombok:1.18.18'
     api 'org.mapstruct:mapstruct-processor:1.4.1.Final'
     api 'org.ylzl:eden-event-auditor-spring-boot-starter:2.4.13-SNAPSHOT'
-    testImplementation 'org.ylzl:eden-spock-spring-boot-starter:2.4.13-SNAPSHOT'
+    testImplementation 'org.ylzl:eden-spring-boot-test:2.4.13-SNAPSHOT'
 }
 
 description = 'eden-demo-cola-app'

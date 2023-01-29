@@ -13,7 +13,7 @@ dependencies {
     api 'org.ylzl:eden-undertow-spring-boot-starter:2.4.13-SNAPSHOT'
     api 'org.springframework.boot:spring-boot-starter-thymeleaf:2.4.13'
     api 'org.ylzl:eden-dubbo-spring-cloud-starter:2.4.13-SNAPSHOT'
-    testImplementation 'org.ylzl:eden-spock-spring-boot-starter:2.4.13-SNAPSHOT'
+    testImplementation 'org.ylzl:eden-spring-boot-test:2.4.13-SNAPSHOT'
 }
 
 description = 'eden-demo-cola-adapter'
