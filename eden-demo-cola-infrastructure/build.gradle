@@ -18,7 +18,7 @@ dependencies {
     api 'org.ylzl:eden-rocketmq-spring-boot-starter:0.0.1-SNAPSHOT'
     api 'org.ylzl:eden-dynamic-mq-spring-boot-starter:0.0.1-SNAPSHOT'
     api 'org.ylzl:eden-dynamic-tp-spring-cloud-starter:0.0.1-SNAPSHOT'
-    runtimeOnly 'mysql:mysql-connector-java:8.0.31'
+    runtimeOnly 'com.mysql:mysql-connector-j:8.0.32'
     runtimeOnly 'com.h2database:h2:1.4.200'
     testImplementation 'org.ylzl:eden-spring-boot-test:0.0.1-SNAPSHOT'
     compileOnly 'org.projectlombok:lombok:1.18.18'
