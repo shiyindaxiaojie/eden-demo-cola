@@ -8,10 +8,10 @@ plugins {
 
 dependencies {
     api 'org.mapstruct:mapstruct:1.4.1.Final'
-    api 'org.ylzl:eden-cola-domain:2.4.13-SNAPSHOT'
+    api 'org.ylzl:eden-cola-domain:0.0.1-SNAPSHOT'
     api 'org.slf4j:slf4j-api:1.7.32'
     runtimeOnly 'org.apache.logging.log4j:log4j-core:2.17.2'
-    testImplementation 'org.ylzl:eden-spring-boot-test:2.4.13-SNAPSHOT'
+    testImplementation 'org.ylzl:eden-spring-boot-test:0.0.1-SNAPSHOT'
     compileOnly 'org.projectlombok:lombok:1.18.18'
     compileOnly 'org.mapstruct:mapstruct-processor:1.4.1.Final'
 }

@@ -23,12 +23,12 @@
 	<parent>
 		<groupId>org.ylzl</groupId>
 		<artifactId>eden-parent</artifactId>
-		<version>2.4.13-SNAPSHOT</version>
+		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../eden-architect/eden-components/eden-parent/pom.xml</relativePath>
 	</parent>
 	<groupId>org.ylzl.eden.demo</groupId>
 	<artifactId>eden-demo-cola</artifactId>
-	<version>2.4.13-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>eden-demo-cola</name>
 	<description>COLA 应用架构</description>
@@ -58,27 +58,27 @@
 			<dependency>
 				<groupId>org.ylzl.eden.demo</groupId>
 				<artifactId>eden-demo-cola-adapter</artifactId>
-				<version>2.4.13-SNAPSHOT</version>
+				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl.eden.demo</groupId>
 				<artifactId>eden-demo-cola-app</artifactId>
-				<version>2.4.13-SNAPSHOT</version>
+				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl.eden.demo</groupId>
 				<artifactId>eden-demo-cola-client</artifactId>
-				<version>2.4.13-SNAPSHOT</version>
+				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl.eden.demo</groupId>
 				<artifactId>eden-demo-cola-domain</artifactId>
-				<version>2.4.13-SNAPSHOT</version>
+				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.ylzl.eden.demo</groupId>
 				<artifactId>eden-demo-cola-infrastructure</artifactId>
-				<version>2.4.13-SNAPSHOT</version>
+				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
