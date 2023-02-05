@@ -41,6 +41,7 @@ rebel.xml
 maven/
 target/
 .flattened-pom.xml
+release.properties
 
 # Gradle
 !gradle/wrapper/maven-wrapper.jar
