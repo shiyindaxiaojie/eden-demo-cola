@@ -127,7 +127,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.ylzl</groupId>
-			<artifactId>eden-dynamic-mq-spring-boot-starter</artifactId>
+			<artifactId>eden-common-mq-spring-boot-starter</artifactId>
 		</dependency>
 
 		<!-- 动态线程池组件 -->

@@ -16,7 +16,7 @@ dependencies {
     api 'org.ylzl:eden-shardingsphere-spring-boot-starter:0.0.1-SNAPSHOT'
     api 'org.ylzl:eden-redis-spring-boot-starter:0.0.1-SNAPSHOT'
     api 'org.ylzl:eden-rocketmq-spring-boot-starter:0.0.1-SNAPSHOT'
-    api 'org.ylzl:eden-dynamic-mq-spring-boot-starter:0.0.1-SNAPSHOT'
+    api 'org.ylzl:eden-common-mq-spring-boot-starter:0.0.1-SNAPSHOT'
     api 'org.ylzl:eden-dynamic-tp-spring-cloud-starter:0.0.1-SNAPSHOT'
     runtimeOnly 'com.mysql:mysql-connector-j:8.0.32'
     runtimeOnly 'com.h2database:h2:1.4.200'
