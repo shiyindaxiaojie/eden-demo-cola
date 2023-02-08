@@ -168,4 +168,19 @@ xxl: # 分布式调度平台
 cat: # 实时监控平台
   enabled: false # 默认关闭，请按需开启
 
+opentracing: # Jaeger
+  jaeger:
+    service-name: ${spring.application.name}
+    enabled: false
+    log-spans: true
+    enable-b3-propagation: true
+    enable-w3c-propagation: true
+    const-sampler:
+      decision: true
+    probabilistic-sampler:
+      sampling-rate: 1
+  spring:
+    cloud:
+      async:
+        enabled: false
 
