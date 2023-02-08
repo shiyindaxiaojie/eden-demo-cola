@@ -121,3 +121,10 @@ cat: # 实时监控平台
   servers: localhost
   tcp-port: 2280
   http-port: 8080
+
+opentracing: # Jaeger
+  jaeger:
+    enabled: false
+    udp-sender:
+      host: 172.28.96.92
+      port: 6831
