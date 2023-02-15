@@ -1,0 +1,6 @@
+apiVersion: v2
+name: helm
+description: Eden* demo cola for kubernetes
+type: application
+version: 0.0.1-SNAPSHOT
+appVersion: ">=1.16.0-0"
