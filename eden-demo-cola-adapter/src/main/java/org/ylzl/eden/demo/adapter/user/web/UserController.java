@@ -19,6 +19,9 @@ package org.ylzl.eden.demo.adapter.user.web;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.ylzl.eden.cola.dto.PageResponse;
+import org.ylzl.eden.cola.dto.Response;
+import org.ylzl.eden.cola.dto.SingleResponse;
 import org.ylzl.eden.demo.adapter.constant.ApiConstant;
 import org.ylzl.eden.demo.client.user.api.UserService;
 import org.ylzl.eden.demo.client.user.dto.UserDTO;
@@ -27,9 +30,8 @@ import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
 import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
 import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry;
-import org.ylzl.eden.cola.dto.PageResponse;
-import org.ylzl.eden.cola.dto.Response;
-import org.ylzl.eden.cola.dto.SingleResponse;
+import org.ylzl.eden.spring.integration.cat.core.CatLogMetricForCount;
+import org.ylzl.eden.spring.integration.cat.core.CatTransaction;
 
 import javax.validation.Valid;
 
@@ -39,6 +41,7 @@ import javax.validation.Valid;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
+@CatTransaction
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping(ApiConstant.WEB_API_PATH + "/users")
@@ -88,6 +91,7 @@ public class UserController {
 	 * @param id
 	 * @return
 	 */
+	@CatLogMetricForCount(name = "getUserById")
 	@GetMapping("/{id}")
 	public SingleResponse<UserDTO> getUserById(@PathVariable Long id) {
 		return userService.getUserById(UserByIdQry.builder().id(id).build());
