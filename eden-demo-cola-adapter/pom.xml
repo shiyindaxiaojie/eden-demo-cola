@@ -53,6 +53,10 @@
 			<artifactId>mapstruct-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>org.ylzl</groupId>
+			<artifactId>eden-spring-integration</artifactId>
+		</dependency>
 
 		<!-- 测试组件 -->
 		<dependency>
@@ -84,5 +88,5 @@
 			<groupId>org.ylzl</groupId>
 			<artifactId>eden-dubbo-spring-cloud-starter</artifactId>
 		</dependency>
-	</dependencies>
+    </dependencies>
 </project>
