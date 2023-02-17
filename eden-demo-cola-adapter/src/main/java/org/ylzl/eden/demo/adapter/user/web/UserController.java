@@ -91,7 +91,7 @@ public class UserController {
 	 * @param id
 	 * @return
 	 */
-	@CatLogMetricForCount(name = "getUserById")
+	@CatLogMetricForCount
 	@GetMapping("/{id}")
 	public SingleResponse<UserDTO> getUserById(@PathVariable Long id) {
 		return userService.getUserById(UserByIdQry.builder().id(id).build());
