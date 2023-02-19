@@ -133,7 +133,7 @@ arthas: # 在线诊断工具
   http-port: 0 # 随机端口
 
 dubbo: # 分布式调用组件
-  enabled: false # 默认关闭，请按需开启，请不要使用 @EnabledDubbo 原生注解，否则无法关闭
+  enabled: true # 默认关闭，请按需开启，请不要使用 @EnabledDubbo 原生注解，否则无法关闭
   scan:
     base-packages: org.ylzl.eden.demo.adapter # Dubbo 服务扫描
   application:
@@ -156,10 +156,12 @@ dubbo: # 分布式调用组件
     retries: 0 # 重试次数
     timeout: 3000 # 超时时间
     check: false # 是否开启检查
+    filter: cat-dubbo-tracing
   consumer:
     retries: 0 # 重试次数
     timeout: 3000 # 超时时间
     check: false # 是否开启检查
+    filter: cat-dubbo-tracing,cat-dubbo-consumer
 
 xxl: # 分布式调度平台
   job:
