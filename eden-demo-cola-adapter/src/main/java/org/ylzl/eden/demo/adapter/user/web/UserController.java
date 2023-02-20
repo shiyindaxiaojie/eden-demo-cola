@@ -19,6 +19,7 @@ package org.ylzl.eden.demo.adapter.user.web;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.ylzl.eden.cola.dto.PageResponse;
 import org.ylzl.eden.cola.dto.Response;
@@ -51,6 +52,8 @@ public class UserController {
 
 	@DubboReference(injvm = false)
 	private UserService userService;
+
+	private final RedisTemplate redisTemplate;
 
 	/**
 	 * 创建用户
@@ -96,6 +99,7 @@ public class UserController {
 	@CatLogMetricForCount
 	@GetMapping("/{id}")
 	public SingleResponse<UserDTO> getUserById(@PathVariable Long id) {
+		redisTemplate.opsForValue().set("test", "test");
 		return userService.getUserById(UserByIdQry.builder().id(id).build());
 	}
 
