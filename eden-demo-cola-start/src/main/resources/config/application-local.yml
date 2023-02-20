@@ -14,8 +14,8 @@ spring:
 #    url: jdbc:h2:mem:db;DB_CLOSE_ON_EXIT=TRUE
 #    driver-class-name: org.h2.Driver
     username: root
-    password: admin123
-    url: jdbc:mysql://10.2.2.47:5306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    password: demo@123
+    url: jdbc:mysql://localhost:3306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
     driver-class-name: com.mysql.cj.jdbc.Driver
     dynamic: # 多数据源，使用 @DS 切换
       enabled: false # 默认关闭，请按需开启
@@ -83,10 +83,10 @@ spring:
             data-type: json
   redis: # 缓存数据库
     enabled: true # 默认关闭，请按需开启
-    password: puyiwm
+    password: demo@123
     timeout: 5000
     database: 1
-    host: 10.2.2.41
+    host: localhost
     port: 6379
   thymeleaf: # 模板引擎
     cache: false # 本地开发建议关闭缓存
