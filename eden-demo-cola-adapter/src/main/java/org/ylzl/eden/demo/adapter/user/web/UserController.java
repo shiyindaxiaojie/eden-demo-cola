@@ -100,6 +100,7 @@ public class UserController {
 	@GetMapping("/{id}")
 	public SingleResponse<UserDTO> getUserById(@PathVariable Long id) {
 		redisTemplate.opsForValue().set("test", "test");
+		redisTemplate.opsForValue().get("test");
 		return userService.getUserById(UserByIdQry.builder().id(id).build());
 	}
 

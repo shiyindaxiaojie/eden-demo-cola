@@ -156,12 +156,12 @@ dubbo: # 分布式调用组件
     retries: 0 # 重试次数
     timeout: 3000 # 超时时间
     check: false # 是否开启检查
-    filter: cat-dubbo-tracing
+    filter: cat-tracing
   consumer:
     retries: 0 # 重试次数
     timeout: 3000 # 超时时间
     check: false # 是否开启检查
-    filter: cat-dubbo-tracing,cat-dubbo-consumer
+    filter: cat-tracing,cat-consumer
 
 xxl: # 分布式调度平台
   job:
