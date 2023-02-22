@@ -53,7 +53,7 @@ public class UserController {
 	@DubboReference(injvm = false)
 	private UserService userService;
 
-	private final RedisTemplate redisTemplate;
+	private final RedisTemplate<String, String> redisTemplate;
 
 	/**
 	 * 创建用户
