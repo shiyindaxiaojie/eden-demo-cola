@@ -34,6 +34,11 @@ Configuration:
           size: "20MB"
       DefaultRolloverStrategy:
         max: 15
+    CAT:
+      name: CAT
+      level: INFO
+      PatternLayout:
+        pattern: ${console.pattern}
 
   Loggers:
     Root:
@@ -42,6 +47,7 @@ Configuration:
       AppenderRef:
         - ref: CONSOLE
         - ref: ROLLING_FILE
+#        - ref: CAT
     Logger:
       - name: org.ylzl
         level: INFO
