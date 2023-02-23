@@ -34,7 +34,7 @@ Configuration:
           size: "20MB"
       DefaultRolloverStrategy:
         max: 15
-    CAT:
+    CAT: # 自定义附加器
       name: CAT
       level: INFO
       PatternLayout:
