@@ -18,8 +18,6 @@ package org.ylzl.eden.demo.adapter.user.web;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.config.annotation.DubboReference;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.ylzl.eden.cola.dto.PageResponse;
 import org.ylzl.eden.cola.dto.Response;
@@ -32,8 +30,6 @@ import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
 import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
 import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry;
-import org.ylzl.eden.spring.integration.cat.CatLogMetricForCount;
-import org.ylzl.eden.spring.integration.cat.CatTransaction;
 
 import javax.validation.Valid;
 
@@ -43,17 +39,13 @@ import javax.validation.Valid;
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-@CatTransaction
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping(ApiConstant.WEB_API_PATH + "/users")
 @RestController
 public class UserController {
 
-	@DubboReference(injvm = false)
-	private UserService userService;
-
-	private final RedisTemplate<String, String> redisTemplate;
+	private final UserService userService;
 
 	/**
 	 * 创建用户
@@ -96,12 +88,8 @@ public class UserController {
 	 * @param id
 	 * @return
 	 */
-	@CatLogMetricForCount
 	@GetMapping("/{id}")
 	public SingleResponse<UserDTO> getUserById(@PathVariable Long id) {
-		log.info("请求哈哈");
-		redisTemplate.opsForValue().set("test", "test");
-		redisTemplate.opsForValue().get("test");
 		return userService.getUserById(UserByIdQry.builder().id(id).build());
 	}
 

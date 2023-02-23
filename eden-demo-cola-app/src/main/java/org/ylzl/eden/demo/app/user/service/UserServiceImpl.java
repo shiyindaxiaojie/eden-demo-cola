@@ -76,11 +76,8 @@ public class UserServiceImpl implements UserService {
 	 *
 	 * @param cmd
 	 */
-	@EventAuditor(
-		bizScenario = "'demo.users.getUserById'",
-		operator = "#operator",
-		content = "'用户' + #cmd.login + '修改了邮箱，从' + #queryOldEmail(#cmd.id) + '修改为' + #cmd.email",
-	   evalBeforeInvoke = true)
+	@EventAuditor(bizScenario = "'demo.users.getUserById'", operator = "#operator",
+		content = "'用户' + #cmd.login + '修改了邮箱，从' + #queryOldEmail(#cmd.id) + '修改为' + #cmd.email")
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Response modifyUser(UserModifyCmd cmd) {
@@ -90,8 +87,8 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * 自定义函数测试
 	 *
-	 * @param id
-	 * @return
+	 * @param id 用户ID
+	 * @return 数据库值
 	 */
 	@CustomFunction("queryOldEmail")
 	public String queryOldEmail(Long id) {
@@ -118,7 +115,6 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public SingleResponse<UserDTO> getUserById(UserByIdQry query) {
-		log.info("水水水水");
 		return userByIdQryExe.execute(query);
 	}
 
