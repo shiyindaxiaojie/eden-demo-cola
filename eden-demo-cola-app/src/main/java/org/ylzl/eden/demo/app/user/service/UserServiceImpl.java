@@ -118,6 +118,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public SingleResponse<UserDTO> getUserById(UserByIdQry query) {
+		log.info("水水水水");
 		return userByIdQryExe.execute(query);
 	}
 

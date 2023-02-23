@@ -99,6 +99,7 @@ public class UserController {
 	@CatLogMetricForCount
 	@GetMapping("/{id}")
 	public SingleResponse<UserDTO> getUserById(@PathVariable Long id) {
+		log.info("请求哈哈");
 		redisTemplate.opsForValue().set("test", "test");
 		redisTemplate.opsForValue().get("test");
 		return userService.getUserById(UserByIdQry.builder().id(id).build());
