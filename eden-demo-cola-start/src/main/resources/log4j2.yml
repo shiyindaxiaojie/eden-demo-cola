@@ -47,7 +47,7 @@ Configuration:
       AppenderRef:
         - ref: CONSOLE
         - ref: ROLLING_FILE
-#        - ref: CAT
+#        - ref: CAT # 默认关闭，开启后将日志发送到 CAT 监控平台
     Logger:
       - name: org.ylzl
         level: INFO
