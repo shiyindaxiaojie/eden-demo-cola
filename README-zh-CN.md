@@ -32,11 +32,13 @@
 
 ## 如何构建
 
-* master 分支对应的是 `eden-demo-cola 2.4.x`，最低支持 JDK 1.8。
-* 1.5.x 分支对应的是 `eden-demo-cola 1.5.x`，最低支持 JDK 1.8。
-* 2.4.x 分支对应的是 `eden-demo-cola 2.4.x`，最低支持 JDK 1.8。
+由于 `Spring Boot 2.4.x` 和 `Spring Boot 3.0.x` 在架构层面有很大的变更，因此我们采取跟 Spring Boot 版本号一致的分支:
 
-为了简化不必要的技术细节，本项目依赖 [eden-architect](https://github.com/shiyindaxiaojie/eden-architect)，本项目涉及的依赖项暂时没有发布到 Maven 中央仓库。请按下列步骤完成构建。
+* 2.4.x 分支适用于 `Spring Boot 2.4.x`，最低支持 JDK 1.8。
+* 2.7.x 分支适用于 `Spring Boot 2.7.x`，最低支持 JDK 11。
+* 3.0.x 分支适用于 `Spring Boot 3.0.x`，最低支持 JDK 17。
+
+本项目默认使用 Maven 来构建，最快的使用方式是 `git clone` 到本地。为了简化不必要的技术细节，本项目依赖 [eden-architect](https://github.com/shiyindaxiaojie/eden-architect)，本项目涉及的依赖项暂时没有发布到 Maven 中央仓库。请按下列步骤完成构建。
 
 1. 克隆 [eden-architect](https://github.com/shiyindaxiaojie/eden-architect) 到本地，执行 `./mvnw install` 安装到本地 Maven 仓库，确保接下来的构建不会出现依赖错误。
 2. 构建本项目，执行 `./mvnw install` 即可。
@@ -61,11 +63,9 @@
 
 ## 版本规范
 
-项目的版本号格式为 x.x.x 的形式，其中 x 的数值类型为数字，从 0 开始取值，且不限于 0~9 这个范围。项目处于孵化器阶段时，第一位版本号固定使用
-0，即版本号为 0.x.x 的格式。
+项目的版本号格式为 `x.y.z` 的形式，其中 x 的数值类型为数字，从 0 开始取值，且不限于 0~9 这个范围。项目处于孵化器阶段时，第一位版本号固定使用 0，即版本号为 `0.x.x` 的格式。
 
-由于 `Spring Boot 1.5.x` 和 `Spring Boot 2.4.x` 在架构层面有很大的变更，因此我们采取跟 Spring Boot
-版本号一致的版本:
+* 孵化版本：0.0.1-SNAPSHOT
+* 不稳定版本：1.0.0-SNAPSHOT
+* 稳定版本：1.0.0
 
-* 1.5.x 版本适用于 `Spring Boot 1.5.x`
-* 2.4.x 版本适用于 `Spring Boot 2.4.x`

@@ -18,8 +18,11 @@ package org.ylzl.eden.demo.app.user.executor.query;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.ylzl.eden.cola.dto.SingleResponse;
+import org.ylzl.eden.demo.api.UserService;
 import org.ylzl.eden.demo.app.user.assembler.UserAssembler;
 import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
@@ -42,7 +45,15 @@ public class UserByIdQryExe {
 
 	private final UserAssembler userAssembler;
 
+	private final StringRedisTemplate redisTemplate;
+
+	@DubboReference
+	private UserService userService;
+
 	public SingleResponse<UserDTO> execute(UserByIdQry query) {
+		log.info("test");
+		ClientAssert.notNull(userService.getUserById(query.getId()), "USER-FOUND-404", query.getId());
+		redisTemplate.opsForValue().set("test", "test");
 		UserDO userDO = userMapper.selectById(query.getId());
 		ClientAssert.notNull(userDO, "USER-FOUND-404", query.getId());
 		return SingleResponse.of(userAssembler.toDTO(userDO));
