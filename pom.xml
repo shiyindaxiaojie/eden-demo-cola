@@ -45,14 +45,33 @@
 
 	<developers>
 		<developer>
-			<id>demo</id>
-			<name>作者</name>
-			<email>demo@ylzl.org</email>
+			<id>sion</id>
+			<name>梦想歌</name>
+			<email>shiyindaxiaojie@gmail.com</email>
 			<roles>
-				<role>Developer</role>
+				<role>Architect</role>
 			</roles>
 		</developer>
 	</developers>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/shiyindaxiaojie/eden-demo-cola</url>
+		<connection>scm:git:git://github.com/shiyindaxiaojie/eden-demo-cola.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/shiyindaxiaojie/eden-demo-cola.git</developerConnection>
+	</scm>
+
+	<issueManagement>
+		<system>Github</system>
+		<url>https://github.com/shiyindaxiaojie/eden-demo-cola/issues</url>
+	</issueManagement>
 
 	<dependencyManagement>
 		<dependencies>
@@ -91,21 +110,9 @@
 				<artifactId>maven-release-plugin</artifactId>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>versions-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-archetype-plugin</artifactId>
 			</plugin>
-			<!--<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>flatten-maven-plugin</artifactId>
-			</plugin>-->
-			<!--<plugin>
-				<groupId>se.bjurr.gitchangelog</groupId>
-				<artifactId>git-changelog-maven-plugin</artifactId>
-			</plugin>-->
 		</plugins>
 	</build>
 </project>

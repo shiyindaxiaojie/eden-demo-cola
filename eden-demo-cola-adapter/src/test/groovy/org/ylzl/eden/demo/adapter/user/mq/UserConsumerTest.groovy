@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.demo.adapter.user.consumer
+package org.ylzl.eden.demo.adapter.user.mq
 
 import org.mockito.InjectMocks
 import org.mockito.Mock

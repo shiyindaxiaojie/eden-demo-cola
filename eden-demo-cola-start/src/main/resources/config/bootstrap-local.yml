@@ -21,7 +21,7 @@ spring:
             refresh: true
 
 log4j2:
-  enabled: false
-  nacos:
+  nacos: # Nacos 支持 log4j2 刷新，需要同时设置 spring.cloud.nacos.config.extension-configs
+    enabled: false
     group: eden
     data-id: log4j2.yml

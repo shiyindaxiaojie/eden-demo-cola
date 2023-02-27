@@ -1,9 +1,9 @@
 @startuml
 
 !if %variable_exists("$THEME")
-title COLA 应用架构组件图 - $THEME theme
+title 阿里巴巴 COLA 应用架构组件图 - $THEME theme
 !else
-title COLA 应用架构组件图
+title 阿里巴巴 COLA 应用架构组件图
 !endif
 
 'skinparam BackgroundColor transparent

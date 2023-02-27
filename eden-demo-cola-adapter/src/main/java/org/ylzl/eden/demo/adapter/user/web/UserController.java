@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.ylzl.eden.cola.dto.PageResponse;
 import org.ylzl.eden.cola.dto.Response;
 import org.ylzl.eden.cola.dto.SingleResponse;
-import org.ylzl.eden.demo.adapter.constant.ApiConstant;
+import org.ylzl.eden.demo.adapter.constant.API;
 import org.ylzl.eden.demo.client.user.api.UserService;
 import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import org.ylzl.eden.demo.client.user.dto.command.UserAddCmd;
@@ -41,7 +41,7 @@ import javax.validation.Valid;
  */
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping(ApiConstant.WEB_API_PATH + "/users")
+@RequestMapping(API.WEB_API_PATH + "/users")
 @RestController
 public class UserController {
 

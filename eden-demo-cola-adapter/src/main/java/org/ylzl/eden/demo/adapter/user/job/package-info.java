@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-package org.ylzl.eden.demo.adapter.user.scheduler;
+package org.ylzl.eden.demo.adapter.user.job;
