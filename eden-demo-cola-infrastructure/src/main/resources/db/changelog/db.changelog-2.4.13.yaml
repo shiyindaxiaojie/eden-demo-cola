@@ -42,14 +42,16 @@ databaseChangeLog:
                   name: activated
                   type: boolean
                   valueBoolean: "false"
-                  remarks: 是否激活账户
+                  defaultValueBoolean: true
+                  remarks: 是否激活账户（1：激活，0：不激活）
                   constraints:
                     nullable: false
               - column:
                   name: locked
                   type: boolean
                   valueBoolean: "false"
-                  remarks: 是否锁定账户
+                  defaultValueBoolean: false
+                  remarks: 是否锁定账户（1：锁定，0：非锁定）
                   constraints:
                     nullable: false
               - column:

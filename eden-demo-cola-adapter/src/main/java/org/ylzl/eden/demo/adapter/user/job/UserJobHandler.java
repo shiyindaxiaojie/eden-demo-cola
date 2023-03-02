@@ -20,7 +20,7 @@ import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.ylzl.eden.spring.integration.xxljob.core.XxlJobRegister;
+import org.ylzl.eden.spring.integration.xxljob.XxlJobRegister;
 
 /**
  * 用户信息离线处理
