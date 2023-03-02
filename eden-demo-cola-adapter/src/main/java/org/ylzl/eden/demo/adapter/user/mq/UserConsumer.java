@@ -33,8 +33,7 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 @Slf4j
-// 该注解会触发消息消费
-@MessageQueueListener(topic = "demo-cola-user")
+@MessageQueueListener(topic = "demo-cola-user") // 该注解会触发消息消费
 public class UserConsumer implements MessageQueueConsumer {
 
 	/**
