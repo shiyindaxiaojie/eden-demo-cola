@@ -63,8 +63,14 @@
 
 ## 版本规范
 
+### Maven 发布规范
+
 项目的版本号格式为 `x.y.z` 的形式，其中 x 的数值类型为数字，从 0 开始取值，且不限于 0~9 这个范围。项目处于孵化器阶段时，第一位版本号固定使用 0，即版本号为 `0.x.x` 的格式。
 
 * 孵化版本：0.0.1-SNAPSHOT
-* 不稳定版本：1.0.0-SNAPSHOT
-* 稳定版本：1.0.0
+* 开发版本：1.0.0-SNAPSHOT
+* 发布版本：1.0.0
+
+### Git 分支管理
+
+<iframe id="embed_dom" name="embed_dom" frameborder="0" style="display:block;margin-left:-244.5px; margin-top:-137.5px;width:489px; height:275px;" src="https://www.processon.com/embed/63d5d1fc56e18032d4a00998"></iframe>
