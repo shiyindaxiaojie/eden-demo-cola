@@ -61,6 +61,26 @@
 - 进入 `eden-demo-cola-start` 目录，执行 `mvn spring-boot:run` 或者启动 `Application` 类。运行成功的话，可以看到 `Spring Boot` 启动成功的界面。
 - 本应用中已经实现了一个简单的 `RestController` 接口，可以点击 [演示接口](http://localhost:8080/api/users/1) 进行测试。
 
+## 最佳实践
+
+### CAT 可观测性方案
+
+通过 TraceId 查找整个链路的 HTTP 请求耗时、RPC 调用情况、Log4j2 业务日志、SQL 和缓存执行耗时。
+
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/cat/tracing.png)
+
+### Sentinel 流量治理方案
+
+根据业务负载配置您的流控规则，并允许在任意时刻查看监控数据。
+
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/sentinel/sentinel-dashboard-overview.png)
+
+### Arthas 在线诊断工具
+
+无需在每个应用部署探针，自动发现服务，开箱即用，允许在低负载环境诊断你的应用。
+
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/arthas/arthas-dashboard-overview.png)
+
 ## 版本规范
 
 ### Maven 发布规范
@@ -73,4 +93,4 @@
 
 ### Git 分支管理
 
-<iframe id="embed_dom" name="embed_dom" frameborder="0" style="display:block;margin-left:-244.5px; margin-top:-137.5px;width:489px; height:275px;" src="https://www.processon.com/embed/63d5d1fc56e18032d4a00998"></iframe>
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/processon/git-action.png)
