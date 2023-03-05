@@ -54,7 +54,7 @@ pipeline {
 						"MAVEN_SNAPSHOTS_USERNAME=${MAVEN_SNAPSHOTS_USERNAME}",
 						"MAVEN_SNAPSHOTS_PASSWORD=${MAVEN_SNAPSHOTS_PASSWORD}"
 					]) {
-						sh 'mvn -Pcoding versions:set -DnewVersion=${ARTIFACT_VERSION} package -DskipTests -s ./.coding/settings.xml'
+						sh 'mvn -T 4C -U -Pcoding versions:set -DnewVersion=${ARTIFACT_VERSION} package -DskipTests -s ./.coding/settings.xml'
 					}
 				}
       }
@@ -83,7 +83,7 @@ pipeline {
 						"MAVEN_SNAPSHOTS_USERNAME=${MAVEN_SNAPSHOTS_USERNAME}",
 						"MAVEN_SNAPSHOTS_PASSWORD=${MAVEN_SNAPSHOTS_PASSWORD}"
 					]) {
-						sh 'mvn -Pcoding,unit-test test -s ./.coding/settings.xml'
+						sh 'mvn -T 4C -Pcoding,unit-test test -s ./.coding/settings.xml'
 					}
 				}
       }
@@ -120,7 +120,7 @@ pipeline {
 						"MAVEN_SNAPSHOTS_USERNAME=${MAVEN_SNAPSHOTS_USERNAME}",
 						"MAVEN_SNAPSHOTS_PASSWORD=${MAVEN_SNAPSHOTS_PASSWORD}"
 					]) {
-						sh 'mvn -Pcoding deploy -DskipTests -s ./.coding/settings.xml'
+						sh 'mvn -T 4C -Pcoding deploy -DskipTests -s ./.coding/settings.xml'
 					}
 				}
       }
