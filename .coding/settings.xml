@@ -16,16 +16,24 @@
   -->
 
 <settings>
+	<mirrors>
+		<mirror>
+			<id>nexus-tencentyun</id>
+			<mirrorOf>!mengxiangge-github-snapshots</mirrorOf>
+			<name>Nexus tencentyun</name>
+			<url>http://mirrors.cloud.tencent.com/nexus/repository/maven-public/</url>
+		</mirror>
+	</mirrors>
 	<servers>
 		<server>
-			<id>${env.CODING_MAVEN_RELEASES_ID}</id>
-			<username>${env.CODING_MAVEN_RELEASES_USERNAME}</username>
-			<password>${env.CODING_MAVEN_RELEASES_PASSWORD}</password>
+			<id>${env.MAVEN_RELEASES_ID}</id>
+			<username>${env.MAVEN_RELEASES_USERNAME}</username>
+			<password>${env.MAVEN_RELEASES_PASSWORD}</password>
 		</server>
 		<server>
-			<id>${env.CODING_MAVEN_SNAPSHOTS_ID}</id>
-			<username>${env.CODING_MAVEN_SNAPSHOTS_USERNAME}</username>
-			<password>${env.CODING_MAVEN_SNAPSHOTS_PASSWORD}</password>
+			<id>${env.MAVEN_SNAPSHOTS_ID}</id>
+			<username>${env.MAVEN_SNAPSHOTS_USERNAME}</username>
+			<password>${env.MAVEN_SNAPSHOTS_PASSWORD}</password>
 		</server>
 	</servers>
 	<profiles>
@@ -33,16 +41,16 @@
 			<id>coding</id>
 			<properties>
 				<altReleaseDeploymentRepository>
-					${env.CODING_MAVEN_RELEASES_ID}::default::${env.CODING_MAVEN_RELEASES_URL}
+					${env.MAVEN_RELEASES_ID}::default::${env.MAVEN_RELEASES_URL}
 				</altReleaseDeploymentRepository>
 				<altSnapshotDeploymentRepository>
-					${env.CODING_MAVEN_SNAPSHOTS_ID}::default::${env.CODING_MAVEN_SNAPSHOTS_URL}
+					${env.MAVEN_SNAPSHOTS_ID}::default::${env.MAVEN_SNAPSHOTS_URL}
 				</altSnapshotDeploymentRepository>
 			</properties>
 			<repositories>
 				<repository>
-					<id>${env.CODING_MAVEN_RELEASES_ID}</id>
-					<url>${env.CODING_MAVEN_RELEASES_URL}</url>
+					<id>${env.MAVEN_RELEASES_ID}</id>
+					<url>${env.MAVEN_RELEASES_URL}</url>
 					<releases>
 						<enabled>true</enabled>
 					</releases>
@@ -51,8 +59,8 @@
 					</snapshots>
 				</repository>
 				<repository>
-					<id>${env.CODING_MAVEN_SNAPSHOTS_ID}</id>
-					<url>${env.CODING_MAVEN_SNAPSHOTS_URL}</url>
+					<id>${env.MAVEN_SNAPSHOTS_ID}</id>
+					<url>${env.MAVEN_SNAPSHOTS_URL}</url>
 					<releases>
 						<enabled>false</enabled>
 					</releases>
@@ -63,8 +71,8 @@
 			</repositories>
 			<pluginRepositories>
 				<pluginRepository>
-					<id>${env.CODING_MAVEN_RELEASES_ID}</id>
-					<url>${env.CODING_MAVEN_RELEASES_URL}</url>
+					<id>${env.MAVEN_RELEASES_ID}</id>
+					<url>${env.MAVEN_RELEASES_URL}</url>
 					<releases>
 						<enabled>true</enabled>
 					</releases>
@@ -73,8 +81,8 @@
 					</snapshots>
 				</pluginRepository>
 				<pluginRepository>
-					<id>${env.CODING_MAVEN_SNAPSHOTS_ID}</id>
-					<url>${env.CODING_MAVEN_SNAPSHOTS_URL}</url>
+					<id>${env.MAVEN_SNAPSHOTS_ID}</id>
+					<url>${env.MAVEN_SNAPSHOTS_URL}</url>
 					<releases>
 						<enabled>false</enabled>
 					</releases>
