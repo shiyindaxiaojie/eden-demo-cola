@@ -48,9 +48,9 @@
 
 本项目默认设置了 local 环境运行，所有外部的组件依赖均为关闭状态。
 
-1. 在项目目录下运行 `mvn install`（如果不想运行测试，可以加上 `-DskipTests` 参数）。 
-2. 进入 `eden-demo-cola-start` 目录，执行 `mvn spring-boot:run` 或者启动 `ColaApplication` 类。运行成功的话，可以看到 `Spring Boot` 启动成功的界面。 
-3. 本应用中已经实现了一个简单的 `RestController` 接口，可以点击 [演示接口](http://localhost:8081/api/users/1) 进行调试。 
+1. 在项目目录下运行 `mvn install`（如果不想运行测试，可以加上 `-DskipTests` 参数）。
+2. 进入 `eden-demo-cola-start` 目录，执行 `mvn spring-boot:run` 或者启动 `ColaApplication` 类。运行成功的话，可以看到 `Spring Boot` 启动成功的界面。
+3. 本应用中已经实现了一个简单的 `RestController` 接口，可以点击 [演示接口](http://localhost:8081/api/users/1) 进行调试。
 4. 如果您加班累了，也可以点击 [http://localhost:8081](http://localhost:8081)，逃离地球 ☺
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/common/404.png)

@@ -33,12 +33,12 @@ pipeline {
         }
         withCredentials([
 					usernamePassword(
-						credentialsId: env.MAVEN_SNAPSHOTS,
+						credentialsId: env.MAVEN_RELEASES,
 						usernameVariable: 'MAVEN_RELEASES_USERNAME',
 						passwordVariable: 'MAVEN_RELEASES_PASSWORD'
 					),
 					usernamePassword(
-						credentialsId: env.MAVEN_RELEASES,
+						credentialsId: env.MAVEN_SNAPSHOTS,
 						usernameVariable: 'MAVEN_SNAPSHOTS_USERNAME',
 						passwordVariable: 'MAVEN_SNAPSHOTS_PASSWORD'
 					)
@@ -63,12 +63,12 @@ pipeline {
 			steps {
 			  withCredentials([
 					usernamePassword(
-						credentialsId: env.MAVEN_SNAPSHOTS,
+						credentialsId: env.MAVEN_RELEASES,
 						usernameVariable: 'MAVEN_RELEASES_USERNAME',
 						passwordVariable: 'MAVEN_RELEASES_PASSWORD'
 					),
 					usernamePassword(
-						credentialsId: env.MAVEN_RELEASES,
+						credentialsId: env.MAVEN_SNAPSHOTS,
 						usernameVariable: 'MAVEN_SNAPSHOTS_USERNAME',
 						passwordVariable: 'MAVEN_SNAPSHOTS_PASSWORD'
 					)
@@ -100,12 +100,12 @@ pipeline {
       steps {
         withCredentials([
 					usernamePassword(
-						credentialsId: env.MAVEN_SNAPSHOTS,
+						credentialsId: env.MAVEN_RELEASES,
 						usernameVariable: 'MAVEN_RELEASES_USERNAME',
 						passwordVariable: 'MAVEN_RELEASES_PASSWORD'
 					),
 					usernamePassword(
-						credentialsId: env.MAVEN_RELEASES,
+						credentialsId: env.MAVEN_SNAPSHOTS,
 						usernameVariable: 'MAVEN_SNAPSHOTS_USERNAME',
 						passwordVariable: 'MAVEN_SNAPSHOTS_PASSWORD'
 					)
