@@ -100,6 +100,11 @@
 				<artifactId>eden-demo-cola-infrastructure</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
+			<dependency>
+				<groupId>com.dianping.cat</groupId>
+				<artifactId>cat-client</artifactId>
+				<version>3.1.1</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
