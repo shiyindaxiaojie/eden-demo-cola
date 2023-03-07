@@ -12,6 +12,8 @@ Configuration:
         value: "%d | %-5level | %X{traceId} | %C{1.}.%M:%L | %t | %msg%n%throwable"
       - name: console.pattern
         value: "%d | %-5level | %X{traceId} | %C{1.}.%M:%L | %t | %msg%n%throwable"
+      - name: cat.pattern
+        value: "%C{1.}.%M:%L | %t | %msg%n%throwable"
 
   Appenders:
     Console:
@@ -38,10 +40,10 @@ Configuration:
       name: CAT
       level: INFO
       PatternLayout:
-        pattern: ${console.pattern}
+        pattern: ${cat.pattern}
 
   Loggers:
-    Root:
+    AsyncRoot:
       level: INFO
       includeLocation: true
       AppenderRef:
