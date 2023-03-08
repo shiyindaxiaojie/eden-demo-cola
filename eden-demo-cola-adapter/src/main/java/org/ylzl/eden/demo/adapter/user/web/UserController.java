@@ -32,6 +32,9 @@ import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
 import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ForkJoinPool;
 
 /**
  * 用户领域控制器
@@ -90,6 +93,16 @@ public class UserController {
 	 */
 	@GetMapping("/{id}")
 	public SingleResponse<UserDTO> getUserById(@PathVariable Long id) {
+		List<String> list = new ArrayList<>();
+		for (int i = 0 ; i < 10; i++) {
+			list.add("test:" + i);
+		}
+		list.stream().parallel().forEach(log::info);
+
+
+		ForkJoinPool.commonPool().submit(() -> list.parallelStream().forEach(x -> {
+
+		}));
 		return userService.getUserById(UserByIdQry.builder().id(id).build());
 	}
 
