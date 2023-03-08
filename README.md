@@ -51,7 +51,7 @@
 1. 在项目目录下运行 `mvn install`（如果不想运行测试，可以加上 `-DskipTests` 参数）。
 2. 进入 `eden-demo-cola-start` 目录，执行 `mvn spring-boot:run` 或者启动 `ColaApplication` 类。运行成功的话，可以看到 `Spring Boot` 启动成功的界面。
 3. 本应用中已经实现了一个简单的 `RestController` 接口，可以点击 [演示接口](http://localhost:8081/api/users/1) 进行调试。
-4. 如果您加班累了，也可以点击 [http://localhost:8081](http://localhost:8081)，逃离地球 ☺
+4. 由于目前的主流是前后端分离开发，请按需实现页面。访问 [http://localhost:8081](http://localhost:8081) 将跳转到 404 页面。
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/common/404.png)
 
@@ -77,7 +77,7 @@
 
 ## 持续集成
 
-CI/CD 工具选型：Jenkins、Zadig、Codeup、CODING...
+> CI/CD 工具选型：Jenkins、Zadig、Codeup、CODING...
 
 ### CODING 持续交付
 
@@ -109,7 +109,7 @@ CI/CD 工具选型：Jenkins、Zadig、Codeup、CODING...
 
 ### Sentinel 流量治理方案
 
-根据业务负载配置您的流控规则，并允许在任意时刻查看监控数据。[传送门](https://github.com/shiyindaxiaojie/Sentinel)
+根据业务负载配置您的流控规则，并允许在任意时刻查看接口的 QPS 和限流情况。[传送门](https://github.com/shiyindaxiaojie/Sentinel)
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/sentinel/sentinel-dashboard-overview.png)
 
