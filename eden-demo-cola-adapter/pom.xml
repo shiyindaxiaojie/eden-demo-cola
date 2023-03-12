@@ -21,7 +21,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.ylzl.eden.demo</groupId>
+		<groupId>io.github.shiyindaxiaojie.eden.demo</groupId>
 		<artifactId>eden-demo-cola</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
@@ -38,7 +38,7 @@
 	<dependencies>
 		<!-- APP层依赖 -->
 		<dependency>
-			<groupId>org.ylzl.eden.demo</groupId>
+			<groupId>io.github.shiyindaxiaojie.eden.demo</groupId>
 			<artifactId>eden-demo-cola-app</artifactId>
 		</dependency>
 
@@ -54,20 +54,20 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>org.ylzl</groupId>
+			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-spring-integration</artifactId>
 		</dependency>
 
 		<!-- 测试组件 -->
 		<dependency>
-			<groupId>org.ylzl</groupId>
+			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-spring-boot-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 
 		<!-- WEB 组件 -->
 		<dependency>
-			<groupId>org.ylzl</groupId>
+			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-undertow-spring-boot-starter</artifactId>
 		</dependency>
 
@@ -85,13 +85,13 @@
 
 		<!-- RPC 调用组件 -->
 		<dependency>
-			<groupId>org.ylzl</groupId>
+			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-dubbo-spring-cloud-starter</artifactId>
 		</dependency>
 
 		<!-- Job 定时调度 -->
 		<dependency>
-			<groupId>org.ylzl</groupId>
+			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-xxljob-spring-boot-starter</artifactId>
 		</dependency>
     </dependencies>

@@ -35,7 +35,6 @@ import org.ylzl.eden.spring.framework.web.rest.annotation.EnableRestExceptionHan
 @EnableRestExceptionHandler
 @EnableDiscoveryClient
 @EnableTransactionManagement
-@MapperScan(basePackages = "org.ylzl.eden.demo.infrastructure", annotationClass = Mapper.class)
 @Slf4j
 @SpringBootApplication
 public class ColaApplication {

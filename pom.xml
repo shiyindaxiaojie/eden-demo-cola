@@ -21,18 +21,17 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.ylzl</groupId>
+		<groupId>io.github.shiyindaxiaojie</groupId>
 		<artifactId>eden-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath>../eden-architect/eden-components/eden-parent/pom.xml
-		</relativePath>
+		<relativePath/>
 	</parent>
-	<groupId>org.ylzl.eden.demo</groupId>
+	<groupId>io.github.shiyindaxiaojie.eden.demo</groupId>
 	<artifactId>eden-demo-cola</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>eden-demo-cola</name>
-	<description>COLA 应用架构</description>
+	<description>阿里巴巴COLA应用架构</description>
 
 	<modules>
 		<module>eden-demo-cola-adapter</module>
@@ -46,10 +45,11 @@
 	<developers>
 		<developer>
 			<id>sion</id>
-			<name>梦想歌</name>
+			<name>mengxiangge</name>
 			<email>shiyindaxiaojie@gmail.com</email>
 			<roles>
 				<role>Architect</role>
+				<role>Developer</role>
 			</roles>
 		</developer>
 	</developers>
@@ -73,30 +73,53 @@
 		<url>https://github.com/shiyindaxiaojie/eden-demo-cola/issues</url>
 	</issueManagement>
 
+	<repositories>
+		<repository>
+			<id>sonatype-ossrh-releases</id>
+			<url>https://s01.oss.sonatype.org/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>sonatype-ossrh-snapshots</id>
+			<url>https://s01.oss.sonatype.org/content/groups/staging/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>org.ylzl.eden.demo</groupId>
+				<groupId>io.github.shiyindaxiaojie.eden.demo</groupId>
 				<artifactId>eden-demo-cola-adapter</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl.eden.demo</groupId>
+				<groupId>io.github.shiyindaxiaojie.eden.demo</groupId>
 				<artifactId>eden-demo-cola-app</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl.eden.demo</groupId>
+				<groupId>io.github.shiyindaxiaojie.eden.demo</groupId>
 				<artifactId>eden-demo-cola-client</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl.eden.demo</groupId>
+				<groupId>io.github.shiyindaxiaojie.eden.demo</groupId>
 				<artifactId>eden-demo-cola-domain</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
 			<dependency>
-				<groupId>org.ylzl.eden.demo</groupId>
+				<groupId>io.github.shiyindaxiaojie.eden.demo</groupId>
 				<artifactId>eden-demo-cola-infrastructure</artifactId>
 				<version>0.0.1-SNAPSHOT</version>
 			</dependency>
@@ -105,10 +128,6 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-archetype-plugin</artifactId>
