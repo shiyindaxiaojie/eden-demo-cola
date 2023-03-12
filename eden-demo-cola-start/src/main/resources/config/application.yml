@@ -124,6 +124,7 @@ mybatis-plus: # ORM 组件
     auto-mapping-behavior: full
     call-setters-on-nulls: true
     use-column-label: true
+  type-aliases-package: org.ylzl.eden.demo.infrastructure
 
 arthas: # 在线诊断工具
   agent-id: ${spring.application.name}@${random.value}

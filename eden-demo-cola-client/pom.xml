@@ -21,7 +21,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.ylzl.eden.demo</groupId>
+		<groupId>io.github.shiyindaxiaojie.eden.demo</groupId>
 		<artifactId>eden-demo-cola</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
@@ -46,14 +46,14 @@
 
 		<!-- 测试组件 -->
 		<dependency>
-			<groupId>org.ylzl</groupId>
+			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-spring-boot-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 
 		<!-- COLA组件 -->
 		<dependency>
-			<groupId>org.ylzl</groupId>
+			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-cola-dto</artifactId>
 		</dependency>
 
