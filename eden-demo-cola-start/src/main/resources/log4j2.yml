@@ -21,21 +21,45 @@ Configuration:
       target: SYSTEM_OUT
       PatternLayout:
         pattern: ${console.pattern}
-    RollingFile:
-      name: ROLLING_FILE
-      ignoreExceptions: false
-      fileName: ${file.path}/${file.name}.log
-      filePattern: "${file.path}/${file.name}-%d{yyyy-MM-dd}-%i.log.gz"
-      PatternLayout:
-        pattern: ${file.pattern}
-      Policies:
-        TimeBasedTriggeringPolicy:
-          modulate: true
-          interval: 1
-        SizeBasedTriggeringPolicy:
-          size: "20MB"
-      DefaultRolloverStrategy:
-        max: 15
+    RollingRandomAccessFile:
+      - name: FILE_INFO
+        ignoreExceptions: false
+        immediateFlush: true
+        fileName: ${file.path}/${file.name}-info.log
+        filePattern: "${file.path}/${file.name}-%d{yyyy-MM-dd}-%i.log.gz"
+        ThresholdFilter:
+          level: INFO
+          onMatch: ACCEPT
+          onMismatch: DENY
+        PatternLayout:
+          pattern: ${file.pattern}
+        Policies:
+          TimeBasedTriggeringPolicy:
+            modulate: true
+            interval: 1
+          SizeBasedTriggeringPolicy:
+            size: "20MB"
+        DefaultRolloverStrategy:
+          max: 15
+      - name: FILE_ERROR
+        ignoreExceptions: false
+        immediateFlush: true
+        fileName: ${file.path}/${file.name}-error.log
+        filePattern: "${file.path}/${file.name}-%d{yyyy-MM-dd}-%i.log.gz"
+        ThresholdFilter:
+          level: ERROR
+          onMatch: ACCEPT
+          onMismatch: DENY
+        PatternLayout:
+          pattern: ${file.pattern}
+        Policies:
+          TimeBasedTriggeringPolicy:
+            modulate: true
+            interval: 1
+          SizeBasedTriggeringPolicy:
+            size: "20MB"
+        DefaultRolloverStrategy:
+          max: 15
     CAT: # 自定义附加器
       name: CAT
       level: INFO
@@ -43,14 +67,15 @@ Configuration:
         pattern: ${cat.pattern}
 
   Loggers:
-    AsyncRoot:
+    Root:
       level: INFO
       includeLocation: true
       AppenderRef:
         - ref: CONSOLE
-        - ref: ROLLING_FILE
+        - ref: FILE_INFO
+        - ref: FILE_ERROR
         - ref: CAT # 默认关闭，开启后将日志发送到 CAT 监控平台
-    Logger:
+    AsyncLogger:
       - name: org.ylzl
         level: INFO
       - name: com.alibaba
