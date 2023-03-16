@@ -18,14 +18,22 @@ package org.ylzl.eden.demo.app.user.executor.query;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import org.ylzl.eden.cola.dto.SingleResponse;
+import org.ylzl.eden.demo.api.UserService;
+import org.ylzl.eden.demo.api.dto.UserResponseDTO;
 import org.ylzl.eden.demo.app.user.assembler.UserAssembler;
 import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
 import org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO;
 import org.ylzl.eden.demo.infrastructure.user.database.mapper.UserMapper;
+import org.ylzl.eden.spring.framework.dto.Result;
+import org.ylzl.eden.spring.framework.dto.SingleResult;
 import org.ylzl.eden.spring.framework.error.ClientAssert;
+import org.ylzl.eden.spring.framework.error.ThirdServiceAssert;
 
 /**
  * 根据主键获取用户信息指令执行器
@@ -42,7 +50,25 @@ public class UserByIdQryExe {
 
 	private final UserAssembler userAssembler;
 
+	@DubboReference
+	private UserService userService;
+
+	private final StringRedisTemplate redisTemplate;
+
+	private final RestTemplate restTemplate;
+
 	public SingleResponse<UserDTO> execute(UserByIdQry query) {
+
+		SingleResult<UserResponseDTO> rpcResult =
+			userService.getUserById(query.getId());
+		ThirdServiceAssert.notNull(rpcResult, "USER-FOUND-404");
+
+		redisTemplate.opsForValue().set("test", "test");
+
+		Result result = restTemplate.getForObject("http://localhost:8082/api/users/1",
+			Result.class);
+		ThirdServiceAssert.notNull(result, "USER-FOUND-404");
+
 		UserDO userDO = userMapper.selectById(query.getId());
 		ClientAssert.notNull(userDO, "USER-FOUND-404", query.getId());
 		return SingleResponse.of(userAssembler.toDTO(userDO));
