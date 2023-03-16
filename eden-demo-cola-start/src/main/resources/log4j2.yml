@@ -9,11 +9,11 @@ Configuration:
       - name: file.path
         value: $${spring:logging.file.path:-/var/logs}
       - name: file.pattern
-        value: "%d | %-5level | %X{traceId} | %C{1.}.%M:%L | %t | %msg%n%throwable"
+        value: "%d %-5level [%X{traceId}] %C{1.}.%M[%L][%t] %msg%n%throwable"
       - name: console.pattern
-        value: "%d | %-5level | %X{traceId} | %C{1.}.%M:%L | %t | %msg%n%throwable"
+        value: "%d %-5level [%X{traceId}] %C{1.}.%M[%L][%t] %msg%n%throwable"
       - name: cat.pattern
-        value: "%C{1.}.%M:%L | %t | %msg%n%throwable"
+        value: "%C{1.}.%M[%L][%t] %msg%n%throwable"
 
   Appenders:
     Console:
