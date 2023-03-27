@@ -97,14 +97,14 @@ spring:
 
 rocketmq: # 消息队列
   enabled: false # 默认关闭，请按需开启
-  name-server: localhost:9876;localhost:9876
+  name-server: localhost:9876
   producer:
     group: ${spring.application.name}
     access-key:
     secret-key:
   consumer:
     group: ${spring.application.name}
-    topic: demo
+    topic: demo-cola-user
 
 xxl: # 分布式调度平台
   job:
