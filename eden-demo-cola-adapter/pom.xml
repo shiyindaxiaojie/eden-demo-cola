@@ -92,7 +92,7 @@
 		<!-- Job 定时调度 -->
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
-			<artifactId>eden-xxljob-spring-boot-starter</artifactId>
+			<artifactId>eden-xxljob2-spring-boot-starter</artifactId>
 		</dependency>
     </dependencies>
 </project>
