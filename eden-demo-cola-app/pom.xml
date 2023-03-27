@@ -87,15 +87,5 @@
 			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-event-auditor-spring-boot-starter</artifactId>
 		</dependency>
-
-		<dependency>
-			<groupId>io.github.shiyindaxiaojie.eden.demo</groupId>
-			<artifactId>eden-demo-layer-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>io.github.shiyindaxiaojie</groupId>
-			<artifactId>eden-dubbo-spring-cloud-starter</artifactId>
-		</dependency>
 	</dependencies>
 </project>

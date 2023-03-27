@@ -35,8 +35,6 @@ import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
 import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
 import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry;
-import org.ylzl.eden.event.auditor.EventAuditor;
-import org.ylzl.eden.spring.framework.expression.function.CustomFunction;
 
 /**
  * 用户领域业务实现
@@ -76,8 +74,8 @@ public class UserServiceImpl implements UserService {
 	 *
 	 * @param cmd
 	 */
-	@EventAuditor(bizScenario = "'demo.users.getUserById'", operator = "#operator",
-		content = "'用户' + #cmd.login + '修改了邮箱，从' + #queryOldEmail(#cmd.id) + '修改为' + #cmd.email")
+//	@EventAuditor(bizScenario = "'demo.users.getUserById'", operator = "#operator",
+//		content = "'用户' + #cmd.login + '修改了邮箱，从' + #queryOldEmail(#cmd.id) + '修改为' + #cmd.email")
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Response modifyUser(UserModifyCmd cmd) {
@@ -90,10 +88,10 @@ public class UserServiceImpl implements UserService {
 	 * @param id 用户ID
 	 * @return 数据库值
 	 */
-	@CustomFunction("queryOldEmail")
-	public String queryOldEmail(Long id) {
-		return this.getUserById(UserByIdQry.builder().id(id).build()).getData().getEmail();
-	}
+//	@CustomFunction("queryOldEmail")
+//	public String queryOldEmail(Long id) {
+//		return this.getUserById(UserByIdQry.builder().id(id).build()).getData().getEmail();
+//	}
 
 	/**
 	 * 删除用户
