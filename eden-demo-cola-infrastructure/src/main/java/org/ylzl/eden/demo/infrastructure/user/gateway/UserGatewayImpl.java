@@ -50,6 +50,17 @@ public class UserGatewayImpl implements UserGateway {
 	public void save(User user) {
 		userMapper.insert(userConvertor.toDataObject(user));
 
+/*		MessageSendResult result =
+			messageQueueProvider.syncSend(Message.builder()
+				.topic("demo-cola-user")
+				.key(String.valueOf(user.getId()))
+				.tags("demo")
+				.delayTimeLevel(2)
+				.body(JSONHelper.json().toJSONString(user)).build());
+
+		log.info("发送消息成功, topic: {}, offset: {}, queueId: {}",
+			result.getTopic(), result.getOffset(), result.getPartition());*/
+
 		/*messageQueueProvider.asyncSend(Message.builder()
 				.topic("demo-cola-user")
 				.key(String.valueOf(user.getId()))

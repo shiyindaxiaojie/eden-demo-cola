@@ -76,15 +76,11 @@ databaseChangeLog:
                   name: created_by
                   type: varchar(20)
                   remarks: 创建的账户
-                  constraints:
-                    nullable: false
               - column:
                   name: created_date
                   type: timestamp
                   defaultValueDate: ${now}
                   remarks: 创建的时间
-                  constraints:
-                    nullable: false
               - column:
                   name: last_modified_by
                   type: varchar(20)
