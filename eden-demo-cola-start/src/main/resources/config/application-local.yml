@@ -82,7 +82,7 @@ spring:
             rule-type: flow
             data-type: json
   redis: # 缓存数据库
-    enabled: false # 默认关闭，请按需开启
+    enabled: true # 默认关闭，请按需开启
     password: demo@123
     timeout: 5000
     database: 1
