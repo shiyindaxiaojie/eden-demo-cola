@@ -90,6 +90,7 @@ public class UserController {
 	 */
 	@GetMapping("/{id}")
 	public SingleResponse<UserDTO> getUserById(@PathVariable Long id) {
+		log.info("根据主键 [{}] 获取用户信息", id);
 		return userService.getUserById(UserByIdQry.builder().id(id).build());
 	}
 
