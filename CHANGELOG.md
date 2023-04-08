@@ -2,7 +2,7 @@
 
 ## 0.0.1-SNAPSHOT(Dec 31, 2022)
 
-### Features
+### FEATURES
 
 - 整合 `Spring Cloud Alibaba` 组件，例如 `Nacos`、`Sentinel`、`Dubbo`，接入二次开发的 `Sentinel Dashboard` 可实现流控规则和监控数据的持久化
 - 数据库组件集成，例如 `Mybatis Plus`、`Dynamic DataSource`、`HikariCP`、`ShardingSphere`
