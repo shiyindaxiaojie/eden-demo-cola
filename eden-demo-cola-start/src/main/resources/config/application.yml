@@ -112,6 +112,11 @@ server:
 #      max: 500 # 最大并发数
 #      min-spare: 20 # 初始线程数
 
+logging:
+  access:
+    enabled: false
+    expression: within(org.ylzl.eden.demo.adapter.*.web..*)
+
 liquibase: # 数据库迁移工具
   async: true # 异步执行
 
