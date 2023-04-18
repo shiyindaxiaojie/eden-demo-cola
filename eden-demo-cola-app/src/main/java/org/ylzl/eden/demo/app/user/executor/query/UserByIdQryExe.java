@@ -24,9 +24,7 @@ import org.ylzl.eden.demo.app.user.assembler.UserAssembler;
 import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
 import org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO;
-import org.ylzl.eden.demo.infrastructure.user.database.mapper.UserMapper;
-import org.ylzl.eden.demo.infrastructure.user.rest.ThirdUserRestClient;
-import org.ylzl.eden.demo.infrastructure.user.rpc.ThirdUserRpcClient;
+import org.ylzl.eden.demo.infrastructure.user.database.UserMapper;
 import org.ylzl.eden.spring.framework.error.ClientAssert;
 
 /**
@@ -44,14 +42,7 @@ public class UserByIdQryExe {
 
 	private final UserAssembler userAssembler;
 
-	private final ThirdUserRpcClient thirdUserRpcClient;
-
-	private final ThirdUserRestClient thirdUserRestClient;
-
 	public SingleResponse<UserDTO> execute(UserByIdQry query) {
-		thirdUserRestClient.getUser(query.getId());
-		thirdUserRpcClient.getUser(query.getId());
-
 		UserDO userDO = userMapper.selectById(query.getId());
 		ClientAssert.notNull(userDO, "USER-FOUND-404", query.getId());
 		return SingleResponse.of(userAssembler.toDTO(userDO));

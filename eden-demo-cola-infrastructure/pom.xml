@@ -135,16 +135,5 @@
 			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-dynamic-tp-spring-cloud-starter</artifactId>
 		</dependency>
-
-		<!-- 测试 -->
-		<dependency>
-			<groupId>io.github.shiyindaxiaojie.eden.demo</groupId>
-			<artifactId>eden-demo-layer-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.dubbo</groupId>
-			<artifactId>dubbo</artifactId>
-		</dependency>
 	</dependencies>
 </project>

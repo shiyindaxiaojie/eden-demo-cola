@@ -24,7 +24,7 @@ import org.ylzl.eden.demo.app.user.assembler.UserAssembler
 import org.ylzl.eden.demo.client.user.dto.UserDTO
 import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry
 import org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO
-import org.ylzl.eden.demo.infrastructure.user.database.mapper.UserMapper
+import org.ylzl.eden.demo.infrastructure.user.database.UserMapper
 import org.ylzl.eden.cola.dto.PageResponse
 import spock.lang.Specification
 

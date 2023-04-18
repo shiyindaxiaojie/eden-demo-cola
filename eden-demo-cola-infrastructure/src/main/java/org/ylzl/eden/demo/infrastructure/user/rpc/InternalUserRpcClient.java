@@ -1,4 +1,4 @@
-package org.ylzl.eden.demo.infrastructure.user.rest;
+package org.ylzl.eden.demo.infrastructure.user.rpc;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.ylzl.eden.demo.domain.user.entity.User;
 
 /**
- * 基于 REST 同步到第三方用户系统
+ * 基于 RPC 同步到内部用户系统
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
@@ -14,11 +14,12 @@ import org.ylzl.eden.demo.domain.user.entity.User;
 @RequiredArgsConstructor
 @Slf4j
 @Component
-public class ThirdUserRestClient {
+public class InternalUserRpcClient {
 
-//	private final RestTemplate restTemplate;
+//	@DubboReference
+//	private UserSyncService userSyncService;
 
 	public void syncUser(User user) {
-		log.info("基于 REST 同步到第三方用户系统");
+		log.info("基于 RPC 同步到内部用户系统");
 	}
 }
