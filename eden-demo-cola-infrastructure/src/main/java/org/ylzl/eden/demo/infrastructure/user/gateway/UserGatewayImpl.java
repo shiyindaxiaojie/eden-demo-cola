@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
 import org.ylzl.eden.demo.domain.user.entity.User;
 import org.ylzl.eden.demo.domain.user.gateway.UserGateway;
 import org.ylzl.eden.demo.infrastructure.user.database.convertor.UserConvertor;
-import org.ylzl.eden.demo.infrastructure.user.database.mapper.UserMapper;
+import org.ylzl.eden.demo.infrastructure.user.database.UserMapper;
 
 /**
  * 用户领域防腐层实现
@@ -39,8 +39,6 @@ public class UserGatewayImpl implements UserGateway {
 
 	private final UserConvertor userConvertor;
 
-//	private final MessageQueueProvider messageQueueProvider;
-
 	/**
 	 * 新增用户
 	 *
@@ -49,37 +47,6 @@ public class UserGatewayImpl implements UserGateway {
 	@Override
 	public void save(User user) {
 		userMapper.insert(userConvertor.toDataObject(user));
-
-/*		MessageSendResult result =
-			messageQueueProvider.syncSend(Message.builder()
-				.topic("demo-cola-user")
-				.key(String.valueOf(user.getId()))
-				.tags("demo")
-				.delayTimeLevel(2)
-				.body(JSONHelper.json().toJSONString(user)).build());
-
-		log.info("发送消息成功, topic: {}, offset: {}, queueId: {}",
-			result.getTopic(), result.getOffset(), result.getPartition());*/
-
-		/*messageQueueProvider.asyncSend(Message.builder()
-				.topic("demo-cola-user")
-				.key(String.valueOf(user.getId()))
-				.tags("demo")
-				.delayTimeLevel(2)
-				.body(JSONHelper.json().toJSONString(user)).build(),
-			new MessageSendCallback() {
-
-				@Override
-				public void onSuccess(MessageSendResult result) {
-					log.info("发送消息成功, topic: {}, offset: {}, queueId: {}",
-						result.getTopic(), result.getOffset(), result.getPartition());
-				}
-
-				@Override
-				public void onFailed(Throwable e) {
-					log.info("发送消息失败: {}" , e.getMessage(), e);
-				}
-			});*/
 	}
 
 	/**

@@ -18,7 +18,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
-	namespace="org.ylzl.eden.demo.infrastructure.user.database.mapper.UserMapper">
+	namespace="org.ylzl.eden.demo.infrastructure.user.database.UserMapper">
 
 	<!-- 数据库字段映射（工具自动生成） -->
 	<resultMap id="dbResultMap"

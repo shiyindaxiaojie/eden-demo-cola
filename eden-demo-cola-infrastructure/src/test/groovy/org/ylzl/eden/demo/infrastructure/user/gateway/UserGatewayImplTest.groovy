@@ -23,7 +23,7 @@ import org.slf4j.Logger
 import org.ylzl.eden.demo.domain.user.entity.User
 import org.ylzl.eden.demo.infrastructure.user.database.convertor.UserConvertor
 import org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO
-import org.ylzl.eden.demo.infrastructure.user.database.mapper.UserMapper
+import org.ylzl.eden.demo.infrastructure.user.database.UserMapper
 import spock.lang.Specification
 
 import static org.mockito.ArgumentMatchers.any

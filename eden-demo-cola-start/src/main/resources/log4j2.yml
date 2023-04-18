@@ -4,88 +4,126 @@ Configuration:
 
   Properties:
     Property:
-      - name: file.name
-        value: $${spring:logging.file.name:-app}
-      - name: file.path
+      - name: APP_NAME
+        value: $${spring:spring.application.name:-eden-demo-cola}
+      - name: PROFILES
+        value: $${spring:spring.profiles.active}
+      - name: LOG_PATH
         value: $${spring:logging.file.path:-/var/logs}
-      - name: file.pattern
-        value: "%d %-5level [%X{traceId}] %C{1.}.%M[%L][%t] %msg%n%throwable"
-      - name: console.pattern
-        value: "%d %-5level [%X{traceId}] %C{1.}.%M[%L][%t] %msg%n%throwable"
-      - name: cat.pattern
-        value: "%C{1.}.%M[%L][%t] %msg%n%throwable"
+      - name: LOG_PATTERN
+        value: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [${PROFILES}] [%X{traceId}] [%t] %msg%n"
+      - name: CAT_PATTERN
+        value: "%msg%n"
 
   Appenders:
     Console:
-      name: CONSOLE
+      name: ConsoleAppender # 控制台
       target: SYSTEM_OUT
       PatternLayout:
-        pattern: ${console.pattern}
+        pattern: ${LOG_PATTERN}
     RollingRandomAccessFile:
-      - name: FILE_INFO
+      - name: InfoFileAppender # 默认日志文件
+        fileName: ${LOG_PATH}/${APP_NAME}-info.log
+        filePattern: ${LOG_PATH}/${APP_NAME}-info-%d{yyyy-MM-dd}-%i.log.gz
         ignoreExceptions: false
-        immediateFlush: true
-        fileName: ${file.path}/${file.name}-info.log
-        filePattern: "${file.path}/${file.name}-%d{yyyy-MM-dd}-%i.log.gz"
-        ThresholdFilter:
-          level: INFO
-          onMatch: ACCEPT
-          onMismatch: DENY
         PatternLayout:
-          pattern: ${file.pattern}
+          pattern: ${LOG_PATTERN}
         Policies:
           TimeBasedTriggeringPolicy:
             modulate: true
             interval: 1
+            maxRandomDelay: 300
           SizeBasedTriggeringPolicy:
-            size: "20MB"
+            size: 20MB
         DefaultRolloverStrategy:
-          max: 15
-      - name: FILE_ERROR
+          max: 10
+        Filters:
+          ThresholdFilter:
+            level: INFO
+            onMatch: ACCEPT
+            onMismatch: DENY
+          BurstFilter:
+            level: INFO
+            rate: 1000
+            maxBurst: 10000
+      - name: ErrorFileAppender # 异常日志文件
+        fileName: ${LOG_PATH}/${APP_NAME}-error.log
+        filePattern: ${LOG_PATH}/${APP_NAME}-error-%d{yyyy-MM-dd}-%i.log.gz
         ignoreExceptions: false
-        immediateFlush: true
-        fileName: ${file.path}/${file.name}-error.log
-        filePattern: "${file.path}/${file.name}-%d{yyyy-MM-dd}-%i.log.gz"
-        ThresholdFilter:
-          level: ERROR
-          onMatch: ACCEPT
-          onMismatch: DENY
         PatternLayout:
-          pattern: ${file.pattern}
+          pattern: ${LOG_PATTERN}
         Policies:
           TimeBasedTriggeringPolicy:
             modulate: true
             interval: 1
+            maxRandomDelay: 300
           SizeBasedTriggeringPolicy:
-            size: "20MB"
+            size: 20MB
         DefaultRolloverStrategy:
-          max: 15
+          max: 10
+        Filters:
+          ThresholdFilter:
+            level: ERROR
+            onMatch: ACCEPT
+            onMismatch: DENY
+          BurstFilter:
+            level: ERROR
+            rate: 1000
+            maxBurst: 10000
+      - name: SlowSqlFileAppender # 慢SQL日志文件
+        fileName: ${LOG_PATH}/${APP_NAME}-slow-sql.log
+        filePattern: ${LOG_PATH}/${APP_NAME}-slow-sql-%d{yyyy-MM-dd}-%i.log.gz
+        ignoreExceptions: false
+        PatternLayout:
+          pattern: ${LOG_PATTERN}
+        Policies:
+          TimeBasedTriggeringPolicy:
+            modulate: true
+            interval: 1
+            maxRandomDelay: 300
+          SizeBasedTriggeringPolicy:
+            size: 20MB
+        DefaultRolloverStrategy:
+          max: 10
+        Filters:
+          ThresholdFilter:
+            level: WARN
+            onMatch: ACCEPT
+            onMismatch: DENY
+          BurstFilter:
+            level: WARN
+            rate: 1000
+            maxBurst: 10000
     CAT: # 自定义附加器
-      name: CAT
+      name: CatAppender
       level: INFO
+      maxLength: 200
       PatternLayout:
-        pattern: ${cat.pattern}
+        pattern: ${CAT_PATTERN}
 
   Loggers:
     Root:
       level: INFO
-      includeLocation: true
+      includeLocation: false
       AppenderRef:
-        - ref: CONSOLE
-        - ref: FILE_INFO
-        - ref: FILE_ERROR
-        - ref: CAT # 默认关闭，开启后将日志发送到 CAT 监控平台
+        - ref: ConsoleAppender
+        - ref: InfoFileAppender
+        - ref: ErrorFileAppender
+        - ref: CatAppender # 默认关闭，开启后将日志发送到 CAT 监控平台
     AsyncLogger:
-      - name: org.ylzl.eden.demo
+      - name: org.ylzl.eden.demo # 应用日志
         level: INFO
-      - name: org.ylzl.eden
+      - name: org.ylzl.eden # 框架调试日志只输出到控制台
         level: DEBUG
-      - name: com.alibaba
+      - name: MybatisSqlLog # 输出慢SQL，按需关闭
         level: WARN
-      - name: com.baomidou
+        additivity: false
+        AppenderRef:
+          - ref: SlowSqlFileAppender
+      - name: org.springframework
         level: ERROR
-      - name: com.ibatis
-        level: WARN
+      - name: org.apache
+        level: ERROR
       - name: org.apache.dubbo
         level: WARN
       - name: org.apache.nacos
@@ -94,11 +132,15 @@ Configuration:
         level: WARN
       - name: org.apache.zookeeper
         level: WARN
-      - name: org.hibernate.validator
+      - name: org.hibernate
         level: WARN
-      - name: org.jboss.resteasy
+      - name: org.jboss
         level: WARN
-      - name: org.reflections.Reflections
+      - name: org.reflections
         level: WARN
-      - name: org.springframework
+      - name: com.alibaba
         level: ERROR
+      - name: com.ibatis
+        level: WARN
+      - name: com.baomidou
+        level: WARN

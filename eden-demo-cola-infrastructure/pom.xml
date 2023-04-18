@@ -135,5 +135,5 @@
 			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-dynamic-tp-spring-cloud-starter</artifactId>
 		</dependency>
-    </dependencies>
+	</dependencies>
 </project>
