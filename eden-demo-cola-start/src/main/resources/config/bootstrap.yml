@@ -11,10 +11,6 @@ spring:
   profiles:
     active: local # 默认启用本地环境
 
-logging: # 日志管理
-  file:
-    name: ${spring.application.name}
-
 management: # 端点管理
   server:
     port: 9081
