@@ -1,6 +1,6 @@
 spring:
   arthas: # 在线诊断组件
-    enabled: false # 默认关闭，请按需开启
+    enabled: true # 默认关闭，请按需开启
   h2: # 内存数据库
     console:
       enabled: true # 线上环境请勿设置
