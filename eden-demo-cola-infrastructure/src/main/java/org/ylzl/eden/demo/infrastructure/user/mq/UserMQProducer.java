@@ -18,7 +18,6 @@ package org.ylzl.eden.demo.infrastructure.user.mq;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.ylzl.eden.common.mq.MessageQueueProvider;
 import org.ylzl.eden.common.mq.model.Message;
 import org.ylzl.eden.common.mq.producer.MessageSendCallback;
@@ -34,7 +33,7 @@ import org.ylzl.eden.spring.framework.json.support.JSONHelper;
  */
 @RequiredArgsConstructor
 @Slf4j
-@Component
+//@Component
 public class UserMQProducer {
 
 	private final MessageQueueProvider messageQueueProvider;
