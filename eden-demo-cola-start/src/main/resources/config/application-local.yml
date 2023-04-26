@@ -69,7 +69,7 @@ spring:
     enabled: true # 默认开启，请按需关闭
   cloud:
     sentinel: # 服务流量治理
-      enabled: false # 默认关闭，请按需开启
+      enabled: true # 默认关闭，请按需开启
       transport:
         dashboard: localhost:8090
       datasource:
