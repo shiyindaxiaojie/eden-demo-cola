@@ -8,6 +8,8 @@ pipeline {
 	  MAVEN_RELEASES_NAME = "maven-releases"
 		MAVEN_RELEASES_ID = "${CCI_CURRENT_TEAM}-${PROJECT_NAME}-${MAVEN_RELEASES_NAME}"
     MAVEN_RELEASES_URL = "${CCI_CURRENT_WEB_PROTOCOL}://${CCI_CURRENT_TEAM}-maven.pkg.${CCI_CURRENT_DOMAIN}/repository/${PROJECT_NAME}/${MAVEN_RELEASES_NAME}/"
+
+    DOCKER_REPOSITORY = "shiyindaxiaojie/eden-demo-cola"
 	}
   stages {
     stage('检出') {
@@ -125,5 +127,24 @@ pipeline {
 				}
       }
     }
+    stage('推送到 Docker 制品库') {
+			steps {
+				withCredentials([
+					usernamePassword(
+						credentialsId: env.DOCKER_CREDENTIALS,
+						usernameVariable: 'DOCKER_USERNAME',
+						passwordVariable: 'DOCKER_PASSWORD'
+					)
+				]) {
+					withEnv([
+						"DOCKER_USERNAME=${DOCKER_USERNAME}",
+						"DOCKER_PASSWORD=${DOCKER_PASSWORD}",
+						"DOCKER_IMAGE=${DOCKER_REPOSITORY}:${ARTIFACT_VERSION}"
+					]) {
+						sh 'mvn -Pcoding -pl eden-demo-cola-start jib:build -Djib.disableUpdateChecks=true -DskipTests -s ./.coding/settings.xml'
+					}
+				}
+			}
+		}
   }
 }

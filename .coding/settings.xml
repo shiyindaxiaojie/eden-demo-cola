@@ -46,6 +46,9 @@
 				<altSnapshotDeploymentRepository>
 					${env.MAVEN_SNAPSHOTS_ID}::default::${env.MAVEN_SNAPSHOTS_URL}
 				</altSnapshotDeploymentRepository>
+				<docker.username>${env.DOCKER_USERNAME}</docker.username>
+				<docker.password>${env.DOCKER_PASSWORD}</docker.password>
+				<docker.image>${env.DOCKER_IMAGE}</docker.image>
 			</properties>
 			<repositories>
 				<repository>
