@@ -134,7 +134,7 @@ spring:
 
 根据业务负载配置您的流控规则，并允许在任意时刻查看接口的 QPS 和限流情况。[传送门](https://github.com/shiyindaxiaojie/Sentinel)
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/sentinel/sentinel-dashboard-overview.png)
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/sentinel/sentinel-dashboard-overview-custom.png)
 
 ### Arthas 在线诊断工具
 
