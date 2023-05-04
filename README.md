@@ -106,7 +106,7 @@ spring:
 
 ### CODING 持续交付
 
-下图演示基于 CODING 实现持续构建、持续部署的效果
+下图演示基于 CODING 实现持续构建、持续部署的效果。[传送门](https://www.yuque.com/mengxiangge/action/coding)
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/common/coding-cicd.png)
 

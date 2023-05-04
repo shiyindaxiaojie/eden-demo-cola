@@ -8,7 +8,7 @@
 
 # COLA 架构
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/readme/language-java-blue.svg) [![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/readme/license-apache2.0-red.svg)][license-apache2.0] [![](https://github.com/shiyindaxiaojie/eden-demo-cola/workflows/build/badge.svg)][github-action] [![](https://sonarcloud.io/api/project_badges/measure?project=shiyindaxiaojie_eden-demo-cola&metric=alert_status)][sonarcloud-dashboard]
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/readme/language-java-blue.svg) [![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/readme/license-apache2.0-red.svg)][license-apache2.0] [![](https://github.com/shiyindaxiaojie/eden-demo-cola/actions/workflows/maven-ci.yml/badge.svg?branch=main)][github-action] [![](https://sonarcloud.io/api/project_badges/measure?project=shiyindaxiaojie_eden-demo-cola&metric=alert_status)][sonarcloud-dashboard]
 
 本项目使用 COLA 架构构建，COLA 架构是一个整洁的，面向对象的，分层的，可扩展的应用架构，可以帮助降低复杂应用场景的系统熵值，提升系统开发和运维效率。不管是传统的分层架构、六边形架构、还是洋葱架构，都提倡以业务为核心，解耦外部依赖，分离业务复杂度和技术复杂度等，COLA 架构在此基础上融合了 CQRS、DDD、SOLID 等设计思想，形成一套可落地的应用架构。
 
@@ -106,7 +106,7 @@ spring:
 
 ### CODING 持续交付
 
-下图演示基于 CODING 实现持续构建、持续部署的效果
+下图演示基于 CODING 实现持续构建、持续部署的效果。[传送门](https://www.yuque.com/mengxiangge/action/coding)
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/common/coding-cicd.png)
 
@@ -134,7 +134,7 @@ spring:
 
 根据业务负载配置您的流控规则，并允许在任意时刻查看接口的 QPS 和限流情况。[传送门](https://github.com/shiyindaxiaojie/Sentinel)
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/sentinel/sentinel-dashboard-overview.png)
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/sentinel/sentinel-dashboard-overview-custom.png)
 
 ### Arthas 在线诊断工具
 
