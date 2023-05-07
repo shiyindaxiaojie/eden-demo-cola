@@ -58,30 +58,30 @@
 
 ```yaml
 spring:
-  cloud:
-    nacos:
-      discovery: # 注册中心
-        enabled: true # 默认关闭，请按需开启
-      config: # 配置中心
-        enabled: true # 默认关闭，请按需开启
+    cloud:
+        nacos:
+            discovery: # 注册中心
+                enabled: true # 默认关闭，请按需开启
+            config: # 配置中心
+                enabled: true # 默认关闭，请按需开启
 ```
 
 **修改默认的数据源**：本项目默认使用 `H2` 内存数据库启动，基于 `Liquibase` 在项目启动时自动初始化 SQL 脚本。如果您使用的是外部的 MySQL 数据库，可以从此处调整下数据库的连接信息：[application-local.yml](https://github.com/shiyindaxiaojie/eden-demo-cola/blob/main/eden-demo-cola-start/src/main/resources/config/application-local.yml)，请删除任何与 `H2` 有关的配置。
 
 ```yaml
 spring:
-#  h2: # 内存数据库
-#    console:
-#      enabled: true # 线上环境请勿设置
-#      path: /h2-console
-#      settings:
-#        trace: false
-#        web-allow-others: false
-  datasource: # 数据源管理
-    username: 
-    password: 
-    url: jdbc:mysql://host:port/schema?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    #  h2: # 内存数据库
+    #    console:
+    #      enabled: true # 线上环境请勿设置
+    #      path: /h2-console
+    #      settings:
+    #        trace: false
+    #        web-allow-others: false
+    datasource: # 数据源管理
+        username:
+        password:
+        url: jdbc:mysql://host:port/schema?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+        driver-class-name: com.mysql.cj.jdbc.Driver
 ```
 
 此外，本项目还罗列了 `Redis` 缓存、`RocketMQ` 消息队列、`ShardingSphere` 分库分表等常用组件的使用方案，默认通过 `xxx.enabled` 关闭自动配置。您可以根据实际情况开启配置，直接完成组件的集成。
@@ -120,7 +120,7 @@ spring:
 
 ### Git 多人协作分支管理
 
-在敏捷开发盛行的时代，`GitFlow` 显得力不从心，笔者为团队制定了一套简单易用的流程。
+在敏捷开发盛行的时代，`GitFlow` 显得力不从心，笔者为团队制定了一套简单易用的流程。[传送门](https://www.processon.com/view/63d5d1fc56e18032d4a00998)
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/processon/git-action.png)
 

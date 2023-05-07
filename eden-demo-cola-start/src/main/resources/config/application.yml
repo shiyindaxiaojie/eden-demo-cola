@@ -9,7 +9,7 @@ spring:
       maximumPoolSize: 10
       idleTimeout: 300000
       maxLifetime: 1200000
-#      connection-init-sql: SET NAMES utf8mb4 # 针对云数据库出现乱码的解决方案
+  #      connection-init-sql: SET NAMES utf8mb4 # 针对云数据库出现乱码的解决方案
   cloud:
     sentinel: # 流量治理组件
       enabled: false # 默认关闭，请按需开启
@@ -112,6 +112,21 @@ server:
 #      max: 500 # 最大并发数
 #      min-spare: 20 # 初始线程数
 
+management:
+  server:
+    port: 9081
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: health,info,prometheus,metrics
+  endpoint:
+    health:
+      show-details: ALWAYS
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
 logging:
   access:
     enabled: true
@@ -145,7 +160,7 @@ arthas: # 在线诊断工具
   http-port: 0 # 随机端口
 
 dubbo: # 分布式调用组件
-  enabled: false # 默认关闭，请按需开启，请不要使用 @EnabledDubbo 原生注解，否则无法关闭
+  enabled: true # 默认关闭，请按需开启，请不要使用 @EnabledDubbo 原生注解，否则无法关闭
   scan:
     base-packages: org.ylzl.eden.demo.adapter # Dubbo 服务扫描
   application:
