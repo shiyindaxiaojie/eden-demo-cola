@@ -120,7 +120,7 @@ spring:
 
 ### Git 多人协作分支管理
 
-在敏捷开发盛行的时代，`GitFlow` 显得力不从心，笔者为团队制定了一套简单易用的流程。
+在敏捷开发盛行的时代，`GitFlow` 显得力不从心，笔者为团队制定了一套简单易用的流程。[传送门](https://www.processon.com/view/63d5d1fc56e18032d4a00998)
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/processon/git-action.png)
 
