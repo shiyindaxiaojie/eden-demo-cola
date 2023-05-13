@@ -1,0 +1,10 @@
+rocketmq:
+  enabled: true # 开关
+  name-server: localhost:9876
+  producer:
+    group: ${spring.application.name}
+    access-key:
+    secret-key:
+  consumer:
+    group: ${spring.application.name}
+    topic: demo-cola-user

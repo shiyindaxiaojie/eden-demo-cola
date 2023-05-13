@@ -1,0 +1,14 @@
+spring:
+  redis:
+    enabled: true # 开关
+    password: demo@123
+    timeout: 5000
+    database: 1
+    host: localhost
+    port: 6379
+    lettuce:
+      pool:
+        min-idle: 1
+        max-idle: 64
+        max-active: 64
+        max-wait: -1
