@@ -1,0 +1,10 @@
+spring:
+  arthas:
+    enabled: true # 开关
+
+arthas:
+  agent-id: ${spring.application.name}@${random.value}
+  tunnel-server: ws://localhost:7777/ws
+  session-timeout: 1800
+  telnet-port: 0 # 随机端口
+  http-port: 0 # 随机端口

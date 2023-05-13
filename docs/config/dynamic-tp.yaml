@@ -1,0 +1,31 @@
+spring:
+  dynamic:
+    tp:
+      enabled: true
+      enabledBanner: false
+      enabledCollect: true
+      collectorTypes: micrometer
+      logPath: ${user.home}/logs
+      monitorInterval: 5
+      undertowTp:
+        corePoolSize: 16
+        maximumPoolSize: 256
+        keepAliveTime: 60
+      dubboTp:
+        - threadPoolName: ${spring.application.name}#dubboTp
+          corePoolSize: 16
+          maximumPoolSize: 256
+          keepAliveTime: 60
+      rocketMqTp:
+        - threadPoolName: ${spring.application.name}#rocketMqTp
+          corePoolSize: 16
+          maximumPoolSize: 256
+          keepAliveTime: 60
+      executors:
+        - threadPoolName: ${spring.application.name}#dtpExecutor
+          executorType: common
+          corePoolSize: 16
+          maximumPoolSize: 256
+          queueCapacity: 500
+          queueType: VariableLinkedBlockingQueue
+          rejectedHandlerType: CallerRunsPolicy

@@ -1,0 +1,7 @@
+spring:
+  kafka:
+    producer:
+      batch-size: 4096
+      buffer-memory: 40960
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer

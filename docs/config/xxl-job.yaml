@@ -1,0 +1,12 @@
+xxl:
+  job:
+    enable: true # 开关
+    access-token:
+    admin:
+      addresses: http://localhost:8090/xxl-job
+    executor:
+      app-name: ${spring.application.name}
+      ip:
+      port:
+      log-path: /logs/xxl-job/job-handler/
+      log-retention-days: 7

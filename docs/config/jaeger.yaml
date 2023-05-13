@@ -1,0 +1,15 @@
+opentracing:
+  jaeger:
+    service-name: ${spring.application.name}
+    enabled: true # 开关
+    log-spans: true
+    enable-b3-propagation: true
+    enable-w3c-propagation: true
+    const-sampler:
+      decision: true
+    probabilistic-sampler:
+      sampling-rate: 1
+  spring:
+    cloud:
+      async:
+        enabled: false

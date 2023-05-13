@@ -1,0 +1,18 @@
+spring:
+  cloud:
+    sentinel:
+      enabled: true # 开关
+      http-method-specify: true # 兼容 RESTful
+      eager: true # 立刻刷新到 Dashboard
+      transport:
+        dashboard: localhost:8090
+      datasource:
+        flow:
+          nacos:
+            server-addr: ${spring.cloud.nacos.config.server-addr}
+            namespace: ${spring.cloud.nacos.config.namespace}
+            groupId: sentinel
+            dataId: ${spring.application.name}-flow-rule
+            rule-type: flow
+            data-type: json
+

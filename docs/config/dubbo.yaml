@@ -1,0 +1,30 @@
+dubbo:
+  enabled: true # 开关，请不要使用 @EnabledDubbo 原生注解，否则无法关闭
+  scan:
+    base-packages: org.ylzl.eden.demo.adapter # Dubbo 服务扫描
+  application:
+    id: ${spring.application.name}
+    name: ${spring.application.name}
+  protocol:
+    name: dubbo
+    port: -1 # 随机端口
+  registry:
+    id: ${spring.application.name}
+    address: nacos://${spring.cloud.nacos.discovery.server-addr}?namespace=${spring.cloud.nacos.discovery.namespace}&group=dubbo
+    protocol: nacos
+    check: false # 是否开启服务注册的启动检查
+    register: true # 是否开启服务注册，设置为 false 表示只订阅不注册
+  config-center:
+    address: nacos://${spring.cloud.nacos.discovery.server-addr}?namespace=${spring.cloud.nacos.discovery.namespace}&group=config
+  metadata-report:
+    address: nacos://${spring.cloud.nacos.discovery.server-addr}?namespace=${spring.cloud.nacos.discovery.namespace}&group=metadata
+  provider:
+    retries: 0 # 重试次数
+    timeout: 3000 # 超时时间
+    check: false # 是否开启检查
+    filter: cat-tracing
+  consumer:
+    retries: 0 # 重试次数
+    timeout: 3000 # 超时时间
+    check: false # 是否开启检查
+    filter: cat-tracing,cat-consumer

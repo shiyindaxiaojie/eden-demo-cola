@@ -1,0 +1,29 @@
+spring:
+  cloud:
+    nacos:
+      discovery: # 注册中心
+        enabled: true
+        server-addr: localhost:8848
+        namespace: demo
+        group: eden
+        username: nacos
+        password: nacos
+      config: # 配置中心
+        name: ${spring.application.name}
+        file-extension: yaml
+        enabled: true
+        server-addr: localhost:8848
+        namespace: demo
+        group: eden
+        username: nacos
+        password: nacos
+        extension-configs:
+          - group: eden
+            data-id: log4j2.yml
+            refresh: true
+
+log4j2:
+  nacos: # Nacos 支持 log4j2 刷新，需要同时设置 spring.cloud.nacos.config.extension-configs
+    enabled: true
+    group: eden
+    data-id: log4j2.yml
