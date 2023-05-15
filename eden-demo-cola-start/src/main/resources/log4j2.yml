@@ -104,7 +104,7 @@ Configuration:
   Loggers:
     Root:
       level: INFO
-      includeLocation: false
+      includeLocation: true
       AppenderRef:
         - ref: ConsoleAppender
         - ref: InfoFileAppender # 本地开发可以选择注释掉

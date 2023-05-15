@@ -168,7 +168,7 @@ dubbo: # 分布式调用组件
     name: ${spring.application.name}
   protocol:
     name: dubbo
-    port: -1 # 随机端口
+    port: 20881 # 开发环境可以使用 -1 生成随机端口
   registry:
     id: ${spring.application.name}
     address: nacos://${spring.cloud.nacos.discovery.server-addr}?namespace=${spring.cloud.nacos.discovery.namespace}&group=dubbo
