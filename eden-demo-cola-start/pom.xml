@@ -72,10 +72,9 @@
 						</ports>
 						<environment>
 							<TZ>Asia/Shanghai</TZ>
-							<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS
-							</SPRING_OUTPUT_ANSI_ENABLED>
 							<JAVA_OPTS>-Xms256m -Xmx256m -Dserver.port=8080</JAVA_OPTS>
-							<JAVA_SLEEP>1</JAVA_SLEEP>
+							<START_DELAY_SECS>1</START_DELAY_SECS>
+							<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>
 						</environment>
 						<creationTime>USE_CURRENT_TIMESTAMP</creationTime>
 						<mainClass>${start-class}</mainClass>
@@ -146,6 +145,11 @@
 		</dependency>
 
 		<!-- 链路跟踪组件，推荐使用魔改的 CAT 组件，内置链路、日志、监控一站式解决方案 -->
+		<!-- 推荐使用 https://github.com/shiyindaxiaojie/cat，支持链路追踪 -->
+		<dependency>
+			<groupId>io.github.shiyindaxiaojie</groupId>
+			<artifactId>eden-cat-spring-boot-starter</artifactId>
+		</dependency>
 		<!--<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-zipkin2-spring-cloud-starter</artifactId>
@@ -155,17 +159,10 @@
 			<artifactId>eden-jaeger-spring-cloud-starter</artifactId>
 		</dependency>-->
 
-		<!-- 服务监控组件 -->
+		<!-- 系统监控组件 -->
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-prometheus-spring-boot-starter</artifactId>
-		</dependency>
-
-		<!-- 实时监控组件 -->
-		<!-- 推荐使用 https://github.com/shiyindaxiaojie/cat，支持链路追踪 -->
-		<dependency>
-			<groupId>io.github.shiyindaxiaojie</groupId>
-			<artifactId>eden-cat-spring-boot-starter</artifactId>
 		</dependency>
 
 		<!-- 线上诊断组件 -->
