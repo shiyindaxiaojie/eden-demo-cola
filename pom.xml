@@ -73,7 +73,7 @@
 		<url>https://github.com/shiyindaxiaojie/eden-demo-cola/issues</url>
 	</issueManagement>
 
-	<repositories>
+	<!--<repositories>
 		<repository>
 			<id>sonatype-ossrh-releases</id>
 			<url>https://s01.oss.sonatype.org/content/groups/public/</url>
@@ -94,7 +94,7 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-	</repositories>
+	</repositories>-->
 
 	<dependencyManagement>
 		<dependencies>
