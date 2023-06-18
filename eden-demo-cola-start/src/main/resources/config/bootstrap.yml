@@ -9,4 +9,4 @@ spring:
         name: ${spring.application.name}
         file-extension: yaml
   profiles:
-    active: local # 默认启用本地环境
+    active: dev # 默认启用本地环境
