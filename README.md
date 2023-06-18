@@ -43,7 +43,7 @@
 
 ### 快速体验
 
-本项目默认设置了 local 运行环境，方便您直接启动项目，所有外部的组件依赖均为关闭状态。
+本项目默认设置了 dev 运行环境，方便您直接启动项目，所有外部的组件依赖均为关闭状态。
 
 1. 在项目目录下运行 `mvn install`（如果不想运行测试，可以加上 `-DskipTests` 参数）。
 2. 进入 `eden-demo-cola-start` 目录，执行 `mvn spring-boot:run` 或者启动 `ColaApplication` 类。运行成功的话，可以看到 `Spring Boot` 启动成功的界面。

@@ -77,6 +77,7 @@
 							<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>
 						</environment>
 						<creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+						<mainClass>${start-class}</mainClass>
 					</container>
 					<extraDirectories>
 						<paths>src/main/docker</paths>
