@@ -43,6 +43,20 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<docker>
+						<builderRegistry>
+							<username>${docker.username}</username>
+							<password>${docker.password}</password>
+						</builderRegistry>
+					</docker>
+					<image>
+						<builder>my-mirror.com/library/docker.io-paketobuildpacks-builder:base</builder>
+						<runImage>my-mirror.com/library/docker.io-paketobuildpacks-run:base</runImage>
+						<name>${docker.image}:${project.version}</name>
+						<verboseLogging>true</verboseLogging>
+					</image>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
