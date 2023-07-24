@@ -43,20 +43,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<docker>
-						<builderRegistry>
-							<username>${docker.username}</username>
-							<password>${docker.password}</password>
-						</builderRegistry>
-					</docker>
-					<image>
-						<builder>my-mirror.com/library/docker.io-paketobuildpacks-builder:base</builder>
-						<runImage>my-mirror.com/library/docker.io-paketobuildpacks-run:base</runImage>
-						<name>${docker.image}:${project.version}</name>
-						<verboseLogging>true</verboseLogging>
-					</image>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
@@ -86,9 +72,10 @@
 						</ports>
 						<environment>
 							<TZ>Asia/Shanghai</TZ>
-							<JAVA_OPTS>-Xms512m -Xmx512m -Xmn256m -Dserver.port=8080</JAVA_OPTS>
+							<JAVA_OPTS>-Xms512m -Xmx512m -Xmn256m -Dserver.port=8080 -Dmanagement.server.port=9080</JAVA_OPTS>
 							<START_DELAY_SECS>1</START_DELAY_SECS>
-							<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>
+							<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS
+							</SPRING_OUTPUT_ANSI_ENABLED>
 						</environment>
 						<creationTime>USE_CURRENT_TIMESTAMP</creationTime>
 						<mainClass>${start-class}</mainClass>
