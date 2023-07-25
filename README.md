@@ -43,7 +43,7 @@
 
 ### 快速体验
 
-本项目默认设置了 dev 运行环境，方便您直接启动项目，所有外部的组件依赖均为关闭状态。
+本项目默认设置了 dev 运行环境，为了方便您直接启动项目，所有外部的组件依赖均为关闭状态。
 
 1. 在项目目录下运行 `mvn install`（如果不想运行测试，可以加上 `-DskipTests` 参数）。
 2. 进入 `eden-demo-cola-start` 目录，执行 `mvn spring-boot:run` 或者启动 `ColaApplication` 类。运行成功的话，可以看到 `Spring Boot` 启动成功的界面。
@@ -54,7 +54,7 @@
 
 ### 微调配置
 
-**开启配置中心**：推荐使用 `Nacos` 组件，您可以查阅 [Nacos Quick Start](https://nacos.io/zh-cn/docs/quick-start.html) 快速搭建，请根据您的 Nacos 地址修改配置文件：[bootstrap-dev.yml](https://github.com/shiyindaxiaojie/eden-demo-cola/blob/main/eden-demo-cola-start/src/main/resources/config/bootstrap-dev.yml)，调整以下内容：
+**开启注册中心和配置管理**：推荐使用 `Nacos` 组件，您可以查阅 [Nacos Quick Start](https://nacos.io/zh-cn/docs/quick-start.html) 快速搭建，请根据您的 Nacos 地址修改配置文件：[bootstrap-dev.yml](https://github.com/shiyindaxiaojie/eden-demo-cola/blob/main/eden-demo-cola-start/src/main/resources/config/bootstrap-dev.yml)，调整以下内容：
 
 ```yaml
 spring:
@@ -80,11 +80,48 @@ spring:
   datasource: # 数据源管理
     username: 
     password: 
-    url: jdbc:mysql://host:port/schema?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://host:port/schema?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&serverTimezone=GMT%2B8
     driver-class-name: com.mysql.cj.jdbc.Driver
 ```
 
 此外，本项目还罗列了 `Redis` 缓存、`RocketMQ` 消息队列、`ShardingSphere` 分库分表等常用组件的使用方案，默认通过 `xxx.enabled` 关闭自动配置。您可以根据实际情况开启配置，直接完成组件的集成。
+
+## 如何部署
+
+### JAR 程序部署
+
+在项目根目录执行以下命令，生成 JAR 可执行程序。
+
+```bash
+mvn -T 4C -U package
+mvn -T 4C deploy # 可选项，发布依赖到私服
+```
+
+### Jib 镜像部署
+
+Google Jib 插件允许您在没有安装 Docker 下完成镜像的构建。
+
+```bash
+mvn -T 4C -U package
+mvn -pl eden-demo-cola-start jib:build -Djib.disableUpdateChecks=true -DskipTests
+```
+
+### Docker 容器部署
+
+本项目使用了 Spring Boot 的镜像分层特性优化了镜像的构建效率，请确保正确安装了 Docker 工具，然后执行以下命令。
+
+```bash
+docker build -f docker/Dockerfile -t eden-demo-cola:{tag} .
+```
+
+### Helm 打包部署
+
+以应用为中心，建议使用 Helm 统一管理所需部署的 K8s 资源描述文件，请参考以下命令完成应用的安装和卸载。
+
+```bash
+helm install eden-demo-cola ./helm # 部署资源
+helm uninstall eden-demo-cola # 卸载资源
+```
 
 ## 版本规范
 
