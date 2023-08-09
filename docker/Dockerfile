@@ -6,7 +6,7 @@ WORKDIR /app
 ARG MODULE=eden-demo-cola-start
 
 # 复制应用程序 JAR 文件
-COPY $MODULE/target/*.jar application.jar
+COPY $MODULE/target/${MODULE}.jar application.jar
 
 # 使用 Spring Boot 的分层模式提取 JAR 文件的依赖项
 RUN java -Djarmode=layertools -jar application.jar extract
