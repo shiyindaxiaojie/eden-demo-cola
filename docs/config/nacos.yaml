@@ -2,14 +2,16 @@ spring:
   cloud:
     nacos:
       discovery: # 注册中心
-        enabled: true # 默认关闭，请按需开启
+        enabled: true
         server-addr: localhost:8848
         namespace: demo
         group: eden
         username: nacos
         password: nacos
       config: # 配置中心
-        enabled: true # 默认关闭，请按需开启
+        name: ${spring.application.name}
+        file-extension: yaml
+        enabled: true
         server-addr: localhost:8848
         namespace: demo
         group: eden
@@ -22,6 +24,6 @@ spring:
 
 log4j2:
   nacos: # Nacos 支持 log4j2 刷新，需要同时设置 spring.cloud.nacos.config.extension-configs
-    enabled: false
+    enabled: true
     group: eden
     data-id: log4j2.yml

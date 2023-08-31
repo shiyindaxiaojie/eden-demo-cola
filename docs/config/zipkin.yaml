@@ -1,0 +1,23 @@
+spring:
+  sleuth: # 链路跟踪框架
+    sampler:
+      probability: 1
+    async:
+      configurer:
+        enabled: false # 与 Spring 高版本存在冲突，关闭处理
+  zipkin: # 链路跟踪组件
+    enabled: true # 开关
+    discovery-client-enabled: true
+    locator:
+      discovery:
+        enabled: true
+    sender:
+      type: kafka
+    kafka:
+      topic: zipkin
+  kafka: # 消息引擎组件，这里负责处理 Zipkin
+    producer:
+      batch-size: 4096
+      buffer-memory: 40960
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer

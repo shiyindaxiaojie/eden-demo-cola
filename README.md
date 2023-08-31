@@ -1,4 +1,4 @@
-<img src="https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/readme/icon.png" align="right" />
+<img src="https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/readme/icon.png" align="right" />
 
 [license-apache2.0]:https://www.apache.org/licenses/LICENSE-2.0.html
 
@@ -8,7 +8,7 @@
 
 # COLA 架构
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/readme/language-java-blue.svg) [![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/readme/license-apache2.0-red.svg)][license-apache2.0] [![](https://github.com/shiyindaxiaojie/eden-demo-cola/workflows/build/badge.svg)][github-action] [![](https://sonarcloud.io/api/project_badges/measure?project=shiyindaxiaojie_eden-demo-cola&metric=alert_status)][sonarcloud-dashboard]
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/readme/language-java-blue.svg) [![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/readme/license-apache2.0-red.svg)][license-apache2.0] [![](https://github.com/shiyindaxiaojie/eden-demo-cola/actions/workflows/maven-ci.yml/badge.svg?branch=main)][github-action] [![](https://sonarcloud.io/api/project_badges/measure?project=shiyindaxiaojie_eden-demo-cola&metric=alert_status)][sonarcloud-dashboard]
 
 本项目使用 COLA 架构构建，COLA 架构是一个整洁的，面向对象的，分层的，可扩展的应用架构，可以帮助降低复杂应用场景的系统熵值，提升系统开发和运维效率。不管是传统的分层架构、六边形架构、还是洋葱架构，都提倡以业务为核心，解耦外部依赖，分离业务复杂度和技术复杂度等，COLA 架构在此基础上融合了 CQRS、DDD、SOLID 等设计思想，形成一套可落地的应用架构。
 
@@ -16,7 +16,7 @@
 
 ## 组件构成
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/eden-demo-cola/component.png)
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/eden-demo-cola/component.png)
 
 * **eden-demo-cola-adapter**：适配层，**六边形架构**中的入站适配器。
 * **eden-demo-cola-app**：应用层，负责 **CQRS** 的指令处理工作，更新指令，调用领域层，查询视图操作，直接绕过领域层调用基础设施层。
@@ -27,7 +27,7 @@
 
 ## 运行流程
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/eden-demo-cola/sequence.png)
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/eden-demo-cola/sequence.png)
 
 ## 如何构建
 
@@ -43,18 +43,18 @@
 
 ### 快速体验
 
-本项目默认设置了 local 运行环境，方便您直接启动项目，所有外部的组件依赖均为关闭状态。
+本项目默认设置了 dev 运行环境，为了方便您直接启动项目，所有外部的组件依赖均为关闭状态。
 
 1. 在项目目录下运行 `mvn install`（如果不想运行测试，可以加上 `-DskipTests` 参数）。
 2. 进入 `eden-demo-cola-start` 目录，执行 `mvn spring-boot:run` 或者启动 `ColaApplication` 类。运行成功的话，可以看到 `Spring Boot` 启动成功的界面。
 3. 本应用中已经实现了一个简单的 `RestController` 接口，可以点击 [演示接口](http://localhost:8081/api/users/1) 进行调试。
 4. 由于目前的主流是前后端分离开发，请按需实现页面。访问 [http://localhost:8081](http://localhost:8081) 将跳转到 404 页面。
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/common/404.png)
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/common/404.png)
 
 ### 微调配置
 
-**开启配置中心**：推荐使用 `Nacos` 组件，您可以查阅 [Nacos Quick Start](https://nacos.io/zh-cn/docs/quick-start.html) 快速搭建，请根据您的 Nacos 地址修改配置文件：[bootstrap-local.yml](https://github.com/shiyindaxiaojie/eden-demo-cola/blob/main/eden-demo-cola-start/src/main/resources/config/bootstrap-local.yml)，调整以下内容：
+**开启注册中心和配置管理**：推荐使用 `Nacos` 组件，您可以查阅 [Nacos Quick Start](https://nacos.io/zh-cn/docs/quick-start.html) 快速搭建，请根据您的 Nacos 地址修改配置文件：[bootstrap-dev.yml](https://github.com/shiyindaxiaojie/eden-demo-cola/blob/main/eden-demo-cola-start/src/main/resources/config/bootstrap-dev.yml)，调整以下内容：
 
 ```yaml
 spring:
@@ -80,11 +80,48 @@ spring:
   datasource: # 数据源管理
     username: 
     password: 
-    url: jdbc:mysql://host:port/schema?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://host:port/schema?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&serverTimezone=GMT%2B8
     driver-class-name: com.mysql.cj.jdbc.Driver
 ```
 
 此外，本项目还罗列了 `Redis` 缓存、`RocketMQ` 消息队列、`ShardingSphere` 分库分表等常用组件的使用方案，默认通过 `xxx.enabled` 关闭自动配置。您可以根据实际情况开启配置，直接完成组件的集成。
+
+## 如何部署
+
+### JAR 程序部署
+
+在项目根目录执行以下命令，生成 JAR 可执行程序。
+
+```bash
+mvn -T 4C -U package
+mvn -T 4C deploy # 可选项，发布依赖到私服
+```
+
+### Jib 镜像部署
+
+Google Jib 插件允许您在没有安装 Docker 下完成镜像的构建。
+
+```bash
+mvn -T 4C -U package
+mvn -pl eden-demo-cola-start jib:build -Djib.disableUpdateChecks=true -DskipTests
+```
+
+### Docker 容器部署
+
+本项目使用了 Spring Boot 的镜像分层特性优化了镜像的构建效率，请确保正确安装了 Docker 工具，然后执行以下命令。
+
+```bash
+docker build -f docker/Dockerfile -t eden-demo-cola:{tag} .
+```
+
+### Helm 打包部署
+
+以应用为中心，建议使用 Helm 统一管理所需部署的 K8s 资源描述文件，请参考以下命令完成应用的安装和卸载。
+
+```bash
+helm install eden-demo-cola ./helm # 部署资源
+helm uninstall eden-demo-cola # 卸载资源
+```
 
 ## 版本规范
 
@@ -106,11 +143,11 @@ spring:
 
 ### CODING 持续交付
 
-下图演示基于 CODING 实现持续构建、持续部署的效果
+下图演示基于 CODING 实现持续构建、持续部署的效果。[传送门](https://www.yuque.com/mengxiangge/action/coding)
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/common/coding-cicd.png)
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/common/coding-cicd.png)
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/common/coding-test-report.png)
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/common/coding-test-report.png)
 
 ## 最佳实践
 
@@ -120,27 +157,27 @@ spring:
 
 ### Git 多人协作分支管理
 
-在敏捷开发盛行的时代，`GitFlow` 显得力不从心，笔者为团队制定了一套简单易用的流程。
+在敏捷开发盛行的时代，`GitFlow` 显得力不从心，笔者为团队制定了一套简单易用的流程。[传送门](https://www.processon.com/view/63d5d1fc56e18032d4a00998)
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/processon/git-action.png)
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/processon/git-action.png)
 
 ### CAT 可观测性方案
 
 通过 `TraceId` 分析整个链路的 `HTTP` 请求耗时、`RPC` 调用情况、`Log` 业务日志、`SQL` 和 `Cache` 执行耗时。[传送门](https://github.com/shiyindaxiaojie/cat)
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/cat/tracing.png)
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/cat/tracing.png)
 
 ### Sentinel 流量治理方案
 
 根据业务负载配置您的流控规则，并允许在任意时刻查看接口的 QPS 和限流情况。[传送门](https://github.com/shiyindaxiaojie/Sentinel)
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/sentinel/sentinel-dashboard-overview.png)
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/sentinel/sentinel-dashboard-overview-custom.png)
 
 ### Arthas 在线诊断工具
 
 使用动态时运行探针，自动发现服务，开箱即用，允许在低负载环境诊断你的应用。[传送门](https://github.com/shiyindaxiaojie/arthas)
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/eden-images/arthas/arthas-dashboard-overview.png)
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/arthas/arthas-dashboard-overview.png)
 
 ## 变更日志
 

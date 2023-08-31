@@ -9,7 +9,7 @@ Configuration:
       - name: PROFILES
         value: $${spring:spring.profiles.active}
       - name: LOG_PATH
-        value: $${spring:logging.file.path:-/var/logs}
+        value: $${spring:logging.file.path:-/app/logs}
       - name: LOG_PATTERN
         value: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [${PROFILES}] [%X{traceId}] [%t] %msg%n"
       - name: CAT_PATTERN
@@ -104,7 +104,7 @@ Configuration:
   Loggers:
     Root:
       level: INFO
-      includeLocation: false
+      includeLocation: true
       AppenderRef:
         - ref: ConsoleAppender
         - ref: InfoFileAppender # 本地开发可以选择注释掉

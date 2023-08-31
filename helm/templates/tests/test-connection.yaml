@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "eden-demo-cola.fullname" . }}-test-connection"
+  labels:
+    {{- include "eden-demo-cola.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "eden-demo-cola.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

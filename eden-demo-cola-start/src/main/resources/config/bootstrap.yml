@@ -9,19 +9,4 @@ spring:
         name: ${spring.application.name}
         file-extension: yaml
   profiles:
-    active: local # 默认启用本地环境
-
-management: # 端点管理
-  server:
-    port: 9081
-  endpoints:
-    web:
-      base-path: /actuator
-      exposure:
-        include: health,info,prometheus,metrics
-  endpoint:
-    health:
-      show-details: ALWAYS
-  metrics:
-    tags:
-      application: ${spring.application.name}
+    active: dev # 默认启用本地环境

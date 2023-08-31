@@ -8,6 +8,19 @@ pipeline {
 	  MAVEN_RELEASES_NAME = "maven-releases"
 		MAVEN_RELEASES_ID = "${CCI_CURRENT_TEAM}-${PROJECT_NAME}-${MAVEN_RELEASES_NAME}"
     MAVEN_RELEASES_URL = "${CCI_CURRENT_WEB_PROTOCOL}://${CCI_CURRENT_TEAM}-maven.pkg.${CCI_CURRENT_DOMAIN}/repository/${PROJECT_NAME}/${MAVEN_RELEASES_NAME}/"
+
+	  MAVEN_SNAPSHOTS_NAME = "maven-snapshots"
+	  MAVEN_RELEASES_NAME = "maven-releases"
+	  DOCKER_REPOSITORY_NAME = "docker"
+	  TCR_NAMESPACE = "py-tools"
+	  JIB_BUILD_NAME = "eden-demo-cola-start"
+
+		MAVEN_SNAPSHOTS_ID = "${CCI_CURRENT_TEAM}-${PROJECT_NAME}-${MAVEN_SNAPSHOTS_NAME}"
+		MAVEN_SNAPSHOTS_URL = "${CCI_CURRENT_WEB_PROTOCOL}://${CCI_CURRENT_TEAM}-maven.pkg.${CCI_CURRENT_DOMAIN}/repository/${PROJECT_NAME}/${MAVEN_SNAPSHOTS_NAME}/"
+		MAVEN_RELEASES_ID = "${CCI_CURRENT_TEAM}-${PROJECT_NAME}-${MAVEN_RELEASES_NAME}"
+		MAVEN_RELEASES_URL = "${CCI_CURRENT_WEB_PROTOCOL}://${CCI_CURRENT_TEAM}-maven.pkg.${CCI_CURRENT_DOMAIN}/repository/${PROJECT_NAME}/${MAVEN_RELEASES_NAME}/"
+	  DOCKER_REPOSITORY = "${CCI_CURRENT_TEAM}-docker.pkg.${CCI_CURRENT_DOMAIN}/${PROJECT_NAME}/${DOCKER_REPOSITORY_NAME}"
+	  QCLOUD_TCR_REPOSITORY = "shjrccr.ccs.tencentyun.com/${TCR_NAMESPACE}/${DEPOT_NAME}"
 	}
   stages {
     stage('检出') {
@@ -125,5 +138,44 @@ pipeline {
 				}
       }
     }
+    stage('推送到 Docker 制品库') {
+			steps {
+			  withCredentials([
+					usernamePassword(
+						credentialsId: env.DOCKER_REGISTRY_CREDENTIALS_ID,
+						usernameVariable: 'DOCKER_USERNAME',
+						passwordVariable: 'DOCKER_PASSWORD'
+					)
+				]) {
+					withEnv([
+						"DOCKER_USERNAME=${DOCKER_USERNAME}",
+          	"DOCKER_PASSWORD=${DOCKER_PASSWORD}"
+        	]) {
+        		sh "docker login ${DOCKER_REPOSITORY} -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+        		sh "docker build -t ${DOCKER_REPOSITORY}/${DEPOT_NAME}:${ARTIFACT_VERSION} -f docker/Dockerfile ."
+        		sh "docker push ${DOCKER_REPOSITORY}/${DEPOT_NAME}:${ARTIFACT_VERSION}"
+        	}
+        }
+			}
+		}
+    // stage('推送到 Docker 制品库') {
+    //   steps {
+    //     withCredentials([
+    //       usernamePassword(
+    //         credentialsId: env.QCLOUD_TCR,
+    //         usernameVariable: 'QCLOUD_TCR_USERNAME',
+    //         passwordVariable: 'QCLOUD_TCR_PASSWORD'
+    //       )
+    //     ]) {
+		// 			withEnv([
+		// 				"DOCKER_USERNAME=${QCLOUD_TCR_USERNAME}",
+		// 				"DOCKER_PASSWORD=${QCLOUD_TCR_PASSWORD}",
+		// 				"DOCKER_IMAGE=${QCLOUD_TCR_REPOSITORY}:${ARTIFACT_VERSION}"
+		// 			]) {
+		// 				sh 'mvn -Pcoding -pl ${JIB_BUILD_NAME} jib:build -Djib.disableUpdateChecks=true -DskipTests -s ./.coding/settings.xml'
+		// 			}
+    //     }
+    //   }
+		// }
   }
 }

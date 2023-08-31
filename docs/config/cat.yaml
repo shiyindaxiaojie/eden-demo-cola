@@ -1,0 +1,8 @@
+cat:
+  enabled: true # 开关
+  trace-mode: true # 开启访问观测
+  support-out-trace-id: true # 支持外部HTTP链路透传
+  home: /tmp
+  servers: localhost
+  tcp-port: 2280
+  http-port: 8080

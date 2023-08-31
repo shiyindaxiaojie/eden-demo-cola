@@ -1,6 +1,6 @@
 spring:
   arthas: # 在线诊断组件
-    enabled: true # 默认关闭，请按需开启
+    enabled: false # 默认关闭，请按需开启
   h2: # 内存数据库
     console:
       enabled: true # 线上环境请勿设置
@@ -9,29 +9,29 @@ spring:
         trace: false
         web-allow-others: false
   datasource: # 数据源管理
-#    username: sa
-#    password: demo
-#    url: jdbc:h2:mem:db;DB_CLOSE_ON_EXIT=TRUE
-#    driver-class-name: org.h2.Driver
-    username: root
-    password: demo@123
-    url: jdbc:mysql://localhost:3306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: sa
+    password: demo
+    url: jdbc:h2:mem:db;DB_CLOSE_ON_EXIT=TRUE
+    driver-class-name: org.h2.Driver
+#    username: root
+#    password: demo@123
+#    url: jdbc:mysql://localhost:3306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&serverTimezone=GMT%2B8
+#    driver-class-name: com.mysql.cj.jdbc.Driver
     dynamic: # 多数据源，使用 @DS 切换
       enabled: false # 默认关闭，请按需开启
       strict: true
       primary: ds1
       datasource:
         ds1:
-          username:
-          password:
-          url: jdbc:mysql://localhost:3306/ds1?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+          username: root
+          password: demo@123
+          url: jdbc:mysql://localhost:3306/ds1?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&serverTimezone=GMT%2B8
           driver-class-name: com.mysql.cj.jdbc.Driver
           type: com.zaxxer.hikari.HikariDataSource
         ds2:
-          username:
-          password:
-          url: jdbc:mysql://localhost:3306/ds2?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+          username: root
+          password: demo@123
+          url: jdbc:mysql://localhost:3306/ds2?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&serverTimezone=GMT%2B8
           driver-class-name: com.mysql.cj.jdbc.Driver
           type: com.zaxxer.hikari.HikariDataSource
   shardingsphere: # 分库分表组件
@@ -41,13 +41,13 @@ spring:
       ds1:
         username: root
         password: demo@123
-        url: jdbc:mysql://localhost:3306/ds1?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+        url: jdbc:mysql://localhost:3306/ds1?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&serverTimezone=GMT%2B8
         driver-class-name: com.mysql.cj.jdbc.Driver
         type: com.zaxxer.hikari.HikariDataSource
       ds2:
         username: root
         password: demo@123
-        url: jdbc:mysql://localhost:3306/ds2?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+        url: jdbc:mysql://localhost:3306/ds2?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&serverTimezone=GMT%2B8
         driver-class-name: com.mysql.cj.jdbc.Driver
         type: com.zaxxer.hikari.HikariDataSource
     rules:
@@ -82,7 +82,7 @@ spring:
             rule-type: flow
             data-type: json
   redis: # 缓存数据库
-    enabled: true # 默认关闭，请按需开启
+    enabled: false # 默认关闭，请按需开启
     password: demo@123
     timeout: 5000
     database: 1
@@ -94,17 +94,19 @@ spring:
     base-url: http://localhost:9411
   kafka: # 消息队列
     bootstrap-servers: localhost:9092
+  message-queue:
+    dynamic:
+      primary: RocketMQ # 动态消息队列默认组件
 
 rocketmq: # 消息队列
   enabled: false # 默认关闭，请按需开启
   name-server: localhost:9876
   producer:
-    group: ${spring.application.name}
     access-key:
     secret-key:
   consumer:
-    group: ${spring.application.name}
-    topic: demo-cola-user
+    access-key:
+    secret-key:
 
 xxl: # 分布式调度平台
   job:
@@ -120,7 +122,7 @@ xxl: # 分布式调度平台
       log-retention-days: 7
 
 cat: # 实时监控平台
-  enabled: true # 默认关闭，请按需开启
+  enabled: false # 默认关闭，请按需开启
   trace-mode: true # 开启访问观测
   support-out-trace-id: true # 支持外部HTTP链路透传
   home: /tmp

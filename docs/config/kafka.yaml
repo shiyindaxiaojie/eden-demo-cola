@@ -1,0 +1,26 @@
+spring:
+  kafka: # 消息引擎组件
+    bootstrap-servers: localhost:9092
+    client-id: ${spring.application.name}
+    producer:
+      acks: all # 发送确认机制
+      batch-size: 4KB # 批处理发送主题大小
+      buffer-memory: 40960 # 发送缓冲大小
+      retries: 3 # 默认为 0，发送主题失败后重试的次数
+      compression-type: lz4 # 压缩类型
+    consumer:
+      group-id: # 消费组，同一个消费组的实例数或者线程数不能超过 Kafka 的分区数量
+      enable-auto-commit: false # 建议关闭自动提交 Offset，不然报错很难处理
+      auto-offset-reset: earliest # 设置消费者重连是否自动重置到最开始的消息偏移量
+      heartbeat-interval: 5000 # 心跳频率
+      max-poll-records: 100 # 单次拉取最大记录数
+      fetch-max-wait: 3000 # 未达到 fetch-min-size 时，阻塞拉取消息的时长
+      fetch-min-size: 4096 # 触发拉取消息的最小值
+      isolation-level: READ_COMMITTED # 隔离级别：READ_UNCOMMITTED/READ_COMMITTED
+    listener:
+      type: BATCH # 监听类型：BATCH/SINGLE
+      ack-mode: MANUAL_IMMEDIATE # 手动提交模式
+      concurrency: 5 # 消费监听线程数，当配置值大于 Kafka 分区数，按分区数执行
+      poll-timeout: 5000 # 单次拉取消息的超时时间
+      idle-between-polls: 0 # 拉取消息的空闲时间
+      idle-event-interval: 0 # 没有可消费的消息时空闲的间隔时间

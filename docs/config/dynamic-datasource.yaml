@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    dynamic: # 多数据源，使用 @DS 切换
+      enabled: true # 开关
+      strict: true
+      primary: ds1
+      datasource:
+        ds1:
+          username:
+          password:
+          url: jdbc:mysql://localhost:3306/ds1?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&serverTimezone=GMT%2B8
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          type: com.zaxxer.hikari.HikariDataSource
+        ds2:
+          username:
+          password:
+          url: jdbc:mysql://localhost:3306/ds2?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&serverTimezone=GMT%2B8
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          type: com.zaxxer.hikari.HikariDataSource

@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    username: sa
+    password: demo
+    url: jdbc:h2:mem:db;DB_CLOSE_ON_EXIT=TRUE
+    driver-class-name: org.h2.Driver
+    #    username: root
+    #    password: demo@123
+    #    url: jdbc:mysql://localhost:3306/demo?rewriteBatchedStatements=true&useSSL=false&useOldAliasMetadataBehavior=true&useUnicode=true&serverTimezone=GMT%2B8
+    #    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connectionTimeout: 5000
+      minimumIdle: 2
+      maximumPoolSize: 10
+      idleTimeout: 300000
+      maxLifetime: 1200000
+  #      connection-init-sql: SET NAMES utf8mb4 # 针对云数据库出现乱码的解决方案

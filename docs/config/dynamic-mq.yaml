@@ -1,0 +1,50 @@
+spring:
+  message-queue:
+    dynamic:
+      primary: RocketMQ # 动态消息队列默认组件：RocketMQ/Kafka
+  kafka: # Kafka 原生配置
+    bootstrap-servers: localhost:9092
+    client-id: ${spring.application.name}
+    producer:
+      acks: all # 发送确认机制
+      batch-size: 4KB # 批处理发送主题大小
+      buffer-memory: 40960 # 发送缓冲大小
+      retries: 3 # 默认为 0，发送主题失败后重试的次数
+      compression-type: lz4 # 压缩类型
+    consumer:
+      group-id: # 消费组，同一个消费组的实例数或者线程数不能超过 Kafka 的分区数量
+      enable-auto-commit: false # 建议关闭自动提交 Offset，不然报错很难处理
+      auto-offset-reset: earliest # 设置消费者重连是否自动重置到最开始的消息偏移量
+      heartbeat-interval: 5000 # 心跳频率
+      max-poll-records: 100 # 单次拉取最大记录数
+      fetch-max-wait: 3000 # 未达到 fetch-min-size 时，阻塞拉取消息的时长
+      fetch-min-size: 4096 # 触发拉取消息的最小值
+      isolation-level: READ_COMMITTED # 隔离级别：READ_UNCOMMITTED/READ_COMMITTED
+    listener:
+      type: BATCH # 监听类型：BATCH/SINGLE
+      ack-mode: MANUAL_IMMEDIATE # 手动提交模式
+      concurrency: 5 # 消费监听线程数，当配置值大于 Kafka 分区数，按分区数执行
+      poll-timeout: 5000 # 单次拉取消息的超时时间
+      idle-between-polls: 0 # 拉取消息的空闲时间
+      idle-event-interval: 0 # 没有可消费的消息时空闲的间隔时间
+
+rocketmq: # RocketMQ 原生配置
+  enabled: true # 开关
+  name-server: localhost:9876
+  producer:
+    namespace: ${spring.profiles.active}
+    group: ${spring.application.name}
+    send-message-timeout: 3000 # 生产消息超时
+    retry-times-when-send-failed: 2 # 同步模式生产消息失败重试次数
+    retry-times-when-send-async-failed: 2 # 异步模式生产消息失败重试次数
+  consumer:
+    namespace: ${spring.profiles.active}
+    group: ${spring.application.name}
+    pull-batch-size: 500 # 单次拉取消息条数
+    consume-message-batch-max-size: 100 # 单次消费消息条数
+    consume-mode: CONCURRENTLY # CONCURRENTLY：并发模式，ORDERLY：顺序模式
+    consume-thread-min: 8 # 消费最小线程数
+    consume-thread-max: 64 # 消费最大线程数
+    consume-timeout: 15 # 消费超时（分钟）
+    suspend-current-queue-time-millis: 1000 # 顺序模式下消费者重试暂停的时间
+    delay-level-when-next-consume: 0 # 并发模式下消费者重试频率，0：Broker 控制重试、-1：不重试直接进入死信、大于1：参考 Client 重试级别

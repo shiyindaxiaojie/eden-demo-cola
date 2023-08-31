@@ -1,0 +1,20 @@
+rocketmq: # 消息队列
+  enabled: true # 开关
+  name-server: localhost:9876
+  producer:
+    namespace: ${spring.profiles.active}
+    group: ${spring.application.name}
+    send-message-timeout: 3000 # 生产消息超时
+    retry-times-when-send-failed: 2 # 同步模式生产消息失败重试次数
+    retry-times-when-send-async-failed: 2 # 异步模式生产消息失败重试次数
+  consumer:
+    namespace: ${spring.profiles.active}
+    group: ${spring.application.name}
+    pull-batch-size: 500 # 单次拉取消息条数
+    consume-message-batch-max-size: 100 # 单次消费消息条数
+    consume-mode: CONCURRENTLY # CONCURRENTLY：并发模式，ORDERLY：顺序模式
+    consume-thread-min: 8 # 消费最小线程数
+    consume-thread-max: 64 # 消费最大线程数
+    consume-timeout: 15 # 消费超时（分钟）
+    suspend-current-queue-time-millis: 1000 # 顺序模式下消费者重试暂停的时间
+    delay-level-when-next-consume: 0 # 并发模式下消费者重试频率，0：Broker 控制重试、-1：不重试直接进入死信、大于1：参考 Client 重试级别
