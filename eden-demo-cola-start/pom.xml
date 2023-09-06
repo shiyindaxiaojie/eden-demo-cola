@@ -100,6 +100,12 @@
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie.eden.demo</groupId>
 			<artifactId>eden-demo-cola-adapter</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>curator-client</artifactId>
+					<groupId>org.apache.curator</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- 开发组件 -->
@@ -139,14 +145,23 @@
 			<artifactId>eden-dubbo-spring-cloud-starter</artifactId>
 		</dependency>
 
-		<!-- 熔断降级组件，推荐使用 https://github.com/shiyindaxiaojie/Sentinel -->
+		<!-- 熔断降级组件 -->
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-sentinel-spring-cloud-starter</artifactId>
 		</dependency>
+		<!--<dependency>
+			<groupId>com.alibaba.csp</groupId>
+			<artifactId>sentinel-datasource-zookeeper</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-log4j12</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>-->
 
-		<!-- 链路跟踪组件，推荐使用魔改的 CAT 组件，内置链路、日志、监控一站式解决方案 -->
-		<!-- 推荐使用 https://github.com/shiyindaxiaojie/cat，支持链路追踪 -->
+		<!-- 链路跟踪组件 -->
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-cat-spring-boot-starter</artifactId>
@@ -167,7 +182,6 @@
 		</dependency>
 
 		<!-- 线上诊断组件 -->
-		<!-- 推荐使用 https://github.com/shiyindaxiaojie/arthas/tree/master/tunnel-server2，支持服务发现 -->
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-arthas-spring-boot-starter</artifactId>

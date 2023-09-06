@@ -81,6 +81,11 @@ spring:
             dataId: ${spring.application.name}-flow-rule
             rule-type: flow
             data-type: json
+#          zk:
+#            server-addr: localhost:2181
+#            path: /sentinel/${spring.application.name}/flow-rule
+#            rule-type: flow
+#            data-type: json
   redis: # 缓存数据库
     enabled: false # 默认关闭，请按需开启
     password: demo@123
