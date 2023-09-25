@@ -69,19 +69,25 @@
 						</entrypoint>
 						<ports>
 							<port>8080</port>
+							<port>9080</port>
 						</ports>
 						<environment>
 							<TZ>Asia/Shanghai</TZ>
-							<JAVA_OPTS>-Xms512m -Xmx512m -Xmn256m -Dserver.port=8080 -Dmanagement.server.port=9080</JAVA_OPTS>
 							<START_DELAY_SECS>1</START_DELAY_SECS>
-							<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS
-							</SPRING_OUTPUT_ANSI_ENABLED>
+							<JVM_DEBUG>n</JVM_DEBUG>
+							<JVM_XMS>1g</JVM_XMS>
+							<JVM_XMX>1g</JVM_XMX>
+							<JVM_XMN>512m</JVM_XMN>
+							<JVM_MS>128m</JVM_MS>
+							<JVM_MMS>320m</JVM_MMS>
+							<JAVA_OPTS>-Dserver.port=8080 -Dmanagement.server.port=9080</JAVA_OPTS>
+							<SPRING_PROFILES_ACTIVE>320m</SPRING_PROFILES_ACTIVE>
 						</environment>
 						<creationTime>USE_CURRENT_TIMESTAMP</creationTime>
 						<mainClass>${start-class}</mainClass>
 					</container>
 					<extraDirectories>
-						<paths>src/main/docker</paths>
+						<paths>src/main/docker/jib</paths>
 						<permissions>
 							<permission>
 								<file>/entrypoint.sh</file>
