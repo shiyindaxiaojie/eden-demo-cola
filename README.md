@@ -88,13 +88,12 @@ spring:
 
 ## 如何部署
 
-### JAR 程序部署
+### FatJar 程序部署
 
-在项目根目录执行以下命令，生成 JAR 可执行程序。
+执行 `mvn clean package` 打包成一个 fat jar，参考如下命令启动编译后的控制台。
 
 ```bash
-mvn -T 4C -U package
-mvn -T 4C deploy # 可选项，发布依赖到私服
+java -Dserver.port=8080 -jar target/eden-demo-cola.jar
 ```
 
 ### Jib 镜像部署
