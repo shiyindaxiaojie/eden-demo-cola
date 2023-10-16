@@ -81,7 +81,7 @@
 							<JVM_MS>128m</JVM_MS>
 							<JVM_MMS>320m</JVM_MMS>
 							<JAVA_OPTS>-Dserver.port=8080 -Dmanagement.server.port=9080</JAVA_OPTS>
-							<SPRING_PROFILES_ACTIVE>320m</SPRING_PROFILES_ACTIVE>
+							<SPRING_PROFILES_ACTIVE>dev</SPRING_PROFILES_ACTIVE>
 						</environment>
 						<creationTime>USE_CURRENT_TIMESTAMP</creationTime>
 						<mainClass>${start-class}</mainClass>
