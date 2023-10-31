@@ -53,6 +53,9 @@
 			<if test="login != null">
 				AND login = #{login}
 			</if>
+			<if test="email != null">
+				AND email = #{email}
+			</if>
 		</where>
 	</sql>
 
