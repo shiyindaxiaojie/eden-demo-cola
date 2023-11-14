@@ -139,5 +139,11 @@
 			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-dynamic-tp-spring-cloud-starter</artifactId>
 		</dependency>
+
+		<!-- 分布式ID生成组件 -->
+		<dependency>
+			<groupId>io.github.shiyindaxiaojie</groupId>
+			<artifactId>eden-distributed-uid-spring-boot-starter</artifactId>
+		</dependency>
 	</dependencies>
 </project>
