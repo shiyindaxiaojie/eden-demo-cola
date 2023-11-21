@@ -106,12 +106,6 @@
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie.eden.demo</groupId>
 			<artifactId>eden-demo-cola-adapter</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>curator-client</artifactId>
-					<groupId>org.apache.curator</groupId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<!-- 开发组件 -->

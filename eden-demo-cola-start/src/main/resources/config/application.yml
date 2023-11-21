@@ -173,15 +173,15 @@ mybatis-plus: # ORM 组件
     use-column-label: true
   type-aliases-package: org.ylzl.eden.demo.infrastructure
   id-generator:
-    type: segment # 号段生成
+    type: segment # 号段生成（snowflake/segment）
 
-distributed-uid:
+distributed-uid: # 分布式ID生成器
   snowflake-generator:
     enabled: false
     coordinator:
       type: zookeeper
       zookeeper:
-        connect-string: lolalhost:2181
+        connect-string: localhost:2181
   segment-generator:
     enabled: true
     liquibase:
@@ -264,7 +264,7 @@ xxl: # 分布式调度平台
 cat: # 实时监控平台
   enabled: false # 默认关闭，请按需开启
 
-opentracing: # Jaeger
+opentracing: # 开放式链路跟踪规范
   jaeger:
     service-name: ${spring.application.name}
     enabled: false
