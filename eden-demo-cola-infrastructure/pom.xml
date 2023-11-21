@@ -112,6 +112,12 @@
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-shardingsphere-spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>curator-client</artifactId>
+					<groupId>org.apache.curator</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- 缓存组件 -->
