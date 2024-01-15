@@ -20,7 +20,6 @@ import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.annotation.XxlJob;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.ylzl.eden.spring.integration.xxljob.XxlJobRegister;
 
 /**
  * 用户信息离线处理
@@ -32,7 +31,8 @@ import org.ylzl.eden.spring.integration.xxljob.XxlJobRegister;
 @Component
 public class UserJobHandler {
 
-    @XxlJobRegister(desc = "用户信息离线处理", author = "梦想歌", cron = "30 * * * * ?") // 自动注册到XxlJob
+	// 目前 XxlJob2.x 开源版本扩展性特别差，暂时不支持 自动注册到 XxlJob
+	// @XxlJobRegister(desc = "用户信息离线处理", author = "梦想歌", cron = "30 * * * * ?")
     @XxlJob(value = "userJobHandler", init = "init", destroy = "destroy")
     public void jobHandler() throws Exception {
         XxlJobHelper.log("XXL-JOB, Hello World.");
