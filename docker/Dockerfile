@@ -41,7 +41,9 @@ RUN groupadd -g 1000 $GROUP \
   && useradd -u 1000 -g $GROUP -d $HOME -s /bin/bash $USER \
   && mkdir $HOME \
   && chown -R $USER:$GROUP $HOME \
-  && chmod -R a+rwX $HOME
+  && chmod -R a+rwX $HOME \
+  && mkdir /dev/shm/logs \
+  && chmod -R a+rw /dev/shm/logs
 WORKDIR $HOME
 
 # 复制应用程序依赖项和模块
