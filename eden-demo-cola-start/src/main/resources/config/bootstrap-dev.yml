@@ -9,12 +9,12 @@ spring:
         username: nacos
         password: nacos
       config: # 配置中心
-        enabled: true # 默认关闭，请按需开启
-        server-addr: 172.28.34.55:8848
-        namespace: bizcollege-test
+        enabled: false # 默认关闭，请按需开启
+        server-addr: localhost:8848
+        namespace: demo
         group: eden
         username: nacos
-        password: puyiwm
+        password: nacos
         extension-configs:
           - group: eden
             data-id: log4j2.yml
