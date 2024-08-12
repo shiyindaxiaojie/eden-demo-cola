@@ -7,10 +7,6 @@ JAVA_OPTS="${JAVA_OPTS} -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVM
 JAVA_OPTS="${JAVA_OPTS} -XX:+AlwaysPreTouch -XX:+PrintFlagsFinal -XX:-DisplayVMOutput -XX:-OmitStackTraceInFastThrow"
 JAVA_OPTS="${JAVA_OPTS} -Xms${JVM_XMS} -Xmx${JVM_XMX} -Xss${JVM_XSS} -XX:MetaspaceSize=${JVM_MS}"
 
-if [[ "$JAVA_MAJOR_VERSION" -le "8" ]] ; then
-	JAVA_OPTS="${JAVA_OPTS} -XX:+UnlockCommercialFeatures"
-fi
-
 if [[ "${GC_MODE}" == "g1" ]]; then
 	echo "GC mode is G1"
 	JAVA_OPTS="${JAVA_OPTS} -XX:+UseG1GC -XX:G1LogLevel=finest -XX:MaxGCPauseMillis=200"
