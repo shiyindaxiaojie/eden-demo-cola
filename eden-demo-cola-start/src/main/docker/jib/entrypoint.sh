@@ -24,7 +24,7 @@ if [[ "${USE_GC_LOG}" == "y" ]]; then
     echo "GC log path is '${HOME}/logs/jvm_gc.log'."
     JAVA_OPTS="${JAVA_OPTS} -XX:+PrintVMOptions"
     if [[ "$JAVA_MAJOR_VERSION" -gt "8" ]] ; then
-        JAVA_OPTS="${JAVA_OPTS} -Xlog:gc=${HOME}/logs/jvm_gc.log,gc+datestamps,tags,timer,uptime:filecount=10,filesize=100M"
+        JAVA_OPTS="${JAVA_OPTS} -Xlog:gc:file=${HOME}/logs/jvm_gc-%p-%t.log:tags,uptime,time,level:filecount=10,filesize=100M"
 	else
 		JAVA_OPTS="${JAVA_OPTS} -Xloggc:${HOME}/logs/jvm_gc.log -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps"
 		JAVA_OPTS="${JAVA_OPTS} -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=100M"
