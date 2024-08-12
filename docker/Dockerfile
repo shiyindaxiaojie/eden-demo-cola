@@ -20,33 +20,30 @@ LABEL maintainer="梦想歌 <shiyindaxiaojie@gmail.com>"
 LABEL version="1.0.0"
 ARG USER=tmpuser
 ARG GROUP=tmpgroup
-ARG HOME=/app
-ARG LOG=$HOME/logs
-ENV WORKDIR $HOME
+ENV HOME "/app"
 ENV START_DELAY_SECS 1
 ENV JVM_XMS "1g"
 ENV JVM_XMX "1g"
 ENV JVM_XSS "256k"
 ENV JVM_MS "128m"
-ENV USE_HEAP_DUMP "y"
+ENV GC_MODE "g1"
 ENV USE_GC_LOG "y"
+ENV USE_HEAP_DUMP "y"
 ENV USE_LARGE_PAGES "n"
 ENV DEBUG "n"
 ENV SPRING_PROFILES_ACTIVE "dev"
 ENV SERVER_PORT "8080"
 ENV MANAGEMENT_SERVER_PORT "9080"
 
-# 创建普通用户并设置工作目录
+# 创建普通用户并切换工作目录
 RUN groupadd -g 1000 $GROUP \
   && useradd -u 1000 -g $GROUP -d $HOME -s /bin/bash $USER \
   && mkdir $HOME \
   && chown -R $USER:$GROUP $HOME \
-  && chmod -R a+rwX $HOME \
-  && mkdir /dev/shm/logs \
-  && chmod -R a+rw /dev/shm/logs
+  && chmod -R a+rwX $HOME
 WORKDIR $HOME
 
-# 复制应用程序依赖项和模块
+# 从基础镜像复制应用程序依赖项和模块
 COPY --from=builder /app/dependencies/ ./
 COPY --from=builder /app/spring-boot-loader ./
 COPY --from=builder /app/organization-dependencies ./
@@ -56,12 +53,12 @@ COPY --from=builder /app/application/ ./
 COPY --from=builder /app/entrypoint.sh ./
 RUN chmod +x entrypoint.sh
 
-# 设置容器用户并创建日志目录
+# 切换到容器用户并创建日志目录
 USER $USER
-RUN mkdir $LOG \
-  && touch $LOG/entrypoint.out \
-  && ln -sf /dev/stdout $LOG/entrypoint.out \
-  && ln -sf /dev/stderr $LOG/entrypoint.out
+RUN mkdir $HOME/logs \
+  && touch $HOME/logs/entrypoint.out \
+  && ln -sf /dev/stdout $HOME/logs/entrypoint.out \
+  && ln -sf /dev/stderr $HOME/logs/entrypoint.out
 
 # 设置启动入口和端口
 EXPOSE $SERVER_PORT $MANAGEMENT_SERVER_PORT
