@@ -1,5 +1,8 @@
 #!/bin/bash
 
+JDK_VERSION=$($JAVA -version 2>&1 | grep -i version | awk '{print $2}')
+echo "JDK version: $JDK_VERSION"
+
 JAVA_MAJOR_VERSION=$($JAVA -version 2>&1 | sed -E -n 's/.* version "([0-9]*).*$/\1/p')
 
 JAVA_OPTS="${JAVA_OPTS} -server"
@@ -9,7 +12,7 @@ JAVA_OPTS="${JAVA_OPTS} -Xms${JVM_XMS} -Xmx${JVM_XMX} -Xss${JVM_XSS} -XX:Metaspa
 
 if [[ "${GC_MODE}" == "g1" ]]; then
 	echo "GC mode is G1"
-	JAVA_OPTS="${JAVA_OPTS} -XX:+UseG1GC -XX:G1LogLevel=finest -XX:MaxGCPauseMillis=200"
+	JAVA_OPTS="${JAVA_OPTS} -XX:+UseG1GC -XX:MaxGCPauseMillis=200"
 	JAVA_OPTS="${JAVA_OPTS} -XX:ConcGCThreads=6 -XX:ParallelGCThreads=8"
 	JAVA_OPTS="${JAVA_OPTS} -XX:InitiatingHeapOccupancyPercent=45 -XX:G1ReservePercent=10 -XX:G1HeapWastePercent=5"
 	JAVA_OPTS="${JAVA_OPTS} -XX:G1NewSizePercent=50 -XX:G1MaxNewSizePercent=60"
