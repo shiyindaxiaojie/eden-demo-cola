@@ -41,7 +41,7 @@ jobs:
         run: |
           echo "<settings><servers><server><id>github</id><username>OWNER</username><password>${GITHUB_TOKEN}</password></server></servers><profiles><profile><id>github</id><properties><altReleaseDeploymentRepository>github::default::https://maven.pkg.github.com/shiyindaxiaojie/eden-demo-cola</altReleaseDeploymentRepository><altSnapshotDeploymentRepository>github::default::https://maven.pkg.github.com/shiyindaxiaojie/eden-demo-cola</altSnapshotDeploymentRepository></properties><repositories><repository><id>github</id><name>GitHub OWNER Apache Maven Packages</name><url>https://maven.pkg.github.com/shiyindaxiaojie/eden-architect</url></repository></repositories></profile></profiles></settings>" > $GITHUB_WORKSPACE/settings.xml
           chmod +x mvnw
-          ./mvnw -ntp clean package -Pgithub,unit-test -e -U -T 4C -s $GITHUB_WORKSPACE/settings.xml
+          ./mvnw -ntp clean package -Pgithub,unit-test -e -T 4C -s $GITHUB_WORKSPACE/settings.xml
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
@@ -53,9 +53,11 @@ jobs:
       - name: Publish to Docker Hub
         run: |
           echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-          docker build -f docker/Dockerfile -t $DOCKER_IMAGE:$DOCKER_VERSION -t $DOCKER_IMAGE:latest .
-          docker push $DOCKER_IMAGE:$DOCKER_VERSION
-          docker push $DOCKER_IMAGE:latest
+          docker build -f docker/Dockerfile -t $DOCKER_IMAGE:$DOCKER_VERSION-jdk${{ matrix.java }} -t $DOCKER_IMAGE:latest .
+          docker push $DOCKER_IMAGE:$DOCKER_VERSION-jdk${{ matrix.java }}
+          if [ "${{ matrix.java }}" == "11" ]; then
+            docker push $DOCKER_IMAGE:latest
+          fi
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
