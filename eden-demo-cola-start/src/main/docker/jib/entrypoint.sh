@@ -1,9 +1,6 @@
 #!/bin/bash
 
-JDK_VERSION=$($JAVA -version 2>&1 | grep -i version | awk '{print $2}')
-echo "JDK version: $JDK_VERSION"
-
-JAVA_MAJOR_VERSION=$($JAVA -version 2>&1 | sed -E -n 's/.* version "([0-9]*).*$/\1/p')
+JAVA_MAJOR_VERSION=$(java -version 2>&1 | sed -E -n 's/.* version "([0-9]*).*$/\1/p')
 
 JAVA_OPTS="${JAVA_OPTS} -server"
 JAVA_OPTS="${JAVA_OPTS} -XX:+UnlockExperimentalVMOptions -XX:+UnlockDiagnosticVMOptions"
