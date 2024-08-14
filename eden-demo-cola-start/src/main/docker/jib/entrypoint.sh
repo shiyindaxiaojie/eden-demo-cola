@@ -51,6 +51,8 @@ if [[ "${DEBUG}" == "y" ]]; then
 	JAVA_OPTS="${JAVA_OPTS} -Xdebug -Xrunjdwp:transport=dt_socket,address=5005,server=y,suspend=n"
 fi
 
+JAVA_OPTS="${JAVA_OPTS} -Dserver.port=${SERVER_PORT} -Dmanagement.server.port=${MANAGEMENT_SERVER_PORT}"
+
 echo "The application will start in ${START_DELAY_SECS}s."
 sleep ${START_DELAY_SECS}
 exec java ${JAVA_OPTS} -noverify -Djava.security.egd=file:/dev/./urandom -cp /app/resources/:/app/classes/:/app/libs/* "org.ylzl.eden.demo.ColaApplication" "$@"

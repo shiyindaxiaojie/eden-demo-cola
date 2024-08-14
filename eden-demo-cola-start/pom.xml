@@ -49,7 +49,7 @@
 				<artifactId>jib-maven-plugin</artifactId>
 				<configuration>
 					<from>
-						<image>openjdk:11-jdk</image>
+						<image>openjdk:11-jdk-slim</image>
 					</from>
 					<to>
 						<image>${docker.image}</image>
@@ -59,6 +59,7 @@
 						</auth>
 						<tags>
 							<tag>${project.version}</tag>
+							<tag>latest</tag>
 						</tags>
 					</to>
 					<container>
@@ -73,14 +74,17 @@
 						</ports>
 						<environment>
 							<TZ>Asia/Shanghai</TZ>
+							<LANG>C.UTF-8</LANG>
 							<START_DELAY_SECS>1</START_DELAY_SECS>
-							<JVM_DEBUG>n</JVM_DEBUG>
 							<JVM_XMS>1g</JVM_XMS>
 							<JVM_XMX>1g</JVM_XMX>
-							<JVM_XMN>512m</JVM_XMN>
+							<JVM_XSS>256k</JVM_XSS>
 							<JVM_MS>128m</JVM_MS>
-							<JVM_MMS>320m</JVM_MMS>
-							<JAVA_OPTS>-Dserver.port=8080 -Dmanagement.server.port=9080</JAVA_OPTS>
+							<GC_MODE>g1</GC_MODE>
+							<USE_GC_LOG>y</USE_GC_LOG>
+							<USE_HEAP_DUMP>y</USE_HEAP_DUMP>
+							<USE_LARGE_PAGES>n</USE_LARGE_PAGES>
+							<DEBUG>n</DEBUG>
 							<SPRING_PROFILES_ACTIVE>dev</SPRING_PROFILES_ACTIVE>
 						</environment>
 						<creationTime>USE_CURRENT_TIMESTAMP</creationTime>

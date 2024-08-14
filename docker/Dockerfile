@@ -21,6 +21,8 @@ LABEL version="1.0.0"
 ARG USER=tmpuser
 ARG GROUP=tmpgroup
 ENV HOME "/app"
+ENV TZ "Asia/Shanghai"
+ENV LANG "C.UTF-8"
 ENV START_DELAY_SECS 1
 ENV JVM_XMS "1g"
 ENV JVM_XMX "1g"

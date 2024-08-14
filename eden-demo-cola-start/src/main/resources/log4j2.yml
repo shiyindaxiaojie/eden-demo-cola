@@ -29,14 +29,18 @@ Configuration:
         PatternLayout:
           pattern: ${LOG_PATTERN}
         Policies:
-          TimeBasedTriggeringPolicy:
-            modulate: true
-            interval: 1
-            maxRandomDelay: 300
-          SizeBasedTriggeringPolicy:
+          CronTriggeringPolicy: # 低峰期定时触发
+            schedule: 0 0 3 * * ?
+          SizeBasedTriggeringPolicy: # 基于文件大小触发
             size: 20MB
         DefaultRolloverStrategy:
-          max: 10
+          Delete:  # 历史日志清除策略，保留 30 天内的日志
+            basePath: ${LOG_PATH} # 扫描目录
+            maxDepth: 1 # 扫描目录深度
+            IfFileName: # 匹配文件名
+              glob: '${APP_NAME}-info-*.log.gz'
+            IfLastModified: # 保留天数
+              age: 'P30D'
         Filters:
           ThresholdFilter:
             level: INFO
@@ -53,14 +57,18 @@ Configuration:
         PatternLayout:
           pattern: ${LOG_PATTERN}
         Policies:
-          TimeBasedTriggeringPolicy:
-            modulate: true
-            interval: 1
-            maxRandomDelay: 300
-          SizeBasedTriggeringPolicy:
+          CronTriggeringPolicy: # 低峰期定时触发
+            schedule: 0 0 3 * * ?
+          SizeBasedTriggeringPolicy: # 基于文件大小触发
             size: 20MB
         DefaultRolloverStrategy:
-          max: 10
+          Delete:  # 历史日志清除策略，保留 30 天内的日志
+            basePath: ${LOG_PATH} # 扫描目录
+            maxDepth: 1 # 扫描目录深度
+            IfFileName: # 匹配文件名
+              glob: '${APP_NAME}-error-*.log.gz'
+            IfLastModified: # 保留天数
+              age: 'P30D'
         Filters:
           ThresholdFilter:
             level: ERROR
@@ -77,14 +85,18 @@ Configuration:
         PatternLayout:
           pattern: ${LOG_PATTERN}
         Policies:
-          TimeBasedTriggeringPolicy:
-            modulate: true
-            interval: 1
-            maxRandomDelay: 300
-          SizeBasedTriggeringPolicy:
+          CronTriggeringPolicy: # 低峰期定时触发
+            schedule: 0 0 3 * * ?
+          SizeBasedTriggeringPolicy: # 基于文件大小触发
             size: 20MB
         DefaultRolloverStrategy:
-          max: 10
+          Delete:  # 历史日志清除策略，保留 30 天内的日志
+            basePath: ${LOG_PATH} # 扫描目录
+            maxDepth: 1 # 扫描目录深度
+            IfFileName: # 匹配文件名
+              glob: '${APP_NAME}-slow-sql-*.log.gz'
+            IfLastModified: # 保留天数
+              age: 'P30D'
         Filters:
           ThresholdFilter:
             level: WARN
@@ -125,6 +137,8 @@ Configuration:
       - name: org.springframework.boot
         level: ERROR
       - name: org.springframework.cloud
+        level: ERROR
+      - name: org.springframework.cloud.bootstrap
         level: ERROR
       - name: org.apache
         level: ERROR
