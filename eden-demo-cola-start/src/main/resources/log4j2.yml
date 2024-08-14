@@ -122,6 +122,10 @@ Configuration:
           - ref: SlowSqlFileAppender
       - name: org.springframework
         level: ERROR
+      - name: org.springframework.boot
+        level: ERROR
+      - name: org.springframework.cloud
+        level: ERROR
       - name: org.apache
         level: ERROR
       - name: org.apache.dubbo
