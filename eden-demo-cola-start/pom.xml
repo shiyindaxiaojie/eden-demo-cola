@@ -43,6 +43,26 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot-maven-plugin.version}</version>
+				<configuration>
+					<mainClass>${start-class}</mainClass>
+					<layers>
+						<enabled>false</enabled>
+						<includeLayerTools>false</includeLayerTools>
+						<configuration>
+							${project.basedir}/src/main/docker/layers.xml
+						</configuration>
+					</layers>
+				</configuration>
+				<executions>
+					<execution>
+						<id>spring-boot-build-info</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>build-info</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>com.google.cloud.tools</groupId>
