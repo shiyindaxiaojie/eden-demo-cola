@@ -46,7 +46,7 @@
 
 		<fileSet>
 			<directory>${project.build.directory}</directory>
-			<outputDirectory>modules</outputDirectory>
+			<outputDirectory>app</outputDirectory>
 			<fileMode>0755</fileMode>
 			<includes>
 				<include>${project.build.finalName}.jar</include>

@@ -2,13 +2,13 @@
 
 if exist "%JAVA_HOME%" (
   echo Java Path: %JAVA_HOME%
-  echo Java Version: 
+  echo Java Version:
   java -version
 )
 
 if exist "%E3_HOME%" (
   echo Maven Path: %E3_HOME%
-  echo Maven Version: 
+  echo Maven Version:
   call mvn -version
 )
 
@@ -47,25 +47,25 @@ goto targetTests
 :targetTests
 echo Please choose whether to skip the test before building. Y: Yes, N: No
 set /p skipTests=Please press the above numbers to enter the options and press Enter to confirm:
-if /i "%skipTests%"=="" goto skipTests 
-if /i "%skipTests%"=="Y" goto skipTests 
-if /i "%skipTests%"=="y" goto skipTests 
+if /i "%skipTests%"=="" goto skipTests
+if /i "%skipTests%"=="Y" goto skipTests
+if /i "%skipTests%"=="y" goto skipTests
 if /i "%skipTests%"=="N" goto doTests
 if /i "%skipTests%"=="n" goto doTests
 
-:skipTests 
+:skipTests
 echo Test skip selected
 set "skipTests=-DskipTests=true"
 goto build
 
-:doTests 
+:doTests
 echo Test exec selected
 set "skipTests="
 goto build
 
 :build
 echo Start building, please wait. . . . . .
-echo Command: mvn clean compile package -e -P %profile% %skipTests%
+echo Command: mvn clean package -e -P %profile% %skipTests%
 call mvn clean compile package -e -P %profile% %skipTests%
 echo.&echo The build is complete, you can copy executable program from %cd%/target, press any key to exit &pause>nul
 exit

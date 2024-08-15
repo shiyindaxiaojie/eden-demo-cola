@@ -16,10 +16,10 @@
 # limitations under the License.
 #
 
-APP_DIR="../target"
+APP_DIR="../app"
 APP_PATTERN="$APP_DIR/*.jar"
 APP_NAME=$(ls -l $APP_PATTERN | awk '{print $9}')
-APP_JVM="-server -Xms512m -Xmx512m"
+APP_JVM="-server -Xms1g -Xmx1g"
 APP_PID=$(ps -ef | grep java | grep $APP_NAME | grep -v grep | awk '{print $2}')
 
 if [ $1 == "start" ]; then

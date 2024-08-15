@@ -66,7 +66,7 @@ spring:
         enabled: true # 默认关闭，请按需开启
 ```
 
-**修改默认的数据源**：本项目默认使用 `H2` 内存数据库启动，基于 `Liquibase` 在项目启动时自动初始化 SQL 脚本。如果您使用的是外部的 MySQL 数据库，可以从此处调整下数据库的连接信息：[application-local.yml](https://github.com/shiyindaxiaojie/eden-demo-cola/blob/main/eden-demo-cola-start/src/main/resources/config/application-local.yml)，请删除任何与 `H2` 有关的配置。
+**修改默认的数据源**：本项目默认使用 `H2` 内存数据库启动，基于 `Liquibase` 在项目启动时自动初始化 SQL 脚本。如果您使用的是外部的 MySQL 数据库，可以从此处调整下数据库的连接信息：[application-dev.yml](https://github.com/shiyindaxiaojie/eden-demo-cola/blob/main/eden-demo-cola-start/src/main/resources/config/application-dev.yml)，请删除任何与 `H2` 有关的配置。
 
 ```yaml
 spring:
@@ -88,13 +88,22 @@ spring:
 
 ## 如何部署
 
-### FatJar 程序部署
+### FatJar 简易部署
 
-执行 `mvn clean package` 打包成一个 fat jar，参考如下命令启动编译后的控制台。
+执行 `mvn -T 4C clean package` 打包成一个可运行的 fat jar，参考如下命令启动编译后的控制台。
 
 ```bash
-java -Dserver.port=8080 -jar target/eden-demo-cola.jar
+java -Dserver.port=8081 -jar target/eden-demo-cola-start.jar
 ```
+
+### Assembly 打包部署
+
+执行 `mvn -P assembly -T 4C clean package` 打包成压缩包，选择下列压缩包复制一份到您期望部署的目录。
+
+* target/eden-demo-cola-start-assembly.zip
+* target/eden-demo-cola-start-assembly.tar.gz
+
+解压文件后，您可以在 `bin` 目录下找到 `startup.sh` 或者 `startup.bat`脚本，直接运行即可。
 
 ### Jib 镜像部署
 
@@ -107,13 +116,13 @@ mvn -pl eden-demo-cola-start jib:build -Djib.disableUpdateChecks=true -DskipTest
 
 ### Docker 容器部署
 
-本项目使用了 Spring Boot 的镜像分层特性优化了镜像的构建效率，请确保正确安装了 Docker 工具，然后执行以下命令。
+基于 Spring Boot 的分层特性构建镜像，请确保正确安装了 Docker 工具，然后执行以下命令。
 
 ```bash
 docker build -f docker/Dockerfile -t eden-demo-cola:{tag} .
 ```
 
-### Helm 打包部署
+### Helm 应用部署
 
 以应用为中心，建议使用 Helm 统一管理所需部署的 K8s 资源描述文件，请参考以下命令完成应用的安装和卸载。
 
@@ -138,15 +147,19 @@ helm uninstall eden-demo-cola # 卸载资源
 
 ## 持续集成
 
-> CI/CD 工具选型：Jenkins、Zadig、Codeup、CODING
+> CI/CD 工具选型：Jenkins、Zadig、CODING、Codeup
 
-### CODING 持续交付
+### CODING 持续集成
 
 下图演示基于 CODING 实现持续构建、持续部署的效果。[传送门](https://www.yuque.com/mengxiangge/action/coding)
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/common/coding-cicd.png)
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/images/common/coding-test-report.png)
+
+### Codeup 持续集成
+
+> TODO, Coming soon
 
 ## 最佳实践
 
