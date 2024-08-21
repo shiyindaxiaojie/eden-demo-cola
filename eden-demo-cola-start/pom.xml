@@ -80,11 +80,13 @@
 							<JVM_XMX>1g</JVM_XMX>
 							<JVM_XSS>256k</JVM_XSS>
 							<JVM_MS>128m</JVM_MS>
+							<JIT_THREADS>1</JIT_THREADS>
 							<GC_MODE>g1</GC_MODE>
 							<USE_GC_LOG>y</USE_GC_LOG>
 							<USE_HEAP_DUMP>y</USE_HEAP_DUMP>
 							<USE_LARGE_PAGES>n</USE_LARGE_PAGES>
-							<DEBUG>n</DEBUG>
+							<JDWP_DEBUG>n</JDWP_DEBUG>
+							<JDWP_PORT>5005</JDWP_PORT>
 							<SPRING_PROFILES_ACTIVE>dev</SPRING_PROFILES_ACTIVE>
 						</environment>
 						<creationTime>USE_CURRENT_TIMESTAMP</creationTime>

@@ -127,7 +127,7 @@ xxl: # 分布式调度平台
       log-retention-days: 7
 
 cat: # 实时监控平台
-  enabled: false # 默认关闭，请按需开启
+  enabled: true # 默认关闭，请按需开启
   trace-mode: true # 开启访问观测
   support-out-trace-id: true # 支持外部HTTP链路透传
   home: /tmp
