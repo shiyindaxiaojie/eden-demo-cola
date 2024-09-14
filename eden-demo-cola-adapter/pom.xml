@@ -94,5 +94,11 @@
 			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-xxljob2-spring-boot-starter</artifactId>
 		</dependency>
+
+		<!-- 幂等组件 -->
+		<dependency>
+			<groupId>io.github.shiyindaxiaojie</groupId>
+			<artifactId>eden-idempotent-spring-boot-starter</artifactId>
+		</dependency>
     </dependencies>
 </project>

@@ -280,3 +280,14 @@ opentracing: # 开放式链路跟踪规范
       async:
         enabled: false
 
+idempotent: # 防重组件
+  ttl: # 基于 TTL 防止重复请求
+    prefix: "idempotent:ttl"
+    ttl: 10
+    time-unit: SECONDS
+    redis:
+      enabled: false
+  token: # 基于 Token 防止重复请求，第一次访问 /token 获取唯一值，第二次访问 API 发送到 Header
+    prefix: "idempotent:token"
+    redis:
+      enabled: false
