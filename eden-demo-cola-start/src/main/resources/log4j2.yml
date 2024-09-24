@@ -19,8 +19,12 @@ Configuration:
     Console:
       name: STDOUT # 控制台
       target: SYSTEM_OUT
-      PatternLayout:
+      MaskingStringLayout:
+        charset: UTF-8
         pattern: ${LOG_PATTERN}
+        scanList: TELEPHONE,ID_CARD,BANK_CARD,PASSPORT,ADDRESS,EMAIL
+        replaceList: TELEPHONE,ID_CARD,BANK_CARD,PASSPORT,ADDRESS,EMAIL
+        defaultReplace: ANY_PARTIALLY_MASKED
       Filters:
         ThresholdFilter:
           level: INFO
@@ -35,8 +39,12 @@ Configuration:
         fileName: ${LOG_PATH}/${APP_NAME}-info.log
         filePattern: ${LOG_PATH}/${APP_NAME}-info-%d{yyyy-MM-dd}-%i.log.gz
         ignoreExceptions: false
-        PatternLayout:
+        MaskingStringLayout:
+          charset: UTF-8
           pattern: ${LOG_PATTERN}
+          scanList: TELEPHONE,ID_CARD,BANK_CARD,PASSPORT,ADDRESS,EMAIL
+          replaceList: TELEPHONE,ID_CARD,BANK_CARD,PASSPORT,ADDRESS,EMAIL
+          defaultReplace: ANY_PARTIALLY_MASKED
         Policies:
           CronTriggeringPolicy: # 低峰期定时触发
             schedule: 0 0 3 * * ?
@@ -47,9 +55,9 @@ Configuration:
             basePath: ${LOG_PATH} # 扫描目录
             maxDepth: 1 # 扫描目录深度
             IfFileName: # 匹配文件名
-              glob: '${APP_NAME}-info-*.log.gz'
+              glob: ${APP_NAME}-info-*.log.gz
             IfLastModified: # 保留一周
-              age: 'P7D'
+              age: P7D
         Filters:
           LevelMatchFilter:
             level: INFO
@@ -63,8 +71,12 @@ Configuration:
         fileName: ${LOG_PATH}/${APP_NAME}-warn.log
         filePattern: ${LOG_PATH}/${APP_NAME}-warn-%d{yyyy-MM-dd}-%i.log.gz
         ignoreExceptions: false
-        PatternLayout:
+        MaskingStringLayout:
+          charset: UTF-8
           pattern: ${LOG_PATTERN}
+          scanList: TELEPHONE,ID_CARD,BANK_CARD,PASSPORT,ADDRESS,EMAIL
+          replaceList: TELEPHONE,ID_CARD,BANK_CARD,PASSPORT,ADDRESS,EMAIL
+          defaultReplace: ANY_PARTIALLY_MASKED
         Policies:
           CronTriggeringPolicy: # 低峰期定时触发
             schedule: 0 0 3 * * ?
@@ -75,9 +87,9 @@ Configuration:
             basePath: ${LOG_PATH} # 扫描目录
             maxDepth: 1 # 扫描目录深度
             IfFileName: # 匹配文件名
-              glob: '${APP_NAME}-warn-*.log.gz'
+              glob: ${APP_NAME}-warn-*.log.gz
             IfLastModified: # 保留一周
-              age: 'P7D'
+              age: P7D
         Filters:
           LevelMatchFilter:
             level: WARN
@@ -103,9 +115,9 @@ Configuration:
             basePath: ${LOG_PATH} # 扫描目录
             maxDepth: 1 # 扫描目录深度
             IfFileName: # 匹配文件名
-              glob: '${APP_NAME}-error-*.log.gz'
+              glob: "${APP_NAME}-error-*.log.gz"
             IfLastModified: # 保留一个月
-              age: 'P30D'
+              age: "P30D"
         Filters:
           ThresholdFilter:
             level: ERROR
