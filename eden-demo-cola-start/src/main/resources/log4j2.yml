@@ -14,17 +14,25 @@ Configuration:
         value: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [${PROFILES}] [%t] [%X{traceId}] %msg%n"
       - name: CAT_PATTERN
         value: "%msg%n"
+      - name: MASKING_STRATEGIES # 脱敏策略
+        value: TELEPHONE,ID_CARD,BANK_CARD,PASSPORT,ADDRESS,EMAIL
+      - name: MASKING_REPLACEMENT # 脱敏格式：ANY_PARTIALLY_MASKED（匹配任意半掩盖），ANY_FULLY_MASKED（匹配任意全掩盖）
+        value: ANY_PARTIALLY_MASKED
+      - name: MASKING_HASH # 脱敏哈希
+        value: "md5"
+      - name: MASKING_WHITELIST # 脱敏白名单
+        value: ""
 
   Appenders:
     Console:
       name: STDOUT # 控制台
       target: SYSTEM_OUT
-      MaskingStringLayout:
-        charset: UTF-8
+      MaskingStringLayout: # 脱敏插件
         pattern: ${LOG_PATTERN}
-        scanList: TELEPHONE,ID_CARD,BANK_CARD,PASSPORT,ADDRESS,EMAIL
-        replaceList: TELEPHONE,ID_CARD,BANK_CARD,PASSPORT,ADDRESS,EMAIL
-        defaultReplace: ANY_PARTIALLY_MASKED
+        strategies: ${MASKING_STRATEGIES}
+        replacement: ${MASKING_REPLACEMENT}
+        hash: ${MASKING_HASH}
+        whitelist: ${MASKING_WHITELIST}
       Filters:
         ThresholdFilter:
           level: INFO
@@ -39,12 +47,12 @@ Configuration:
         fileName: ${LOG_PATH}/${APP_NAME}-info.log
         filePattern: ${LOG_PATH}/${APP_NAME}-info-%d{yyyy-MM-dd}-%i.log.gz
         ignoreExceptions: false
-        MaskingStringLayout:
-          charset: UTF-8
+        MaskingStringLayout: # 脱敏插件
           pattern: ${LOG_PATTERN}
-          scanList: TELEPHONE,ID_CARD,BANK_CARD,PASSPORT,ADDRESS,EMAIL
-          replaceList: TELEPHONE,ID_CARD,BANK_CARD,PASSPORT,ADDRESS,EMAIL
-          defaultReplace: ANY_PARTIALLY_MASKED
+          strategies: ${MASKING_STRATEGIES}
+          replacement: ${MASKING_REPLACEMENT}
+          hash: ${MASKING_HASH}
+          whitelist: ${MASKING_WHITELIST}
         Policies:
           CronTriggeringPolicy: # 低峰期定时触发
             schedule: 0 0 3 * * ?
@@ -71,12 +79,12 @@ Configuration:
         fileName: ${LOG_PATH}/${APP_NAME}-warn.log
         filePattern: ${LOG_PATH}/${APP_NAME}-warn-%d{yyyy-MM-dd}-%i.log.gz
         ignoreExceptions: false
-        MaskingStringLayout:
-          charset: UTF-8
+        MaskingStringLayout: # 脱敏插件
           pattern: ${LOG_PATTERN}
-          scanList: TELEPHONE,ID_CARD,BANK_CARD,PASSPORT,ADDRESS,EMAIL
-          replaceList: TELEPHONE,ID_CARD,BANK_CARD,PASSPORT,ADDRESS,EMAIL
-          defaultReplace: ANY_PARTIALLY_MASKED
+          strategies: ${MASKING_STRATEGIES}
+          replacement: ${MASKING_REPLACEMENT}
+          hash: ${MASKING_HASH}
+          whitelist: ${MASKING_WHITELIST}
         Policies:
           CronTriggeringPolicy: # 低峰期定时触发
             schedule: 0 0 3 * * ?
@@ -103,8 +111,12 @@ Configuration:
         fileName: ${LOG_PATH}/${APP_NAME}-error.log
         filePattern: ${LOG_PATH}/${APP_NAME}-error-%d{yyyy-MM-dd}-%i.log.gz
         ignoreExceptions: false
-        PatternLayout:
+        MaskingStringLayout: # 脱敏插件
           pattern: ${LOG_PATTERN}
+          strategies: ${MASKING_STRATEGIES}
+          replacement: ${MASKING_REPLACEMENT}
+          hash: ${MASKING_HASH}
+          whitelist: ${MASKING_WHITELIST}
         Policies:
           CronTriggeringPolicy: # 低峰期定时触发
             schedule: 0 0 3 * * ?
