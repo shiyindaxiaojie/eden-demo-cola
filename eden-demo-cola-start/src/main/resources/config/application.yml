@@ -230,7 +230,8 @@ dubbo: # 分布式调用组件
     retries: 0 # 重试次数
     timeout: 3000 # 超时时间
     check: false # 是否开启检查
-    filter: cat-tracing
+    filter: cat-tracing # 添加 dev 表示本地开发
+    loadbalance: # 添加 dev 表示本地开发
   consumer:
     retries: 0 # 重试次数
     timeout: 3000 # 超时时间

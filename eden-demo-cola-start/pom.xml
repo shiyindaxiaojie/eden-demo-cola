@@ -209,7 +209,7 @@
 		<!-- 数据处理组件 -->
 		<dependency>
 			<groupId>io.github.shiyindaxiaojie</groupId>
-			<artifactId>eden-data-filter</artifactId>
+			<artifactId>eden-sensitive-word</artifactId>
 		</dependency>
 	</dependencies>
 </project>
