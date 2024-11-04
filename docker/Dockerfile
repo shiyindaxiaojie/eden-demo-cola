@@ -4,10 +4,7 @@ FROM eclipse-temurin:11-jdk-alpine as builder
 # 指定构建模块
 ARG MODULE=eden-demo-cola-start
 
-# 安装 jlink 依赖
-RUN apt-get update -y &&  \
-    apt-get install -y binutils
-#
+# 分析最小依赖项
 RUN jdeps --ignore-missing-deps -q \
     --recursive \
     --multi-release 11 \
@@ -15,8 +12,10 @@ RUN jdeps --ignore-missing-deps -q \
     --class-path 'BOOT-INF/lib/*' \
     target/$MODULE.jar > modules.txt
 
-# 构建 JRE 环境
-RUN $JAVA_HOME/bin/jlink \
+# 安装 jlink 依赖，构建 JRE 环境
+RUN apt-get update -y &&  \
+    apt-get install -y binutils && \
+    $JAVA_HOME/bin/jlink \
 	 --verbose \
 	 --add-modules $(cat modules.txt) \
 	 --strip-debug \
