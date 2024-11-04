@@ -1,25 +1,46 @@
 # 使用基础镜像
-FROM openjdk:11-jdk-slim as builder
+FROM eclipse-temurin:11-jdk-alpine as builder
 
-# 设置工作目录并指定构建模块
-WORKDIR /app
+# 指定构建模块
 ARG MODULE=eden-demo-cola-start
 
+# 安装 jlink 依赖
+RUN apt-get update -y &&  \
+    apt-get install -y binutils
+#
+RUN jdeps --ignore-missing-deps -q \
+    --recursive \
+    --multi-release 11 \
+    --print-module-deps \
+    --class-path 'BOOT-INF/lib/*' \
+    target/$MODULE.jar > modules.txt
+
+# 构建 JRE 环境
+RUN $JAVA_HOME/bin/jlink \
+	 --verbose \
+	 --add-modules $(cat modules.txt) \
+	 --strip-debug \
+	 --no-man-pages \
+	 --no-header-files \
+	 --compress=2 \
+	 --output /jre
+
 # 复制必要文件
-COPY $MODULE/target/$MODULE.jar application.jar
 COPY docker/entrypoint.sh entrypoint.sh
 
 # 使用 Spring Boot 的分层模式提取 JAR 文件的依赖项
 RUN java -Djarmode=layertools -jar application.jar extract
 
 # 创建容器镜像
-FROM openjdk:11-jdk-slim
+FROM alpine:latest
 
 # 定义镜像元数据和环境变量
 LABEL maintainer="梦想歌 <shiyindaxiaojie@gmail.com>"
 LABEL version="1.0.0"
 ARG USER=tmpuser
 ARG GROUP=tmpgroup
+ENV JAVA_HOME=/opt/jdk/jdk-11
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
 ENV HOME "/app"
 ENV TZ "Asia/Shanghai"
 ENV LANG "C.UTF-8"
@@ -43,13 +64,14 @@ RUN groupadd -g 1000 $GROUP \
 WORKDIR $HOME
 
 # 从基础镜像复制应用程序依赖项和模块
-COPY --from=builder /app/dependencies/ ./
-COPY --from=builder /app/spring-boot-loader ./
-COPY --from=builder /app/organization-dependencies ./
-COPY --from=builder /app/modules-dependencies ./
-COPY --from=builder /app/snapshot-dependencies/ ./
-COPY --from=builder /app/application/ ./
-COPY --from=builder /app/entrypoint.sh ./
+COPY --from=builder /jre $JAVA_HOME
+COPY --from=builder /dependencies/ ./
+COPY --from=builder /spring-boot-loader ./
+COPY --from=builder /organization-dependencies ./
+COPY --from=builder /modules-dependencies ./
+COPY --from=builder /snapshot-dependencies/ ./
+COPY --from=builder /application/ ./
+COPY --from=builder /entrypoint.sh ./
 RUN chmod +x entrypoint.sh
 
 # 切换到容器用户并创建日志目录
