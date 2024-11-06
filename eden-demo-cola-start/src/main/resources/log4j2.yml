@@ -27,7 +27,7 @@ Configuration:
     Console:
       name: STDOUT # 控制台
       target: SYSTEM_OUT
-      MaskingStringLayout: # 脱敏插件
+      DataMaskerStringLayout: # 脱敏插件
         pattern: ${LOG_PATTERN}
         strategies: ${MASKING_STRATEGIES}
         replacement: ${MASKING_REPLACEMENT}
@@ -47,7 +47,7 @@ Configuration:
         fileName: ${LOG_PATH}/${APP_NAME}-info.log
         filePattern: ${LOG_PATH}/${APP_NAME}-info-%d{yyyy-MM-dd}-%i.log.gz
         ignoreExceptions: false
-        MaskingStringLayout: # 脱敏插件
+        DataMaskerStringLayout: # 脱敏插件
           pattern: ${LOG_PATTERN}
           strategies: ${MASKING_STRATEGIES}
           replacement: ${MASKING_REPLACEMENT}
@@ -79,7 +79,7 @@ Configuration:
         fileName: ${LOG_PATH}/${APP_NAME}-warn.log
         filePattern: ${LOG_PATH}/${APP_NAME}-warn-%d{yyyy-MM-dd}-%i.log.gz
         ignoreExceptions: false
-        MaskingStringLayout: # 脱敏插件
+        DataMaskerStringLayout: # 脱敏插件
           pattern: ${LOG_PATTERN}
           strategies: ${MASKING_STRATEGIES}
           replacement: ${MASKING_REPLACEMENT}
@@ -111,7 +111,7 @@ Configuration:
         fileName: ${LOG_PATH}/${APP_NAME}-error.log
         filePattern: ${LOG_PATH}/${APP_NAME}-error-%d{yyyy-MM-dd}-%i.log.gz
         ignoreExceptions: false
-        MaskingStringLayout: # 脱敏插件
+        DataMaskerStringLayout: # 脱敏插件
           pattern: ${LOG_PATTERN}
           strategies: ${MASKING_STRATEGIES}
           replacement: ${MASKING_REPLACEMENT}

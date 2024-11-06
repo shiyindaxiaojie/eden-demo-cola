@@ -1,45 +1,55 @@
 # 使用基础镜像
-FROM eclipse-temurin:11-jdk-alpine as builder
+FROM m.daocloud.io/eclipse-temurin:11-jdk-alpine AS builder
 
 # 指定构建模块
 ARG MODULE=eden-demo-cola-start
 
-# 分析最小依赖项
-RUN jdeps --ignore-missing-deps -q \
-    --recursive \
-    --multi-release 11 \
-    --print-module-deps \
-    --class-path 'BOOT-INF/lib/*' \
-    target/$MODULE.jar > modules.txt
-
-# 安装 jlink 依赖，构建 JRE 环境
-RUN apt-get update -y &&  \
-    apt-get install -y binutils && \
-    $JAVA_HOME/bin/jlink \
-	 --verbose \
-	 --add-modules $(cat modules.txt) \
-	 --strip-debug \
-	 --no-man-pages \
-	 --no-header-files \
-	 --compress=2 \
-	 --output /jre
+# 设置工作目录
+WORKDIR /app
 
 # 复制必要文件
+COPY $MODULE/target/$MODULE.jar application.jar
 COPY docker/entrypoint.sh entrypoint.sh
+
+# 安装最小依赖项
+RUN sed -i 's|https://dl-cdn.alpinelinux.org|https://mirrors.aliyun.com|g' /etc/apk/repositories \
+	&& apk update \
+	&& apk add --no-cache tar binutils dos2unix \
+    && dos2unix entrypoint.sh \
+    && jdeps --ignore-missing-deps -q \
+		--recursive \
+		--multi-release 11 \
+		--print-module-deps \
+		--class-path '/BOOT-INF/lib/*' \
+		application.jar > modules.txt
+
+# 构建运行环境
+RUN $JAVA_HOME/bin/jlink \
+		--verbose \
+		--add-modules $(cat modules.txt),sun.misc \
+		--strip-debug \
+		--no-man-pages \
+		--no-header-files \
+		--compress=2 \
+		--output /jre
 
 # 使用 Spring Boot 的分层模式提取 JAR 文件的依赖项
 RUN java -Djarmode=layertools -jar application.jar extract
 
 # 创建容器镜像
-FROM alpine:latest
+FROM m.daocloud.io/alpine:latest
 
-# 定义镜像元数据和环境变量
+# 定义元数据
 LABEL maintainer="梦想歌 <shiyindaxiaojie@gmail.com>"
 LABEL version="1.0.0"
+
+# 指定构建参数
 ARG USER=tmpuser
 ARG GROUP=tmpgroup
-ENV JAVA_HOME=/opt/jdk/jdk-11
-ENV PATH="${JAVA_HOME}/bin:${PATH}"
+
+# 设置环境变量
+ENV JAVA_HOME /opt/jdk/jdk-11
+ENV PATH "${JAVA_HOME}/bin:${PATH}"
 ENV HOME "/app"
 ENV TZ "Asia/Shanghai"
 ENV LANG "C.UTF-8"
@@ -54,32 +64,36 @@ ENV SPRING_PROFILES_ACTIVE "dev"
 ENV SERVER_PORT "8080"
 ENV MANAGEMENT_SERVER_PORT "9080"
 
-# 创建普通用户并切换工作目录
-RUN groupadd -g 1000 $GROUP \
-  && useradd -u 1000 -g $GROUP -d $HOME -s /bin/bash $USER \
-  && mkdir $HOME \
-  && chown -R $USER:$GROUP $HOME \
-  && chmod -R a+rwX $HOME
+# 设置日志目录
+RUN mkdir -p $HOME/logs \
+	&& touch $HOME/logs/entrypoint.out \
+	&& ln -sf /dev/stdout $HOME/logs/entrypoint.out \
+	&& ln -sf /dev/stderr $HOME/logs/entrypoint.out
+
+# 切换工作目录
 WORKDIR $HOME
 
 # 从基础镜像复制应用程序依赖项和模块
 COPY --from=builder /jre $JAVA_HOME
-COPY --from=builder /dependencies/ ./
-COPY --from=builder /spring-boot-loader ./
-COPY --from=builder /organization-dependencies ./
-COPY --from=builder /modules-dependencies ./
-COPY --from=builder /snapshot-dependencies/ ./
-COPY --from=builder /application/ ./
-COPY --from=builder /entrypoint.sh ./
-RUN chmod +x entrypoint.sh
+COPY --from=builder /app/dependencies/ ./
+COPY --from=builder /app/spring-boot-loader ./
+COPY --from=builder /app/organization-dependencies ./
+COPY --from=builder /app/modules-dependencies ./
+COPY --from=builder /app/snapshot-dependencies/ ./
+COPY --from=builder /app/application/ ./
+COPY --from=builder /app/entrypoint.sh ./
 
-# 切换到容器用户并创建日志目录
+# 创建普通用户
+RUN addgroup -g 1000 $GROUP \
+	&& adduser -u 1000 -G $GROUP -h $HOME -s /bin/bash -D $USER \
+	&& chown -R $USER:$GROUP $HOME \
+	&& chmod -R a+rwX $HOME
+
+# 切换到容器用户
 USER $USER
-RUN mkdir $HOME/logs \
-  && touch $HOME/logs/entrypoint.out \
-  && ln -sf /dev/stdout $HOME/logs/entrypoint.out \
-  && ln -sf /dev/stderr $HOME/logs/entrypoint.out
 
-# 设置启动入口和端口
+# 暴露容器端口
 EXPOSE $SERVER_PORT $MANAGEMENT_SERVER_PORT
-ENTRYPOINT ["./entrypoint.sh"]
+
+# 设置启动脚本
+CMD ["./entrypoint.sh"]
