@@ -1,5 +1,5 @@
 # 使用基础镜像
-FROM eclipse-temurin:11-jdk-alpine AS builder
+FROM m.daocloud.io/eclipse-temurin:11-jdk-alpine AS builder
 
 # 指定构建模块
 ARG MODULE=eden-demo-cola-start
@@ -12,8 +12,10 @@ COPY $MODULE/target/$MODULE.jar application.jar
 COPY docker/entrypoint.sh entrypoint.sh
 
 # 安装最小依赖项
-RUN apk update \
-	&& apk add --no-cache tar binutils \
+RUN sed -i 's|https://dl-cdn.alpinelinux.org|https://mirrors.aliyun.com|g' /etc/apk/repositories \
+	&& apk update \
+	&& apk add --no-cache tar binutils dos2unix \
+    && dos2unix entrypoint.sh \
     && jdeps --ignore-missing-deps -q \
 		--recursive \
 		--multi-release 11 \
@@ -35,7 +37,7 @@ RUN $JAVA_HOME/bin/jlink \
 RUN java -Djarmode=layertools -jar application.jar extract
 
 # 创建容器镜像
-FROM alpine:latest
+FROM m.daocloud.io/alpine:latest
 
 # 定义元数据
 LABEL maintainer="梦想歌 <shiyindaxiaojie@gmail.com>"
