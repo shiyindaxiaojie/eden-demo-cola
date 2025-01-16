@@ -60,9 +60,10 @@ COPY --from=builder /app/entrypoint.sh ./
 
 # 创建普通用户
 RUN groupadd -g 1000 $GROUP \
-  && useradd -u 1000 -g $GROUP -d $HOME -s /bin/bash $USER \
-  && chown -R $USER:$GROUP $HOME \
-  && chmod -R a+rwX $HOME
+	&& useradd -u 1000 -g $GROUP -d $HOME -s /bin/bash $USER \
+	&& chown -R $USER:$GROUP $HOME \
+	&& chmod -R a+rwX $HOME \
+	&& chmod 750 entrypoint.sh
 
 # 切换到容器用户
 USER $USER
