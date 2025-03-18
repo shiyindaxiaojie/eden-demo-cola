@@ -11,7 +11,7 @@ Configuration:
       - name: LOG_PATH
         value: $${spring:logging.file.path:-/app/logs}
       - name: LOG_PATTERN
-        value: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [${PROFILES}] [%t] [%X{traceId}] %msg%n"
+        value: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [${PROFILES}] [%t] [%X{traceId}] %msg%n%stacktrace{3,5}"
       - name: CAT_PATTERN
         value: "%msg%n"
       - name: MASKING_STRATEGIES # 脱敏策略
@@ -161,8 +161,8 @@ Configuration:
         level: INFO
       - name: org.ylzl.eden # 框架调试日志只输出到控制台
         level: DEBUG
-      - name: MybatisSqlLog # 输出慢SQL，按需关闭
-        level: WARN
+      - name: MybatisSqlLog # 输出 SQL，按需关闭
+        level: INFO
       - name: org.springframework
         level: ERROR
       - name: org.apache
