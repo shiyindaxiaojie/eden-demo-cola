@@ -72,3 +72,5 @@ log/
 .externalToolBuilders/**
 .Spotlight-V100
 .Trashes
+.kiro
+.claude
