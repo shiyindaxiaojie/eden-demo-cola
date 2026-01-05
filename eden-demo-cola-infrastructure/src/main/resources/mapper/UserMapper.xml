@@ -17,46 +17,70 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="org.ylzl.eden.demo.infrastructure.user.database.UserMapper">
+<mapper namespace="org.ylzl.eden.demo.infrastructure.user.database.UserMapper">
 
-	<!-- 数据库字段映射（工具自动生成） -->
 	<resultMap id="dbResultMap"
 			   type="org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO">
 		<result column="id" property="id"/>
 		<result column="login" property="login"/>
-		<result column="password_hash" property="passwordHash"/>
 		<result column="email" property="email"/>
-		<result column="activated" property="activated"/>
-		<result column="locked" property="locked"/>
-		<result column="lang_key" property="langKey"/>
-		<result column="activation_key" property="activationKey"/>
-		<result column="reset_key" property="resetKey"/>
-		<result column="reset_date" property="resetDate"/>
-		<result column="created_by" property="createdBy"/>
-		<result column="created_date" property="createdDate"/>
-		<result column="last_modified_by" property="lastModifiedBy"/>
-		<result column="last_modified_date" property="lastModifiedDate"/>
+		<result column="password" property="password"/>
+		<result column="status" property="status"/>
+		<result column="created_at" property="createdAt"/>
+		<result column="updated_at" property="updatedAt"/>
 	</resultMap>
 
-	<!-- 分页查询 -->
+	<sql id="baseColumns">
+		id, login, email, password, status, created_at, updated_at
+	</sql>
+
 	<select id="selectPage"
 			resultType="org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO">
-		SELECT id, login, email, activated, locked, lang_key
+		SELECT <include refid="baseColumns"/>
 		FROM demo_user
 		<include refid="selectPageCondition"/>
 	</select>
 
-	<!-- 分页条件 -->
 	<sql id="selectPageCondition">
 		<where>
-			<if test="login != null">
+			<if test="login != null and login != ''">
 				AND login = #{login}
 			</if>
-			<if test="email != null">
+			<if test="email != null and email != ''">
 				AND email = #{email}
 			</if>
 		</where>
 	</sql>
+
+	<select id="selectByLogin" resultMap="dbResultMap">
+		SELECT <include refid="baseColumns"/>
+		FROM demo_user
+		WHERE login = #{login}
+	</select>
+
+	<select id="selectByEmail" resultMap="dbResultMap">
+		SELECT <include refid="baseColumns"/>
+		FROM demo_user
+		WHERE email = #{email}
+	</select>
+
+	<select id="countByLogin" resultType="int">
+		SELECT COUNT(1)
+		FROM demo_user
+		WHERE login = #{login}
+	</select>
+
+	<select id="countByEmail" resultType="int">
+		SELECT COUNT(1)
+		FROM demo_user
+		WHERE email = #{email}
+	</select>
+
+	<select id="countByEmailExcludeUser" resultType="int">
+		SELECT COUNT(1)
+		FROM demo_user
+		WHERE email = #{email}
+		AND id != #{excludeUserId}
+	</select>
 
 </mapper>

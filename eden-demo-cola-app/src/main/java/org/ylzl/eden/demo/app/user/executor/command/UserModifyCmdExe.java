@@ -18,12 +18,14 @@ package org.ylzl.eden.demo.app.user.executor.command;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
-import org.ylzl.eden.demo.app.user.assembler.UserAssembler;
+import org.ylzl.eden.cola.dto.Response;
 import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
+import org.ylzl.eden.demo.domain.user.domainservice.UserDomainService;
 import org.ylzl.eden.demo.domain.user.entity.User;
 import org.ylzl.eden.demo.domain.user.gateway.UserGateway;
-import org.ylzl.eden.cola.dto.Response;
+import org.ylzl.eden.spring.framework.error.ClientAssert;
 
 /**
  * 修改用户指令执行器
@@ -36,13 +38,29 @@ import org.ylzl.eden.cola.dto.Response;
 @Component
 public class UserModifyCmdExe {
 
+	private final UserDomainService userDomainService;
+
 	private final UserGateway userGateway;
 
-	private final UserAssembler userAssembler;
+	private final ApplicationEventPublisher eventPublisher;
 
+	/**
+	 * 执行修改用户指令
+	 *
+	 * @param cmd 修改用户指令
+	 * @return 响应结果
+	 */
 	public Response execute(UserModifyCmd cmd) {
-		User user = userAssembler.toEntity(cmd);
-		userGateway.updateById(user);
+		User user = userGateway.findById(cmd.getId()).orElse(null);
+		ClientAssert.notNull(user, "USER-404", "用户不存在");
+
+		if (cmd.getEmail() != null) {
+			userDomainService.changeEmail(user, cmd.getEmail());
+		}
+
+		userGateway.save(user);
+		user.getDomainEvents().forEach(eventPublisher::publishEvent);
+		user.clearDomainEvents();
 		return Response.buildSuccess();
 	}
 }

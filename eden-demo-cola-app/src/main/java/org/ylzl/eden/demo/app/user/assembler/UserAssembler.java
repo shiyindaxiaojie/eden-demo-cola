@@ -17,15 +17,11 @@
 package org.ylzl.eden.demo.app.user.assembler;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.ylzl.eden.demo.client.user.dto.UserDTO;
-import org.ylzl.eden.demo.client.user.dto.command.UserAddCmd;
-import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
-import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
-import org.ylzl.eden.demo.domain.user.entity.User;
 import org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO;
-import org.ylzl.eden.cola.dto.DTOAssembler;
 
 import java.util.List;
 
@@ -38,45 +34,21 @@ import java.util.List;
 @Mapper(componentModel = "spring",
 	nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
 	nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-public interface UserAssembler extends DTOAssembler<UserDTO, User> {
+public interface UserAssembler {
 
 	/**
-	 * DO 转 VO
+	 * 数据对象转DTO
 	 *
-	 * @param dataObject
-	 * @return
+	 * @param dataObject 数据对象
+	 * @return DTO
 	 */
 	UserDTO toDTO(UserDO dataObject);
 
 	/**
-	 * DO 转 VO
+	 * 数据对象列表转DTO列表
 	 *
-	 * @param dataObjectList
-	 * @return
+	 * @param dataObjectList 数据对象列表
+	 * @return DTO列表
 	 */
 	List<UserDTO> toDTOList(List<UserDO> dataObjectList);
-
-	/**
-	 * DTO 转 Entity
-	 *
-	 * @param cmd
-	 * @return
-	 */
-	User toEntity(UserAddCmd cmd);
-
-	/**
-	 * DTO 转 Entity
-	 *
-	 * @param cmd
-	 * @return
-	 */
-	User toEntity(UserModifyCmd cmd);
-
-	/**
-	 * DTO 转 Entity
-	 *
-	 * @param cmd
-	 * @return
-	 */
-	User toEntity(UserRemoveCmd cmd);
 }

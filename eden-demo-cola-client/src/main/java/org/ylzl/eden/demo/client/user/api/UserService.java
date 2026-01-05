@@ -16,12 +16,15 @@
 
 package org.ylzl.eden.demo.client.user.api;
 
+import org.ylzl.eden.demo.client.menu.dto.MenuTreeDTO;
+import org.ylzl.eden.demo.client.role.dto.RoleDTO;
 import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import org.ylzl.eden.demo.client.user.dto.command.UserAddCmd;
+import org.ylzl.eden.demo.client.user.dto.command.UserAssignRolesCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
-import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
-import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry;
+import org.ylzl.eden.demo.client.user.dto.query.*;
+import org.ylzl.eden.cola.dto.ListResponse;
 import org.ylzl.eden.cola.dto.PageResponse;
 import org.ylzl.eden.cola.dto.Response;
 import org.ylzl.eden.cola.dto.SingleResponse;
@@ -70,4 +73,36 @@ public interface UserService {
 	 * @return
 	 */
 	PageResponse<UserDTO> listUserByPage(UserListByPageQry query);
+
+	/**
+	 * 分配角色
+	 *
+	 * @param cmd
+	 * @return
+	 */
+	Response assignRoles(UserAssignRolesCmd cmd);
+
+	/**
+	 * 获取用户角色
+	 *
+	 * @param qry
+	 * @return
+	 */
+	ListResponse<RoleDTO> getUserRoles(UserRolesQry qry);
+
+	/**
+	 * 获取用户菜单
+	 *
+	 * @param qry
+	 * @return
+	 */
+	ListResponse<MenuTreeDTO> getUserMenus(UserMenusQry qry);
+
+	/**
+	 * 获取用户权限
+	 *
+	 * @param qry
+	 * @return
+	 */
+	ListResponse<String> getUserPermissions(UserPermissionsQry qry);
 }

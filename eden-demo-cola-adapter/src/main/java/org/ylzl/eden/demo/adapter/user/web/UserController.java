@@ -19,17 +19,20 @@ package org.ylzl.eden.demo.adapter.user.web;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.ylzl.eden.cola.dto.ListResponse;
 import org.ylzl.eden.cola.dto.PageResponse;
 import org.ylzl.eden.cola.dto.Response;
 import org.ylzl.eden.cola.dto.SingleResponse;
 import org.ylzl.eden.demo.adapter.constant.API;
+import org.ylzl.eden.demo.client.menu.dto.MenuTreeDTO;
+import org.ylzl.eden.demo.client.role.dto.RoleDTO;
 import org.ylzl.eden.demo.client.user.api.UserService;
 import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import org.ylzl.eden.demo.client.user.dto.command.UserAddCmd;
+import org.ylzl.eden.demo.client.user.dto.command.UserAssignRolesCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
-import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
-import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry;
+import org.ylzl.eden.demo.client.user.dto.query.*;
 
 import javax.validation.Valid;
 
@@ -102,5 +105,51 @@ public class UserController {
 	@GetMapping
 	public PageResponse<UserDTO> listUserByPage(@Valid @ModelAttribute UserListByPageQry query) {
 		return userService.listUserByPage(query);
+	}
+
+	/**
+	 * 分配角色
+	 *
+	 * @param id
+	 * @param cmd
+	 * @return
+	 */
+	@PutMapping("/{id}/roles")
+	public Response assignRoles(@PathVariable Long id, @RequestBody UserAssignRolesCmd cmd) {
+		cmd.setUserId(id);
+		return userService.assignRoles(cmd);
+	}
+
+	/**
+	 * 获取用户角色
+	 *
+	 * @param id
+	 * @return
+	 */
+	@GetMapping("/{id}/roles")
+	public ListResponse<RoleDTO> getUserRoles(@PathVariable Long id) {
+		return userService.getUserRoles(UserRolesQry.builder().userId(id).build());
+	}
+
+	/**
+	 * 获取用户菜单
+	 *
+	 * @param id
+	 * @return
+	 */
+	@GetMapping("/{id}/menus")
+	public ListResponse<MenuTreeDTO> getUserMenus(@PathVariable Long id) {
+		return userService.getUserMenus(UserMenusQry.builder().userId(id).build());
+	}
+
+	/**
+	 * 获取用户权限
+	 *
+	 * @param id
+	 * @return
+	 */
+	@GetMapping("/{id}/permissions")
+	public ListResponse<String> getUserPermissions(@PathVariable Long id) {
+		return userService.getUserPermissions(UserPermissionsQry.builder().userId(id).build());
 	}
 }

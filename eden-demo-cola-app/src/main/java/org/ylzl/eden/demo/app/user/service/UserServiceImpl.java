@@ -20,48 +20,51 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.ylzl.eden.cola.dto.ListResponse;
 import org.ylzl.eden.cola.dto.PageResponse;
 import org.ylzl.eden.cola.dto.Response;
 import org.ylzl.eden.cola.dto.SingleResponse;
 import org.ylzl.eden.demo.app.user.executor.command.UserAddCmdExe;
+import org.ylzl.eden.demo.app.user.executor.command.UserAssignRolesCmdExe;
 import org.ylzl.eden.demo.app.user.executor.command.UserModifyCmdExe;
 import org.ylzl.eden.demo.app.user.executor.command.UserRemoveCmdExe;
-import org.ylzl.eden.demo.app.user.executor.query.UserByIdQryExe;
-import org.ylzl.eden.demo.app.user.executor.query.UserListByPageQryExe;
+import org.ylzl.eden.demo.app.user.executor.query.*;
+import org.ylzl.eden.demo.client.menu.dto.MenuTreeDTO;
+import org.ylzl.eden.demo.client.role.dto.RoleDTO;
 import org.ylzl.eden.demo.client.user.api.UserService;
 import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import org.ylzl.eden.demo.client.user.dto.command.UserAddCmd;
+import org.ylzl.eden.demo.client.user.dto.command.UserAssignRolesCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
-import org.ylzl.eden.demo.client.user.dto.query.UserByIdQry;
-import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry;
+import org.ylzl.eden.demo.client.user.dto.query.*;
 
 /**
- * 用户领域业务实现
+ * 用户应用服务实现
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
  */
-//@DS("ds2") // 多数据源示例
 @RequiredArgsConstructor
 @Slf4j
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
 	private final UserAddCmdExe userAddCmdExe;
-
 	private final UserModifyCmdExe userModifyCmdExe;
-
 	private final UserRemoveCmdExe userRemoveCmdExe;
-
+	private final UserAssignRolesCmdExe userAssignRolesCmdExe;
 	private final UserByIdQryExe userByIdQryExe;
-
 	private final UserListByPageQryExe userListByPageQryExe;
+	private final UserRolesQryExe userRolesQryExe;
+	private final UserMenusQryExe userMenusQryExe;
+	private final UserPermissionsQryExe userPermissionsQryExe;
 
 	/**
 	 * 创建用户
 	 *
-	 * @param cmd
+	 * @param cmd 创建用户指令
+	 * @return 响应结果
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
@@ -72,10 +75,9 @@ public class UserServiceImpl implements UserService {
 	/**
 	 * 修改用户
 	 *
-	 * @param cmd
+	 * @param cmd 修改用户指令
+	 * @return 响应结果
 	 */
-//	@EventAuditor(bizScenario = "'demo.users.getUserById'", operator = "#operator",
-//		content = "'用户' + #cmd.login + '修改了邮箱，从' + #queryOldEmail(#cmd.id) + '修改为' + #cmd.email")
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Response modifyUser(UserModifyCmd cmd) {
@@ -83,33 +85,22 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * 自定义函数测试
-	 *
-	 * @param id 用户ID
-	 * @return 数据库值
-	 */
-//	@CustomFunction("queryOldEmail")
-//	public String queryOldEmail(Long id) {
-//		return this.getUserById(UserByIdQry.builder().id(id).build()).getData().getEmail();
-//	}
-
-	/**
 	 * 删除用户
 	 *
-	 * @param cmd
+	 * @param cmd 删除用户指令
+	 * @return 响应结果
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Response removeUser(UserRemoveCmd cmd) {
-		this.getUserById(UserByIdQry.builder().id(cmd.getId()).build());
 		return userRemoveCmdExe.execute(cmd);
 	}
 
 	/**
 	 * 获取用户信息
 	 *
-	 * @param query
-	 * @return
+	 * @param query 查询条件
+	 * @return 用户信息
 	 */
 	@Override
 	public SingleResponse<UserDTO> getUserById(UserByIdQry query) {
@@ -117,13 +108,58 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * 获取用户分页
+	 * 分页查询用户列表
 	 *
-	 * @param query
-	 * @return
+	 * @param query 查询条件
+	 * @return 分页结果
 	 */
 	@Override
 	public PageResponse<UserDTO> listUserByPage(UserListByPageQry query) {
 		return userListByPageQryExe.execute(query);
+	}
+
+	/**
+	 * 分配角色
+	 *
+	 * @param cmd 分配角色指令
+	 * @return 响应结果
+	 */
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public Response assignRoles(UserAssignRolesCmd cmd) {
+		return userAssignRolesCmdExe.execute(cmd);
+	}
+
+	/**
+	 * 获取用户角色
+	 *
+	 * @param qry 查询条件
+	 * @return 角色列表
+	 */
+	@Override
+	public ListResponse<RoleDTO> getUserRoles(UserRolesQry qry) {
+		return userRolesQryExe.execute(qry);
+	}
+
+	/**
+	 * 获取用户菜单
+	 *
+	 * @param qry 查询条件
+	 * @return 菜单树
+	 */
+	@Override
+	public ListResponse<MenuTreeDTO> getUserMenus(UserMenusQry qry) {
+		return userMenusQryExe.execute(qry);
+	}
+
+	/**
+	 * 获取用户权限
+	 *
+	 * @param qry 查询条件
+	 * @return 权限编码列表
+	 */
+	@Override
+	public ListResponse<String> getUserPermissions(UserPermissionsQry qry) {
+		return userPermissionsQryExe.execute(qry);
 	}
 }
