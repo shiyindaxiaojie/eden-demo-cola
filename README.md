@@ -19,6 +19,23 @@ This project is built using the COLA architecture. COLA is a clean, object-orien
 
 > For reference documentation, please check the [WIKI](https://github.com/shiyindaxiaojie/eden-demo-cola/wiki).
 
+## Documentation
+
+📚 For detailed component integration guides, please refer to the documentation:
+
+- [English Documentation](./docs/en/README.md) - Component integration guides in English
+- [中文文档](./docs/zh-CN/README.md) - 中文组件集成指南
+
+The documentation covers:
+- Quick Start Guide
+- Registry & Configuration Center (Nacos)
+- Cache Components (Redis)
+- Data Source Components (MySQL, Liquibase, ShardingSphere, Dynamic-Datasource)
+- Message Queue Components (RocketMQ, Kafka, Dynamic-MQ)
+- Monitoring & Observability (CAT, Jaeger, Zipkin, Sentinel, Arthas)
+- RPC Components (Dubbo, Dynamic-TP)
+- Task Scheduling (XXL-Job)
+
 ## Component Structure
 
 ```mermaid
@@ -338,9 +355,9 @@ The following demonstrates continuous build and deployment using CODING. [Portal
 
 This project uses RBAC (Role-Based Access Control) as an example to demonstrate how to implement DDD in COLA architecture.
 
-#### Strategic Design
+**Strategic Design - Bounded Context Division**
 
-**Bounded Context Division**
+The RBAC system is divided into four bounded contexts: User, Role, Permission, and Menu. Each context contains aggregate roots, gateway interfaces, and domain services. The RBAC context serves as a coordinator responsible for cross-context business orchestration.
 
 ```mermaid
 graph TB
@@ -577,21 +594,18 @@ graph TB
 **CQRS Command Query Separation**
 
 ```mermaid
-flowchart LR
+flowchart TB
     subgraph Command Flow
-        C1[Controller] --> C2[CommandService]
-        C2 --> C3[CmdExe]
-        C3 --> C4[Domain]
-        C4 --> C5[Gateway]
-        C5 --> C6[(Database)]
+        direction TB
+        C1[Controller] --> C2[CommandService] --> C3[CmdExe] --> C4[Domain] --> C5[Gateway] --> C6[(Database)]
     end
     
     subgraph Query Flow
-        Q1[Controller] --> Q2[QueryService]
-        Q2 --> Q3[QryExe]
-        Q3 --> Q4[Mapper]
-        Q4 --> Q5[(Database)]
+        direction TB
+        Q1[Controller] --> Q2[QueryService] --> Q3[QryExe] --> Q4[Mapper] --> Q5[(Database)]
     end
+    
+    Command Flow ~~~ Query Flow
 ```
 
 

@@ -19,11 +19,11 @@
 -- 版本: 1.0.0
 -- =============================================
 
-DROP TABLE IF EXISTS `demo_role_menu`;
-DROP TABLE IF EXISTS `demo_role_permission`;
-DROP TABLE IF EXISTS `demo_user_role`;
-DROP TABLE IF EXISTS `demo_menu`;
-DROP TABLE IF EXISTS `demo_permission`;
-DROP TABLE IF EXISTS `demo_role`;
-DROP TABLE IF EXISTS `demo_user`;
+DROP TABLE IF EXISTS demo_role_menu;
+DROP TABLE IF EXISTS demo_role_permission;
+DROP TABLE IF EXISTS demo_user_role;
+DROP TABLE IF EXISTS demo_menu;
+DROP TABLE IF EXISTS demo_permission;
+DROP TABLE IF EXISTS demo_role;
+DROP TABLE IF EXISTS demo_user;
 

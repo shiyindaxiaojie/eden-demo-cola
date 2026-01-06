@@ -20,98 +20,97 @@
 -- =============================================
 
 -- 用户表
-CREATE TABLE `demo_user`
+CREATE TABLE IF NOT EXISTS demo_user
 (
-	`id`         BIGINT       NOT NULL AUTO_INCREMENT COMMENT '用户ID',
-	`login`      VARCHAR(20)  NOT NULL COMMENT '登录账号',
-	`email`      VARCHAR(100) NOT NULL COMMENT '邮箱',
-	`password`   VARCHAR(100) NOT NULL COMMENT '密码',
-	`status`     TINYINT      NOT NULL DEFAULT 0 COMMENT '状态：0-待激活,1-已激活,2-已锁定,3-已禁用',
-	`created_at` DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-	`updated_at` DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-	PRIMARY KEY (`id`),
-	UNIQUE KEY `uk_login` (`login`),
-	UNIQUE KEY `uk_email` (`email`),
-	KEY `idx_status` (`status`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT ='用户表';
+    id         BIGINT       NOT NULL AUTO_INCREMENT,
+    login      VARCHAR(20)  NOT NULL,
+    email      VARCHAR(100) NOT NULL,
+    password   VARCHAR(100) NOT NULL,
+    status     TINYINT      NOT NULL DEFAULT 0,
+    created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    CONSTRAINT uk_user_login UNIQUE (login),
+    CONSTRAINT uk_user_email UNIQUE (email)
+);
+CREATE INDEX IF NOT EXISTS idx_user_status ON demo_user(status);
 
 -- 角色表
-CREATE TABLE `demo_role`
+CREATE TABLE IF NOT EXISTS demo_role
 (
-	`id`          BIGINT       NOT NULL AUTO_INCREMENT COMMENT '角色ID',
-	`code`        VARCHAR(30)  NOT NULL COMMENT '角色编码',
-	`name`        VARCHAR(50)  NOT NULL COMMENT '角色名称',
-	`description` VARCHAR(200) DEFAULT NULL COMMENT '角色描述',
-	`status`      TINYINT      NOT NULL DEFAULT 1 COMMENT '状态：0-禁用,1-启用',
-	`sort`        INT          NOT NULL DEFAULT 0 COMMENT '排序',
-	`created_at`  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-	`updated_at`  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-	PRIMARY KEY (`id`),
-	UNIQUE KEY `uk_code` (`code`),
-	KEY `idx_status` (`status`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT ='角色表';
+    id          BIGINT       NOT NULL AUTO_INCREMENT,
+    code        VARCHAR(30)  NOT NULL,
+    name        VARCHAR(50)  NOT NULL,
+    description VARCHAR(200) DEFAULT NULL,
+    status      TINYINT      NOT NULL DEFAULT 1,
+    sort        INT          NOT NULL DEFAULT 0,
+    created_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    CONSTRAINT uk_role_code UNIQUE (code)
+);
+CREATE INDEX IF NOT EXISTS idx_role_status ON demo_role(status);
 
 -- 权限表
-CREATE TABLE `demo_permission`
+CREATE TABLE IF NOT EXISTS demo_permission
 (
-	`id`          BIGINT       NOT NULL AUTO_INCREMENT COMMENT '权限ID',
-	`code`        VARCHAR(100) NOT NULL COMMENT '权限编码',
-	`name`        VARCHAR(50)  NOT NULL COMMENT '权限名称',
-	`type`        TINYINT      NOT NULL COMMENT '类型：1-菜单,2-按钮,3-接口',
-	`parent_id`   BIGINT       DEFAULT 0 COMMENT '父级ID',
-	`description` VARCHAR(200) DEFAULT NULL COMMENT '权限描述',
-	`sort`        INT          NOT NULL DEFAULT 0 COMMENT '排序',
-	`created_at`  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-	`updated_at`  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-	PRIMARY KEY (`id`),
-	UNIQUE KEY `uk_code` (`code`),
-	KEY `idx_parent_id` (`parent_id`),
-	KEY `idx_type` (`type`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT ='权限表';
+    id          BIGINT       NOT NULL AUTO_INCREMENT,
+    code        VARCHAR(100) NOT NULL,
+    name        VARCHAR(50)  NOT NULL,
+    type        TINYINT      NOT NULL,
+    parent_id   BIGINT       DEFAULT 0,
+    description VARCHAR(200) DEFAULT NULL,
+    sort        INT          NOT NULL DEFAULT 0,
+    created_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    CONSTRAINT uk_permission_code UNIQUE (code)
+);
+CREATE INDEX IF NOT EXISTS idx_permission_parent_id ON demo_permission(parent_id);
+CREATE INDEX IF NOT EXISTS idx_permission_type ON demo_permission(type);
 
 -- 菜单表
-CREATE TABLE `demo_menu`
+CREATE TABLE IF NOT EXISTS demo_menu
 (
-	`id`         BIGINT       NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
-	`name`       VARCHAR(50)  NOT NULL COMMENT '菜单名称',
-	`path`       VARCHAR(200) NOT NULL COMMENT '路由路径',
-	`icon`       VARCHAR(50)  DEFAULT NULL COMMENT '图标',
-	`parent_id`  BIGINT       DEFAULT 0 COMMENT '父级ID',
-	`sort`       INT          NOT NULL DEFAULT 0 COMMENT '排序',
-	`status`     TINYINT      NOT NULL DEFAULT 1 COMMENT '状态：0-隐藏,1-显示',
-	`component`  VARCHAR(200) DEFAULT NULL COMMENT '组件路径',
-	`created_at` DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-	`updated_at` DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-	PRIMARY KEY (`id`),
-	UNIQUE KEY `uk_path` (`path`),
-	KEY `idx_parent_id` (`parent_id`),
-	KEY `idx_status` (`status`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT ='菜单表';
+    id         BIGINT       NOT NULL AUTO_INCREMENT,
+    name       VARCHAR(50)  NOT NULL,
+    path       VARCHAR(200) NOT NULL,
+    icon       VARCHAR(50)  DEFAULT NULL,
+    parent_id  BIGINT       DEFAULT 0,
+    sort       INT          NOT NULL DEFAULT 0,
+    status     TINYINT      NOT NULL DEFAULT 1,
+    component  VARCHAR(200) DEFAULT NULL,
+    created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    CONSTRAINT uk_menu_path UNIQUE (path)
+);
+CREATE INDEX IF NOT EXISTS idx_menu_parent_id ON demo_menu(parent_id);
+CREATE INDEX IF NOT EXISTS idx_menu_status ON demo_menu(status);
 
 -- 用户角色关联表
-CREATE TABLE `demo_user_role`
+CREATE TABLE IF NOT EXISTS demo_user_role
 (
-	`user_id` BIGINT NOT NULL COMMENT '用户ID',
-	`role_id` BIGINT NOT NULL COMMENT '角色ID',
-	PRIMARY KEY (`user_id`, `role_id`),
-	KEY `idx_role_id` (`role_id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT ='用户角色关联表';
+    user_id BIGINT NOT NULL,
+    role_id BIGINT NOT NULL,
+    PRIMARY KEY (user_id, role_id)
+);
+CREATE INDEX IF NOT EXISTS idx_user_role_role_id ON demo_user_role(role_id);
 
 -- 角色权限关联表
-CREATE TABLE `demo_role_permission`
+CREATE TABLE IF NOT EXISTS demo_role_permission
 (
-	`role_id`       BIGINT NOT NULL COMMENT '角色ID',
-	`permission_id` BIGINT NOT NULL COMMENT '权限ID',
-	PRIMARY KEY (`role_id`, `permission_id`),
-	KEY `idx_permission_id` (`permission_id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT ='角色权限关联表';
+    role_id       BIGINT NOT NULL,
+    permission_id BIGINT NOT NULL,
+    PRIMARY KEY (role_id, permission_id)
+);
+CREATE INDEX IF NOT EXISTS idx_role_permission_permission_id ON demo_role_permission(permission_id);
 
 -- 角色菜单关联表
-CREATE TABLE `demo_role_menu`
+CREATE TABLE IF NOT EXISTS demo_role_menu
 (
-	`role_id` BIGINT NOT NULL COMMENT '角色ID',
-	`menu_id` BIGINT NOT NULL COMMENT '菜单ID',
-	PRIMARY KEY (`role_id`, `menu_id`),
-	KEY `idx_menu_id` (`menu_id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COMMENT ='角色菜单关联表';
-
+    role_id BIGINT NOT NULL,
+    menu_id BIGINT NOT NULL,
+    PRIMARY KEY (role_id, menu_id)
+);
+CREATE INDEX IF NOT EXISTS idx_role_menu_menu_id ON demo_role_menu(menu_id);
