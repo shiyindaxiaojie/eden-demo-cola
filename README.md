@@ -15,9 +15,7 @@ English | [简体中文](./README-zh-CN.md)
 
 ---
 
-This project is built using the COLA architecture. COLA is a clean, object-oriented, layered, and adaptable application architecture that helps reduce system entropy in complex application scenarios and improves development and operational efficiency. Whether it's traditional layered architecture, hexagonal architecture, or onion architecture, they all advocate for business-centric design, decoupling external dependencies, and separating business complexity from technical complexity. COLA architecture integrates CQRS, DDD, SOLID and other design principles on this foundation, forming a practical and implementable application architecture.
-
-> For reference documentation, please check the [WIKI](https://github.com/shiyindaxiaojie/eden-demo-cola/wiki).
+This project is built using the COLA architecture. COLA is a clean, object-oriented, layered, and adaptable application architecture that helps reduce system entropy in complex application scenarios and improves development and operational efficiency. Whether it's traditional layered architecture, hexagonal architecture, or onion architecture, they all advocate for business-centric design, decoupling external dependencies, and separating business complexity from technical complexity. COLA architecture integrates CQRS, DDD, SOLID and other design principles on this foundation, forming a practical and implementable application architecture. For more details, please check the [WIKI](https://github.com/shiyindaxiaojie/eden-demo-cola/wiki).
 
 ## Documentation
 

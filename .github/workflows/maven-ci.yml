@@ -35,19 +35,46 @@ jobs:
           java-version: ${{ matrix.java }}
           check-latest: true
           distribution: 'temurin'
-          server-id: github
-          settings-path: ${{ github.workspace }}
+          cache: maven
+
+      - name: Create Maven settings.xml
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml << 'EOF'
+          <settings>
+            <servers>
+              <server>
+                <id>github</id>
+                <username>${env.GITHUB_ACTOR}</username>
+                <password>${env.GITHUB_TOKEN}</password>
+              </server>
+            </servers>
+            <profiles>
+              <profile>
+                <id>github</id>
+                <properties>
+                  <altReleaseDeploymentRepository>github::default::https://maven.pkg.github.com/shiyindaxiaojie/eden-demo-cola</altReleaseDeploymentRepository>
+                  <altSnapshotDeploymentRepository>github::default::https://maven.pkg.github.com/shiyindaxiaojie/eden-demo-cola</altSnapshotDeploymentRepository>
+                </properties>
+                <repositories>
+                  <repository>
+                    <id>github</id>
+                    <name>GitHub OWNER Apache Maven Packages</name>
+                    <url>https://maven.pkg.github.com/shiyindaxiaojie/eden-architect</url>
+                  </repository>
+                </repositories>
+              </profile>
+            </profiles>
+          </settings>
+          EOF
 
       - name: Build with Maven
-        run: |
-          echo "<settings><servers><server><id>github</id><username>OWNER</username><password>${GITHUB_TOKEN}</password></server></servers><profiles><profile><id>github</id><properties><altReleaseDeploymentRepository>github::default::https://maven.pkg.github.com/shiyindaxiaojie/eden-demo-cola</altReleaseDeploymentRepository><altSnapshotDeploymentRepository>github::default::https://maven.pkg.github.com/shiyindaxiaojie/eden-demo-cola</altSnapshotDeploymentRepository></properties><repositories><repository><id>github</id><name>GitHub OWNER Apache Maven Packages</name><url>https://maven.pkg.github.com/shiyindaxiaojie/eden-architect</url></repository></repositories></profile></profiles></settings>" > $GITHUB_WORKSPACE/settings.xml
-          chmod +x mvnw
-          ./mvnw -ntp clean package -Pgithub,unit-test -e -T 4C -s $GITHUB_WORKSPACE/settings.xml
+        run: mvn -ntp clean package -Pgithub,unit-test -e -T 4C
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
       - name: Publish to GitHub Packages Apache Maven
-        run: ./mvnw -ntp deploy -Pgithub -DskipTests -e -s $GITHUB_WORKSPACE/settings.xml
+        run: mvn -ntp deploy -Pgithub -DskipTests -e
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
