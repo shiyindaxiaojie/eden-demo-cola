@@ -15,7 +15,7 @@
 
 ---
 
-本项目使用 COLA 架构构建，COLA 架构是一个整洁的，面向对象的，分层的，可扩展的应用架构，可以帮助降低复杂应用场景的系统熵值，提升系统开发和运维效率。不管是传统的分层架构、六边形架构、还是洋葱架构，都提倡以业务为核心，解耦外部依赖，分离业务复杂度和技术复杂度等，COLA 架构在此基础上融合了 CQRS、DDD、SOLID 等设计思想，形成一套可落地的应用架构。具体可以查阅 [WIKI](https://github.com/shiyindaxiaojie/eden-demo-cola/wiki) 。
+本项目使用 COLA 架构构建，COLA 架构是一个整洁的，面向对象的，分层的，可扩展的应用架构，可以帮助降低复杂应用场景的系统熵值，提升系统开发和运维效率。不管是传统的分层架构、六边形架构、还是洋葱架构，都提倡以业务为核心，解耦外部依赖，分离业务复杂度和技术复杂度等，COLA 架构在此基础上融合了 CQRS、DDD、SOLID 等设计思想，形成一套可落地的应用架构。具体可以查阅 [WIKI](https://github.com/shiyindaxiaojie/eden-demo-cola/wiki/Home-zh-CN) 。
 
 ## 文档指南
 
@@ -593,19 +593,50 @@ graph TB
 命令流程（增删改）经过 Domain 层处理业务逻辑，查询流程直接访问 Infrastructure 层的 Mapper，绕过 Domain 层以提升查询性能。
 
 ```mermaid
-flowchart TB
-    subgraph 命令流程
-        direction TB
-        C1[Controller] --> C2[CommandService] --> C3[CmdExe] --> C4[Domain] --> C5[Gateway] --> C6[(Database)]
+flowchart LR
+    subgraph Input[" "]
+        A1[Controller]
+        A2[Controller]
     end
     
-    subgraph 查询流程
-        direction TB
-        Q1[Controller] --> Q2[QueryService] --> Q3[QryExe] --> Q4[Mapper] --> Q5[(Database)]
+    subgraph Service[" "]
+        B1[CommandService]
+        B2[QueryService]
     end
     
-    命令流程 ~~~ 查询流程
+    subgraph Executor[" "]
+        C1[CmdExe]
+        C2[QryExe]
+    end
+    
+    subgraph Core[" "]
+        D1[Domain]
+        D2["-"]
+    end
+    
+    subgraph Data[" "]
+        E1[Gateway]
+        E2[Mapper]
+    end
+    
+    subgraph Storage[" "]
+        F1[(Database)]
+        F2[(Database)]
+    end
+    
+    A1 -->|命令| B1 --> C1 --> D1 --> E1 --> F1
+    A2 -->|查询| B2 --> C2 -.->|绕过Domain| E2 --> F2
+    
+    style D1 fill:#90EE90,stroke:#333
+    style D2 fill:#f5f5f5,stroke:#ddd,stroke-dasharray: 5 5
+    style E1 fill:#90EE90,stroke:#333
+    style E2 fill:#FFB6C1,stroke:#333
 ```
+
+| 类型 | 路径 | 特点 |
+|------|------|------|
+| 命令（写） | Controller → Service → CmdExe → Domain → Gateway → DB | 经过领域层，保证业务规则 |
+| 查询（读） | Controller → Service → QryExe → Mapper → DB | 绕过领域层，提升性能 |
 
 **代码结构**
 

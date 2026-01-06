@@ -592,19 +592,50 @@ graph TB
 **CQRS Command Query Separation**
 
 ```mermaid
-flowchart TB
-    subgraph Command Flow
-        direction TB
-        C1[Controller] --> C2[CommandService] --> C3[CmdExe] --> C4[Domain] --> C5[Gateway] --> C6[(Database)]
+flowchart LR
+    subgraph Input[" "]
+        A1[Controller]
+        A2[Controller]
     end
     
-    subgraph Query Flow
-        direction TB
-        Q1[Controller] --> Q2[QueryService] --> Q3[QryExe] --> Q4[Mapper] --> Q5[(Database)]
+    subgraph Service[" "]
+        B1[CommandService]
+        B2[QueryService]
     end
     
-    Command Flow ~~~ Query Flow
+    subgraph Executor[" "]
+        C1[CmdExe]
+        C2[QryExe]
+    end
+    
+    subgraph Core[" "]
+        D1[Domain]
+        D2["-"]
+    end
+    
+    subgraph Data[" "]
+        E1[Gateway]
+        E2[Mapper]
+    end
+    
+    subgraph Storage[" "]
+        F1[(Database)]
+        F2[(Database)]
+    end
+    
+    A1 -->|Command| B1 --> C1 --> D1 --> E1 --> F1
+    A2 -->|Query| B2 --> C2 -.->|Bypass Domain| E2 --> F2
+    
+    style D1 fill:#90EE90,stroke:#333
+    style D2 fill:#f5f5f5,stroke:#ddd,stroke-dasharray: 5 5
+    style E1 fill:#90EE90,stroke:#333
+    style E2 fill:#FFB6C1,stroke:#333
 ```
+
+| Type | Path | Characteristics |
+|------|------|-----------------|
+| Command (Write) | Controller → Service → CmdExe → Domain → Gateway → DB | Goes through Domain layer, ensures business rules |
+| Query (Read) | Controller → Service → QryExe → Mapper → DB | Bypasses Domain layer, improves performance |
 
 
 #### Code Structure
