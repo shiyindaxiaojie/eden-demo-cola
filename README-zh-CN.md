@@ -21,7 +21,91 @@
 
 ## 组件构成
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/eden-demo-cola/component.png)
+```mermaid
+---
+title: 阿里巴巴 COLA 应用架构组件图
+---
+flowchart TB
+    %% 主动适配器 - 顶部
+    subgraph ActiveAdapters[" "]
+        direction LR
+        RPC_CLIENT(["«主动适配器»<br/>RPC调用方"])
+        JOB{{"Job调度平台"}}
+        MQ_CONSUMER(["«主动适配器»<br/>MQ消息队列"])
+        APP_TERMINAL(["«主动适配器»<br/>APP终端"])
+    end
+
+    %% COLA 核心组件
+    ADAPTER["«适配层»<br/>eden-demo-cola-adapter"]
+    START["«启动入口»<br/>eden-demo-cola-start"]
+    APP_LAYER["«应用层»<br/>eden-demo-cola-app"]
+    CLIENT["«API层»<br/>eden-demo-cola-client"]
+    DOMAIN["«领域层»<br/>eden-demo-cola-domain"]
+    INFRA["«基础设施层»<br/>eden-demo-cola-infrastructure"]
+
+    %% 接口节点
+    rpc((rpc))
+    http((http))
+
+    %% 被动驱动器 - 底部
+    subgraph PassiveDrivers[" "]
+        direction LR
+        THIRD_PARTY(["«被动驱动器»<br/>第三方接口"])
+        MYSQL[("«被动驱动器»<br/>MySQL")]
+        REDIS[("«被动驱动器»<br/>Redis")]
+        MQ_PRODUCER[("«被动驱动器»<br/>MQ")]
+        ES[("«被动驱动器»<br/>Elasticsearch")]
+        MONGO[("«被动驱动器»<br/>MongoDB")]
+    end
+
+    %% 主动适配器连接
+    RPC_CLIENT -.->|网络调用| rpc
+    rpc ---|RPC 接口| ADAPTER
+    APP_TERMINAL -.->|前后端对接| http
+    http ---|REST 接口| ADAPTER
+    RPC_CLIENT -.->|代码集成| CLIENT
+    JOB <-.->|任务调度| ADAPTER
+    MQ_CONSUMER <-.->|消费消息| ADAPTER
+
+    %% 内部组件连接
+    START --> ADAPTER
+    ADAPTER -->|入站适配，数据组装| APP_LAYER
+    APP_LAYER -->|实现接口| CLIENT
+    APP_LAYER -->|CQRS 增删改命令| DOMAIN
+    APP_LAYER -->|CQRS 查询视图| INFRA
+    INFRA -.->|依赖倒置| DOMAIN
+
+    %% 被动驱动器连接
+    INFRA -.->|接口调用| THIRD_PARTY
+    INFRA -.->|读写数据| MYSQL
+    INFRA -.->|读写缓存| REDIS
+    INFRA -.->|生产消息| MQ_PRODUCER
+    INFRA -.->|读写索引| ES
+    INFRA -.->|读写数据| MONGO
+
+    %% 样式定义
+    style ADAPTER fill:#90EE90,stroke:#333,stroke-width:2px
+    style START fill:#90EE90,stroke:#333,stroke-width:2px
+    style APP_LAYER fill:#90EE90,stroke:#333,stroke-width:2px
+    style CLIENT fill:#F0E68C,stroke:#333,stroke-width:2px
+    style DOMAIN fill:#90EE90,stroke:#333,stroke-width:2px
+    style INFRA fill:#90EE90,stroke:#333,stroke-width:2px
+    
+    style RPC_CLIENT fill:#87CEEB,stroke:#333,stroke-width:1px
+    style JOB fill:#87CEEB,stroke:#333,stroke-width:1px
+    style MQ_CONSUMER fill:#87CEEB,stroke:#333,stroke-width:1px
+    style APP_TERMINAL fill:#87CEEB,stroke:#333,stroke-width:1px
+    
+    style THIRD_PARTY fill:#FFB6C1,stroke:#333,stroke-width:1px
+    style MYSQL fill:#FFB6C1,stroke:#333,stroke-width:1px
+    style REDIS fill:#FFB6C1,stroke:#333,stroke-width:1px
+    style MQ_PRODUCER fill:#FFB6C1,stroke:#333,stroke-width:1px
+    style ES fill:#FFB6C1,stroke:#333,stroke-width:1px
+    style MONGO fill:#FFB6C1,stroke:#333,stroke-width:1px
+    
+    style rpc fill:#fff,stroke:#333
+    style http fill:#fff,stroke:#333
+```
 
 * **eden-demo-cola-adapter**：适配层，**六边形架构**中的入站适配器。
 * **eden-demo-cola-app**：应用层，负责 **CQRS** 的指令处理工作，更新指令，调用领域层，查询视图操作，直接绕过领域层调用基础设施层。
@@ -32,7 +116,109 @@
 
 ## 运行流程
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/eden-demo-cola/sequence.png)
+```mermaid
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#90EE90',
+    'primaryTextColor': '#000',
+    'primaryBorderColor': '#333',
+    'lineColor': '#333',
+    'secondaryColor': '#87CEEB',
+    'tertiaryColor': '#FFB6C1',
+    'noteBkgColor': '#FFFACD',
+    'noteTextColor': '#333',
+    'noteBorderColor': '#DAA520',
+    'actorBkg': '#87CEEB',
+    'actorBorder': '#333',
+    'actorTextColor': '#000',
+    'signalColor': '#333',
+    'signalTextColor': '#333'
+  },
+  'sequence': {
+    'actorMargin': 50,
+    'boxMargin': 10,
+    'boxTextMargin': 5,
+    'noteMargin': 10,
+    'messageMargin': 35,
+    'mirrorActors': true,
+    'useMaxWidth': true
+  }
+}}%%
+sequenceDiagram
+    autonumber
+    
+    box rgb(135,206,235,0.3) 主动适配器
+        participant A as 主动适配器
+    end
+    box rgb(144,238,144,0.3) COLA 应用架构
+        participant B as eden-demo-cola-adapter
+        participant C as eden-demo-cola-app
+        participant D as eden-demo-cola-domain
+        participant E as eden-demo-cola-infrastructure
+    end
+    box rgb(255,182,193,0.3) 被动驱动器
+        participant F as 被动驱动器
+    end
+    box rgb(240,230,140,0.3) 扩展点
+        participant G as 扩展点
+    end
+
+    rect rgb(255,250,205)
+        Note over A,G: 场景一：HTTP更新数据请求
+        A->>B: 1. 发送写请求报文
+        B->>C: 2. 适配器组装数据传输对象
+        C->>C: 3. CQRS 解析出命令参数
+        C->>G: 4. 根据指令调用扩展功能（可选项）
+        C->>D: 5. 调用领域层
+        D->>E: 6. 通过防腐层执行数据写操作
+        E->>F: 7. 调用底层组件进行写操作
+        F-->>E: 
+        E-->>C: 8. 返回查询数据
+        C-->>B: 9. 组装返回数据
+        B-->>A: 10. 响应报文
+    end
+
+    rect rgb(255,250,205)
+        Note over A,G: 场景二：HTTP查询数据请求
+        A->>B: 11. 发送读请求报文
+        B->>C: 12. 适配器组装数据传输对象
+        C->>C: 13. CQRS 解析出查询参数
+        C->>E: 14. 执行数据读操作
+        E->>F: 15. 调用底层组件进行读操作
+        F-->>E: 
+        E-->>C: 16. 返回查询数据
+        C-->>B: 17. 组装返回数据
+        B-->>A: 18. 响应报文
+    end
+
+    rect rgb(255,250,205)
+        Note over A,G: 场景三：MQ消息驱动/Job定时任务触发
+        A->>B: 19. 监听事件触发
+        B->>C: 20. CQRS 分发
+        
+        alt 领域调用
+            rect rgb(173,216,230)
+                C->>D: 21. 调用领域层
+                D->>E: 22. 通过防腐层执行数据写操作
+                E->>F: 23. 调用底层组件进行写操作
+                F-->>E: 
+                E-->>C: 24. 返回更新结果
+            end
+        else 简单查询
+            rect rgb(255,182,193)
+                C->>E: 25. 执行数据读操作
+                E->>F: 26. 调用底层组件进行读操作
+                F-->>E: 
+                E-->>C: 27. 返回查询数据
+            end
+        end
+        
+        C->>C: 28. 内部处理（ACK确认/Status状态）
+        C-->>B: 29. 处理结果上报
+        B-->>A: 30. 上报结果
+    end
+```
 
 ## 如何构建
 
@@ -63,12 +249,12 @@
 
 ```yaml
 spring:
-	cloud:
-		nacos:
-			discovery: # 注册中心
-				enabled: true # 默认关闭，请按需开启
-			config: # 配置中心
-				enabled: true # 默认关闭，请按需开启
+  cloud:
+    nacos:
+      discovery: # 注册中心
+        enabled: true # 默认关闭，请按需开启
+      config: # 配置中心
+        enabled: true # 默认关闭，请按需开启
 ```
 
 **修改默认的数据源**：本项目默认使用 `H2` 内存数据库启动，基于 `Liquibase` 在项目启动时自动初始化 SQL 脚本。如果您使用的是外部的 MySQL 数据库，可以从此处调整下数据库的连接信息：[application-dev.yml](https://github.com/shiyindaxiaojie/eden-demo-cola/blob/main/eden-demo-cola-start/src/main/resources/config/application-dev.yml)，请删除任何与 `H2` 有关的配置。
