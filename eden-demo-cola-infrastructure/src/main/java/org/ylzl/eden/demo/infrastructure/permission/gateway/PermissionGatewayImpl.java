@@ -100,4 +100,12 @@ public class PermissionGatewayImpl implements PermissionGateway {
 	public boolean isUsedByRole(Long permissionId) {
 		return permissionMapper.countRoleByPermissionId(permissionId) > 0;
 	}
+
+	@Override
+	public List<Permission> findByParentId(Long parentId) {
+		List<PermissionDO> permissionDOs = permissionMapper.selectByParentId(parentId);
+		return permissionDOs.stream()
+			.map(permissionConvertor::toEntity)
+			.collect(Collectors.toList());
+	}
 }

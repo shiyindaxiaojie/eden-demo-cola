@@ -50,7 +50,7 @@ public class MenuPath {
 	 * @return 菜单路径值对象
 	 */
 	public static MenuPath of(String value) {
-		ClientAssert.notBlank(value, "MENU-002", "菜单路径不能为空");
+		ClientAssert.hasText(value, "MENU-002", "菜单路径不能为空");
 		String trimmedValue = value.trim();
 		ClientAssert.isTrue(PATH_PATTERN.matcher(trimmedValue).matches(),
 			"MENU-003", "菜单路径格式不正确，必须以/开头");

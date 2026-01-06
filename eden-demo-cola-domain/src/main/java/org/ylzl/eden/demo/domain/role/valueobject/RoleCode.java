@@ -50,7 +50,7 @@ public class RoleCode {
 	 * @return 角色编码值对象
 	 */
 	public static RoleCode of(String value) {
-		ClientAssert.notBlank(value, "ROLE-001", "角色编码不能为空");
+		ClientAssert.hasText(value, "ROLE-001", "角色编码不能为空");
 		String upperValue = value.toUpperCase().trim();
 		ClientAssert.isTrue(CODE_PATTERN.matcher(upperValue).matches(),
 			"ROLE-002", "角色编码格式不正确，只能包含大写字母和下划线，长度2-30位");

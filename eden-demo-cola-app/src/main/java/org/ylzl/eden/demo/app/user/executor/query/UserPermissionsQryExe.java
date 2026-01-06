@@ -19,7 +19,7 @@ package org.ylzl.eden.demo.app.user.executor.query;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.ylzl.eden.cola.dto.ListResponse;
+import org.ylzl.eden.cola.dto.MultiResponse;
 import org.ylzl.eden.demo.client.user.dto.query.UserPermissionsQry;
 import org.ylzl.eden.demo.domain.permission.entity.Permission;
 import org.ylzl.eden.demo.domain.permission.gateway.PermissionGateway;
@@ -46,13 +46,19 @@ public class UserPermissionsQryExe {
 	private final RoleGateway roleGateway;
 	private final PermissionGateway permissionGateway;
 
-	public ListResponse<String> execute(UserPermissionsQry qry) {
+	/**
+	 * 执行查询用户权限
+	 *
+	 * @param qry 查询条件
+	 * @return 用户权限编码列表
+	 */
+	public MultiResponse<String> execute(UserPermissionsQry qry) {
 		ClientAssert.isTrue(userGateway.findById(qry.getUserId()).isPresent(), "USER-404", "用户不存在");
 
 		// 获取用户的所有角色
 		List<Role> roles = userGateway.findRolesByUserId(qry.getUserId());
 		if (roles.isEmpty()) {
-			return ListResponse.of(Collections.emptyList());
+			return MultiResponse.of(Collections.emptyList());
 		}
 
 		// 获取所有角色的权限ID（去重）
@@ -65,7 +71,7 @@ public class UserPermissionsQryExe {
 		}
 
 		if (permissionIds.isEmpty()) {
-			return ListResponse.of(Collections.emptyList());
+			return MultiResponse.of(Collections.emptyList());
 		}
 
 		// 获取权限编码列表
@@ -75,6 +81,6 @@ public class UserPermissionsQryExe {
 			.filter(Objects::nonNull)
 			.collect(Collectors.toList());
 
-		return ListResponse.of(permissionCodes);
+		return MultiResponse.of(permissionCodes);
 	}
 }

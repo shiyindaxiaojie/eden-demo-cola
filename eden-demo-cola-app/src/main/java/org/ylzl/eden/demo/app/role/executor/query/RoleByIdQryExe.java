@@ -41,6 +41,12 @@ public class RoleByIdQryExe {
 	private final RoleMapper roleMapper;
 	private final RoleAssembler roleAssembler;
 
+	/**
+	 * 执行根据ID查询角色
+	 *
+	 * @param qry 查询条件
+	 * @return 角色信息
+	 */
 	public SingleResponse<RoleDTO> execute(RoleByIdQry qry) {
 		RoleDO roleDO = roleMapper.selectById(qry.getId());
 		ClientAssert.notNull(roleDO, "ROLE-002", "角色不存在");

@@ -50,7 +50,7 @@ public class PermissionCode {
 	 * @return 权限编码值对象
 	 */
 	public static PermissionCode of(String value) {
-		ClientAssert.notBlank(value, "PERM-001", "权限编码不能为空");
+		ClientAssert.hasText(value, "PERM-001", "权限编码不能为空");
 		String lowerValue = value.toLowerCase().trim();
 		ClientAssert.isTrue(CODE_PATTERN.matcher(lowerValue).matches(),
 			"PERM-002", "权限编码格式不正确");

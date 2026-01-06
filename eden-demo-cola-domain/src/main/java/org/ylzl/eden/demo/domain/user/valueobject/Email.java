@@ -51,7 +51,7 @@ public class Email {
 	 * @return 邮箱值对象
 	 */
 	public static Email of(String value) {
-		ClientAssert.notBlank(value, "EMAIL-001", "邮箱不能为空");
+		ClientAssert.hasText(value, "EMAIL-001", "邮箱不能为空");
 		ClientAssert.isTrue(EMAIL_PATTERN.matcher(value).matches(),
 			"EMAIL-002", "邮箱格式不正确");
 		ClientAssert.isTrue(value.length() <= 100,

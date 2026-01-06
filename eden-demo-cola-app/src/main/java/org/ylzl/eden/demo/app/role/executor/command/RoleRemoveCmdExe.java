@@ -37,9 +37,15 @@ public class RoleRemoveCmdExe {
 
 	private final RoleGateway roleGateway;
 
+	/**
+	 * 执行删除角色指令
+	 *
+	 * @param cmd 删除角色指令
+	 * @return 响应结果
+	 */
 	public Response execute(RoleRemoveCmd cmd) {
 		ClientAssert.isTrue(roleGateway.findById(cmd.getId()).isPresent(), "ROLE-002", "角色不存在");
-		ClientAssert.isFalse(roleGateway.isUsedByUser(cmd.getId()), "ROLE-003", "角色正在被用户使用，无法删除");
+		ClientAssert.isTrue(!roleGateway.isUsedByUser(cmd.getId()), "ROLE-003", "角色正在被用户使用，无法删除");
 
 		roleGateway.deleteById(cmd.getId());
 		return Response.buildSuccess();

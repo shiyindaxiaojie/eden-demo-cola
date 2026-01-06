@@ -71,7 +71,7 @@ public class Password {
 	 * @param plainText 明文密码
 	 */
 	private static void validate(String plainText) {
-		ClientAssert.notBlank(plainText, "PWD-001", "密码不能为空");
+		ClientAssert.hasText(plainText, "PWD-001", "密码不能为空");
 		ClientAssert.isTrue(plainText.length() >= MIN_LENGTH,
 			"PWD-002", "密码长度不能少于" + MIN_LENGTH + "位");
 		ClientAssert.isTrue(plainText.length() <= MAX_LENGTH,

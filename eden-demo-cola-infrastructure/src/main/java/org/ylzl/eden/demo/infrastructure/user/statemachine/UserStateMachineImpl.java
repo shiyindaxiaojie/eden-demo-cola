@@ -42,32 +42,35 @@ public class UserStateMachineImpl implements UserStateMachine {
 	 */
 	@PostConstruct
 	public void init() {
-		stateMachine = StateMachineFactory
-			.<UserStatus, UserEvent, Object>create(MACHINE_ID)
-			.externalTransition()
-				.from(UserStatus.PENDING)
-				.to(UserStatus.ACTIVE)
-				.on(UserEvent.ACTIVATE)
-				.perform((from, to, event, ctx) -> log.info("用户激活: {} -> {}", from, to))
-			.and()
-			.externalTransition()
-				.from(UserStatus.ACTIVE)
-				.to(UserStatus.LOCKED)
-				.on(UserEvent.LOCK)
-				.perform((from, to, event, ctx) -> log.info("用户锁定: {} -> {}", from, to))
-			.and()
-			.externalTransition()
-				.from(UserStatus.LOCKED)
-				.to(UserStatus.ACTIVE)
-				.on(UserEvent.UNLOCK)
-				.perform((from, to, event, ctx) -> log.info("用户解锁: {} -> {}", from, to))
-			.and()
-			.externalTransitions()
-				.fromAmong(UserStatus.PENDING, UserStatus.ACTIVE, UserStatus.LOCKED)
-				.to(UserStatus.DISABLED)
-				.on(UserEvent.DISABLE)
-				.perform((from, to, event, ctx) -> log.info("用户禁用: {} -> {}", from, to))
-			.build();
+		stateMachine = StateMachineFactory.create(MACHINE_ID);
+
+		// PENDING -> ACTIVE (激活)
+		stateMachine.externalTransition()
+			.from(UserStatus.PENDING)
+			.to(UserStatus.ACTIVE)
+			.on(UserEvent.ACTIVATE)
+			.perform((from, to, event, ctx) -> log.info("用户激活: {} -> {}", from, to));
+
+		// ACTIVE -> LOCKED (锁定)
+		stateMachine.externalTransition()
+			.from(UserStatus.ACTIVE)
+			.to(UserStatus.LOCKED)
+			.on(UserEvent.LOCK)
+			.perform((from, to, event, ctx) -> log.info("用户锁定: {} -> {}", from, to));
+
+		// LOCKED -> ACTIVE (解锁)
+		stateMachine.externalTransition()
+			.from(UserStatus.LOCKED)
+			.to(UserStatus.ACTIVE)
+			.on(UserEvent.UNLOCK)
+			.perform((from, to, event, ctx) -> log.info("用户解锁: {} -> {}", from, to));
+
+		// PENDING/ACTIVE/LOCKED -> DISABLED (禁用)
+		stateMachine.externalTransitions()
+			.fromAmong(UserStatus.PENDING, UserStatus.ACTIVE, UserStatus.LOCKED)
+			.to(UserStatus.DISABLED)
+			.on(UserEvent.DISABLE)
+			.perform((from, to, event, ctx) -> log.info("用户禁用: {} -> {}", from, to));
 	}
 
 	/**

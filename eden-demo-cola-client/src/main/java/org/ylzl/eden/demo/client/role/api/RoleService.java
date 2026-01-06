@@ -21,7 +21,7 @@ import org.ylzl.eden.demo.client.permission.dto.PermissionDTO;
 import org.ylzl.eden.demo.client.role.dto.RoleDTO;
 import org.ylzl.eden.demo.client.role.dto.command.*;
 import org.ylzl.eden.demo.client.role.dto.query.*;
-import org.ylzl.eden.cola.dto.ListResponse;
+import org.ylzl.eden.cola.dto.MultiResponse;
 import org.ylzl.eden.cola.dto.PageResponse;
 import org.ylzl.eden.cola.dto.Response;
 import org.ylzl.eden.cola.dto.SingleResponse;
@@ -52,7 +52,7 @@ public interface RoleService {
 
 	Response assignMenus(RoleAssignMenusCmd cmd);
 
-	ListResponse<PermissionDTO> getRolePermissions(RolePermissionsQry qry);
+	MultiResponse<PermissionDTO> getRolePermissions(RolePermissionsQry qry);
 
-	ListResponse<MenuTreeDTO> getRoleMenus(RoleMenusQry qry);
+	MultiResponse<MenuTreeDTO> getRoleMenus(RoleMenusQry qry);
 }

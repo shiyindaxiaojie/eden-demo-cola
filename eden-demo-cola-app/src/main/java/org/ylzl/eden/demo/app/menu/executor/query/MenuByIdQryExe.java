@@ -41,6 +41,12 @@ public class MenuByIdQryExe {
 	private final MenuGateway menuGateway;
 	private final MenuAssembler menuAssembler;
 
+	/**
+	 * 执行根据ID查询菜单
+	 *
+	 * @param qry 查询条件
+	 * @return 菜单信息
+	 */
 	public SingleResponse<MenuDTO> execute(MenuByIdQry qry) {
 		Menu menu = menuGateway.findById(qry.getId())
 			.orElse(null);

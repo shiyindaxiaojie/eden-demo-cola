@@ -50,7 +50,7 @@ public class Login {
 	 * @return 登录账号值对象
 	 */
 	public static Login of(String value) {
-		ClientAssert.notBlank(value, "LOGIN-001", "账号不能为空");
+		ClientAssert.hasText(value, "LOGIN-001", "账号不能为空");
 		ClientAssert.isTrue(LOGIN_PATTERN.matcher(value).matches(),
 			"LOGIN-002", "账号必须以字母开头，只能包含字母、数字、下划线，长度4-20位");
 		return new Login(value.toLowerCase());

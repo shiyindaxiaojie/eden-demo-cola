@@ -39,9 +39,15 @@ public class MenuAddCmdExe {
 
 	private final MenuGateway menuGateway;
 
+	/**
+	 * 执行新增菜单指令
+	 *
+	 * @param cmd 新增菜单指令
+	 * @return 响应结果
+	 */
 	public Response execute(MenuAddCmd cmd) {
-		MenuPath path = new MenuPath(cmd.getPath());
-		ClientAssert.isFalse(menuGateway.existsByPath(path), "MENU-002", "菜单路径已存在");
+		MenuPath path = MenuPath.of(cmd.getPath());
+		ClientAssert.isTrue(!menuGateway.existsByPath(path), "MENU-002", "菜单路径已存在");
 
 		Menu menu = Menu.create(cmd.getName(), path, cmd.getParentId());
 		menu.updateInfo(null, cmd.getIcon(), cmd.getSort(), cmd.getComponent());

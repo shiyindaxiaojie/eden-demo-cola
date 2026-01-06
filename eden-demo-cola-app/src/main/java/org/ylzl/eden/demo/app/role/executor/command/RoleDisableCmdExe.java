@@ -37,6 +37,12 @@ public class RoleDisableCmdExe {
 
 	private final RoleGateway roleGateway;
 
+	/**
+	 * 执行禁用角色指令
+	 *
+	 * @param cmd 角色状态指令
+	 * @return 响应结果
+	 */
 	public Response execute(RoleStatusCmd cmd) {
 		Role role = roleGateway.findById(cmd.getId())
 			.orElseThrow(() -> new IllegalArgumentException("角色不存在"));

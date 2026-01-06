@@ -44,6 +44,12 @@ public class RoleListByPageQryExe {
 	private final RoleMapper roleMapper;
 	private final RoleAssembler roleAssembler;
 
+	/**
+	 * 执行分页查询角色列表
+	 *
+	 * @param qry 分页查询条件
+	 * @return 角色分页列表
+	 */
 	public PageResponse<RoleDTO> execute(RoleListByPageQry qry) {
 		LambdaQueryWrapper<RoleDO> wrapper = new LambdaQueryWrapper<>();
 		if (StringUtils.isNotBlank(qry.getCode())) {

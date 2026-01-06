@@ -214,7 +214,7 @@ public class RbacDomainService {
 			visited.add(currentParentId);
 
 			Optional<Menu> parentMenu = menuGateway.findById(currentParentId);
-			if (parentMenu.isEmpty()) {
+			if (!parentMenu.isPresent()) {
 				break;
 			}
 			currentParentId = parentMenu.get().getParentId();

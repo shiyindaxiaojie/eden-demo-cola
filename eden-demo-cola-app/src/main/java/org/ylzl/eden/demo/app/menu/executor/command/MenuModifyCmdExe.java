@@ -40,13 +40,19 @@ public class MenuModifyCmdExe {
 
 	private final MenuGateway menuGateway;
 
+	/**
+	 * 执行修改菜单指令
+	 *
+	 * @param cmd 修改菜单指令
+	 * @return 响应结果
+	 */
 	public Response execute(MenuModifyCmd cmd) {
 		Menu menu = menuGateway.findById(cmd.getId())
 			.orElseThrow(() -> new IllegalArgumentException("菜单不存在"));
 
 		if (StringUtils.isNotBlank(cmd.getPath())) {
-			MenuPath newPath = new MenuPath(cmd.getPath());
-			ClientAssert.isFalse(menuGateway.existsByPathExcludeId(newPath, cmd.getId()),
+			MenuPath newPath = MenuPath.of(cmd.getPath());
+			ClientAssert.isTrue(!menuGateway.existsByPathExcludeId(newPath, cmd.getId()),
 				"MENU-002", "菜单路径已存在");
 			menu.updatePath(newPath);
 		}

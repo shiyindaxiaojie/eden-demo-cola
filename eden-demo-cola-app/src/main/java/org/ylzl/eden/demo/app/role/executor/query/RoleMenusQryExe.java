@@ -19,7 +19,7 @@ package org.ylzl.eden.demo.app.role.executor.query;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.ylzl.eden.cola.dto.ListResponse;
+import org.ylzl.eden.cola.dto.MultiResponse;
 import org.ylzl.eden.demo.app.menu.assembler.MenuAssembler;
 import org.ylzl.eden.demo.client.menu.dto.MenuTreeDTO;
 import org.ylzl.eden.demo.client.role.dto.query.RoleMenusQry;
@@ -46,15 +46,21 @@ public class RoleMenusQryExe {
 	private final MenuGateway menuGateway;
 	private final MenuAssembler menuAssembler;
 
-	public ListResponse<MenuTreeDTO> execute(RoleMenusQry qry) {
+	/**
+	 * 执行查询角色菜单
+	 *
+	 * @param qry 查询条件
+	 * @return 角色菜单树列表
+	 */
+	public MultiResponse<MenuTreeDTO> execute(RoleMenusQry qry) {
 		ClientAssert.isTrue(roleGateway.findById(qry.getRoleId()).isPresent(), "ROLE-002", "角色不存在");
 
 		List<Long> menuIds = roleGateway.findMenuIdsByRoleId(qry.getRoleId());
 		if (menuIds.isEmpty()) {
-			return ListResponse.of(Collections.emptyList());
+			return MultiResponse.of(Collections.emptyList());
 		}
 
 		List<Menu> menus = menuGateway.findByIds(menuIds);
-		return ListResponse.of(menuAssembler.buildTree(menus));
+		return MultiResponse.of(menuAssembler.buildTree(menus));
 	}
 }

@@ -49,7 +49,7 @@ public class RoleName {
 	 * @return 角色名称值对象
 	 */
 	public static RoleName of(String value) {
-		ClientAssert.notBlank(value, "ROLE-003", "角色名称不能为空");
+		ClientAssert.hasText(value, "ROLE-003", "角色名称不能为空");
 		String trimmedValue = value.trim();
 		ClientAssert.isTrue(trimmedValue.length() >= MIN_LENGTH && trimmedValue.length() <= MAX_LENGTH,
 			"ROLE-004", "角色名称长度必须在" + MIN_LENGTH + "-" + MAX_LENGTH + "个字符之间");

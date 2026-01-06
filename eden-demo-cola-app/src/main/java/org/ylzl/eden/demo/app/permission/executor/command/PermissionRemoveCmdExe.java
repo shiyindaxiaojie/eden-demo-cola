@@ -37,9 +37,15 @@ public class PermissionRemoveCmdExe {
 
 	private final PermissionGateway permissionGateway;
 
+	/**
+	 * 执行删除权限指令
+	 *
+	 * @param cmd 删除权限指令
+	 * @return 响应结果
+	 */
 	public Response execute(PermissionRemoveCmd cmd) {
 		ClientAssert.isTrue(permissionGateway.findById(cmd.getId()).isPresent(), "PERM-002", "权限不存在");
-		ClientAssert.isFalse(permissionGateway.isUsedByRole(cmd.getId()), "PERM-003", "权限正在被角色使用，无法删除");
+		ClientAssert.isTrue(!permissionGateway.isUsedByRole(cmd.getId()), "PERM-003", "权限正在被角色使用，无法删除");
 		ClientAssert.isTrue(permissionGateway.findByParentId(cmd.getId()).isEmpty(), "PERM-004", "存在子权限，无法删除");
 
 		permissionGateway.deleteById(cmd.getId());

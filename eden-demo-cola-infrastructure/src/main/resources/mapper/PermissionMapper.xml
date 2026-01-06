@@ -69,4 +69,11 @@
 		WHERE permission_id = #{permissionId}
 	</select>
 
+	<select id="selectByParentId" resultMap="dbResultMap">
+		SELECT <include refid="baseColumns"/>
+		FROM demo_permission
+		WHERE parent_id = #{parentId}
+		ORDER BY sort ASC
+	</select>
+
 </mapper>

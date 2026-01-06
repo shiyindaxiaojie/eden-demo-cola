@@ -19,7 +19,7 @@ package org.ylzl.eden.demo.app.user.executor.query;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.ylzl.eden.cola.dto.ListResponse;
+import org.ylzl.eden.cola.dto.MultiResponse;
 import org.ylzl.eden.demo.app.menu.assembler.MenuAssembler;
 import org.ylzl.eden.demo.client.menu.dto.MenuTreeDTO;
 import org.ylzl.eden.demo.client.user.dto.query.UserMenusQry;
@@ -49,13 +49,19 @@ public class UserMenusQryExe {
 	private final MenuGateway menuGateway;
 	private final MenuAssembler menuAssembler;
 
-	public ListResponse<MenuTreeDTO> execute(UserMenusQry qry) {
+	/**
+	 * 执行查询用户菜单
+	 *
+	 * @param qry 查询条件
+	 * @return 用户菜单树列表
+	 */
+	public MultiResponse<MenuTreeDTO> execute(UserMenusQry qry) {
 		ClientAssert.isTrue(userGateway.findById(qry.getUserId()).isPresent(), "USER-404", "用户不存在");
 
 		// 获取用户的所有角色
 		List<Role> roles = userGateway.findRolesByUserId(qry.getUserId());
 		if (roles.isEmpty()) {
-			return ListResponse.of(Collections.emptyList());
+			return MultiResponse.of(Collections.emptyList());
 		}
 
 		// 获取所有角色的菜单ID（去重）
@@ -68,7 +74,7 @@ public class UserMenusQryExe {
 		}
 
 		if (menuIds.isEmpty()) {
-			return ListResponse.of(Collections.emptyList());
+			return MultiResponse.of(Collections.emptyList());
 		}
 
 		// 获取菜单并构建树
@@ -78,6 +84,6 @@ public class UserMenusQryExe {
 			.filter(Menu::isVisible)
 			.collect(Collectors.toList());
 
-		return ListResponse.of(menuAssembler.buildTree(menus));
+		return MultiResponse.of(menuAssembler.buildTree(menus));
 	}
 }

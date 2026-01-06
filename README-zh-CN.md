@@ -152,25 +152,344 @@ helm uninstall eden-demo-cola # 卸载资源
 
 ## 持续集成
 
-> CI/CD 工具选型：Jenkins、Zadig、CODING、Codeup
+> CI/CD 工具选型：Jenkins、CODING、Codeup、Zadig、KubeVela
+
+### Jenkins 持续集成
+
+下图演示基于 Jenkins 实现持续构建、持续部署的效果。
+
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/eden-demo-cola/jenkins-pipeline.png)
 
 ### CODING 持续集成
 
-下图演示基于 CODING 实现持续构建、持续部署的效果。[传送门](https://www.yuque.com/mengxiangge/action/coding)
+下图演示基于 CODING 实现持续构建、持续部署的效果。[传送门](https://mengxiangge.netlify.app/2022/08/10/devops/coding%20%E6%8C%81%E7%BB%AD%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5/?highlight=coding)
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/common/coding-cicd.png)
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/eden-demo-cola/coding-cicd.png)
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/common/coding-test-report.png)
-
-### Codeup 持续集成
-
-> TODO, Coming soon
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/eden-demo-cola/coding-test-report.png)
 
 ## 最佳实践
 
 ### DDD 领域驱动设计
 
-> TODO, Coming soon
+本项目以 RBAC（基于角色的访问控制）为例，展示如何在 COLA 架构中落地 DDD 领域驱动设计。
+
+#### 战略设计
+
+**限界上下文划分**
+
+```mermaid
+graph TB
+    subgraph 用户上下文
+        User[用户聚合根]
+        UserGateway[用户网关]
+        UserDomainService[用户领域服务]
+    end
+    
+    subgraph 角色上下文
+        Role[角色聚合根]
+        RoleGateway[角色网关]
+    end
+    
+    subgraph 权限上下文
+        Permission[权限聚合根]
+        PermissionGateway[权限网关]
+    end
+    
+    subgraph 菜单上下文
+        Menu[菜单聚合根]
+        MenuGateway[菜单网关]
+    end
+    
+    subgraph RBAC上下文
+        RbacDomainService[RBAC领域服务]
+    end
+    
+    User -.->|分配| Role
+    Role -.->|关联| Permission
+    Role -.->|关联| Menu
+    RbacDomainService --> User
+    RbacDomainService --> Role
+    RbacDomainService --> Permission
+```
+
+#### 战术设计
+
+**领域模型**
+
+```mermaid
+classDiagram
+    class User {
+        -Long id
+        -Login login
+        -Email email
+        -Password password
+        -UserStatus status
+        +create(login, email, password) User
+        +changeEmail(newEmail)
+        +changePassword(currentPassword, newPassword)
+        +activate()
+        +lock()
+        +unlock()
+        +disable()
+        +verifyPassword(plainPassword) boolean
+        +canLogin() boolean
+    }
+    
+    class Role {
+        -Long id
+        -RoleCode code
+        -RoleName name
+        -String description
+        -RoleStatus status
+        -Integer sort
+        +create(code, name) Role
+        +updateInfo(name, description, sort)
+        +enable()
+        +disable()
+        +isEnabled() boolean
+    }
+    
+    class Permission {
+        -Long id
+        -PermissionCode code
+        -String name
+        -PermissionType type
+        -Long parentId
+        -String description
+        -Integer sort
+        +create(code, name, type) Permission
+        +updateInfo(name, description, sort)
+        +setParent(parentId)
+        +isMenuPermission() boolean
+        +isButtonPermission() boolean
+        +isRoot() boolean
+    }
+    
+    class Menu {
+        -Long id
+        -String name
+        -MenuPath path
+        -String icon
+        -Long parentId
+        -Integer sort
+        -MenuStatus status
+        -String component
+        +create(name, path, parentId) Menu
+        +updateInfo(name, icon, sort, component)
+        +updatePath(path)
+        +setParent(parentId)
+        +show()
+        +hide()
+        +isVisible() boolean
+        +isRootMenu() boolean
+    }
+    
+    class Login {
+        <<Value Object>>
+        -String value
+        +of(value) Login
+    }
+    
+    class Email {
+        <<Value Object>>
+        -String value
+        +of(value) Email
+    }
+    
+    class Password {
+        <<Value Object>>
+        -String value
+        +of(plainPassword) Password
+        +matches(plainPassword) boolean
+    }
+    
+    class RoleCode {
+        <<Value Object>>
+        -String value
+        +of(value) RoleCode
+    }
+    
+    class RoleName {
+        <<Value Object>>
+        -String value
+        +of(value) RoleName
+    }
+    
+    class PermissionCode {
+        <<Value Object>>
+        -String value
+        +of(value) PermissionCode
+    }
+    
+    class MenuPath {
+        <<Value Object>>
+        -String value
+        +of(value) MenuPath
+    }
+    
+    User *-- Login
+    User *-- Email
+    User *-- Password
+    Role *-- RoleCode
+    Role *-- RoleName
+    Permission *-- PermissionCode
+    Menu *-- MenuPath
+    
+    User "1" -- "*" Role : 分配
+    Role "1" -- "*" Permission : 关联
+    Role "1" -- "*" Menu : 关联
+```
+
+**领域事件**
+
+```mermaid
+sequenceDiagram
+    participant App as 应用层
+    participant User as 用户聚合根
+    participant EventPublisher as 事件发布器
+    participant EventHandler as 事件处理器
+    
+    App->>User: 创建用户
+    User->>User: 注册 UserCreatedEvent
+    App->>User: 获取领域事件
+    App->>EventPublisher: 发布事件
+    EventPublisher->>EventHandler: 处理 UserCreatedEvent
+    EventHandler->>EventHandler: 发送欢迎邮件
+    App->>User: 清除领域事件
+```
+
+#### 分层架构
+
+**COLA 分层与 DDD 映射**
+
+```mermaid
+graph TB
+    subgraph Adapter适配层
+        Controller[REST Controller]
+        RpcProvider[RPC Provider]
+    end
+    
+    subgraph App应用层
+        Service[应用服务]
+        CmdExe[指令执行器]
+        QryExe[查询执行器]
+        Assembler[DTO装配器]
+    end
+    
+    subgraph Domain领域层
+        Entity[聚合根/实体]
+        ValueObject[值对象]
+        DomainService[领域服务]
+        DomainEvent[领域事件]
+        Gateway[防腐层接口]
+    end
+    
+    subgraph Infrastructure基础设施层
+        GatewayImpl[网关实现]
+        Mapper[数据映射器]
+        DataObject[数据对象]
+        EventHandler[事件处理器]
+    end
+    
+    Controller --> Service
+    RpcProvider --> Service
+    Service --> CmdExe
+    Service --> QryExe
+    CmdExe --> Entity
+    CmdExe --> DomainService
+    CmdExe --> Gateway
+    QryExe --> Mapper
+    Entity --> ValueObject
+    Entity --> DomainEvent
+    DomainService --> Gateway
+    GatewayImpl -.->|实现| Gateway
+    GatewayImpl --> Mapper
+    Mapper --> DataObject
+    EventHandler --> DomainEvent
+```
+
+**CQRS 命令查询分离**
+
+```mermaid
+flowchart LR
+    subgraph 命令流程
+        C1[Controller] --> C2[CommandService]
+        C2 --> C3[CmdExe]
+        C3 --> C4[Domain]
+        C4 --> C5[Gateway]
+        C5 --> C6[(Database)]
+    end
+    
+    subgraph 查询流程
+        Q1[Controller] --> Q2[QueryService]
+        Q2 --> Q3[QryExe]
+        Q3 --> Q4[Mapper]
+        Q4 --> Q5[(Database)]
+    end
+```
+
+#### 代码结构
+
+```
+eden-demo-cola-domain/
+├── user/                          # 用户限界上下文
+│   ├── entity/                    # 实体
+│   │   ├── User.java              # 用户聚合根
+│   │   └── UserStatus.java        # 用户状态枚举
+│   ├── valueobject/               # 值对象
+│   │   ├── Login.java             # 登录账号
+│   │   ├── Email.java             # 邮箱
+│   │   └── Password.java          # 密码
+│   ├── event/                     # 领域事件
+│   │   ├── UserCreatedEvent.java  # 用户创建事件
+│   │   └── UserEmailChangedEvent.java
+│   ├── domainservice/             # 领域服务
+│   │   └── UserDomainService.java
+│   ├── gateway/                   # 防腐层接口
+│   │   └── UserGateway.java
+│   └── statemachine/              # 状态机
+│       └── UserStateMachine.java
+├── role/                          # 角色限界上下文
+│   ├── entity/
+│   │   ├── Role.java              # 角色聚合根
+│   │   └── RoleStatus.java
+│   ├── valueobject/
+│   │   ├── RoleCode.java
+│   │   └── RoleName.java
+│   └── gateway/
+│       └── RoleGateway.java
+├── permission/                    # 权限限界上下文
+│   ├── entity/
+│   │   ├── Permission.java        # 权限聚合根
+│   │   └── PermissionType.java
+│   ├── valueobject/
+│   │   └── PermissionCode.java
+│   └── gateway/
+│       └── PermissionGateway.java
+├── menu/                          # 菜单限界上下文
+│   ├── entity/
+│   │   ├── Menu.java              # 菜单聚合根
+│   │   └── MenuStatus.java
+│   ├── valueobject/
+│   │   └── MenuPath.java
+│   └── gateway/
+│       └── MenuGateway.java
+└── rbac/                          # RBAC 跨上下文协调
+    └── domainservice/
+        └── RbacDomainService.java
+```
+
+#### 设计原则
+
+| 原则 | 说明 | 示例 |
+|------|------|------|
+| 聚合根 | 作为聚合的入口，保证聚合内的一致性 | User、Role、Permission、Menu |
+| 值对象 | 无唯一标识，通过属性值判断相等性 | Login、Email、Password、RoleCode |
+| 领域事件 | 记录领域中发生的重要事件 | UserCreatedEvent、UserEmailChangedEvent |
+| 领域服务 | 处理跨聚合的业务逻辑 | UserDomainService、RbacDomainService |
+| 防腐层 | 隔离领域层与基础设施层 | UserGateway、RoleGateway |
+| 依赖倒置 | 领域层定义接口，基础设施层实现 | Gateway 接口与 GatewayImpl 实现 |
 
 ### Git 多人协作分支管理
 

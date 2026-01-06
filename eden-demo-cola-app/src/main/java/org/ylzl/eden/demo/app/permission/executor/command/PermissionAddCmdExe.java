@@ -40,9 +40,15 @@ public class PermissionAddCmdExe {
 
 	private final PermissionGateway permissionGateway;
 
+	/**
+	 * 执行新增权限指令
+	 *
+	 * @param cmd 新增权限指令
+	 * @return 响应结果
+	 */
 	public Response execute(PermissionAddCmd cmd) {
-		PermissionCode code = new PermissionCode(cmd.getCode());
-		ClientAssert.isFalse(permissionGateway.existsByCode(code), "PERM-001", "权限编码已存在");
+		PermissionCode code = PermissionCode.of(cmd.getCode());
+		ClientAssert.isTrue(!permissionGateway.existsByCode(code), "PERM-001", "权限编码已存在");
 
 		PermissionType type = PermissionType.of(cmd.getType());
 		Permission permission = Permission.create(code, cmd.getName(), type);

@@ -20,7 +20,7 @@ import org.ylzl.eden.demo.client.menu.dto.MenuDTO;
 import org.ylzl.eden.demo.client.menu.dto.MenuTreeDTO;
 import org.ylzl.eden.demo.client.menu.dto.command.*;
 import org.ylzl.eden.demo.client.menu.dto.query.*;
-import org.ylzl.eden.cola.dto.ListResponse;
+import org.ylzl.eden.cola.dto.MultiResponse;
 import org.ylzl.eden.cola.dto.Response;
 import org.ylzl.eden.cola.dto.SingleResponse;
 
@@ -40,5 +40,5 @@ public interface MenuService {
 
 	SingleResponse<MenuDTO> getMenuById(MenuByIdQry qry);
 
-	ListResponse<MenuTreeDTO> listMenuTree(MenuTreeQry qry);
+	MultiResponse<MenuTreeDTO> listMenuTree(MenuTreeQry qry);
 }

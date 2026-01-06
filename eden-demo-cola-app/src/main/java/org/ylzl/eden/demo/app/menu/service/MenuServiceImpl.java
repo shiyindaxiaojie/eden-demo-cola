@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.ylzl.eden.cola.dto.ListResponse;
+import org.ylzl.eden.cola.dto.MultiResponse;
 import org.ylzl.eden.cola.dto.Response;
 import org.ylzl.eden.cola.dto.SingleResponse;
 import org.ylzl.eden.demo.app.menu.executor.command.*;
@@ -48,31 +48,61 @@ public class MenuServiceImpl implements MenuService {
 	private final MenuByIdQryExe menuByIdQryExe;
 	private final MenuTreeQryExe menuTreeQryExe;
 
+	/**
+	 * 创建菜单
+	 *
+	 * @param cmd 创建菜单指令
+	 * @return 响应结果
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Response createMenu(MenuAddCmd cmd) {
 		return menuAddCmdExe.execute(cmd);
 	}
 
+	/**
+	 * 修改菜单
+	 *
+	 * @param cmd 修改菜单指令
+	 * @return 响应结果
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Response modifyMenu(MenuModifyCmd cmd) {
 		return menuModifyCmdExe.execute(cmd);
 	}
 
+	/**
+	 * 删除菜单
+	 *
+	 * @param cmd 删除菜单指令
+	 * @return 响应结果
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Response removeMenu(MenuRemoveCmd cmd) {
 		return menuRemoveCmdExe.execute(cmd);
 	}
 
+	/**
+	 * 根据ID获取菜单信息
+	 *
+	 * @param qry 查询条件
+	 * @return 菜单信息
+	 */
 	@Override
 	public SingleResponse<MenuDTO> getMenuById(MenuByIdQry qry) {
 		return menuByIdQryExe.execute(qry);
 	}
 
+	/**
+	 * 获取菜单树列表
+	 *
+	 * @param qry 查询条件
+	 * @return 菜单树列表
+	 */
 	@Override
-	public ListResponse<MenuTreeDTO> listMenuTree(MenuTreeQry qry) {
+	public MultiResponse<MenuTreeDTO> listMenuTree(MenuTreeQry qry) {
 		return menuTreeQryExe.execute(qry);
 	}
 }

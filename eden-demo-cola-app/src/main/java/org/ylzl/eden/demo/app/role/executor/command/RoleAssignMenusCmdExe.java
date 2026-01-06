@@ -39,6 +39,12 @@ public class RoleAssignMenusCmdExe {
 
 	private final RoleGateway roleGateway;
 
+	/**
+	 * 执行角色分配菜单指令
+	 *
+	 * @param cmd 分配菜单指令
+	 * @return 响应结果
+	 */
 	public Response execute(RoleAssignMenusCmd cmd) {
 		ClientAssert.isTrue(roleGateway.findById(cmd.getRoleId()).isPresent(), "ROLE-002", "角色不存在");
 

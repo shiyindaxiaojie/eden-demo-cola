@@ -19,7 +19,7 @@ package org.ylzl.eden.demo.adapter.permission.web;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import org.ylzl.eden.cola.dto.ListResponse;
+import org.ylzl.eden.cola.dto.MultiResponse;
 import org.ylzl.eden.cola.dto.Response;
 import org.ylzl.eden.cola.dto.SingleResponse;
 import org.ylzl.eden.demo.adapter.constant.API;
@@ -45,29 +45,60 @@ public class PermissionController {
 
 	private final PermissionService permissionService;
 
+	/**
+	 * 创建权限
+	 *
+	 * @param cmd 创建权限指令
+	 * @return 响应结果
+	 */
 	@PostMapping
 	public Response createPermission(@Valid @RequestBody PermissionAddCmd cmd) {
 		return permissionService.createPermission(cmd);
 	}
 
+	/**
+	 * 修改权限
+	 *
+	 * @param id  权限主键
+	 * @param cmd 修改权限指令
+	 * @return 响应结果
+	 */
 	@PutMapping("/{id}")
 	public Response modifyPermission(@PathVariable Long id, @Valid @RequestBody PermissionModifyCmd cmd) {
 		cmd.setId(id);
 		return permissionService.modifyPermission(cmd);
 	}
 
+	/**
+	 * 删除权限
+	 *
+	 * @param id 权限主键
+	 * @return 响应结果
+	 */
 	@DeleteMapping("/{id}")
 	public Response removePermission(@PathVariable Long id) {
 		return permissionService.removePermission(PermissionRemoveCmd.builder().id(id).build());
 	}
 
+	/**
+	 * 根据主键获取权限信息
+	 *
+	 * @param id 权限主键
+	 * @return 权限信息
+	 */
 	@GetMapping("/{id}")
 	public SingleResponse<PermissionDTO> getPermissionById(@PathVariable Long id) {
 		return permissionService.getPermissionById(PermissionByIdQry.builder().id(id).build());
 	}
 
+	/**
+	 * 获取权限树列表
+	 *
+	 * @param qry 查询条件
+	 * @return 权限树列表
+	 */
 	@GetMapping("/tree")
-	public ListResponse<PermissionTreeDTO> listPermissionTree(@ModelAttribute PermissionTreeQry qry) {
+	public MultiResponse<PermissionTreeDTO> listPermissionTree(@ModelAttribute PermissionTreeQry qry) {
 		return permissionService.listPermissionTree(qry);
 	}
 }

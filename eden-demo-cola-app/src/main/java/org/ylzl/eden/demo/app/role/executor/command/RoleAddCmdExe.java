@@ -40,11 +40,17 @@ public class RoleAddCmdExe {
 
 	private final RoleGateway roleGateway;
 
+	/**
+	 * 执行新增角色指令
+	 *
+	 * @param cmd 新增角色指令
+	 * @return 响应结果
+	 */
 	public Response execute(RoleAddCmd cmd) {
-		RoleCode code = new RoleCode(cmd.getCode());
-		ClientAssert.isFalse(roleGateway.existsByCode(code), "ROLE-001", "角色编码已存在");
+		RoleCode code = RoleCode.of(cmd.getCode());
+		ClientAssert.isTrue(!roleGateway.existsByCode(code), "ROLE-001", "角色编码已存在");
 
-		Role role = Role.create(code, new RoleName(cmd.getName()));
+		Role role = Role.create(code, RoleName.of(cmd.getName()));
 		role.updateInfo(null, cmd.getDescription(), cmd.getSort());
 		roleGateway.save(role);
 		return Response.buildSuccess();

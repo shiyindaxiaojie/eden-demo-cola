@@ -37,6 +37,12 @@ public class PermissionModifyCmdExe {
 
 	private final PermissionGateway permissionGateway;
 
+	/**
+	 * 执行修改权限指令
+	 *
+	 * @param cmd 修改权限指令
+	 * @return 响应结果
+	 */
 	public Response execute(PermissionModifyCmd cmd) {
 		Permission permission = permissionGateway.findById(cmd.getId())
 			.orElseThrow(() -> new IllegalArgumentException("权限不存在"));

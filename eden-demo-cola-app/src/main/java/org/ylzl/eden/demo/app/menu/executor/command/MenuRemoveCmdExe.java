@@ -37,10 +37,16 @@ public class MenuRemoveCmdExe {
 
 	private final MenuGateway menuGateway;
 
+	/**
+	 * 执行删除菜单指令
+	 *
+	 * @param cmd 删除菜单指令
+	 * @return 响应结果
+	 */
 	public Response execute(MenuRemoveCmd cmd) {
 		ClientAssert.isTrue(menuGateway.findById(cmd.getId()).isPresent(), "MENU-003", "菜单不存在");
-		ClientAssert.isFalse(menuGateway.hasChildren(cmd.getId()), "MENU-004", "存在子菜单，无法删除");
-		ClientAssert.isFalse(menuGateway.isUsedByRole(cmd.getId()), "MENU-005", "菜单正在被角色使用，无法删除");
+		ClientAssert.isTrue(!menuGateway.hasChildren(cmd.getId()), "MENU-004", "存在子菜单，无法删除");
+		ClientAssert.isTrue(!menuGateway.isUsedByRole(cmd.getId()), "MENU-005", "菜单正在被角色使用，无法删除");
 
 		menuGateway.deleteById(cmd.getId());
 		return Response.buildSuccess();

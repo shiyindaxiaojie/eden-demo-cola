@@ -19,7 +19,7 @@ package org.ylzl.eden.demo.adapter.menu.web;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import org.ylzl.eden.cola.dto.ListResponse;
+import org.ylzl.eden.cola.dto.MultiResponse;
 import org.ylzl.eden.cola.dto.Response;
 import org.ylzl.eden.cola.dto.SingleResponse;
 import org.ylzl.eden.demo.adapter.constant.API;
@@ -45,29 +45,60 @@ public class MenuController {
 
 	private final MenuService menuService;
 
+	/**
+	 * 创建菜单
+	 *
+	 * @param cmd 创建菜单指令
+	 * @return 响应结果
+	 */
 	@PostMapping
 	public Response createMenu(@Valid @RequestBody MenuAddCmd cmd) {
 		return menuService.createMenu(cmd);
 	}
 
+	/**
+	 * 修改菜单
+	 *
+	 * @param id  菜单主键
+	 * @param cmd 修改菜单指令
+	 * @return 响应结果
+	 */
 	@PutMapping("/{id}")
 	public Response modifyMenu(@PathVariable Long id, @Valid @RequestBody MenuModifyCmd cmd) {
 		cmd.setId(id);
 		return menuService.modifyMenu(cmd);
 	}
 
+	/**
+	 * 删除菜单
+	 *
+	 * @param id 菜单主键
+	 * @return 响应结果
+	 */
 	@DeleteMapping("/{id}")
 	public Response removeMenu(@PathVariable Long id) {
 		return menuService.removeMenu(MenuRemoveCmd.builder().id(id).build());
 	}
 
+	/**
+	 * 根据主键获取菜单信息
+	 *
+	 * @param id 菜单主键
+	 * @return 菜单信息
+	 */
 	@GetMapping("/{id}")
 	public SingleResponse<MenuDTO> getMenuById(@PathVariable Long id) {
 		return menuService.getMenuById(MenuByIdQry.builder().id(id).build());
 	}
 
+	/**
+	 * 获取菜单树列表
+	 *
+	 * @param qry 查询条件
+	 * @return 菜单树列表
+	 */
 	@GetMapping("/tree")
-	public ListResponse<MenuTreeDTO> listMenuTree(@ModelAttribute MenuTreeQry qry) {
+	public MultiResponse<MenuTreeDTO> listMenuTree(@ModelAttribute MenuTreeQry qry) {
 		return menuService.listMenuTree(qry);
 	}
 }

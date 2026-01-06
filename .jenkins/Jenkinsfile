@@ -1,0 +1,222 @@
+pipeline {
+    agent {
+        kubernetes {
+            inheritFrom 'jenkins-agent-maven-jdk11'
+        }
+    }
+
+    environment {
+        IMAGE_PROJECT = 'eden'
+        IMAGE_NAME = 'eden-demo-cola'
+        ARTIFACT_VERSION = "${env.BRANCH_NAME}-${env.GIT_COMMIT.substring(0, 7)}"
+        NEW_IMAGE = "${env.DOCKER_REGISTRY}/${IMAGE_PROJECT}/${IMAGE_NAME}:${ARTIFACT_VERSION}"
+
+        // Dinktalk robot
+        DINGTALK_ROBOT_ID = 'dingtalk-robot'
+
+        // Rainbond 
+        // see: http://HOST:PORT/#/team/0a1b2c4d/region/test/apps/1/overview?componentID=grbcefgh&type=components&tab=overview
+        RAINBOND_TEAM_ID = '0a1b2c4d'
+        RAINBOND_REGION_NAME = 'test'
+        RAINBOND_APP_ID = '1'
+        RAINBOND_SERVICE_ID = 'grbcefgh'
+    }
+
+    stages {
+        stage('Check Trigger & Changes') {
+            steps {
+                script {
+                    def isManual = currentBuild.getBuildCauses().toString().contains('UserIdCause')
+                    def hasChanges = false
+                    currentBuild.changeSets.each { set ->
+                        if (set.items.length > 0) {
+                            hasChanges = true
+                        }
+                    }
+
+                    echo "Trigger Type: ${isManual ? 'Manual' : 'System/SCM'}"
+                    echo "Has Changes: ${hasChanges}"
+
+                    if (!isManual && !hasChanges) {
+                        echo "Skipping build: No changes detected in SCM trigger."
+                        currentBuild.result = 'ABORTED'
+                        error("Skipping build: No changes detected in SCM trigger.")
+                    }
+                }
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                script {
+                    def targetVersion = "${env.ARTIFACT_VERSION}"
+                    // 判断分支逻辑：如果是 test 分支，强制版本为 test-SNAPSHOT
+                    if (env.BRANCH_NAME == 'test') {
+                        targetVersion = "test-SNAPSHOT"
+                    }
+                    
+                    withEnv(["JAVA_HOME=${env.JDK11_HOME}", "PATH+JDK8=${env.JDK11_HOME}/bin"]) {
+                        sh """
+                            mvn -U -T 4C -DskipTests \
+                            versions:set -DnewVersion=${targetVersion} \
+                            clean package deploy
+                        """
+                    }
+                }
+            }
+        }
+
+        stage('Deliver for development') {
+            when {
+                branch 'test'
+            }
+            steps {
+                script {
+                    withCredentials([usernamePassword(
+                        credentialsId: 'docker-robot',
+                        usernameVariable: 'DOCKER_USERNAME',
+                        passwordVariable: 'DOCKER_PASSWORD'
+                    )]) {
+                        sh "echo ${env.DOCKER_PASSWORD} | docker login ${env.DOCKER_REGISTRY} -u '${DOCKER_USERNAME}' --password-stdin"
+                        sh "docker build -t ${NEW_IMAGE} -f docker/Dockerfile ."
+                        sh "docker push ${NEW_IMAGE}"
+                    }
+                }
+                //timeout(time: 30, unit: 'MINUTES') {
+                //    input message: 'Finished deploy to K8s? (Click "Proceed" to continue)'
+                //}
+                script {
+                    def COMPONENT_BUILD_URL = "http://${env.RAINBOND_HOST}:${env.RAINBOND_PORT}/openapi/v1/teams/${env.RAINBOND_TEAM_ID}/regions/${env.RAINBOND_REGION_NAME}/apps/${env.RAINBOND_APP_ID}/services/${env.RAINBOND_SERVICE_ID}/build"
+
+                    withCredentials([
+                        string(credentialsId: 'rainbond-openapi', variable: 'RAINBOND_TOKEN'),
+                        usernamePassword(credentialsId: 'docker-robot', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        
+                        sh """
+                            curl -X POST '${COMPONENT_BUILD_URL}' \
+                                -H 'Content-Type: application/json' \
+                                -H 'Authorization: ${env.RAINBOND_TOKEN}' \
+                                -d '{"build_type": "docker_image", "repo_url": "${env.NEW_IMAGE}", "username": "${env.DOCKER_USERNAME}", "password": "${env.DOCKER_PASSWORD}"}'
+                        """
+                        echo "Triiger rainbond build successfully."
+                    }
+                }
+            }
+        }
+
+        stage('Deploy for production') {
+            when {
+                branch 'release'
+            }
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'docker-robot',
+                    usernameVariable: 'DOCKER_USERNAME',
+                    passwordVariable: 'DOCKER_PASSWORD'
+                )]) {
+                    sh "echo ${env.DOCKER_PASSWORD} | docker login ${env.DOCKER_REGISTRY} -u '${env.DOCKER_USERNAME}' --password-stdin"
+                    sh "docker build -t ${env.NEW_IMAGE} -f docker/Dockerfile ."
+                    sh "docker push ${env.NEW_IMAGE}"
+                }
+            }
+        }
+    }
+    
+    post {
+        success {
+            script {
+                def duration = currentBuild.durationString.replace(' and counting', '')
+                def changeEntries = []
+                currentBuild.changeSets.each { set ->
+                    set.items.each { entry ->
+                        changeEntries << "• ${entry.msg} (${entry.author.fullName})  "
+                    }
+                }
+                
+                def finalChangeLog = changeEntries ? changeEntries.join("\n") : "• 暂无代码变更"
+               
+                def jenkinsUrlEnc = java.net.URLEncoder.encode("${env.BUILD_URL}", "UTF-8")
+                def buttonList = [
+                    [
+                        title: '查看 Jenkins 构建',
+                        actionUrl: "dingtalk://dingtalkclient/page/link?pc_slide=false&url=${jenkinsUrlEnc}"
+                    ]
+                ]
+                echo "${jenkinsUrlEnc}"
+
+                if (env.BRANCH_NAME == 'test') {
+                    def k8sRaw = "http://${env.RAINBOND_HOST}:${env.RAINBOND_PORT}/#/team/${env.RAINBOND_TEAM_ID}/region/${env.RAINBOND_REGION_NAME}/apps/${env.RAINBOND_APP_ID}/overview?componentID=${env.RAINBOND_SERVICE_ID}&type=components&tab=overview"
+                    def k8sEnc = java.net.URLEncoder.encode(k8sRaw, "UTF-8")
+                    buttonList.add([
+                        title: '验证 Kubernetes 部署',
+                        actionUrl: "dingtalk://dingtalkclient/page/link?pc_slide=false&url=${k8sEnc}"
+                    ])
+                    echo "${k8sEnc}"
+                }
+
+                dingtalk (
+                    robot: "${env.DINGTALK_ROBOT_ID}",
+                    type: 'ACTION_CARD',
+                    title: "✅ 构建成功: ${env.IMAGE_NAME}",
+                    text: [
+                        "### ✅ <font color='#2A6EBB'>${env.IMAGE_NAME} 构建成功</font>  \n",
+                        "---  \n",
+                        "#### ⚙️ 任务：[#${env.BUILD_NUMBER}](${env.BUILD_URL})  \n",
+                        "#### 🟢 状态：<font color='#00B42A'>Success</font>  \n",
+                        "#### ⏱ 耗时：${duration}  \n",
+                        "#### 🌿 分支：${env.BRANCH_NAME}  \n",
+                        "#### 🔖 版本：${env.ARTIFACT_VERSION}  \n",
+                        "  \n",
+                        "#### 🐳 镜像地址  \n",
+                        "> ${env.NEW_IMAGE}  \n",
+                        "  \n",
+                        "#### 📝 变更内容  \n",
+                        "> ${finalChangeLog}"
+                    ],
+                    btns: buttonList
+                )
+            }
+        }
+        failure {
+            script {
+                if (currentBuild.result != 'ABORTED') {
+                    def duration = currentBuild.durationString.replace(' and counting', '')
+                    def changeEntries = []
+                    currentBuild.changeSets.each { set ->
+                        set.items.each { entry ->
+                            changeEntries << "• ${entry.msg} (${entry.author.fullName})  "
+                        }
+                    }
+                    
+                    def finalChangeLog = changeEntries ? changeEntries.join("\n") : "• 暂无代码变更"
+
+                    dingtalk (
+                        robot: "${env.DINGTALK_ROBOT_ID}",
+                        type: 'ACTION_CARD',
+                        title: "❌ 构建失败: ${env.IMAGE_NAME}",
+                        text: [
+                            "### ❌ <font color='#FF0000'>${env.IMAGE_NAME} 构建失败</font>  \n",
+                            "---  \n",
+                            "#### ⚙️ 任务：[#${env.BUILD_NUMBER}](${env.BUILD_URL})  \n",
+                            "#### 🔴 状态：<font color='#FF0000'>Failure</font>  \n",
+                            "#### ⏱ 耗时：${duration}  \n",
+                            "#### 🌿 分支：${env.BRANCH_NAME}  \n",
+                            "#### 🔖 版本：${env.ARTIFACT_VERSION}  \n",
+                            "  \n",
+                            "#### 📝 变更内容  \n",
+                            "> ${finalChangeLog}"
+                        ],
+                        btns: [
+                            [
+                                title: '立即排错',
+                                actionUrl: "dingtalk://dingtalkclient/page/link?pc_slide=false&url=${env.BUILD_URL}console"
+                            ]
+                        ]
+                    )
+                } else {
+                    echo "Build was aborted due to no changes, skipping DingTalk notification."
+                }
+            }
+        }
+    }
+}

@@ -24,7 +24,7 @@ import org.ylzl.eden.demo.client.user.dto.command.UserAssignRolesCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd;
 import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
 import org.ylzl.eden.demo.client.user.dto.query.*;
-import org.ylzl.eden.cola.dto.ListResponse;
+import org.ylzl.eden.cola.dto.MultiResponse;
 import org.ylzl.eden.cola.dto.PageResponse;
 import org.ylzl.eden.cola.dto.Response;
 import org.ylzl.eden.cola.dto.SingleResponse;
@@ -88,7 +88,7 @@ public interface UserService {
 	 * @param qry
 	 * @return
 	 */
-	ListResponse<RoleDTO> getUserRoles(UserRolesQry qry);
+	MultiResponse<RoleDTO> getUserRoles(UserRolesQry qry);
 
 	/**
 	 * 获取用户菜单
@@ -96,7 +96,7 @@ public interface UserService {
 	 * @param qry
 	 * @return
 	 */
-	ListResponse<MenuTreeDTO> getUserMenus(UserMenusQry qry);
+	MultiResponse<MenuTreeDTO> getUserMenus(UserMenusQry qry);
 
 	/**
 	 * 获取用户权限
@@ -104,5 +104,5 @@ public interface UserService {
 	 * @param qry
 	 * @return
 	 */
-	ListResponse<String> getUserPermissions(UserPermissionsQry qry);
+	MultiResponse<String> getUserPermissions(UserPermissionsQry qry);
 }

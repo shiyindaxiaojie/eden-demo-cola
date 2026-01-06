@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.ylzl.eden.cola.dto.ListResponse;
+import org.ylzl.eden.cola.dto.MultiResponse;
 import org.ylzl.eden.cola.dto.PageResponse;
 import org.ylzl.eden.cola.dto.Response;
 import org.ylzl.eden.cola.dto.SingleResponse;
@@ -137,7 +137,7 @@ public class UserServiceImpl implements UserService {
 	 * @return 角色列表
 	 */
 	@Override
-	public ListResponse<RoleDTO> getUserRoles(UserRolesQry qry) {
+	public MultiResponse<RoleDTO> getUserRoles(UserRolesQry qry) {
 		return userRolesQryExe.execute(qry);
 	}
 
@@ -148,7 +148,7 @@ public class UserServiceImpl implements UserService {
 	 * @return 菜单树
 	 */
 	@Override
-	public ListResponse<MenuTreeDTO> getUserMenus(UserMenusQry qry) {
+	public MultiResponse<MenuTreeDTO> getUserMenus(UserMenusQry qry) {
 		return userMenusQryExe.execute(qry);
 	}
 
@@ -159,7 +159,7 @@ public class UserServiceImpl implements UserService {
 	 * @return 权限编码列表
 	 */
 	@Override
-	public ListResponse<String> getUserPermissions(UserPermissionsQry qry) {
+	public MultiResponse<String> getUserPermissions(UserPermissionsQry qry) {
 		return userPermissionsQryExe.execute(qry);
 	}
 }

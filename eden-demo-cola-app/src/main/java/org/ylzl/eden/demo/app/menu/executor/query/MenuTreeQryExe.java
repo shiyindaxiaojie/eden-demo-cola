@@ -19,7 +19,7 @@ package org.ylzl.eden.demo.app.menu.executor.query;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.ylzl.eden.cola.dto.ListResponse;
+import org.ylzl.eden.cola.dto.MultiResponse;
 import org.ylzl.eden.demo.app.menu.assembler.MenuAssembler;
 import org.ylzl.eden.demo.client.menu.dto.MenuTreeDTO;
 import org.ylzl.eden.demo.client.menu.dto.query.MenuTreeQry;
@@ -42,13 +42,19 @@ public class MenuTreeQryExe {
 	private final MenuGateway menuGateway;
 	private final MenuAssembler menuAssembler;
 
-	public ListResponse<MenuTreeDTO> execute(MenuTreeQry qry) {
+	/**
+	 * 执行查询菜单树
+	 *
+	 * @param qry 查询条件
+	 * @return 菜单树列表
+	 */
+	public MultiResponse<MenuTreeDTO> execute(MenuTreeQry qry) {
 		List<Menu> menus;
 		if (qry.getStatus() != null && qry.getStatus() == 1) {
 			menus = menuGateway.findAllVisible();
 		} else {
 			menus = menuGateway.findAll();
 		}
-		return ListResponse.of(menuAssembler.buildTree(menus));
+		return MultiResponse.of(menuAssembler.buildTree(menus));
 	}
 }

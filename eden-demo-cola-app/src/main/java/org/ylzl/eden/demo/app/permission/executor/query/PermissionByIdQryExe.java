@@ -41,6 +41,12 @@ public class PermissionByIdQryExe {
 	private final PermissionGateway permissionGateway;
 	private final PermissionAssembler permissionAssembler;
 
+	/**
+	 * 执行根据ID查询权限
+	 *
+	 * @param qry 查询条件
+	 * @return 权限信息
+	 */
 	public SingleResponse<PermissionDTO> execute(PermissionByIdQry qry) {
 		Permission permission = permissionGateway.findById(qry.getId())
 			.orElse(null);

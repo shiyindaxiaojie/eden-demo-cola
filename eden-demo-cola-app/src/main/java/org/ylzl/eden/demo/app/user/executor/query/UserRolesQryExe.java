@@ -19,7 +19,7 @@ package org.ylzl.eden.demo.app.user.executor.query;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.ylzl.eden.cola.dto.ListResponse;
+import org.ylzl.eden.cola.dto.MultiResponse;
 import org.ylzl.eden.demo.client.role.dto.RoleDTO;
 import org.ylzl.eden.demo.client.user.dto.query.UserRolesQry;
 import org.ylzl.eden.demo.domain.role.entity.Role;
@@ -42,16 +42,28 @@ public class UserRolesQryExe {
 
 	private final UserGateway userGateway;
 
-	public ListResponse<RoleDTO> execute(UserRolesQry qry) {
+	/**
+	 * 执行查询用户角色
+	 *
+	 * @param qry 查询条件
+	 * @return 用户角色列表
+	 */
+	public MultiResponse<RoleDTO> execute(UserRolesQry qry) {
 		ClientAssert.isTrue(userGateway.findById(qry.getUserId()).isPresent(), "USER-404", "用户不存在");
 
 		List<Role> roles = userGateway.findRolesByUserId(qry.getUserId());
 		List<RoleDTO> dtos = roles.stream()
 			.map(this::toDTO)
 			.collect(Collectors.toList());
-		return ListResponse.of(dtos);
+		return MultiResponse.of(dtos);
 	}
 
+	/**
+	 * 将角色实体转换为DTO
+	 *
+	 * @param role 角色实体
+	 * @return 角色DTO
+	 */
 	private RoleDTO toDTO(Role role) {
 		return RoleDTO.builder()
 			.id(role.getId())

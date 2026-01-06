@@ -39,6 +39,12 @@ public class UserAssignRolesCmdExe {
 
 	private final UserGateway userGateway;
 
+	/**
+	 * 执行用户分配角色指令
+	 *
+	 * @param cmd 分配角色指令
+	 * @return 响应结果
+	 */
 	public Response execute(UserAssignRolesCmd cmd) {
 		ClientAssert.isTrue(userGateway.findById(cmd.getUserId()).isPresent(), "USER-404", "用户不存在");
 

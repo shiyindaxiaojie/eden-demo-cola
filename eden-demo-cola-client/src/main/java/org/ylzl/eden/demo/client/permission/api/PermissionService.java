@@ -20,7 +20,7 @@ import org.ylzl.eden.demo.client.permission.dto.PermissionDTO;
 import org.ylzl.eden.demo.client.permission.dto.PermissionTreeDTO;
 import org.ylzl.eden.demo.client.permission.dto.command.*;
 import org.ylzl.eden.demo.client.permission.dto.query.*;
-import org.ylzl.eden.cola.dto.ListResponse;
+import org.ylzl.eden.cola.dto.MultiResponse;
 import org.ylzl.eden.cola.dto.Response;
 import org.ylzl.eden.cola.dto.SingleResponse;
 
@@ -40,5 +40,5 @@ public interface PermissionService {
 
 	SingleResponse<PermissionDTO> getPermissionById(PermissionByIdQry qry);
 
-	ListResponse<PermissionTreeDTO> listPermissionTree(PermissionTreeQry qry);
+	MultiResponse<PermissionTreeDTO> listPermissionTree(PermissionTreeQry qry);
 }

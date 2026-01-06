@@ -60,6 +60,15 @@ public enum PermissionType {
 	}
 
 	/**
+	 * 获取编码（兼容 MapStruct）
+	 *
+	 * @return 编码
+	 */
+	public Integer getCode() {
+		return this.value;
+	}
+
+	/**
 	 * 根据编码获取枚举
 	 *
 	 * @param code 编码

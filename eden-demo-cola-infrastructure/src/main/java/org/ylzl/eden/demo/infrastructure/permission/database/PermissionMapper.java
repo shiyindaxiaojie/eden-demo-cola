@@ -70,4 +70,12 @@ public interface PermissionMapper extends BaseMapper<PermissionDO> {
 	 * @return 使用数量
 	 */
 	int countRoleByPermissionId(@Param("permissionId") Long permissionId);
+
+	/**
+	 * 根据父级ID查询权限
+	 *
+	 * @param parentId 父级ID
+	 * @return 权限列表
+	 */
+	List<PermissionDO> selectByParentId(@Param("parentId") Long parentId);
 }

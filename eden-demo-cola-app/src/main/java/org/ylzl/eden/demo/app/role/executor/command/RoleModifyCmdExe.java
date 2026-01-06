@@ -39,11 +39,17 @@ public class RoleModifyCmdExe {
 
 	private final RoleGateway roleGateway;
 
+	/**
+	 * 执行修改角色指令
+	 *
+	 * @param cmd 修改角色指令
+	 * @return 响应结果
+	 */
 	public Response execute(RoleModifyCmd cmd) {
 		Role role = roleGateway.findById(cmd.getId())
 			.orElseThrow(() -> new IllegalArgumentException("角色不存在"));
 
-		RoleName name = cmd.getName() != null ? new RoleName(cmd.getName()) : null;
+		RoleName name = cmd.getName() != null ? RoleName.of(cmd.getName()) : null;
 		role.updateInfo(name, cmd.getDescription(), cmd.getSort());
 		roleGateway.save(role);
 		return Response.buildSuccess();

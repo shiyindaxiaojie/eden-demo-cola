@@ -19,7 +19,7 @@ package org.ylzl.eden.demo.adapter.user.web;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import org.ylzl.eden.cola.dto.ListResponse;
+import org.ylzl.eden.cola.dto.MultiResponse;
 import org.ylzl.eden.cola.dto.PageResponse;
 import org.ylzl.eden.cola.dto.Response;
 import org.ylzl.eden.cola.dto.SingleResponse;
@@ -53,8 +53,8 @@ public class UserController {
 	/**
 	 * 创建用户
 	 *
-	 * @param cmd
-	 * @return
+	 * @param cmd 创建用户指令
+	 * @return 响应结果
 	 */
 	@PostMapping
 	public Response createUser(@Valid @RequestBody UserAddCmd cmd) {
@@ -64,9 +64,9 @@ public class UserController {
 	/**
 	 * 修改用户
 	 *
-	 * @param id
-	 * @param cmd
-	 * @return
+	 * @param id  用户主键
+	 * @param cmd 修改用户指令
+	 * @return 响应结果
 	 */
 	@PutMapping("/{id}")
 	public Response modifyUser(@PathVariable Long id, @Valid @RequestBody UserModifyCmd cmd) {
@@ -77,8 +77,8 @@ public class UserController {
 	/**
 	 * 删除用户
 	 *
-	 * @param id
-	 * @return
+	 * @param id 用户主键
+	 * @return 响应结果
 	 */
 	@DeleteMapping("/{id}")
 	public Response removeUserById(@PathVariable Long id) {
@@ -88,8 +88,8 @@ public class UserController {
 	/**
 	 * 根据主键获取用户信息
 	 *
-	 * @param id
-	 * @return
+	 * @param id 用户主键
+	 * @return 用户信息
 	 */
 	@GetMapping("/{id}")
 	public SingleResponse<UserDTO> getUserById(@PathVariable Long id) {
@@ -97,10 +97,10 @@ public class UserController {
 	}
 
 	/**
-	 * 根据分页获取用户列表
+	 * 分页查询用户列表
 	 *
-	 * @param query
-	 * @return
+	 * @param query 分页查询条件
+	 * @return 用户分页列表
 	 */
 	@GetMapping
 	public PageResponse<UserDTO> listUserByPage(@Valid @ModelAttribute UserListByPageQry query) {
@@ -108,11 +108,11 @@ public class UserController {
 	}
 
 	/**
-	 * 分配角色
+	 * 为用户分配角色
 	 *
-	 * @param id
-	 * @param cmd
-	 * @return
+	 * @param id  用户主键
+	 * @param cmd 分配角色指令
+	 * @return 响应结果
 	 */
 	@PutMapping("/{id}/roles")
 	public Response assignRoles(@PathVariable Long id, @RequestBody UserAssignRolesCmd cmd) {
@@ -121,35 +121,35 @@ public class UserController {
 	}
 
 	/**
-	 * 获取用户角色
+	 * 获取用户角色列表
 	 *
-	 * @param id
-	 * @return
+	 * @param id 用户主键
+	 * @return 角色列表
 	 */
 	@GetMapping("/{id}/roles")
-	public ListResponse<RoleDTO> getUserRoles(@PathVariable Long id) {
+	public MultiResponse<RoleDTO> getUserRoles(@PathVariable Long id) {
 		return userService.getUserRoles(UserRolesQry.builder().userId(id).build());
 	}
 
 	/**
-	 * 获取用户菜单
+	 * 获取用户菜单树
 	 *
-	 * @param id
-	 * @return
+	 * @param id 用户主键
+	 * @return 菜单树列表
 	 */
 	@GetMapping("/{id}/menus")
-	public ListResponse<MenuTreeDTO> getUserMenus(@PathVariable Long id) {
+	public MultiResponse<MenuTreeDTO> getUserMenus(@PathVariable Long id) {
 		return userService.getUserMenus(UserMenusQry.builder().userId(id).build());
 	}
 
 	/**
-	 * 获取用户权限
+	 * 获取用户权限编码列表
 	 *
-	 * @param id
-	 * @return
+	 * @param id 用户主键
+	 * @return 权限编码列表
 	 */
 	@GetMapping("/{id}/permissions")
-	public ListResponse<String> getUserPermissions(@PathVariable Long id) {
+	public MultiResponse<String> getUserPermissions(@PathVariable Long id) {
 		return userService.getUserPermissions(UserPermissionsQry.builder().userId(id).build());
 	}
 }

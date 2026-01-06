@@ -95,7 +95,7 @@ public class Menu {
 	 * @return 菜单实体
 	 */
 	public static Menu create(String name, MenuPath path, Long parentId) {
-		ClientAssert.notBlank(name, "MENU-001", "菜单名称不能为空");
+		ClientAssert.hasText(name, "MENU-001", "菜单名称不能为空");
 		Menu menu = new Menu();
 		menu.name = name.trim();
 		menu.path = path;

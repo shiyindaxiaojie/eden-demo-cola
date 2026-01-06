@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.ylzl.eden.cola.dto.ListResponse;
+import org.ylzl.eden.cola.dto.MultiResponse;
 import org.ylzl.eden.cola.dto.Response;
 import org.ylzl.eden.cola.dto.SingleResponse;
 import org.ylzl.eden.demo.app.permission.executor.command.*;
@@ -48,31 +48,61 @@ public class PermissionServiceImpl implements PermissionService {
 	private final PermissionByIdQryExe permissionByIdQryExe;
 	private final PermissionTreeQryExe permissionTreeQryExe;
 
+	/**
+	 * 创建权限
+	 *
+	 * @param cmd 创建权限指令
+	 * @return 响应结果
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Response createPermission(PermissionAddCmd cmd) {
 		return permissionAddCmdExe.execute(cmd);
 	}
 
+	/**
+	 * 修改权限
+	 *
+	 * @param cmd 修改权限指令
+	 * @return 响应结果
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Response modifyPermission(PermissionModifyCmd cmd) {
 		return permissionModifyCmdExe.execute(cmd);
 	}
 
+	/**
+	 * 删除权限
+	 *
+	 * @param cmd 删除权限指令
+	 * @return 响应结果
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public Response removePermission(PermissionRemoveCmd cmd) {
 		return permissionRemoveCmdExe.execute(cmd);
 	}
 
+	/**
+	 * 根据ID获取权限信息
+	 *
+	 * @param qry 查询条件
+	 * @return 权限信息
+	 */
 	@Override
 	public SingleResponse<PermissionDTO> getPermissionById(PermissionByIdQry qry) {
 		return permissionByIdQryExe.execute(qry);
 	}
 
+	/**
+	 * 获取权限树列表
+	 *
+	 * @param qry 查询条件
+	 * @return 权限树列表
+	 */
 	@Override
-	public ListResponse<PermissionTreeDTO> listPermissionTree(PermissionTreeQry qry) {
+	public MultiResponse<PermissionTreeDTO> listPermissionTree(PermissionTreeQry qry) {
 		return permissionTreeQryExe.execute(qry);
 	}
 }

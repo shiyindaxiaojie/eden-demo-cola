@@ -19,7 +19,7 @@ package org.ylzl.eden.demo.app.role.executor.query;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.ylzl.eden.cola.dto.ListResponse;
+import org.ylzl.eden.cola.dto.MultiResponse;
 import org.ylzl.eden.demo.app.permission.assembler.PermissionAssembler;
 import org.ylzl.eden.demo.client.permission.dto.PermissionDTO;
 import org.ylzl.eden.demo.client.role.dto.query.RolePermissionsQry;
@@ -46,15 +46,21 @@ public class RolePermissionsQryExe {
 	private final PermissionGateway permissionGateway;
 	private final PermissionAssembler permissionAssembler;
 
-	public ListResponse<PermissionDTO> execute(RolePermissionsQry qry) {
+	/**
+	 * 执行查询角色权限
+	 *
+	 * @param qry 查询条件
+	 * @return 角色权限列表
+	 */
+	public MultiResponse<PermissionDTO> execute(RolePermissionsQry qry) {
 		ClientAssert.isTrue(roleGateway.findById(qry.getRoleId()).isPresent(), "ROLE-002", "角色不存在");
 
 		List<Long> permissionIds = roleGateway.findPermissionIdsByRoleId(qry.getRoleId());
 		if (permissionIds.isEmpty()) {
-			return ListResponse.of(Collections.emptyList());
+			return MultiResponse.of(Collections.emptyList());
 		}
 
 		List<Permission> permissions = permissionGateway.findByIds(permissionIds);
-		return ListResponse.of(permissionAssembler.toDTOList(permissions));
+		return MultiResponse.of(permissionAssembler.toDTOList(permissions));
 	}
 }

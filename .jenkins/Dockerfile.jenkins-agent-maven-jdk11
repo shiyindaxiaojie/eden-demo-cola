@@ -1,0 +1,32 @@
+FROM docker.m.daocloud.io/jenkins/inbound-agent:latest-jdk17
+
+USER root
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    curl \
+    unzip \
+    zip \
+    gnupg \
+    ca-certificates \
+    apt-transport-https \
+    maven && \
+    # 安装 Docker CLI
+    curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian trixie stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null && \
+    apt-get update && \
+    apt-get install -y docker-ce-cli && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN su - jenkins -c "curl -s \"https://get.sdkman.io\" | bash" && \
+    su - jenkins -c "bash -c 'source /home/jenkins/.sdkman/bin/sdkman-init.sh && yes | sdk install java 11.0.23-tem'"
+
+COPY settings.xml /home/jenkins/.m2/settings.xml
+
+RUN chown jenkins:jenkins /home/jenkins/.m2/settings.xml
+
+ENV MAVEN_OPTS="-Dmaven.repo.local=/home/jenkins/.m2/repository"
+
+USER jenkins
+
+WORKDIR /build

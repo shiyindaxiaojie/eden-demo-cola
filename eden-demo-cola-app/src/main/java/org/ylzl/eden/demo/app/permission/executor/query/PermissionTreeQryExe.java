@@ -19,7 +19,7 @@ package org.ylzl.eden.demo.app.permission.executor.query;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.ylzl.eden.cola.dto.ListResponse;
+import org.ylzl.eden.cola.dto.MultiResponse;
 import org.ylzl.eden.demo.app.permission.assembler.PermissionAssembler;
 import org.ylzl.eden.demo.client.permission.dto.PermissionTreeDTO;
 import org.ylzl.eden.demo.client.permission.dto.query.PermissionTreeQry;
@@ -43,7 +43,13 @@ public class PermissionTreeQryExe {
 	private final PermissionGateway permissionGateway;
 	private final PermissionAssembler permissionAssembler;
 
-	public ListResponse<PermissionTreeDTO> execute(PermissionTreeQry qry) {
+	/**
+	 * 执行查询权限树
+	 *
+	 * @param qry 查询条件
+	 * @return 权限树列表
+	 */
+	public MultiResponse<PermissionTreeDTO> execute(PermissionTreeQry qry) {
 		List<Permission> permissions = permissionGateway.findAll();
 
 		if (qry.getType() != null) {
@@ -52,6 +58,6 @@ public class PermissionTreeQryExe {
 				.collect(Collectors.toList());
 		}
 
-		return ListResponse.of(permissionAssembler.buildTree(permissions));
+		return MultiResponse.of(permissionAssembler.buildTree(permissions));
 	}
 }

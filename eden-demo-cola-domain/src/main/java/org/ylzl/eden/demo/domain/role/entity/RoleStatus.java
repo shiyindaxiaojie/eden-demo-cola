@@ -46,6 +46,15 @@ public enum RoleStatus {
 	}
 
 	/**
+	 * 获取值
+	 *
+	 * @return 值
+	 */
+	public Integer getValue() {
+		return this.code;
+	}
+
+	/**
 	 * 根据编码获取枚举
 	 *
 	 * @param code 编码
