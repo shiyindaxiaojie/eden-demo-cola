@@ -593,18 +593,23 @@ graph TB
 命令流程（增删改）经过 Domain 层处理业务逻辑，查询流程直接访问 Infrastructure 层的 Mapper，绕过 Domain 层以提升查询性能。
 
 ```mermaid
-flowchart TB
-    subgraph 命令流程
+flowchart LR
+    subgraph CmdFlow["命令流程"]
         direction TB
-        C1[Controller] --> C2[CommandService] --> C3[CmdExe] --> C4[Domain] --> C5[Gateway] --> C6[(Database)]
+        C1[Controller] --> C2[CommandService]
+        C2 --> C3[CmdExe]
+        C3 --> C4[Domain]
+        C4 --> C5[Gateway]
+        C5 --> C6[(Database)]
     end
     
-    subgraph 查询流程
+    subgraph QryFlow["查询流程"]
         direction TB
-        Q1[Controller] --> Q2[QueryService] --> Q3[QryExe] --> Q4[Mapper] --> Q5[(Database)]
+        Q1[Controller] --> Q2[QueryService]
+        Q2 --> Q3[QryExe]
+        Q3 --> Q4[Mapper]
+        Q4 --> Q5[(Database)]
     end
-    
-    命令流程 ~~~ 查询流程
 ```
 
 **代码结构**

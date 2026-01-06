@@ -592,18 +592,23 @@ graph TB
 **CQRS Command Query Separation**
 
 ```mermaid
-flowchart TB
-    subgraph Command Flow
+flowchart LR
+    subgraph CmdFlow["Command Flow"]
         direction TB
-        C1[Controller] --> C2[CommandService] --> C3[CmdExe] --> C4[Domain] --> C5[Gateway] --> C6[(Database)]
+        C1[Controller] --> C2[CommandService]
+        C2 --> C3[CmdExe]
+        C3 --> C4[Domain]
+        C4 --> C5[Gateway]
+        C5 --> C6[(Database)]
     end
     
-    subgraph Query Flow
+    subgraph QryFlow["Query Flow"]
         direction TB
-        Q1[Controller] --> Q2[QueryService] --> Q3[QryExe] --> Q4[Mapper] --> Q5[(Database)]
+        Q1[Controller] --> Q2[QueryService]
+        Q2 --> Q3[QryExe]
+        Q3 --> Q4[Mapper]
+        Q4 --> Q5[(Database)]
     end
-    
-    Command Flow ~~~ Query Flow
 ```
 
 
