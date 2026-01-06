@@ -45,12 +45,12 @@ participant "扩展点" #Khaki
 
 "主动适配器" -> "eden-demo-cola-adapter": 监听事件触发
 "eden-demo-cola-adapter" -> "eden-demo-cola-app": CQRS 分发
-alt#Gold #LightBlue 领域调用
+alt 领域调用
 	"eden-demo-cola-app" -> "eden-demo-cola-domain": 调用领域层
 	"eden-demo-cola-domain" -> "eden-demo-cola-infrastructure": 通过防腐层执行数据写操作
 	"eden-demo-cola-infrastructure" -> "被动驱动器": 调用底层组件进行写操作
 	"eden-demo-cola-infrastructure" --> "eden-demo-cola-app": 返回更新结果
-else #Pink 简单查询
+else 简单查询
 	"eden-demo-cola-app" -> "eden-demo-cola-infrastructure": 执行数据读操作
 	"eden-demo-cola-infrastructure" -> "被动驱动器": 调用底层组件进行读操作
 	"eden-demo-cola-infrastructure" --> "eden-demo-cola-app": 返回查询数据
