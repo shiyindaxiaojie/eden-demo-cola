@@ -42,7 +42,6 @@ maven/
 target/
 .flattened-pom.xml
 release.properties
-settings.xml
 
 # Gradle
 !gradle/wrapper/maven-wrapper.jar
@@ -72,5 +71,5 @@ log/
 .externalToolBuilders/**
 .Spotlight-V100
 .Trashes
-.kiro
+.kiro/**
 .claude

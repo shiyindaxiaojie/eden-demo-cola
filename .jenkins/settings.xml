@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+    <localRepository>/home/jenkins/.m2/repository</localRepository>
+
+    <pluginGroups>
+    </pluginGroups>
+
+    <proxies>
+    </proxies>
+
+    <servers>
+        <server>
+            <id>maven-releases</id>
+            <username>jenkins</username>
+            <password>jenkins</password>
+        </server>
+        <server>
+            <id>maven-snapshots</id>
+            <username>jenkins</username>
+            <password>jenkins</password>
+        </server>
+    </servers>
+
+    <mirrors>
+        <mirror>
+            <id>nexus-mirror</id>
+            <mirrorOf>*</mirrorOf>
+            <name>Nexus Mirror</name>
+            <url>http://127.0.0.1:8081/repository/maven-public/</url>
+        </mirror>
+    </mirrors>
+
+    <profiles>
+        <profile>
+            <id>nexus</id>
+            <properties>
+                <altReleaseDeploymentRepository>
+                    maven-releases::default::http://127.0.0.1:8081/repository/maven-releases/
+                </altReleaseDeploymentRepository>
+                <altSnapshotDeploymentRepository>
+                    maven-snapshots::default::http://127.0.0.1:8081/repository/maven-snapshots/
+                </altSnapshotDeploymentRepository>
+            </properties>
+            <repositories>
+                <repository>
+                    <id>maven-releases</id>
+                    <url>http://127.0.0.1:8081/repository/maven-releases/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </repository>
+                    <repository>
+                    <id>maven-snapshots</id>
+                    <url>http://127.0.0.1:8081/repository/maven-snapshots/</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>maven-releases</id>
+                    <url>http://127.0.0.1:8081/repository/maven-releases/</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </pluginRepository>
+                <pluginRepository>
+                    <id>maven-snapshots</id>
+                    <url>http://127.0.0.1:8081/repository/maven-snapshots/</url>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+
+    <activeProfiles>
+        <activeProfile>nexus</activeProfile>
+    </activeProfiles>
+</settings>
