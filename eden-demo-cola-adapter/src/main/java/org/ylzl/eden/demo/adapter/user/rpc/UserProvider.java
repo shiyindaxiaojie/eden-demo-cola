@@ -20,10 +20,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboService;
 import org.ylzl.eden.demo.adapter.constant.RPC;
 import org.ylzl.eden.demo.app.user.executor.command.UserAddCmdExe;
+import org.ylzl.eden.demo.app.user.executor.command.UserAssignRolesCmdExe;
 import org.ylzl.eden.demo.app.user.executor.command.UserModifyCmdExe;
 import org.ylzl.eden.demo.app.user.executor.command.UserRemoveCmdExe;
-import org.ylzl.eden.demo.app.user.executor.query.UserByIdQryExe;
-import org.ylzl.eden.demo.app.user.executor.query.UserListByPageQryExe;
+import org.ylzl.eden.demo.app.user.executor.query.*;
 import org.ylzl.eden.demo.app.user.service.UserServiceImpl;
 import org.ylzl.eden.demo.client.user.api.UserService;
 
@@ -37,7 +37,29 @@ import org.ylzl.eden.demo.client.user.api.UserService;
 @DubboService(timeout = RPC.DEFAULT_TIMEOUT)
 public class UserProvider extends UserServiceImpl implements UserService {
 
-	public UserProvider(UserAddCmdExe userAddCmdExe, UserModifyCmdExe userModifyCmdExe, UserRemoveCmdExe userRemoveCmdExe, UserByIdQryExe userByIdQryExe, UserListByPageQryExe userListByPageQryExe) {
-		super(userAddCmdExe, userModifyCmdExe, userRemoveCmdExe, userByIdQryExe, userListByPageQryExe);
+	/**
+	 * 构造函数
+	 *
+	 * @param userAddCmdExe         创建用户指令执行器
+	 * @param userModifyCmdExe      修改用户指令执行器
+	 * @param userRemoveCmdExe      删除用户指令执行器
+	 * @param userAssignRolesCmdExe 分配角色指令执行器
+	 * @param userByIdQryExe        根据主键查询用户执行器
+	 * @param userListByPageQryExe  分页查询用户执行器
+	 * @param userRolesQryExe       查询用户角色执行器
+	 * @param userMenusQryExe       查询用户菜单执行器
+	 * @param userPermissionsQryExe 查询用户权限执行器
+	 */
+	public UserProvider(UserAddCmdExe userAddCmdExe,
+						UserModifyCmdExe userModifyCmdExe,
+						UserRemoveCmdExe userRemoveCmdExe,
+						UserAssignRolesCmdExe userAssignRolesCmdExe,
+						UserByIdQryExe userByIdQryExe,
+						UserListByPageQryExe userListByPageQryExe,
+						UserRolesQryExe userRolesQryExe,
+						UserMenusQryExe userMenusQryExe,
+						UserPermissionsQryExe userPermissionsQryExe) {
+		super(userAddCmdExe, userModifyCmdExe, userRemoveCmdExe, userAssignRolesCmdExe,
+			userByIdQryExe, userListByPageQryExe, userRolesQryExe, userMenusQryExe, userPermissionsQryExe);
 	}
 }

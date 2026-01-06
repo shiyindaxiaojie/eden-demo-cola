@@ -151,5 +151,11 @@
 			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-distributed-uid-spring-boot-starter</artifactId>
 		</dependency>
+
+		<!-- COLA状态机组件 -->
+		<dependency>
+			<groupId>io.github.shiyindaxiaojie</groupId>
+			<artifactId>eden-cola-statemachine</artifactId>
+		</dependency>
 	</dependencies>
 </project>

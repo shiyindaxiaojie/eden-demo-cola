@@ -21,15 +21,15 @@ import com.github.pagehelper.PageHelper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.ylzl.eden.cola.dto.PageResponse;
 import org.ylzl.eden.demo.app.user.assembler.UserAssembler;
 import org.ylzl.eden.demo.client.user.dto.UserDTO;
 import org.ylzl.eden.demo.client.user.dto.query.UserListByPageQry;
-import org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO;
 import org.ylzl.eden.demo.infrastructure.user.database.UserMapper;
-import org.ylzl.eden.cola.dto.PageResponse;
+import org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO;
 
 /**
- * 根据分页查询获取用户列表指令执行器
+ * 分页查询用户列表查询执行器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
  * @since 2.4.13
@@ -43,12 +43,21 @@ public class UserListByPageQryExe {
 
 	private final UserAssembler userAssembler;
 
+	/**
+	 * 执行分页查询
+	 *
+	 * @param query 查询条件
+	 * @return 分页结果
+	 */
 	public PageResponse<UserDTO> execute(UserListByPageQry query) {
 		Page<UserDO> page = PageHelper.startPage(query.getPageIndex(), query.getPageSize())
 			.doSelectPage(() -> userMapper.selectPage(query));
 
-		return PageResponse.of(userAssembler.toDTOList(page.getResult()),
+		return PageResponse.of(
+			userAssembler.toDTOList(page.getResult()),
 			Integer.parseInt(String.valueOf(page.getTotal())),
-			query.getPageSize(), query.getPageIndex());
+			query.getPageSize(),
+			query.getPageIndex()
+		);
 	}
 }

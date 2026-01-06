@@ -40,5 +40,5 @@ databaseChangeLog:
       value: current_timestamp
       dbms: postgresql
   - include:
-      file: db.changelog-2.4.13.yaml
+      file: db.changelog-1.0.0.yaml
       relativeToChangelogFile: true

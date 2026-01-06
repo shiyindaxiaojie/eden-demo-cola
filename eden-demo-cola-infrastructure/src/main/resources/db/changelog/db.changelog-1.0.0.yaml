@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - property:
+      name: version
+      value: 1.0.0
+  - changeSet:
+      id: 1.0.0-001
+      author: gyl
+      comment: RBAC 权限管理系统初始化
+      changes:
+        - sqlFile:
+            path: 1.0.0/changes.sql
+            relativeToChangelogFile: true
+      rollback:
+        - sqlFile:
+            path: 1.0.0/rollback.sql
+            relativeToChangelogFile: true
+

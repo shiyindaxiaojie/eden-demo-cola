@@ -19,11 +19,9 @@ package org.ylzl.eden.demo.app.user.executor.command;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.ylzl.eden.demo.app.user.assembler.UserAssembler;
-import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
-import org.ylzl.eden.demo.domain.user.entity.User;
-import org.ylzl.eden.demo.domain.user.gateway.UserGateway;
 import org.ylzl.eden.cola.dto.Response;
+import org.ylzl.eden.demo.client.user.dto.command.UserRemoveCmd;
+import org.ylzl.eden.demo.domain.user.gateway.UserGateway;
 
 /**
  * 删除用户指令执行器
@@ -38,11 +36,14 @@ public class UserRemoveCmdExe {
 
 	private final UserGateway userGateway;
 
-	private final UserAssembler userAssembler;
-
+	/**
+	 * 执行删除用户指令
+	 *
+	 * @param cmd 删除用户指令
+	 * @return 响应结果
+	 */
 	public Response execute(UserRemoveCmd cmd) {
-		User user = userAssembler.toEntity(cmd);
-		userGateway.deleteById(user);
+		userGateway.deleteById(cmd.getId());
 		return Response.buildSuccess();
 	}
 }

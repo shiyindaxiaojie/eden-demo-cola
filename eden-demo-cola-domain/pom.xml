@@ -65,6 +65,18 @@
 			<artifactId>eden-cola-domain</artifactId>
 		</dependency>
 
+		<!-- Spring Framework 组件 -->
+		<dependency>
+			<groupId>io.github.shiyindaxiaojie</groupId>
+			<artifactId>eden-spring-framework</artifactId>
+		</dependency>
+
+		<!-- Spring Security (仅用于密码加密) -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-crypto</artifactId>
+		</dependency>
+
 		<!-- 日志组件 -->
 		<dependency>
 			<groupId>org.slf4j</groupId>

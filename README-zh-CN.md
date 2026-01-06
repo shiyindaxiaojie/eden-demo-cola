@@ -19,9 +19,110 @@
 
 > 参考文档请查看 [WIKI](https://github.com/shiyindaxiaojie/eden-demo-cola/wiki) 。
 
+## 文档指南
+
+📚 详细的组件集成指南，请参阅文档：
+
+- [中文文档](./docs/zh-CN/README.md) - 中文组件集成指南
+- [English Documentation](./docs/en/README.md) - Component integration guides in English
+
+文档涵盖以下内容：
+- 快速开始指南
+- 注册配置中心（Nacos）
+- 缓存组件（Redis）
+- 数据源组件（MySQL、Liquibase、ShardingSphere、Dynamic-Datasource）
+- 消息队列组件（RocketMQ、Kafka、Dynamic-MQ）
+- 监控观测组件（CAT、Jaeger、Zipkin、Sentinel、Arthas）
+- RPC 组件（Dubbo、Dynamic-TP）
+- 任务调度组件（XXL-Job）
+
 ## 组件构成
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/eden-demo-cola/component.png)
+```mermaid
+---
+title: 阿里巴巴 COLA 应用架构组件图
+---
+flowchart TB
+    %% 主动适配器 - 顶部
+    subgraph ActiveAdapters[" "]
+        direction LR
+        RPC_CLIENT(["«主动适配器»<br/>RPC调用方"])
+        JOB{{"Job调度平台"}}
+        MQ_CONSUMER(["«主动适配器»<br/>MQ消息队列"])
+        APP_TERMINAL(["«主动适配器»<br/>APP终端"])
+    end
+
+    %% COLA 核心组件
+    ADAPTER["«适配层»<br/>eden-demo-cola-adapter"]
+    START["«启动入口»<br/>eden-demo-cola-start"]
+    APP_LAYER["«应用层»<br/>eden-demo-cola-app"]
+    CLIENT["«API层»<br/>eden-demo-cola-client"]
+    DOMAIN["«领域层»<br/>eden-demo-cola-domain"]
+    INFRA["«基础设施层»<br/>eden-demo-cola-infrastructure"]
+
+    %% 接口节点
+    rpc((rpc))
+    http((http))
+
+    %% 被动驱动器 - 底部
+    subgraph PassiveDrivers[" "]
+        direction LR
+        THIRD_PARTY(["«被动驱动器»<br/>第三方接口"])
+        MYSQL[("«被动驱动器»<br/>MySQL")]
+        REDIS[("«被动驱动器»<br/>Redis")]
+        MQ_PRODUCER[("«被动驱动器»<br/>MQ")]
+        ES[("«被动驱动器»<br/>Elasticsearch")]
+        MONGO[("«被动驱动器»<br/>MongoDB")]
+    end
+
+    %% 主动适配器连接
+    RPC_CLIENT -.->|网络调用| rpc
+    rpc ---|RPC 接口| ADAPTER
+    APP_TERMINAL -.->|前后端对接| http
+    http ---|REST 接口| ADAPTER
+    RPC_CLIENT -.->|代码集成| CLIENT
+    JOB <-.->|任务调度| ADAPTER
+    MQ_CONSUMER <-.->|消费消息| ADAPTER
+
+    %% 内部组件连接
+    START --> ADAPTER
+    ADAPTER -->|入站适配，数据组装| APP_LAYER
+    APP_LAYER -->|实现接口| CLIENT
+    APP_LAYER -->|CQRS 增删改命令| DOMAIN
+    APP_LAYER -->|CQRS 查询视图| INFRA
+    INFRA -.->|依赖倒置| DOMAIN
+
+    %% 被动驱动器连接
+    INFRA -.->|接口调用| THIRD_PARTY
+    INFRA -.->|读写数据| MYSQL
+    INFRA -.->|读写缓存| REDIS
+    INFRA -.->|生产消息| MQ_PRODUCER
+    INFRA -.->|读写索引| ES
+    INFRA -.->|读写数据| MONGO
+
+    %% 样式定义
+    style ADAPTER fill:#90EE90,stroke:#333,stroke-width:2px
+    style START fill:#90EE90,stroke:#333,stroke-width:2px
+    style APP_LAYER fill:#90EE90,stroke:#333,stroke-width:2px
+    style CLIENT fill:#F0E68C,stroke:#333,stroke-width:2px
+    style DOMAIN fill:#90EE90,stroke:#333,stroke-width:2px
+    style INFRA fill:#90EE90,stroke:#333,stroke-width:2px
+    
+    style RPC_CLIENT fill:#87CEEB,stroke:#333,stroke-width:1px
+    style JOB fill:#87CEEB,stroke:#333,stroke-width:1px
+    style MQ_CONSUMER fill:#87CEEB,stroke:#333,stroke-width:1px
+    style APP_TERMINAL fill:#87CEEB,stroke:#333,stroke-width:1px
+    
+    style THIRD_PARTY fill:#FFB6C1,stroke:#333,stroke-width:1px
+    style MYSQL fill:#FFB6C1,stroke:#333,stroke-width:1px
+    style REDIS fill:#FFB6C1,stroke:#333,stroke-width:1px
+    style MQ_PRODUCER fill:#FFB6C1,stroke:#333,stroke-width:1px
+    style ES fill:#FFB6C1,stroke:#333,stroke-width:1px
+    style MONGO fill:#FFB6C1,stroke:#333,stroke-width:1px
+    
+    style rpc fill:#fff,stroke:#333
+    style http fill:#fff,stroke:#333
+```
 
 * **eden-demo-cola-adapter**：适配层，**六边形架构**中的入站适配器。
 * **eden-demo-cola-app**：应用层，负责 **CQRS** 的指令处理工作，更新指令，调用领域层，查询视图操作，直接绕过领域层调用基础设施层。
@@ -32,7 +133,99 @@
 
 ## 运行流程
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/eden-demo-cola/sequence.png)
+```mermaid
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#90EE90',
+    'primaryTextColor': '#000',
+    'primaryBorderColor': '#333',
+    'lineColor': '#333',
+    'secondaryColor': '#87CEEB',
+    'tertiaryColor': '#FFB6C1',
+    'noteBkgColor': '#FFFACD',
+    'noteTextColor': '#333',
+    'noteBorderColor': '#DAA520',
+    'actorBkg': '#87CEEB',
+    'actorBorder': '#333',
+    'actorTextColor': '#000',
+    'signalColor': '#333',
+    'signalTextColor': '#333'
+  },
+  'sequence': {
+    'actorMargin': 50,
+    'boxMargin': 10,
+    'boxTextMargin': 5,
+    'noteMargin': 10,
+    'messageMargin': 35,
+    'mirrorActors': true,
+    'useMaxWidth': true
+  }
+}}%%
+sequenceDiagram
+    autonumber
+    
+    box rgb(135,206,235,0.3) 主动适配器
+        participant A as 主动适配器
+    end
+    box rgb(144,238,144,0.3) COLA 应用架构
+        participant B as eden-demo-cola-adapter
+        participant C as eden-demo-cola-app
+        participant D as eden-demo-cola-domain
+        participant E as eden-demo-cola-infrastructure
+    end
+    box rgb(255,182,193,0.3) 被动驱动器
+        participant F as 被动驱动器
+    end
+    box rgb(240,230,140,0.3) 扩展点
+        participant G as 扩展点
+    end
+
+    Note over A,G: 场景一：HTTP更新数据请求
+    A->>B: 1. 发送写请求报文
+    B->>C: 2. 适配器组装数据传输对象
+    C->>C: 3. CQRS 解析出命令参数
+    C->>G: 4. 根据指令调用扩展功能（可选项）
+    C->>D: 5. 调用领域层
+    D->>E: 6. 通过防腐层执行数据写操作
+    E->>F: 7. 调用底层组件进行写操作
+    F-->>E: 
+    E-->>C: 8. 返回查询数据
+    C-->>B: 9. 组装返回数据
+    B-->>A: 10. 响应报文
+
+    Note over A,G: 场景二：HTTP查询数据请求
+    A->>B: 11. 发送读请求报文
+    B->>C: 12. 适配器组装数据传输对象
+    C->>C: 13. CQRS 解析出查询参数
+    C->>E: 14. 执行数据读操作
+    E->>F: 15. 调用底层组件进行读操作
+    F-->>E: 
+    E-->>C: 16. 返回查询数据
+    C-->>B: 17. 组装返回数据
+    B-->>A: 18. 响应报文
+
+    Note over A,G: 场景三：MQ消息驱动/Job定时任务触发
+    A->>B: 19. 监听事件触发
+    B->>C: 20. CQRS 分发
+    
+    alt 领域调用
+        C->>D: 21. 调用领域层
+        D->>E: 22. 通过防腐层执行数据写操作
+        E->>F: 23. 调用底层组件进行写操作
+        F-->>E: 
+        E-->>C: 24. 返回更新结果
+    else 简单查询
+        C->>E: 25. 执行数据读操作
+        E->>F: 26. 调用底层组件进行读操作
+        F-->>E: 
+        E-->>C: 27. 返回查询数据
+    end
+    
+    C->>C: 28. 内部处理（ACK确认/Status状态）
+    C-->>B: 29. 处理结果上报
+    B-->>A: 30. 上报结果
+```
 
 ## 如何构建
 
@@ -63,12 +256,12 @@
 
 ```yaml
 spring:
-	cloud:
-		nacos:
-			discovery: # 注册中心
-				enabled: true # 默认关闭，请按需开启
-			config: # 配置中心
-				enabled: true # 默认关闭，请按需开启
+  cloud:
+    nacos:
+      discovery: # 注册中心
+        enabled: true # 默认关闭，请按需开启
+      config: # 配置中心
+        enabled: true # 默认关闭，请按需开启
 ```
 
 **修改默认的数据源**：本项目默认使用 `H2` 内存数据库启动，基于 `Liquibase` 在项目启动时自动初始化 SQL 脚本。如果您使用的是外部的 MySQL 数据库，可以从此处调整下数据库的连接信息：[application-dev.yml](https://github.com/shiyindaxiaojie/eden-demo-cola/blob/main/eden-demo-cola-start/src/main/resources/config/application-dev.yml)，请删除任何与 `H2` 有关的配置。
@@ -136,41 +329,349 @@ helm install eden-demo-cola ./helm # 部署资源
 helm uninstall eden-demo-cola # 卸载资源
 ```
 
-## 版本规范
-
-项目的版本号格式为 `x.y.z` 的形式，其中 x 的数值类型为数字，从 0 开始取值，且不限于 0~9 这个范围。项目处于孵化器阶段时，第一位版本号固定使用 0，即版本号为 `0.x.x` 的格式。
-
-* 孵化版本：0.0.1-SNAPSHOT
-* 开发版本：1.0.0-SNAPSHOT
-* 发布版本：1.0.0
-
-版本迭代规则：
-
-* 1.0.0 <> 1.0.1：兼容
-* 1.0.0 <> 1.1.0：基本兼容
-* 1.0.0 <> 2.0.0：不兼容
-
 ## 持续集成
 
-> CI/CD 工具选型：Jenkins、Zadig、CODING、Codeup
+> CI/CD 工具选型：Jenkins、CODING、Codeup、Zadig、KubeVela
+
+### Jenkins 持续集成
+
+下图演示基于 Jenkins 实现持续构建、持续部署的效果。
+
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/eden-demo-cola/jenkins-pipeline.png)
 
 ### CODING 持续集成
 
-下图演示基于 CODING 实现持续构建、持续部署的效果。[传送门](https://www.yuque.com/mengxiangge/action/coding)
+下图演示基于 CODING 实现持续构建、持续部署的效果。[传送门](https://mengxiangge.netlify.app/2022/08/10/devops/coding%20%E6%8C%81%E7%BB%AD%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5/?highlight=coding)
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/common/coding-cicd.png)
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/eden-demo-cola/coding-cicd.png)
 
-![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/common/coding-test-report.png)
-
-### Codeup 持续集成
-
-> TODO, Coming soon
+![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/eden-demo-cola/coding-test-report.png)
 
 ## 最佳实践
 
 ### DDD 领域驱动设计
 
-> TODO, Coming soon
+本项目以 RBAC（基于角色的访问控制）为例，展示如何在 COLA 架构中落地 DDD 领域驱动设计。
+
+**战略设计 - 限界上下文划分**
+
+将 RBAC 系统划分为用户、角色、权限、菜单四个限界上下文，每个上下文包含聚合根、网关接口和领域服务。RBAC 上下文作为协调者，负责跨上下文的业务编排。
+
+```mermaid
+graph TB
+    subgraph 用户上下文
+        User[用户聚合根]
+        UserGateway[用户网关]
+        UserDomainService[用户领域服务]
+    end
+    
+    subgraph 角色上下文
+        Role[角色聚合根]
+        RoleGateway[角色网关]
+    end
+    
+    subgraph 权限上下文
+        Permission[权限聚合根]
+        PermissionGateway[权限网关]
+    end
+    
+    subgraph 菜单上下文
+        Menu[菜单聚合根]
+        MenuGateway[菜单网关]
+    end
+    
+    subgraph RBAC上下文
+        RbacDomainService[RBAC领域服务]
+    end
+    
+    User -.->|分配| Role
+    Role -.->|关联| Permission
+    Role -.->|关联| Menu
+    RbacDomainService --> User
+    RbacDomainService --> Role
+    RbacDomainService --> Permission
+```
+
+**战术设计 - 领域模型**
+
+领域模型采用充血模型设计，聚合根（User、Role、Permission、Menu）封装业务行为，值对象（Login、Email、Password 等）保证数据完整性和不可变性。
+
+```mermaid
+classDiagram
+    class User {
+        -Long id
+        -Login login
+        -Email email
+        -Password password
+        -UserStatus status
+        +create(login, email, password) User
+        +changeEmail(newEmail)
+        +changePassword(currentPassword, newPassword)
+        +activate()
+        +lock()
+        +unlock()
+        +disable()
+        +verifyPassword(plainPassword) boolean
+        +canLogin() boolean
+    }
+    
+    class Role {
+        -Long id
+        -RoleCode code
+        -RoleName name
+        -String description
+        -RoleStatus status
+        -Integer sort
+        +create(code, name) Role
+        +updateInfo(name, description, sort)
+        +enable()
+        +disable()
+        +isEnabled() boolean
+    }
+    
+    class Permission {
+        -Long id
+        -PermissionCode code
+        -String name
+        -PermissionType type
+        -Long parentId
+        -String description
+        -Integer sort
+        +create(code, name, type) Permission
+        +updateInfo(name, description, sort)
+        +setParent(parentId)
+        +isMenuPermission() boolean
+        +isButtonPermission() boolean
+        +isRoot() boolean
+    }
+    
+    class Menu {
+        -Long id
+        -String name
+        -MenuPath path
+        -String icon
+        -Long parentId
+        -Integer sort
+        -MenuStatus status
+        -String component
+        +create(name, path, parentId) Menu
+        +updateInfo(name, icon, sort, component)
+        +updatePath(path)
+        +setParent(parentId)
+        +show()
+        +hide()
+        +isVisible() boolean
+        +isRootMenu() boolean
+    }
+    
+    class Login {
+        <<Value Object>>
+        -String value
+        +of(value) Login
+    }
+    
+    class Email {
+        <<Value Object>>
+        -String value
+        +of(value) Email
+    }
+    
+    class Password {
+        <<Value Object>>
+        -String value
+        +of(plainPassword) Password
+        +matches(plainPassword) boolean
+    }
+    
+    class RoleCode {
+        <<Value Object>>
+        -String value
+        +of(value) RoleCode
+    }
+    
+    class RoleName {
+        <<Value Object>>
+        -String value
+        +of(value) RoleName
+    }
+    
+    class PermissionCode {
+        <<Value Object>>
+        -String value
+        +of(value) PermissionCode
+    }
+    
+    class MenuPath {
+        <<Value Object>>
+        -String value
+        +of(value) MenuPath
+    }
+    
+    User *-- Login
+    User *-- Email
+    User *-- Password
+    Role *-- RoleCode
+    Role *-- RoleName
+    Permission *-- PermissionCode
+    Menu *-- MenuPath
+    
+    User "1" -- "*" Role : 分配
+    Role "1" -- "*" Permission : 关联
+    Role "1" -- "*" Menu : 关联
+```
+
+**战术设计 - 领域事件**
+
+领域事件用于解耦聚合间的依赖关系。聚合根在执行业务操作时注册事件，应用层负责发布事件，事件处理器异步执行后续操作（如发送邮件通知）。
+
+```mermaid
+sequenceDiagram
+    participant App as 应用层
+    participant User as 用户聚合根
+    participant EventPublisher as 事件发布器
+    participant EventHandler as 事件处理器
+    
+    App->>User: 创建用户
+    User->>User: 注册 UserCreatedEvent
+    App->>User: 获取领域事件
+    App->>EventPublisher: 发布事件
+    EventPublisher->>EventHandler: 处理 UserCreatedEvent
+    EventHandler->>EventHandler: 发送欢迎邮件
+    App->>User: 清除领域事件
+```
+
+**分层架构 - COLA 分层与 DDD 映射**
+
+COLA 四层架构与 DDD 战术模式的对应关系：适配层处理入站请求，应用层编排用例，领域层实现核心业务逻辑，基础设施层提供技术实现。Gateway 接口定义在领域层，实现在基础设施层，体现依赖倒置原则。
+
+```mermaid
+graph TB
+    subgraph Adapter适配层
+        Controller[REST Controller]
+        RpcProvider[RPC Provider]
+    end
+    
+    subgraph App应用层
+        Service[应用服务]
+        CmdExe[指令执行器]
+        QryExe[查询执行器]
+        Assembler[DTO装配器]
+    end
+    
+    subgraph Domain领域层
+        Entity[聚合根/实体]
+        ValueObject[值对象]
+        DomainService[领域服务]
+        DomainEvent[领域事件]
+        Gateway[防腐层接口]
+    end
+    
+    subgraph Infrastructure基础设施层
+        GatewayImpl[网关实现]
+        Mapper[数据映射器]
+        DataObject[数据对象]
+        EventHandler[事件处理器]
+    end
+    
+    Controller --> Service
+    RpcProvider --> Service
+    Service --> CmdExe
+    Service --> QryExe
+    CmdExe --> Entity
+    CmdExe --> DomainService
+    CmdExe --> Gateway
+    QryExe --> Mapper
+    Entity --> ValueObject
+    Entity --> DomainEvent
+    DomainService --> Gateway
+    GatewayImpl -.->|实现| Gateway
+    GatewayImpl --> Mapper
+    Mapper --> DataObject
+    EventHandler --> DomainEvent
+```
+
+**分层架构 - CQRS 命令查询分离**
+
+命令流程（增删改）经过 Domain 层处理业务逻辑，查询流程直接访问 Infrastructure 层的 Mapper，绕过 Domain 层以提升查询性能。
+
+```mermaid
+flowchart TB
+    subgraph 命令流程
+        direction TB
+        C1[Controller] --> C2[CommandService] --> C3[CmdExe] --> C4[Domain] --> C5[Gateway] --> C6[(Database)]
+    end
+    
+    subgraph 查询流程
+        direction TB
+        Q1[Controller] --> Q2[QueryService] --> Q3[QryExe] --> Q4[Mapper] --> Q5[(Database)]
+    end
+    
+    命令流程 ~~~ 查询流程
+```
+
+**代码结构**
+
+按限界上下文组织代码目录，每个上下文包含 entity（聚合根/实体）、valueobject（值对象）、event（领域事件）、domainservice（领域服务）、gateway（防腐层接口）等子目录。
+
+```
+eden-demo-cola-domain/
+├── user/                          # 用户限界上下文
+│   ├── entity/                    # 实体
+│   │   ├── User.java              # 用户聚合根
+│   │   └── UserStatus.java        # 用户状态枚举
+│   ├── valueobject/               # 值对象
+│   │   ├── Login.java             # 登录账号
+│   │   ├── Email.java             # 邮箱
+│   │   └── Password.java          # 密码
+│   ├── event/                     # 领域事件
+│   │   ├── UserCreatedEvent.java  # 用户创建事件
+│   │   └── UserEmailChangedEvent.java
+│   ├── domainservice/             # 领域服务
+│   │   └── UserDomainService.java
+│   ├── gateway/                   # 防腐层接口
+│   │   └── UserGateway.java
+│   └── statemachine/              # 状态机
+│       └── UserStateMachine.java
+├── role/                          # 角色限界上下文
+│   ├── entity/
+│   │   ├── Role.java              # 角色聚合根
+│   │   └── RoleStatus.java
+│   ├── valueobject/
+│   │   ├── RoleCode.java
+│   │   └── RoleName.java
+│   └── gateway/
+│       └── RoleGateway.java
+├── permission/                    # 权限限界上下文
+│   ├── entity/
+│   │   ├── Permission.java        # 权限聚合根
+│   │   └── PermissionType.java
+│   ├── valueobject/
+│   │   └── PermissionCode.java
+│   └── gateway/
+│       └── PermissionGateway.java
+├── menu/                          # 菜单限界上下文
+│   ├── entity/
+│   │   ├── Menu.java              # 菜单聚合根
+│   │   └── MenuStatus.java
+│   ├── valueobject/
+│   │   └── MenuPath.java
+│   └── gateway/
+│       └── MenuGateway.java
+└── rbac/                          # RBAC 跨上下文协调
+    └── domainservice/
+        └── RbacDomainService.java
+```
+
+**设计原则**
+
+| 原则 | 说明 | 示例 |
+|------|------|------|
+| 聚合根 | 作为聚合的入口，保证聚合内的一致性 | User、Role、Permission、Menu |
+| 值对象 | 无唯一标识，通过属性值判断相等性 | Login、Email、Password、RoleCode |
+| 领域事件 | 记录领域中发生的重要事件 | UserCreatedEvent、UserEmailChangedEvent |
+| 领域服务 | 处理跨聚合的业务逻辑 | UserDomainService、RbacDomainService |
+| 防腐层 | 隔离领域层与基础设施层 | UserGateway、RoleGateway |
+| 依赖倒置 | 领域层定义接口，基础设施层实现 | Gateway 接口与 GatewayImpl 实现 |
 
 ### Git 多人协作分支管理
 
@@ -195,6 +696,20 @@ helm uninstall eden-demo-cola # 卸载资源
 使用动态时运行探针，自动发现服务，开箱即用，允许在低负载环境诊断你的应用。[传送门](https://github.com/shiyindaxiaojie/arthas)
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/arthas/arthas-dashboard-overview.png)
+
+## 版本规范
+
+项目的版本号格式为 `x.y.z` 的形式，其中 x 的数值类型为数字，从 0 开始取值，且不限于 0~9 这个范围。项目处于孵化器阶段时，第一位版本号固定使用 0，即版本号为 `0.x.x` 的格式。
+
+* 孵化版本：0.0.1-SNAPSHOT
+* 开发版本：1.0.0-SNAPSHOT
+* 发布版本：1.0.0
+
+版本迭代规则：
+
+* 1.0.0 <> 1.0.1：兼容
+* 1.0.0 <> 1.1.0：基本兼容
+* 1.0.0 <> 2.0.0：不兼容
 
 ## 变更日志
 

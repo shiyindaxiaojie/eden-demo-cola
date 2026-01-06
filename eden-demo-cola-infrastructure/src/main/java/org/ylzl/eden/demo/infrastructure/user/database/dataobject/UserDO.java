@@ -41,22 +41,16 @@ import java.time.LocalDateTime;
 public class UserDO implements Serializable {
 
 	/**
-	 * 用户 ID
+	 * 用户ID
 	 */
 	@TableId("id")
 	private Long id;
 
 	/**
-	 * 登录账户
+	 * 登录账号
 	 */
 	@TableField("login")
 	private String login;
-
-	/**
-	 * 密码哈希
-	 */
-	@TableField("password_hash")
-	private String passwordHash;
 
 	/**
 	 * 邮箱
@@ -65,62 +59,26 @@ public class UserDO implements Serializable {
 	private String email;
 
 	/**
-	 * 账户是否已激活
+	 * 密码
 	 */
-	@TableField("activated")
-	private Boolean activated;
+	@TableField("password")
+	private String password;
 
 	/**
-	 * 账户是否被锁定
+	 * 状态：0-待激活,1-已激活,2-已锁定,3-已禁用
 	 */
-	@TableField("locked")
-	private Boolean locked;
+	@TableField("status")
+	private Integer status;
 
 	/**
-	 * 语言
+	 * 创建时间
 	 */
-	@TableField("lang_key")
-	private String langKey;
+	@TableField("created_at")
+	private LocalDateTime createdAt;
 
 	/**
-	 * 激活账户的代码
+	 * 更新时间
 	 */
-	@TableField("activation_key")
-	private String activationKey;
-
-	/**
-	 * 重置密码的代码
-	 */
-	@TableField("reset_key")
-	private String resetKey;
-
-	/**
-	 * 重置密码的时间
-	 */
-	@TableField("reset_date")
-	private LocalDateTime resetDate;
-
-	/**
-	 * 创建的账户
-	 */
-	@TableField("created_by")
-	private String createdBy;
-
-	/**
-	 * 创建的时间
-	 */
-	@TableField("created_date")
-	private LocalDateTime createdDate;
-
-	/**
-	 * 最后修改的账户
-	 */
-	@TableField("last_modified_by")
-	private String lastModifiedBy;
-
-	/**
-	 * 最后修改的时间
-	 */
-	@TableField("last_modified_date")
-	private LocalDateTime lastModifiedDate;
+	@TableField("updated_at")
+	private LocalDateTime updatedAt;
 }

@@ -87,5 +87,11 @@
 			<groupId>io.github.shiyindaxiaojie</groupId>
 			<artifactId>eden-event-auditor-spring-boot-starter</artifactId>
 		</dependency>
+
+		<!-- COLA扩展点组件 -->
+		<dependency>
+			<groupId>io.github.shiyindaxiaojie</groupId>
+			<artifactId>eden-cola-extension</artifactId>
+		</dependency>
 	</dependencies>
 </project>

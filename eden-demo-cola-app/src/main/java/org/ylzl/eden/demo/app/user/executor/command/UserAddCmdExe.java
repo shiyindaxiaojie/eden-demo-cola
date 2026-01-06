@@ -18,10 +18,11 @@ package org.ylzl.eden.demo.app.user.executor.command;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 import org.ylzl.eden.cola.dto.Response;
-import org.ylzl.eden.demo.app.user.assembler.UserAssembler;
 import org.ylzl.eden.demo.client.user.dto.command.UserAddCmd;
+import org.ylzl.eden.demo.domain.user.domainservice.UserDomainService;
 import org.ylzl.eden.demo.domain.user.entity.User;
 import org.ylzl.eden.demo.domain.user.gateway.UserGateway;
 
@@ -36,13 +37,27 @@ import org.ylzl.eden.demo.domain.user.gateway.UserGateway;
 @Component
 public class UserAddCmdExe {
 
+	private final UserDomainService userDomainService;
+
 	private final UserGateway userGateway;
 
-	private final UserAssembler userAssembler;
+	private final ApplicationEventPublisher eventPublisher;
 
+	/**
+	 * 执行新增用户指令
+	 *
+	 * @param cmd 新增用户指令
+	 * @return 响应结果
+	 */
 	public Response execute(UserAddCmd cmd) {
-		User user = userAssembler.toEntity(cmd);
+		User user = userDomainService.registerUser(
+			cmd.getLogin(),
+			cmd.getEmail(),
+			cmd.getPassword()
+		);
 		userGateway.save(user);
+		user.getDomainEvents().forEach(eventPublisher::publishEvent);
+		user.clearDomainEvents();
 		return Response.buildSuccess();
 	}
 }
