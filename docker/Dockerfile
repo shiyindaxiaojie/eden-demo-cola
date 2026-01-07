@@ -24,7 +24,7 @@ RUN apk update \
 # 构建运行环境
 RUN $JAVA_HOME/bin/jlink \
 		--verbose \
-		--add-modules $(cat modules.txt),sun.misc \
+		--add-modules $(cat modules.txt),jdk.unsupported \
 		--strip-debug \
 		--no-man-pages \
 		--no-header-files \
@@ -46,21 +46,21 @@ ARG USER=tmpuser
 ARG GROUP=tmpgroup
 
 # 设置环境变量
-ENV JAVA_HOME /opt/jdk
-ENV PATH "${JAVA_HOME}/bin:${PATH}"
-ENV HOME "/app"
-ENV TZ "Asia/Shanghai"
-ENV LANG "C.UTF-8"
-ENV XMS "1g"
-ENV XMX "1g"
-ENV XSS "256k"
-ENV GC_MODE "G1"
-ENV USE_GC_LOG "Y"
-ENV USE_HEAP_DUMP "Y"
-ENV USE_LARGE_PAGES "N"
-ENV SPRING_PROFILES_ACTIVE "dev"
-ENV SERVER_PORT "8080"
-ENV MANAGEMENT_SERVER_PORT "9080"
+ENV JAVA_HOME=/opt/jdk
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
+ENV HOME="/app"
+ENV TZ="Asia/Shanghai"
+ENV LANG="C.UTF-8"
+ENV XMS="1g"
+ENV XMX="1g"
+ENV XSS="256k"
+ENV GC_MODE="G1"
+ENV USE_GC_LOG="Y"
+ENV USE_HEAP_DUMP="Y"
+ENV USE_LARGE_PAGES="N"
+ENV SPRING_PROFILES_ACTIVE="dev"
+ENV SERVER_PORT="8080"
+ENV MANAGEMENT_SERVER_PORT="9080"
 
 # 设置日志目录
 RUN mkdir -p $HOME/logs \

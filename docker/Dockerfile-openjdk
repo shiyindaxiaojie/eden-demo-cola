@@ -26,6 +26,8 @@ ARG USER=tmpuser
 ARG GROUP=tmpgroup
 
 # 设置环境变量
+ENV JAVA_HOME=/opt/jdk
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
 ENV HOME="/app"
 ENV TZ="Asia/Shanghai"
 ENV LANG="C.UTF-8"
