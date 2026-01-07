@@ -24,16 +24,6 @@
 - [中文文档](./docs/zh-CN/README.md) - 中文组件集成指南
 - [English Documentation](./docs/en/README.md) - Component integration guides in English
 
-文档涵盖以下内容：
-- 快速开始指南
-- 注册配置中心（Nacos）
-- 缓存组件（Redis）
-- 数据源组件（MySQL、Liquibase、ShardingSphere、Dynamic-Datasource）
-- 消息队列组件（RocketMQ、Kafka、Dynamic-MQ）
-- 监控观测组件（CAT、Jaeger、Zipkin、Sentinel、Arthas）
-- RPC 组件（Dubbo、Dynamic-TP）
-- 任务调度组件（XXL-Job）
-
 ## 组件构成
 
 ```mermaid
@@ -339,7 +329,7 @@ helm uninstall eden-demo-cola # 卸载资源
 
 ### CODING 持续集成
 
-下图演示基于 CODING 实现持续构建、持续部署的效果。[传送门](https://mengxiangge.netlify.app/2022/08/10/devops/coding%20%E6%8C%81%E7%BB%AD%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5/?highlight=coding)
+下图演示基于 CODING 实现持续构建、持续部署的效果。[传送锚点](https://mengxiangge.netlify.app/2022/08/10/devops/coding%20%E6%8C%81%E7%BB%AD%E9%83%A8%E7%BD%B2%E5%AE%9E%E8%B7%B5/?highlight=coding)
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/eden-demo-cola/coding-cicd.png)
 
@@ -704,25 +694,27 @@ eden-demo-cola-domain/
 
 ### Git 多人协作分支管理
 
-在敏捷开发盛行的时代，`GitFlow` 显得力不从心，笔者为团队制定了一套简单易用的流程。[传送门](https://www.processon.com/view/63d5d1fc56e18032d4a00998)
+在敏捷开发盛行的时代，`GitFlow` 显得力不从心，笔者为团队制定了一套简单易用的流程。[传送锚点](https://www.processon.com/view/63d5d1fc56e18032d4a00998)
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/processon/git-action.png)
 
+详细的分支管理策略、Maven 版本管理、敏捷迭代周期等内容，请参阅 [Git 工作流](https://github.com/shiyindaxiaojie/eden-demo-cola/wiki/Git-Workflow)。
+
 ### CAT 可观测性方案
 
-通过 `TraceId` 分析整个链路的 `HTTP` 请求耗时、`RPC` 调用情况、`Log` 业务日志、`SQL` 和 `Cache` 执行耗时。[传送门](https://github.com/shiyindaxiaojie/cat)
+通过 `TraceId` 分析整个链路的 `HTTP` 请求耗时、`RPC` 调用情况、`Log` 业务日志、`SQL` 和 `Cache` 执行耗时。[传送锚点](https://github.com/shiyindaxiaojie/cat)
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/cat/tracing.png)
 
 ### Sentinel 流量治理方案
 
-根据业务负载配置您的流控规则，并允许在任意时刻查看接口的 QPS 和限流情况。[传送门](https://github.com/shiyindaxiaojie/Sentinel)
+根据业务负载配置您的流控规则，并允许在任意时刻查看接口的 QPS 和限流情况。[传送锚点](https://github.com/shiyindaxiaojie/Sentinel)
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/sentinel/sentinel-dashboard-overview-custom.png)
 
 ### Arthas 在线诊断工具
 
-使用动态时运行探针，自动发现服务，开箱即用，允许在低负载环境诊断你的应用。[传送门](https://github.com/shiyindaxiaojie/arthas)
+使用动态时运行探针，自动发现服务，开箱即用，允许在低负载环境诊断你的应用。[传送锚点](https://github.com/shiyindaxiaojie/arthas)
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/arthas/arthas-dashboard-overview.png)
 
