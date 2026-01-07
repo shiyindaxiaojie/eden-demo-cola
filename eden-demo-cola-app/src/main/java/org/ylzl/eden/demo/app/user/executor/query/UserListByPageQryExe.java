@@ -32,7 +32,7 @@ import org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO;
  * 分页查询用户列表查询执行器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
 @RequiredArgsConstructor
 @Slf4j

@@ -21,9 +21,15 @@ import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.slf4j.Logger
 import org.ylzl.eden.demo.domain.user.entity.User
+import org.ylzl.eden.demo.domain.user.valueobject.Email
+import org.ylzl.eden.demo.domain.user.valueobject.Login
+import org.ylzl.eden.demo.domain.user.valueobject.Password
+import org.ylzl.eden.demo.infrastructure.role.database.RoleMapper
+import org.ylzl.eden.demo.infrastructure.role.database.convertor.RoleConvertor
+import org.ylzl.eden.demo.infrastructure.user.database.UserMapper
+import org.ylzl.eden.demo.infrastructure.user.database.UserRoleMapper
 import org.ylzl.eden.demo.infrastructure.user.database.convertor.UserConvertor
 import org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO
-import org.ylzl.eden.demo.infrastructure.user.database.UserMapper
 import spock.lang.Specification
 
 import static org.mockito.ArgumentMatchers.any
@@ -33,7 +39,13 @@ class UserGatewayImplTest extends Specification {
 	@Mock
 	UserMapper userMapper
 	@Mock
+	UserRoleMapper userRoleMapper
+	@Mock
+	RoleMapper roleMapper
+	@Mock
 	UserConvertor userConvertor
+	@Mock
+	RoleConvertor roleConvertor
 	@Mock
 	Logger log
 	@InjectMocks
@@ -43,31 +55,38 @@ class UserGatewayImplTest extends Specification {
 		MockitoAnnotations.openMocks(this)
 	}
 
-	def "test save"() {
+	def "test save new user"() {
 		given:
-		when(userConvertor.toDataObject(any())).thenReturn(UserDO.builder().id(1L).login("login").email("email").passwordHash("password").build())
+		def user = User.create(new Login("login"), new Email("test@example.com"), new Password("password"))
+		def userDO = UserDO.builder().login("login").email("test@example.com").password("password").build()
+		when(userConvertor.toDataObject(any())).thenReturn(userDO)
 
 		when:
-		userGatewayImpl.save(new User(1l, "login", "email", "password"))
+		userGatewayImpl.save(user)
 
 		then:
 		true
 	}
 
-	def "test update By Id"() {
+	def "test find By Id"() {
 		given:
-		when(userConvertor.toDataObject(any())).thenReturn(UserDO.builder().id(1L).login("login").email("email").passwordHash("password").build())
+		def userDO = UserDO.builder().id(1L).login("login").email("test@example.com").password("password").status(1).build()
+		def user = User.reconstitute(1L, new Login("login"), new Email("test@example.com"),
+			new Password("password"), User.UserStatus.ACTIVE, null, null)
+		when(userMapper.selectById(any())).thenReturn(userDO)
+		when(userConvertor.toEntity(any())).thenReturn(user)
 
 		when:
-		userGatewayImpl.updateById(new User(1l, "login", "email", "password"))
+		def result = userGatewayImpl.findById(1L)
 
 		then:
-		true
+		result.isPresent()
+		result.get().id == 1L
 	}
 
 	def "test delete By Id"() {
 		when:
-		userGatewayImpl.deleteById(new User(1l, "login", "email", "password"))
+		userGatewayImpl.deleteById(1L)
 
 		then:
 		true

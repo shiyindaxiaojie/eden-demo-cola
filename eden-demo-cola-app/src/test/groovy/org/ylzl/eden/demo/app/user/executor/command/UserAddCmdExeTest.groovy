@@ -20,21 +20,28 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.slf4j.Logger
-import org.ylzl.eden.demo.app.user.assembler.UserAssembler
+import org.springframework.context.ApplicationEventPublisher
 import org.ylzl.eden.demo.client.user.dto.command.UserAddCmd
+import org.ylzl.eden.demo.domain.user.domainservice.UserDomainService
 import org.ylzl.eden.demo.domain.user.entity.User
 import org.ylzl.eden.demo.domain.user.gateway.UserGateway
+import org.ylzl.eden.demo.domain.user.valueobject.Email
+import org.ylzl.eden.demo.domain.user.valueobject.Login
+import org.ylzl.eden.demo.domain.user.valueobject.Password
 import org.ylzl.eden.cola.dto.Response
 import spock.lang.Specification
 
 import static org.mockito.ArgumentMatchers.any
+import static org.mockito.ArgumentMatchers.anyString
 import static org.mockito.Mockito.when
 
 class UserAddCmdExeTest extends Specification {
 	@Mock
+	UserDomainService userDomainService
+	@Mock
 	UserGateway userGateway
 	@Mock
-	UserAssembler userAssembler
+	ApplicationEventPublisher eventPublisher
 	@Mock
 	Logger log
 	@InjectMocks
@@ -46,10 +53,11 @@ class UserAddCmdExeTest extends Specification {
 
 	def "test execute"() {
 		given:
-		when(userAssembler.toEntity(any())).thenReturn(User.builder().id(1L).login("login").email("email").password("password").build())
+		def user = User.create(new Login("login"), new Email("test@example.com"), new Password("password"))
+		when(userDomainService.registerUser(anyString(), anyString(), anyString())).thenReturn(user)
 
 		when:
-		Response result = userAddCmdExe.execute(new UserAddCmd("login", "password", "email"))
+		Response result = userAddCmdExe.execute(new UserAddCmd("login", "password", "test@example.com"))
 
 		then:
 		result == Response.buildSuccess()

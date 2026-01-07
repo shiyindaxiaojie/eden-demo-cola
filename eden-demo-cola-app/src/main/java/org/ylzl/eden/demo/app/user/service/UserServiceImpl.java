@@ -43,7 +43,7 @@ import org.ylzl.eden.demo.client.user.dto.query.*;
  * 用户应用服务实现
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
 @RequiredArgsConstructor
 @Slf4j

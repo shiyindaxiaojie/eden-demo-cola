@@ -28,7 +28,7 @@ import org.ylzl.eden.spring.framework.web.rest.annotation.EnableRestExceptionHan
  * Spring Boot 引导类
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
 @EnableRestExceptionHandler
 @EnableDiscoveryClient

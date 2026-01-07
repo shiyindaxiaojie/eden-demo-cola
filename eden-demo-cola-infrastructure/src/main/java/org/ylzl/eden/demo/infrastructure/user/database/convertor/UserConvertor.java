@@ -30,7 +30,7 @@ import org.ylzl.eden.demo.infrastructure.user.database.dataobject.UserDO;
  * 用户领域实体转换器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
 @Mapper(componentModel = "spring",
 	nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,

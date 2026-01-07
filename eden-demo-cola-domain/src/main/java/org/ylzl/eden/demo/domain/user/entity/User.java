@@ -36,7 +36,7 @@ import java.util.List;
  * 用户聚合根
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

@@ -218,12 +218,6 @@ sequenceDiagram
 
 ## How to Build
 
-Due to significant architectural changes between `Spring Boot 2.4.x` and `Spring Boot 3.0.x`, we maintain branches aligned with Spring Boot versions:
-
-* 2.4.x branch for `Spring Boot 2.4.x`, minimum JDK 1.8.
-* 2.7.x branch for `Spring Boot 2.7.x`, minimum JDK 11.
-* 3.0.x branch for `Spring Boot 3.0.x`, minimum JDK 17.
-
 This project uses Maven for building. The quickest way to get started is to `git clone` to your local machine. To simplify unnecessary technical details, this project depends on [eden-architect](https://github.com/shiyindaxiaojie/eden-architect). Execute `mvn install -T 4C` in the project root directory to complete the build.
 
 ## How to Run
@@ -717,7 +711,6 @@ Use runtime probes for dynamic service discovery, out-of-the-box, allowing you t
 
 ![](https://cdn.jsdelivr.net/gh/shiyindaxiaojie/cdn/arthas/arthas-dashboard-overview.png)
 
-
 ## Versioning
 
 The project version number follows the `x.y.z` format, where x is a numeric value starting from 0 and not limited to the 0-9 range. During the incubation phase, the first digit is fixed at 0, i.e., version numbers follow the `0.x.x` format.
@@ -731,6 +724,15 @@ Version iteration rules:
 * 1.0.0 <> 1.0.1: Compatible
 * 1.0.0 <> 1.1.0: Mostly compatible
 * 1.0.0 <> 2.0.0: Incompatible
+
+## Branch Management
+
+Due to significant architectural changes between `Spring Boot 2.4.x` and `Spring Boot 3.0.x`, we maintain branches aligned with Spring Boot versions:
+
+* 2.4.x branch for `Spring Boot 2.4.x`, minimum JDK 8.
+* 2.7.x branch for `Spring Boot 2.7.x`, minimum JDK 11.
+* 3.5.x branch for `Spring Boot 3.5.x`, minimum JDK 17.
+* 4.0.x branch for `Spring Boot 4.0.x`, minimum JDK 17.
 
 ## Changelog
 

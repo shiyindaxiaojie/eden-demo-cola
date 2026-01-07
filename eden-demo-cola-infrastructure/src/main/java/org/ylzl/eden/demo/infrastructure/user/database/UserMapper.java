@@ -29,7 +29,7 @@ import java.util.List;
  * 用户记录表映射器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
 @Mapper
 public interface UserMapper extends BaseMapper<UserDO> {

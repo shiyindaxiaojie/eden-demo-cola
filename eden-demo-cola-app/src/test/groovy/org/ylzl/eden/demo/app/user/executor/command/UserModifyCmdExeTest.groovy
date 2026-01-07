@@ -20,21 +20,28 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 import org.slf4j.Logger
-import org.ylzl.eden.demo.app.user.assembler.UserAssembler
+import org.springframework.context.ApplicationEventPublisher
 import org.ylzl.eden.demo.client.user.dto.command.UserModifyCmd
+import org.ylzl.eden.demo.domain.user.domainservice.UserDomainService
 import org.ylzl.eden.demo.domain.user.entity.User
 import org.ylzl.eden.demo.domain.user.gateway.UserGateway
+import org.ylzl.eden.demo.domain.user.valueobject.Email
+import org.ylzl.eden.demo.domain.user.valueobject.Login
+import org.ylzl.eden.demo.domain.user.valueobject.Password
 import org.ylzl.eden.cola.dto.Response
 import spock.lang.Specification
 
 import static org.mockito.ArgumentMatchers.any
+import static org.mockito.ArgumentMatchers.anyLong
 import static org.mockito.Mockito.when
 
 class UserModifyCmdExeTest extends Specification {
 	@Mock
+	UserDomainService userDomainService
+	@Mock
 	UserGateway userGateway
 	@Mock
-	UserAssembler userAssembler
+	ApplicationEventPublisher eventPublisher
 	@Mock
 	Logger log
 	@InjectMocks
@@ -46,10 +53,12 @@ class UserModifyCmdExeTest extends Specification {
 
 	def "test execute"() {
 		given:
-		when(userAssembler.toEntity(any())).thenReturn(User.builder().id(1L).login("login").email("email").password("password").build())
+		def user = User.reconstitute(1L, new Login("login"), new Email("test@example.com"),
+			new Password("password"), User.UserStatus.ACTIVE, null, null)
+		when(userGateway.findById(anyLong())).thenReturn(Optional.of(user))
 
 		when:
-		Response result = userModifyCmdExe.execute(new UserModifyCmd(1l, "login", "password", "email"))
+		Response result = userModifyCmdExe.execute(new UserModifyCmd(1L, "login", "password", "new@example.com"))
 
 		then:
 		result == Response.buildSuccess()

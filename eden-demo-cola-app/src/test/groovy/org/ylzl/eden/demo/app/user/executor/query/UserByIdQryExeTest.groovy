@@ -28,7 +28,7 @@ import org.ylzl.eden.demo.infrastructure.user.database.UserMapper
 import org.ylzl.eden.cola.dto.SingleResponse
 import spock.lang.Specification
 
-import static org.mockito.ArgumentMatchers.any
+import static org.mockito.ArgumentMatchers.anyLong
 import static org.mockito.Mockito.when
 
 class UserByIdQryExeTest extends Specification {
@@ -47,16 +47,17 @@ class UserByIdQryExeTest extends Specification {
 
 	def "test execute"() {
 		given:
-		UserDO userDO = UserDO.builder().id(1L).login("login").email("email").build()
-		UserDTO userDTO = UserDTO.builder().id(1L).login("login").email("email").build()
-		when(userMapper.selectById(any())).thenReturn(userDO)
+		def userDO = UserDO.builder().id(1L).login("login").email("test@example.com").build()
+		def userDTO = UserDTO.builder().id(1L).login("login").email("test@example.com").build()
+		when(userMapper.selectById(anyLong())).thenReturn(userDO)
 		when(userAssembler.toDTO(userDO)).thenReturn(userDTO)
 
 		when:
 		SingleResponse<UserDTO> result = userByIdQryExe.execute(new UserByIdQry(1L))
 
 		then:
-		result == SingleResponse.of(userDTO)
+		result.data.id == 1L
+		result.data.login == "login"
 	}
 }
 

@@ -20,7 +20,7 @@ package org.ylzl.eden.demo.infrastructure.constant;
  * 数据源类型
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
 public class DataSourceType {
 

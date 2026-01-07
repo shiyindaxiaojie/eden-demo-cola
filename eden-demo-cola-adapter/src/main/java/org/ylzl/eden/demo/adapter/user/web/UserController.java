@@ -40,7 +40,7 @@ import javax.validation.Valid;
  * 用户领域控制器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 2.4.13
+ * @since 2.4.x
  */
 @RequiredArgsConstructor
 @Slf4j

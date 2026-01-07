@@ -217,12 +217,6 @@ sequenceDiagram
 
 ## 如何构建
 
-由于 `Spring Boot 2.4.x` 和 `Spring Boot 3.0.x` 在架构层面有很大的变更，因此笔者采取跟 Spring Boot 版本号一致的分支:
-
-* 2.4.x 分支适用于 `Spring Boot 2.4.x`，最低支持 JDK 1.8。
-* 2.7.x 分支适用于 `Spring Boot 2.7.x`，最低支持 JDK 11。
-* 3.0.x 分支适用于 `Spring Boot 3.0.x`，最低支持 JDK 17。
-
 本项目默认使用 Maven 来构建，最快的使用方式是 `git clone` 到本地。为了简化不必要的技术细节，本项目依赖 [eden-architect](https://github.com/shiyindaxiaojie/eden-architect)，在项目的根目录执行 `mvn install -T 4C` 完成本项目的构建。
 
 ## 如何启动
@@ -731,6 +725,15 @@ eden-demo-cola-domain/
 * 1.0.0 <> 1.0.1：兼容
 * 1.0.0 <> 1.1.0：基本兼容
 * 1.0.0 <> 2.0.0：不兼容
+
+## 分支管理
+
+由于 `Spring Boot 2.4.x` 和 `Spring Boot 3.0.x` 在架构层面有很大的变更，因此笔者采取跟 Spring Boot 版本号一致的分支:
+
+* 2.4.x 分支适用于 `Spring Boot 2.4.x`，最低支持 JDK 8。
+* 2.7.x 分支适用于 `Spring Boot 2.7.x`，最低支持 JDK 11。
+* 3.5.x 分支适用于 `Spring Boot 3.5.x`，最低支持 JDK 17。
+* 4.0.x 分支适用于 `Spring Boot 4.0.x`，最低支持 JDK 17。
 
 ## 变更日志
 
