@@ -24,7 +24,7 @@ import java.io.Serializable;
  * 查询菜单树
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Builder
 @NoArgsConstructor
@@ -34,5 +34,6 @@ import java.io.Serializable;
 @Data
 public class MenuTreeQry implements Serializable {
 
+	/** 状态：0-禁用，1-启用 */
 	private Integer status;
 }

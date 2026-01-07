@@ -25,7 +25,7 @@ import java.io.Serializable;
  * 修改权限指令
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Builder
 @NoArgsConstructor
@@ -35,12 +35,16 @@ import java.io.Serializable;
 @Data
 public class PermissionModifyCmd implements Serializable {
 
+	/** 权限ID */
 	@NotNull(message = "权限ID不能为空")
 	private Long id;
 
+	/** 权限名称 */
 	private String name;
 
+	/** 权限描述 */
 	private String description;
 
+	/** 排序号 */
 	private Integer sort;
 }

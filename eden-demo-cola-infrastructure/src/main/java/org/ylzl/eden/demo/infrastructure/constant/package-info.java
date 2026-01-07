@@ -14,4 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * 基础设施常量定义
+ *
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.x
+ */
 package org.ylzl.eden.demo.infrastructure.constant;

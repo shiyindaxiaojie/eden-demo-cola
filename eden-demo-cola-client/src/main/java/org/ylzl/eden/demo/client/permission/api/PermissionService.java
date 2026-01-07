@@ -28,17 +28,47 @@ import org.ylzl.eden.cola.dto.SingleResponse;
  * 权限服务接口
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 public interface PermissionService {
 
+	/**
+	 * 创建权限
+	 *
+	 * @param cmd 创建权限指令
+	 * @return 响应结果
+	 */
 	Response createPermission(PermissionAddCmd cmd);
 
+	/**
+	 * 修改权限
+	 *
+	 * @param cmd 修改权限指令
+	 * @return 响应结果
+	 */
 	Response modifyPermission(PermissionModifyCmd cmd);
 
+	/**
+	 * 删除权限
+	 *
+	 * @param cmd 删除权限指令
+	 * @return 响应结果
+	 */
 	Response removePermission(PermissionRemoveCmd cmd);
 
+	/**
+	 * 根据主键获取权限信息
+	 *
+	 * @param qry 查询条件
+	 * @return 权限信息
+	 */
 	SingleResponse<PermissionDTO> getPermissionById(PermissionByIdQry qry);
 
+	/**
+	 * 获取权限树列表
+	 *
+	 * @param qry 查询条件
+	 * @return 权限树列表
+	 */
 	MultiResponse<PermissionTreeDTO> listPermissionTree(PermissionTreeQry qry);
 }

@@ -18,6 +18,6 @@
  * 角色应用层
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 package org.ylzl.eden.demo.app.role;

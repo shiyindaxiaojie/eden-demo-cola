@@ -14,4 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * 应用层：负责业务流程编排，调用领域服务完成业务逻辑
+ *
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.x
+ */
 package org.ylzl.eden.demo.app;

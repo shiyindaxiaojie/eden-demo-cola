@@ -14,4 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * 客户端层：定义服务接口、DTO、常量等，供外部调用
+ *
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.x
+ */
 package org.ylzl.eden.demo.client;

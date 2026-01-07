@@ -38,6 +38,11 @@ public class UserMQProducer {
 
 	private final MessageQueueProvider messageQueueProvider;
 
+	/**
+	 * 发送用户消息到消息队列
+	 *
+	 * @param user 用户实体
+	 */
 	public void send(User user) {
 		MessageSendResult result =
 			messageQueueProvider.syncSend(Message.builder()

@@ -25,7 +25,7 @@ import java.io.Serializable;
  * 修改菜单指令
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Builder
 @NoArgsConstructor
@@ -35,18 +35,25 @@ import java.io.Serializable;
 @Data
 public class MenuModifyCmd implements Serializable {
 
+	/** 菜单ID */
 	@NotNull(message = "菜单ID不能为空")
 	private Long id;
 
+	/** 菜单名称 */
 	private String name;
 
+	/** 路由路径 */
 	private String path;
 
+	/** 菜单图标 */
 	private String icon;
 
+	/** 父菜单ID */
 	private Long parentId;
 
+	/** 排序号 */
 	private Integer sort;
 
+	/** 组件路径 */
 	private String component;
 }

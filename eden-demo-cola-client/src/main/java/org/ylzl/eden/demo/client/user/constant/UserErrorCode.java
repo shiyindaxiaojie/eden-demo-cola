@@ -24,17 +24,24 @@ package org.ylzl.eden.demo.client.user.constant;
  */
 public interface UserErrorCode {
 
+	/** 用户不存在 */
 	String USER_NOT_FOUND = "USER-404";
 
+	/** 登录账号已存在 */
 	String USER_LOGIN_EXISTS = "USER-REG-001";
 
+	/** 邮箱已被注册 */
 	String USER_EMAIL_EXISTS = "USER-REG-002";
 
+	/** 邮箱格式无效 */
 	String USER_EMAIL_INVALID = "USER-EMAIL-001";
 
+	/** 密码格式无效 */
 	String USER_PASSWORD_INVALID = "USER-PWD-001";
 
+	/** 用户状态无效 */
 	String USER_STATUS_INVALID = "USER-STATUS-001";
 
+	/** 用户认证失败 */
 	String USER_AUTH_FAILED = "USER-AUTH-001";
 }

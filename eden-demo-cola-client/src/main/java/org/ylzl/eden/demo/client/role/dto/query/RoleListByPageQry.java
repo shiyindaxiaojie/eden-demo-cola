@@ -23,7 +23,7 @@ import org.ylzl.eden.cola.dto.PageQuery;
  * 分页查询角色列表
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Builder
 @NoArgsConstructor
@@ -33,9 +33,12 @@ import org.ylzl.eden.cola.dto.PageQuery;
 @Data
 public class RoleListByPageQry extends PageQuery {
 
+	/** 角色编码（模糊查询） */
 	private String code;
 
+	/** 角色名称（模糊查询） */
 	private String name;
 
+	/** 状态：0-禁用，1-启用 */
 	private Integer status;
 }

@@ -14,4 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * 用户数据库访问层
+ *
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.x
+ */
 package org.ylzl.eden.demo.infrastructure.user.database;

@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
  * 查询用户权限执行器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @RequiredArgsConstructor
 @Slf4j

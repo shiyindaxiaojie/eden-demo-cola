@@ -22,7 +22,7 @@ import lombok.Getter;
  * 菜单状态枚举
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Getter
 public enum MenuStatus {

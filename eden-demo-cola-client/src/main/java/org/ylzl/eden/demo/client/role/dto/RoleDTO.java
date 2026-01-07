@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
  * 角色（数据传输对象）
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Builder
 @NoArgsConstructor
@@ -35,11 +35,24 @@ import java.time.LocalDateTime;
 @Data
 public class RoleDTO implements Serializable {
 
+	/** 角色ID */
 	private Long id;
+
+	/** 角色编码 */
 	private String code;
+
+	/** 角色名称 */
 	private String name;
+
+	/** 角色描述 */
 	private String description;
+
+	/** 状态：0-禁用，1-启用 */
 	private Integer status;
+
+	/** 排序号 */
 	private Integer sort;
+
+	/** 创建时间 */
 	private LocalDateTime createdAt;
 }

@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
  * 菜单领域防腐层实现
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @RequiredArgsConstructor
 @Slf4j
@@ -45,6 +45,9 @@ public class MenuGatewayImpl implements MenuGateway {
 	private final MenuMapper menuMapper;
 	private final MenuConvertor menuConvertor;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void save(Menu menu) {
 		MenuDO menuDO = menuConvertor.toDataObject(menu);
@@ -55,27 +58,42 @@ public class MenuGatewayImpl implements MenuGateway {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Optional<Menu> findById(Long id) {
 		MenuDO menuDO = menuMapper.selectById(id);
 		return Optional.ofNullable(menuConvertor.toEntity(menuDO));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean existsByPath(MenuPath path) {
 		return menuMapper.countByPath(path.getValue()) > 0;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean existsByPathExcludeId(MenuPath path, Long excludeId) {
 		return menuMapper.countByPathExcludeId(path.getValue(), excludeId) > 0;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void deleteById(Long id) {
 		menuMapper.deleteById(id);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Menu> findAll() {
 		List<MenuDO> menuDOs = menuMapper.selectAll();
@@ -84,6 +102,9 @@ public class MenuGatewayImpl implements MenuGateway {
 			.collect(Collectors.toList());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Menu> findAllVisible() {
 		List<MenuDO> menuDOs = menuMapper.selectAllVisible();
@@ -92,6 +113,9 @@ public class MenuGatewayImpl implements MenuGateway {
 			.collect(Collectors.toList());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Menu> findByIds(List<Long> ids) {
 		if (ids == null || ids.isEmpty()) {
@@ -103,6 +127,9 @@ public class MenuGatewayImpl implements MenuGateway {
 			.collect(Collectors.toList());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Menu> findByParentId(Long parentId) {
 		List<MenuDO> menuDOs = menuMapper.selectByParentId(parentId);
@@ -111,11 +138,17 @@ public class MenuGatewayImpl implements MenuGateway {
 			.collect(Collectors.toList());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean hasChildren(Long menuId) {
 		return menuMapper.countByParentId(menuId) > 0;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isUsedByRole(Long menuId) {
 		return menuMapper.countRoleByMenuId(menuId) > 0;

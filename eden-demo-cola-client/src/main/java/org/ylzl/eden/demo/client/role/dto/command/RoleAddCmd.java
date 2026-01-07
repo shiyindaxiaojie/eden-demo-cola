@@ -25,7 +25,7 @@ import java.io.Serializable;
  * 新增角色指令
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Builder
 @NoArgsConstructor
@@ -35,13 +35,17 @@ import java.io.Serializable;
 @Data
 public class RoleAddCmd implements Serializable {
 
+	/** 角色编码 */
 	@NotBlank(message = "角色编码不能为空")
 	private String code;
 
+	/** 角色名称 */
 	@NotBlank(message = "角色名称不能为空")
 	private String name;
 
+	/** 角色描述 */
 	private String description;
 
+	/** 排序号 */
 	private Integer sort;
 }

@@ -35,12 +35,15 @@ import java.io.Serializable;
 @Data
 public class UserAddCmd implements Serializable {
 
+	/** 用户账号 */
 	@NotBlank(message = "账号不能为空")
 	private String login;
 
+	/** 用户密码 */
 	@NotBlank(message = "密码不能为空")
 	private String password;
 
+	/** 用户邮箱 */
 	@NotBlank(message = "邮箱不能为空")
 	private String email;
 }

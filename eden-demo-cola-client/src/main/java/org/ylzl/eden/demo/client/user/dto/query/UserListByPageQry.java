@@ -35,7 +35,9 @@ import java.io.Serializable;
 @Data
 public class UserListByPageQry extends PageQuery implements Serializable {
 
+	/** 用户账号（模糊查询） */
 	private String login;
 
+	/** 用户邮箱（模糊查询） */
 	private String email;
 }

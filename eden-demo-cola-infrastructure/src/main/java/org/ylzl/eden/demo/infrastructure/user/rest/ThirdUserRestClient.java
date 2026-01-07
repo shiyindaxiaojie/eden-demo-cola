@@ -18,6 +18,11 @@ public class ThirdUserRestClient {
 
 //	private final RestTemplate restTemplate;
 
+	/**
+	 * 同步用户信息到第三方系统
+	 *
+	 * @param user 用户实体
+	 */
 	public void syncUser(User user) {
 		log.info("基于 REST 同步到第三方用户系统");
 	}

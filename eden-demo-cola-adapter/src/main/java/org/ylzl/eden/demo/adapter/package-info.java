@@ -14,4 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * 适配器层：负责外部请求的适配，包括Web、RPC、MQ、Job等入口
+ *
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.x
+ */
 package org.ylzl.eden.demo.adapter;

@@ -25,7 +25,7 @@ import java.io.Serializable;
  * 删除菜单指令
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Builder
 @NoArgsConstructor
@@ -35,6 +35,7 @@ import java.io.Serializable;
 @Data
 public class MenuRemoveCmd implements Serializable {
 
+	/** 菜单ID */
 	@NotNull(message = "菜单ID不能为空")
 	private Long id;
 }

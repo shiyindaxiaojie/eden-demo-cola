@@ -31,7 +31,7 @@ import org.ylzl.eden.spring.framework.error.ClientAssert;
  * 新增权限指令执行器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @RequiredArgsConstructor
 @Slf4j

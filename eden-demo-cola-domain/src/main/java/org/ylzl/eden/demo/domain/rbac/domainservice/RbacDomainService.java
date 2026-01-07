@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
  * RBAC 领域服务
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @RequiredArgsConstructor
 @Service

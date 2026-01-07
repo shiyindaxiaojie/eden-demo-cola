@@ -26,7 +26,7 @@ import java.util.Optional;
  * 权限领域防腐层
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 public interface PermissionGateway {
 

@@ -37,7 +37,7 @@ import java.util.stream.Collectors;
  * 角色领域防腐层实现
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @RequiredArgsConstructor
 @Slf4j
@@ -49,6 +49,9 @@ public class RoleGatewayImpl implements RoleGateway {
 	private final RoleMenuMapper roleMenuMapper;
 	private final RoleConvertor roleConvertor;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void save(Role role) {
 		RoleDO roleDO = roleConvertor.toDataObject(role);
@@ -59,23 +62,35 @@ public class RoleGatewayImpl implements RoleGateway {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Optional<Role> findById(Long id) {
 		RoleDO roleDO = roleMapper.selectById(id);
 		return Optional.ofNullable(roleConvertor.toEntity(roleDO));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Role findByCode(RoleCode code) {
 		RoleDO roleDO = roleMapper.selectByCode(code.getValue());
 		return roleConvertor.toEntity(roleDO);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean existsByCode(RoleCode code) {
 		return roleMapper.countByCode(code.getValue()) > 0;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void deleteById(Long id) {
 		// 删除角色权限关联
@@ -86,6 +101,9 @@ public class RoleGatewayImpl implements RoleGateway {
 		roleMapper.deleteById(id);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Role> findByIds(List<Long> ids) {
 		if (ids == null || ids.isEmpty()) {
@@ -97,6 +115,9 @@ public class RoleGatewayImpl implements RoleGateway {
 			.collect(Collectors.toList());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Role> findAllEnabled() {
 		List<RoleDO> roleDOs = roleMapper.selectAllEnabled();
@@ -105,11 +126,17 @@ public class RoleGatewayImpl implements RoleGateway {
 			.collect(Collectors.toList());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isUsedByUser(Long roleId) {
 		return roleMapper.countUserByRoleId(roleId) > 0;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void saveRolePermissions(Long roleId, List<Long> permissionIds) {
 		// 先删除原有关联
@@ -120,6 +147,9 @@ public class RoleGatewayImpl implements RoleGateway {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void saveRoleMenus(Long roleId, List<Long> menuIds) {
 		// 先删除原有关联
@@ -130,21 +160,33 @@ public class RoleGatewayImpl implements RoleGateway {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Long> findPermissionIdsByRoleId(Long roleId) {
 		return rolePermissionMapper.selectPermissionIdsByRoleId(roleId);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Long> findMenuIdsByRoleId(Long roleId) {
 		return roleMenuMapper.selectMenuIdsByRoleId(roleId);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void deleteRolePermissions(Long roleId) {
 		rolePermissionMapper.deleteByRoleId(roleId);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void deleteRoleMenus(Long roleId) {
 		roleMenuMapper.deleteByRoleId(roleId);

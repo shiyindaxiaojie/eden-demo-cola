@@ -25,7 +25,7 @@ import java.util.List;
  * 用户角色关联表映射器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Mapper
 public interface UserRoleMapper {

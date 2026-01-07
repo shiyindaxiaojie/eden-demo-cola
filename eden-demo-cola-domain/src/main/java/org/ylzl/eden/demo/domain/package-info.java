@@ -14,4 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * 领域层：包含领域实体、值对象、领域服务、领域事件等核心业务逻辑
+ *
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.x
+ */
 package org.ylzl.eden.demo.domain;

@@ -34,7 +34,7 @@ import org.ylzl.eden.demo.infrastructure.role.database.dataobject.RoleDO;
  * 分页查询角色列表执行器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @RequiredArgsConstructor
 @Slf4j

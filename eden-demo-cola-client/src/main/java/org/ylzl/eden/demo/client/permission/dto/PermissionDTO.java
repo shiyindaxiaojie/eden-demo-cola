@@ -24,7 +24,7 @@ import java.io.Serializable;
  * 权限（数据传输对象）
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Builder
 @NoArgsConstructor
@@ -34,11 +34,24 @@ import java.io.Serializable;
 @Data
 public class PermissionDTO implements Serializable {
 
+	/** 权限ID */
 	private Long id;
+
+	/** 权限编码 */
 	private String code;
+
+	/** 权限名称 */
 	private String name;
+
+	/** 权限类型：1-目录，2-菜单，3-按钮 */
 	private Integer type;
+
+	/** 父权限ID */
 	private Long parentId;
+
+	/** 权限描述 */
 	private String description;
+
+	/** 排序号 */
 	private Integer sort;
 }

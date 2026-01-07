@@ -29,7 +29,7 @@ import org.ylzl.eden.demo.infrastructure.permission.database.dataobject.Permissi
  * 权限领域实体转换器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Mapper(componentModel = "spring",
 	nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,

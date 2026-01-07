@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
  * 权限领域防腐层实现
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @RequiredArgsConstructor
 @Slf4j
@@ -45,6 +45,9 @@ public class PermissionGatewayImpl implements PermissionGateway {
 	private final PermissionMapper permissionMapper;
 	private final PermissionConvertor permissionConvertor;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void save(Permission permission) {
 		PermissionDO permissionDO = permissionConvertor.toDataObject(permission);
@@ -55,28 +58,43 @@ public class PermissionGatewayImpl implements PermissionGateway {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Optional<Permission> findById(Long id) {
 		PermissionDO permissionDO = permissionMapper.selectById(id);
 		return Optional.ofNullable(permissionConvertor.toEntity(permissionDO));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Permission findByCode(PermissionCode code) {
 		PermissionDO permissionDO = permissionMapper.selectByCode(code.getValue());
 		return permissionConvertor.toEntity(permissionDO);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean existsByCode(PermissionCode code) {
 		return permissionMapper.countByCode(code.getValue()) > 0;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void deleteById(Long id) {
 		permissionMapper.deleteById(id);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Permission> findAll() {
 		List<PermissionDO> permissionDOs = permissionMapper.selectAll();
@@ -85,6 +103,9 @@ public class PermissionGatewayImpl implements PermissionGateway {
 			.collect(Collectors.toList());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Permission> findByIds(List<Long> ids) {
 		if (ids == null || ids.isEmpty()) {
@@ -96,11 +117,17 @@ public class PermissionGatewayImpl implements PermissionGateway {
 			.collect(Collectors.toList());
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isUsedByRole(Long permissionId) {
 		return permissionMapper.countRoleByPermissionId(permissionId) > 0;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Permission> findByParentId(Long parentId) {
 		List<PermissionDO> permissionDOs = permissionMapper.selectByParentId(parentId);

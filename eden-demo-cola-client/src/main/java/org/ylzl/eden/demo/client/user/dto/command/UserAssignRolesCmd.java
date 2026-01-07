@@ -26,7 +26,7 @@ import java.util.List;
  * 用户分配角色指令
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Builder
 @NoArgsConstructor
@@ -36,8 +36,10 @@ import java.util.List;
 @Data
 public class UserAssignRolesCmd implements Serializable {
 
+	/** 用户ID */
 	@NotNull(message = "用户ID不能为空")
 	private Long userId;
 
+	/** 角色ID列表 */
 	private List<Long> roleIds;
 }

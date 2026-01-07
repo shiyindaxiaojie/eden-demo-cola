@@ -25,7 +25,7 @@ import java.io.Serializable;
  * 查询用户权限
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Builder
 @NoArgsConstructor
@@ -35,6 +35,7 @@ import java.io.Serializable;
 @Data
 public class UserPermissionsQry implements Serializable {
 
+	/** 用户ID */
 	@NotNull(message = "用户ID不能为空")
 	private Long userId;
 }

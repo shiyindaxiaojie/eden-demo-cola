@@ -24,7 +24,7 @@ import java.io.Serializable;
  * 查询权限树
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Builder
 @NoArgsConstructor
@@ -34,5 +34,6 @@ import java.io.Serializable;
 @Data
 public class PermissionTreeQry implements Serializable {
 
+	/** 权限类型：1-目录，2-菜单，3-按钮 */
 	private Integer type;
 }

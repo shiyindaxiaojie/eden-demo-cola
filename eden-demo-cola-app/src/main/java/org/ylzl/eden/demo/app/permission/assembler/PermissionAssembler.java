@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  * 权限领域组装器
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Component
 public class PermissionAssembler {

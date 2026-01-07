@@ -19,6 +19,11 @@ public class InternalUserRpcClient {
 //	@DubboReference
 //	private UserSyncService userSyncService;
 
+	/**
+	 * 同步用户信息到内部系统
+	 *
+	 * @param user 用户实体
+	 */
 	public void syncUser(User user) {
 		log.info("基于 RPC 同步到内部用户系统");
 	}

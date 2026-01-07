@@ -28,17 +28,47 @@ import org.ylzl.eden.cola.dto.SingleResponse;
  * 菜单服务接口
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 public interface MenuService {
 
+	/**
+	 * 创建菜单
+	 *
+	 * @param cmd 创建菜单指令
+	 * @return 响应结果
+	 */
 	Response createMenu(MenuAddCmd cmd);
 
+	/**
+	 * 修改菜单
+	 *
+	 * @param cmd 修改菜单指令
+	 * @return 响应结果
+	 */
 	Response modifyMenu(MenuModifyCmd cmd);
 
+	/**
+	 * 删除菜单
+	 *
+	 * @param cmd 删除菜单指令
+	 * @return 响应结果
+	 */
 	Response removeMenu(MenuRemoveCmd cmd);
 
+	/**
+	 * 根据主键获取菜单信息
+	 *
+	 * @param qry 查询条件
+	 * @return 菜单信息
+	 */
 	SingleResponse<MenuDTO> getMenuById(MenuByIdQry qry);
 
+	/**
+	 * 获取菜单树列表
+	 *
+	 * @param qry 查询条件
+	 * @return 菜单树列表
+	 */
 	MultiResponse<MenuTreeDTO> listMenuTree(MenuTreeQry qry);
 }

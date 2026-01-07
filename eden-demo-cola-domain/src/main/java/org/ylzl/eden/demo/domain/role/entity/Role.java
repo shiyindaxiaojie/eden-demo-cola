@@ -30,7 +30,7 @@ import java.time.LocalDateTime;
  * 角色聚合根
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

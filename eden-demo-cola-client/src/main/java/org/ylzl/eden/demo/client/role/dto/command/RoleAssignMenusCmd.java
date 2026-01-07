@@ -26,7 +26,7 @@ import java.util.List;
  * 角色分配菜单指令
  *
  * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
- * @since 1.0.0
+ * @since 2.4.x
  */
 @Builder
 @NoArgsConstructor
@@ -36,8 +36,10 @@ import java.util.List;
 @Data
 public class RoleAssignMenusCmd implements Serializable {
 
+	/** 角色ID */
 	@NotNull(message = "角色ID不能为空")
 	private Long roleId;
 
+	/** 菜单ID列表 */
 	private List<Long> menuIds;
 }

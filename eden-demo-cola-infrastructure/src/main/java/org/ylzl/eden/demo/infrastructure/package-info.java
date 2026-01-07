@@ -14,4 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * 基础设施层：提供技术实现，包括数据库访问、外部服务调用、消息队列等
+ *
+ * @author <a href="mailto:shiyindaxiaojie@gmail.com">gyl</a>
+ * @since 2.4.x
+ */
 package org.ylzl.eden.demo.infrastructure;
